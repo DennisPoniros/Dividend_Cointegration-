@@ -1,0 +1,30 @@
+# Core Dependencies
+numpy>=1.24.0
+pandas>=2.0.0
+scipy>=1.10.0
+
+# Statistical Analysis
+statsmodels>=0.14.0
+arch>=6.0.0
+
+# IBKR API
+ib_insync>=0.9.86
+
+# Dashboard & Visualization
+streamlit>=1.28.0
+plotly>=5.17.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Data Processing
+yfinance>=0.2.28
+pandas-market-calendars>=4.3.0
+
+# Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Utilities
+PyYAML>=6.0
+python-dotenv>=1.0.0
+tqdm>=4.66.0
