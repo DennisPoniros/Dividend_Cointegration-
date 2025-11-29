@@ -32,9 +32,11 @@ class DetailedDualMomentum:
         # Strategy parameters
         self.LOOKBACK = 252
         self.REBALANCE_FREQ = 14  # Bi-weekly (optimized for lower downside vol)
-        self.NUM_HOLDINGS = 10
+        self.NUM_HOLDINGS = 12  # Top 12 stocks (more diversification)
         self.SLIPPAGE_BPS = 2  # Realistic slippage only (no commission)
-        self.USE_RISK_PARITY = True  # Inverse downside volatility weighting
+        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
+        self.QUALITY_MULT = 0.75
 
         self.price_data = {}
         self.all_trades = []
@@ -69,6 +71,14 @@ class DetailedDualMomentum:
             return None
         return neg_returns.std() * np.sqrt(252)
 
+    def calculate_volatility(self, symbol, date, lookback=63):
+        """Calculate annualized volatility for quality filter."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        return returns.std() * np.sqrt(252)
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
@@ -95,16 +105,25 @@ class DetailedDualMomentum:
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
             if should_rebalance:
-                # Calculate momentum
+                # Calculate momentum and volatility
                 momentum_scores = {}
+                vol_scores = {}
                 for symbol in self.price_data:
                     if date not in self.price_data[symbol].index:
                         continue
                     mom = self.calculate_12m_momentum(symbol, date)
+                    vol = self.calculate_volatility(symbol, date)
                     if mom is not None:
                         momentum_scores[symbol] = mom
+                    if vol is not None:
+                        vol_scores[symbol] = vol
 
-                positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
+                # Filter: positive momentum + quality filter
+                if self.USE_QUALITY_FILTER:
+                    positive_mom = {s: m for s, m in momentum_scores.items()
+                                   if m > 0 and m > self.QUALITY_MULT * vol_scores.get(s, 999)}
+                else:
+                    positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
                 sorted_stocks = sorted(positive_mom.items(), key=lambda x: x[1], reverse=True)
                 new_holdings = [s[0] for s in sorted_stocks[:self.NUM_HOLDINGS]]
 

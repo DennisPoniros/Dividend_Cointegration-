@@ -41,9 +41,11 @@ class DualMomentumStrategy:
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
         self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
-        self.NUM_HOLDINGS = 10      # Top 10 stocks
+        self.NUM_HOLDINGS = 12      # Top 12 stocks (more diversification)
         self.COMMISSION_BPS = 5
-        self.USE_RISK_PARITY = True # Inverse downside volatility weighting
+        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
+        self.QUALITY_MULT = 0.75
 
         self.price_data = {}
 
@@ -82,6 +84,15 @@ class DualMomentumStrategy:
 
         return neg_returns.std() * np.sqrt(252)
 
+    def calculate_volatility(self, symbol, date, lookback=63):
+        """Calculate annualized volatility for quality filter."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        return returns.std() * np.sqrt(252)
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
@@ -107,17 +118,26 @@ class DualMomentumStrategy:
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
             if should_rebalance:
-                # Calculate momentum for all stocks
+                # Calculate momentum and volatility for all stocks
                 momentum_scores = {}
+                vol_scores = {}
                 for symbol in self.price_data:
                     if date not in self.price_data[symbol].index:
                         continue
                     mom = self.calculate_12m_momentum(symbol, date)
+                    vol = self.calculate_volatility(symbol, date)
                     if mom is not None:
                         momentum_scores[symbol] = mom
+                    if vol is not None:
+                        vol_scores[symbol] = vol
 
                 # Filter: Only stocks with POSITIVE 12-month momentum (absolute momentum filter)
-                positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
+                # Plus quality filter: momentum > 0.75 * volatility
+                if self.USE_QUALITY_FILTER:
+                    positive_mom = {s: m for s, m in momentum_scores.items()
+                                   if m > 0 and m > self.QUALITY_MULT * vol_scores.get(s, 999)}
+                else:
+                    positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
 
                 # Select top N by relative momentum
                 sorted_stocks = sorted(positive_mom.items(), key=lambda x: x[1], reverse=True)
