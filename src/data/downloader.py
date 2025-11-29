@@ -203,7 +203,7 @@ class DataDownloader:
         symbol: str,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
-        lookback_days: int = 756  # 3 years to be safe for 504-day requirement
+        lookback_days: int = 2520  # 10 years for robust cointegration analysis
     ) -> Optional[pd.DataFrame]:
         """
         Download price data using best available source.
@@ -212,7 +212,7 @@ class DataDownloader:
             symbol: Stock ticker symbol
             start_date: Start date (default: lookback_days ago)
             end_date: End date (default: today)
-            lookback_days: Days to look back if start_date not specified
+            lookback_days: Days to look back if start_date not specified (default: 10 years)
 
         Returns:
             DataFrame with OHLCV data
@@ -241,14 +241,14 @@ class DataDownloader:
     def download_dividend_data(
         self,
         symbol: str,
-        years: int = 6
+        years: int = 10
     ) -> Optional[pd.DataFrame]:
         """
         Download dividend history using yfinance.
 
         Args:
             symbol: Stock ticker symbol
-            years: Years of history to fetch
+            years: Years of history to fetch (default: 10)
 
         Returns:
             DataFrame with dividend data

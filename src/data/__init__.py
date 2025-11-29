@@ -8,8 +8,18 @@ This module provides functionality to:
 4. Store and load data locally for fast backtesting
 """
 
-from .universe import UniverseScreener
-from .downloader import DataDownloader
+# Only import loader by default (no external API dependencies)
 from .loader import DataLoader
 
-__all__ = ['UniverseScreener', 'DataDownloader', 'DataLoader']
+# Lazy imports for modules that require yfinance/alpaca
+def get_universe_screener():
+    """Lazy import to avoid requiring yfinance at module load."""
+    from .universe import UniverseScreener
+    return UniverseScreener
+
+def get_data_downloader():
+    """Lazy import to avoid requiring yfinance/alpaca at module load."""
+    from .downloader import DataDownloader
+    return DataDownloader
+
+__all__ = ['DataLoader', 'get_universe_screener', 'get_data_downloader']
