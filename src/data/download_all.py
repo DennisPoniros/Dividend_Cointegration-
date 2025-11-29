@@ -4,8 +4,8 @@ Data Download Script
 
 Downloads all data needed for the Dividend Cointegration Strategy:
 1. Screens universe for qualifying dividend stocks
-2. Downloads price history (3 years for 504-day requirement + buffer)
-3. Downloads dividend history (6 years)
+2. Downloads price history (10 years for robust cointegration analysis)
+3. Downloads dividend history (10 years)
 4. Downloads fundamental snapshots
 5. Downloads reference data (SPY, sector ETFs)
 
