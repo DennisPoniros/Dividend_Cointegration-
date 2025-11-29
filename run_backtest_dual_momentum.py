@@ -40,9 +40,10 @@ class DualMomentumStrategy:
         # Dual momentum parameters
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
-        self.REBALANCE_FREQ = 21    # Monthly
+        self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
         self.NUM_HOLDINGS = 10      # Top 10 stocks
         self.COMMISSION_BPS = 5
+        self.USE_RISK_PARITY = True # Inverse downside volatility weighting
 
         self.price_data = {}
 
@@ -66,6 +67,20 @@ class DualMomentumStrategy:
             return None
 
         return (end_price / start_price) - 1
+
+    def calculate_downside_vol(self, symbol, date, lookback=63):
+        """Calculate annualized downside volatility (std of negative returns)."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        neg_returns = returns[returns < 0]
+
+        if len(neg_returns) < 5:
+            return None
+
+        return neg_returns.std() * np.sqrt(252)
 
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
@@ -119,12 +134,27 @@ class DualMomentumStrategy:
 
                 # Only invest if we have qualifying stocks
                 if top:
-                    w = 1.0 / len(top)
+                    # Calculate weights
+                    if self.USE_RISK_PARITY:
+                        # Risk parity: inverse downside volatility weighting
+                        inv_vols = {}
+                        for sym in top:
+                            dnvol = self.calculate_downside_vol(sym, date)
+                            if dnvol and dnvol > 0:
+                                inv_vols[sym] = 1.0 / dnvol
+                            else:
+                                inv_vols[sym] = 1.0  # fallback to equal weight
+                        total_inv_vol = sum(inv_vols.values())
+                        weights = {s: inv_vols[s] / total_inv_vol for s in top}
+                    else:
+                        # Equal weight
+                        weights = {s: 1.0 / len(top) for s in top}
+
                     available = cash
                     for sym in top:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             p = self.price_data[sym].loc[date]
-                            target = available * w * 0.98
+                            target = available * weights[sym] * 0.98
                             positions[sym] = target / p
                             cash -= target
                             cash -= target * self.COMMISSION_BPS / 10000

@@ -31,9 +31,10 @@ class DetailedDualMomentum:
 
         # Strategy parameters
         self.LOOKBACK = 252
-        self.REBALANCE_FREQ = 21
+        self.REBALANCE_FREQ = 14  # Bi-weekly (optimized for lower downside vol)
         self.NUM_HOLDINGS = 10
         self.SLIPPAGE_BPS = 2  # Realistic slippage only (no commission)
+        self.USE_RISK_PARITY = True  # Inverse downside volatility weighting
 
         self.price_data = {}
         self.all_trades = []
@@ -56,6 +57,17 @@ class DetailedDualMomentum:
         if start_price <= 0:
             return None
         return (end_price / start_price) - 1
+
+    def calculate_downside_vol(self, symbol, date, lookback=63):
+        """Calculate annualized downside volatility (std of negative returns)."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        neg_returns = returns[returns < 0]
+        if len(neg_returns) < 5:
+            return None
+        return neg_returns.std() * np.sqrt(252)
 
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
@@ -144,13 +156,28 @@ class DetailedDualMomentum:
 
                 # Buy new positions
                 if new_holdings:
-                    weight = 1.0 / len(new_holdings)
+                    # Calculate weights
+                    if self.USE_RISK_PARITY:
+                        # Risk parity: inverse downside volatility weighting
+                        inv_vols = {}
+                        for sym in new_holdings:
+                            dnvol = self.calculate_downside_vol(sym, date)
+                            if dnvol and dnvol > 0:
+                                inv_vols[sym] = 1.0 / dnvol
+                            else:
+                                inv_vols[sym] = 1.0  # fallback to equal weight
+                        total_inv_vol = sum(inv_vols.values())
+                        weights = {s: inv_vols[s] / total_inv_vol for s in new_holdings}
+                    else:
+                        # Equal weight
+                        weights = {s: 1.0 / len(new_holdings) for s in new_holdings}
+
                     available = cash
 
                     for sym in new_holdings:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             price = self.price_data[sym].loc[date]
-                            target = available * weight * 0.98
+                            target = available * weights[sym] * 0.98
                             shares = target / price
                             slippage = target * self.SLIPPAGE_BPS / 10000
 
