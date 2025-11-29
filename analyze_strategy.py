@@ -31,9 +31,13 @@ class DetailedDualMomentum:
 
         # Strategy parameters
         self.LOOKBACK = 252
-        self.REBALANCE_FREQ = 21
-        self.NUM_HOLDINGS = 10
+        self.REBALANCE_FREQ = 14  # Bi-weekly (optimized for lower downside vol)
+        self.NUM_HOLDINGS = 12  # Top 12 stocks (more diversification)
         self.SLIPPAGE_BPS = 2  # Realistic slippage only (no commission)
+        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
+        self.QUALITY_MULT = 0.75
+        self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
 
         self.price_data = {}
         self.all_trades = []
@@ -57,6 +61,25 @@ class DetailedDualMomentum:
             return None
         return (end_price / start_price) - 1
 
+    def calculate_downside_vol(self, symbol, date, lookback=63):
+        """Calculate annualized downside volatility (std of negative returns)."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        neg_returns = returns[returns < 0]
+        if len(neg_returns) < 5:
+            return None
+        return neg_returns.std() * np.sqrt(252)
+
+    def calculate_volatility(self, symbol, date, lookback=63):
+        """Calculate annualized volatility for quality filter."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        return returns.std() * np.sqrt(252)
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
@@ -65,6 +88,7 @@ class DetailedDualMomentum:
         print(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()} ({len(trading_dates)} days)")
 
         cash = self.initial_capital
+        margin_debt = 0  # Track borrowed amount for leverage
         positions = {}  # symbol -> {shares, entry_price, entry_date}
         equity_curve = []
         last_rebalance = None
@@ -78,21 +102,30 @@ class DetailedDualMomentum:
                 if sym in self.price_data and date in self.price_data[sym].index:
                     pos_val += pos['shares'] * self.price_data[sym].loc[date]
 
-            total_equity = cash + pos_val
+            total_equity = cash + pos_val - margin_debt
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
             if should_rebalance:
-                # Calculate momentum
+                # Calculate momentum and volatility
                 momentum_scores = {}
+                vol_scores = {}
                 for symbol in self.price_data:
                     if date not in self.price_data[symbol].index:
                         continue
                     mom = self.calculate_12m_momentum(symbol, date)
+                    vol = self.calculate_volatility(symbol, date)
                     if mom is not None:
                         momentum_scores[symbol] = mom
+                    if vol is not None:
+                        vol_scores[symbol] = vol
 
-                positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
+                # Filter: positive momentum + quality filter
+                if self.USE_QUALITY_FILTER:
+                    positive_mom = {s: m for s, m in momentum_scores.items()
+                                   if m > 0 and m > self.QUALITY_MULT * vol_scores.get(s, 999)}
+                else:
+                    positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
                 sorted_stocks = sorted(positive_mom.items(), key=lambda x: x[1], reverse=True)
                 new_holdings = [s[0] for s in sorted_stocks[:self.NUM_HOLDINGS]]
 
@@ -140,17 +173,38 @@ class DetailedDualMomentum:
                             'value': value
                         })
 
+                # Pay off margin debt after selling all positions
+                cash -= margin_debt
+                margin_debt = 0
                 positions = {}
 
                 # Buy new positions
                 if new_holdings:
-                    weight = 1.0 / len(new_holdings)
+                    # Calculate weights
+                    if self.USE_RISK_PARITY:
+                        # Risk parity: inverse downside volatility weighting
+                        inv_vols = {}
+                        for sym in new_holdings:
+                            dnvol = self.calculate_downside_vol(sym, date)
+                            if dnvol and dnvol > 0:
+                                inv_vols[sym] = 1.0 / dnvol
+                            else:
+                                inv_vols[sym] = 1.0  # fallback to equal weight
+                        total_inv_vol = sum(inv_vols.values())
+                        weights = {s: inv_vols[s] / total_inv_vol for s in new_holdings}
+                    else:
+                        # Equal weight
+                        weights = {s: 1.0 / len(new_holdings) for s in new_holdings}
+
                     available = cash
+                    # With leverage: invest LEVERAGE times our equity
+                    leveraged_amount = available * 0.98 * self.LEVERAGE
+                    equity_spent = available * 0.98  # What we actually spend from cash
 
                     for sym in new_holdings:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             price = self.price_data[sym].loc[date]
-                            target = available * weight * 0.98
+                            target = leveraged_amount * weights[sym]
                             shares = target / price
                             slippage = target * self.SLIPPAGE_BPS / 10000
 
@@ -161,7 +215,8 @@ class DetailedDualMomentum:
                                 'momentum': positive_mom.get(sym, 0)
                             }
 
-                            cash -= target + slippage
+                            # We only spend our equity portion from cash
+                            cash -= equity_spent * weights[sym] + slippage
                             total_slippage_cost += slippage
                             rebalance_slippage += slippage
                             total_turnover += target
@@ -173,6 +228,9 @@ class DetailedDualMomentum:
                                 'value': target,
                                 'momentum': positive_mom.get(sym, 0)
                             })
+
+                    # Track borrowed amount
+                    margin_debt = leveraged_amount - equity_spent
 
                 self.rebalance_events.append({
                     'date': date,
@@ -196,13 +254,14 @@ class DetailedDualMomentum:
                     pos_val += val
                     position_details[sym] = val
 
-            total_equity = cash + pos_val
+            total_equity = cash + pos_val - margin_debt
 
             self.daily_data.append({
                 'date': date,
                 'equity': total_equity,
                 'cash': cash,
                 'invested': pos_val,
+                'margin_debt': margin_debt,
                 'num_positions': len(positions),
                 'pct_invested': pos_val / total_equity * 100 if total_equity > 0 else 0
             })

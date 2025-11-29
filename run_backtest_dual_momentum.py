@@ -40,9 +40,13 @@ class DualMomentumStrategy:
         # Dual momentum parameters
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
-        self.REBALANCE_FREQ = 21    # Monthly
-        self.NUM_HOLDINGS = 10      # Top 10 stocks
+        self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
+        self.NUM_HOLDINGS = 12      # Top 12 stocks (more diversification)
         self.COMMISSION_BPS = 5
+        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
+        self.QUALITY_MULT = 0.75
+        self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
 
         self.price_data = {}
 
@@ -67,6 +71,29 @@ class DualMomentumStrategy:
 
         return (end_price / start_price) - 1
 
+    def calculate_downside_vol(self, symbol, date, lookback=63):
+        """Calculate annualized downside volatility (std of negative returns)."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        neg_returns = returns[returns < 0]
+
+        if len(neg_returns) < 5:
+            return None
+
+        return neg_returns.std() * np.sqrt(252)
+
+    def calculate_volatility(self, symbol, date, lookback=63):
+        """Calculate annualized volatility for quality filter."""
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(prices) < lookback + 5:
+            return None
+
+        returns = prices.pct_change().dropna().iloc[-lookback:]
+        return returns.std() * np.sqrt(252)
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
@@ -77,6 +104,7 @@ class DualMomentumStrategy:
         self.logger.info(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()}")
 
         cash = self.initial_capital
+        margin_debt = 0  # Track borrowed amount for leverage
         positions = {}
         equity_curve = []
         last_rebalance = None
@@ -87,22 +115,31 @@ class DualMomentumStrategy:
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            total_equity = cash + pos_val
+            total_equity = cash + pos_val - margin_debt
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
             if should_rebalance:
-                # Calculate momentum for all stocks
+                # Calculate momentum and volatility for all stocks
                 momentum_scores = {}
+                vol_scores = {}
                 for symbol in self.price_data:
                     if date not in self.price_data[symbol].index:
                         continue
                     mom = self.calculate_12m_momentum(symbol, date)
+                    vol = self.calculate_volatility(symbol, date)
                     if mom is not None:
                         momentum_scores[symbol] = mom
+                    if vol is not None:
+                        vol_scores[symbol] = vol
 
                 # Filter: Only stocks with POSITIVE 12-month momentum (absolute momentum filter)
-                positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
+                # Plus quality filter: momentum > 0.75 * volatility
+                if self.USE_QUALITY_FILTER:
+                    positive_mom = {s: m for s, m in momentum_scores.items()
+                                   if m > 0 and m > self.QUALITY_MULT * vol_scores.get(s, 999)}
+                else:
+                    positive_mom = {s: m for s, m in momentum_scores.items() if m > 0}
 
                 # Select top N by relative momentum
                 sorted_stocks = sorted(positive_mom.items(), key=lambda x: x[1], reverse=True)
@@ -115,33 +152,59 @@ class DualMomentumStrategy:
                         cash += shares * p
                         cash -= abs(shares * p) * self.COMMISSION_BPS / 10000
 
+                # Pay off margin debt after selling all positions
+                cash -= margin_debt
+                margin_debt = 0
                 positions = {}
 
                 # Only invest if we have qualifying stocks
                 if top:
-                    w = 1.0 / len(top)
+                    # Calculate weights
+                    if self.USE_RISK_PARITY:
+                        # Risk parity: inverse downside volatility weighting
+                        inv_vols = {}
+                        for sym in top:
+                            dnvol = self.calculate_downside_vol(sym, date)
+                            if dnvol and dnvol > 0:
+                                inv_vols[sym] = 1.0 / dnvol
+                            else:
+                                inv_vols[sym] = 1.0  # fallback to equal weight
+                        total_inv_vol = sum(inv_vols.values())
+                        weights = {s: inv_vols[s] / total_inv_vol for s in top}
+                    else:
+                        # Equal weight
+                        weights = {s: 1.0 / len(top) for s in top}
+
                     available = cash
+                    # With leverage: invest LEVERAGE times our equity
+                    leveraged_amount = available * 0.98 * self.LEVERAGE
+                    equity_spent = available * 0.98  # What we actually spend from cash
+
                     for sym in top:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             p = self.price_data[sym].loc[date]
-                            target = available * w * 0.98
+                            target = leveraged_amount * weights[sym]
                             positions[sym] = target / p
-                            cash -= target
+                            # We only spend our equity portion from cash
+                            cash -= equity_spent * weights[sym]
                             cash -= target * self.COMMISSION_BPS / 10000
+
+                    # Track borrowed amount
+                    margin_debt = leveraged_amount - equity_spent
 
                 last_rebalance = date
 
                 if i % 100 == 0:
                     invested = len(positions) > 0
                     pv = sum(positions[s] * self.price_data[s].loc[date] for s in positions if s in self.price_data and date in self.price_data[s].index)
-                    self.logger.info(f"  {date.date()}: {len(positive_mom)} qualify, holding {len(positions)}, ${cash + pv:,.0f}")
+                    self.logger.info(f"  {date.date()}: {len(positive_mom)} qualify, holding {len(positions)}, ${cash + pv - margin_debt:,.0f}")
 
             pos_val = sum(
                 positions[s] * self.price_data[s].loc[date]
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            equity_curve.append({'date': date, 'equity': cash + pos_val})
+            equity_curve.append({'date': date, 'equity': cash + pos_val - margin_debt})
 
         eq_df = pd.DataFrame(equity_curve).set_index('date')
         rets = eq_df['equity'].pct_change().dropna()
