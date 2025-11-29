@@ -28,50 +28,50 @@ basket_formation:
     yield_max: 0.06   # 6%
 
 cointegration:
-  testing_period_days: 504  # 2 years
+  testing_period_days: 252  # 1 year (more reactive)
 
   johansen:
     lag_order: 2
     constant: true
     trend: false
-    pvalue_threshold: 0.01  # Conservative
+    pvalue_threshold: 0.05  # Less conservative for more signals
     rank: 1
-    eigenvalue_min: 0.15
+    eigenvalue_min: 0.10  # Lowered threshold
 
   validation:
-    engle_granger_adf_threshold: -3.5
+    engle_granger_adf_threshold: -2.8  # Less strict
     half_life_min: 5
-    half_life_max: 35
-    hurst_max: 0.45
-    out_of_sample_days: 126
-    out_of_sample_pvalue: 0.05
+    half_life_max: 30  # Tighter upper bound
+    hurst_max: 0.48  # Slightly relaxed
+    out_of_sample_days: 63  # Shorter OOS period
+    out_of_sample_pvalue: 0.10
 
   stability:
-    quarters: 4
-    half_life_cv_max: 0.4  # Coefficient of variation
+    quarters: 2  # Fewer quarters for stability check
+    half_life_cv_max: 0.5  # More lenient
 
 portfolio:
   equal_risk_contribution: true
-  kelly_fraction: 0.25  # Quarter-Kelly
-  max_position_per_vector: 0.08  # 8%
-  max_total_exposure: 0.60  # 60%
+  kelly_fraction: 0.35  # More aggressive (but still fractional Kelly)
+  max_position_per_vector: 0.12  # 12% per vector
+  max_total_exposure: 0.80  # 80% total exposure
 
   market_neutrality:
-    beta_threshold: 0.15
+    beta_threshold: 0.20
     rebalance_frequency: weekly
     hedge_instrument: SPY
 
 signals:
   entry:
-    long_zscore: -1.5
-    short_zscore: 1.5
+    long_zscore: -1.8  # More selective entry (stronger signals)
+    short_zscore: 1.8
 
   exit:
-    long_zscore: -0.5
-    short_zscore: 0.5
+    long_zscore: -0.3  # Faster exit to lock in profits
+    short_zscore: 0.3
 
   calculation:
-    rolling_window: 42  # 2x target average half-life
+    rolling_window: 30  # Shorter window for faster signals
     recalculate_frequency: daily
 
 risk_management:

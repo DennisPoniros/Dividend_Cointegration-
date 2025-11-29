@@ -32,8 +32,9 @@ ENV/
 *.swo
 *~
 
-# Data
-data/
+# Data (but not src/data/)
+/data/
+!src/data/
 *.csv
 *.parquet
 *.h5
