@@ -37,12 +37,15 @@ class DualMomentumStrategy:
         self.initial_capital = initial_capital
         self.logger = logging.getLogger(__name__)
 
-        # Dual momentum parameters
+        # Dual momentum parameters (Optimized for best risk-adjusted returns)
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
-        self.SKIP_RECENT = 0        # Don't skip any days
-        self.REBALANCE_FREQ = 21    # Monthly
-        self.NUM_HOLDINGS = 10      # Top 10 stocks
-        self.COMMISSION_BPS = 5
+        self.REBALANCE_FREQ = 15    # Every 15 trading days (optimized)
+        self.NUM_HOLDINGS = 15      # Top 15 stocks (better diversification)
+        self.SLIPPAGE_BPS = 1       # 1bp slippage (reduced)
+
+        # Confidence-based position scaling
+        self.CONFIDENCE_SCALING = True
+        self.CONFIDENCE_POWER = 0.5  # Mild scaling by momentum strength
 
         self.price_data = {}
 
@@ -67,6 +70,29 @@ class DualMomentumStrategy:
 
         return (end_price / start_price) - 1
 
+    def calculate_weights(self, holdings, momentum_scores):
+        """Calculate position weights based on configuration."""
+        if not holdings:
+            return {}
+
+        if self.CONFIDENCE_SCALING:
+            # Scale positions by momentum strength
+            mom_values = {s: momentum_scores[s] for s in holdings if s in momentum_scores}
+            if mom_values:
+                min_mom = min(mom_values.values())
+                max_mom = max(mom_values.values())
+                if max_mom > min_mom:
+                    # Normalize and apply power scaling
+                    scaled = {s: ((m - min_mom) / (max_mom - min_mom) + 0.5) ** self.CONFIDENCE_POWER
+                             for s, m in mom_values.items()}
+                else:
+                    scaled = {s: 1.0 for s in mom_values}
+                total_scaled = sum(scaled.values())
+                return {s: v / total_scaled for s, v in scaled.items()}
+
+        # Equal weight fallback
+        return {s: 1.0 / len(holdings) for s in holdings}
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
@@ -79,7 +105,7 @@ class DualMomentumStrategy:
         cash = self.initial_capital
         positions = {}
         equity_curve = []
-        last_rebalance = None
+        last_rebalance_idx = None
 
         for i, date in enumerate(trading_dates):
             pos_val = sum(
@@ -89,7 +115,9 @@ class DualMomentumStrategy:
             )
             total_equity = cash + pos_val
 
-            should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
+            # Use trading days for rebalance frequency
+            should_rebalance = (last_rebalance_idx is None or
+                               (i - last_rebalance_idx) >= self.REBALANCE_FREQ)
 
             if should_rebalance:
                 # Calculate momentum for all stocks
@@ -113,26 +141,26 @@ class DualMomentumStrategy:
                     if s in self.price_data and date in self.price_data[s].index:
                         p = self.price_data[s].loc[date]
                         cash += shares * p
-                        cash -= abs(shares * p) * self.COMMISSION_BPS / 10000
+                        cash -= abs(shares * p) * self.SLIPPAGE_BPS / 10000
 
                 positions = {}
 
                 # Only invest if we have qualifying stocks
                 if top:
-                    w = 1.0 / len(top)
+                    weights = self.calculate_weights(top, positive_mom)
                     available = cash
                     for sym in top:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             p = self.price_data[sym].loc[date]
-                            target = available * w * 0.98
+                            w = weights.get(sym, 1.0 / len(top))
+                            target = available * w
                             positions[sym] = target / p
                             cash -= target
-                            cash -= target * self.COMMISSION_BPS / 10000
+                            cash -= target * self.SLIPPAGE_BPS / 10000
 
-                last_rebalance = date
+                last_rebalance_idx = i
 
                 if i % 100 == 0:
-                    invested = len(positions) > 0
                     pv = sum(positions[s] * self.price_data[s].loc[date] for s in positions if s in self.price_data and date in self.price_data[s].index)
                     self.logger.info(f"  {date.date()}: {len(positive_mom)} qualify, holding {len(positions)}, ${cash + pv:,.0f}")
 

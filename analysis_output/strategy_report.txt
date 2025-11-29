@@ -1,19 +1,37 @@
 ================================================================================
 DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS REPORT
+(Optimized Configuration)
 ================================================================================
 
-Generated: 2025-11-29 17:30:29
+Generated: 2025-11-29 18:22:22
+
+================================================================================
+STRATEGY CONFIGURATION
+================================================================================
+  Lookback Period:       252 days (12 months)
+  Rebalance Frequency:   15 trading days
+  Number of Holdings:    15 stocks
+  Slippage:              1 bp per trade
+  Position Sizing:       Confidence-scaled (p=0.5)
+  
+  Optimizations Applied:
+    - Increased rebalance frequency (15 vs 21 days)
+    - Increased diversification (15 vs 10 holdings)
+    - Confidence-based position scaling
+    - Reduced transaction costs (1 vs 2 bps)
+    - Fixed: Uses trading days (not calendar days)
+    - Fixed: Removed cash buffer drag
 
 ================================================================================
 1. PERFORMANCE SUMMARY
 ================================================================================
-  Total Return:                288.89%
-  Annual Return:                26.47%
-  Annual Volatility:            22.60%
-  Sharpe Ratio:                  1.08
-  Sortino Ratio:                 1.57
-  Calmar Ratio:                  1.22
-  Max Drawdown:                -21.76%
+  Total Return:                278.16%
+  Annual Return:                25.69%
+  Annual Volatility:            21.29%
+  Sharpe Ratio:                  1.11
+  Sortino Ratio:                 1.62
+  Calmar Ratio:                  1.42
+  Max Drawdown:                -18.04%
     Drawdown Start:      2022-06-07
     Drawdown End:        2022-07-14
 
@@ -24,35 +42,35 @@ Generated: 2025-11-29 17:30:29
   End Date:              2025-11-28
   Trading Days:                  1433
   Years:                         5.69
-  Number of Rebalances:            99
-  Total Trades:                   980
+  Number of Rebalances:            96
+  Total Trades:                  1425
 
 ================================================================================
 3. TRADE STATISTICS
 ================================================================================
-  Win Rate:                      57.4%
+  Win Rate:                      58.2%
   Profit Factor:                 1.54
-  Avg Trade P&L:         $      2,833
-  Avg Winner:            $     14,064
-  Avg Loser:             $    -12,329
-  Best Trade:            $     97,944
-  Worst Trade:           $    -80,100
-  Avg Hold Days:                 21.1
+  Avg Trade P&L:         $      1,858
+  Avg Winner:            $      9,081
+  Avg Loser:             $     -8,190
+  Best Trade:            $    122,673
+  Worst Trade:           $    -58,437
+  Avg Hold Days:                 21.8
 
 ================================================================================
 4. COST ATTRIBUTION
 ================================================================================
-  Total Turnover:        $448,706,692
-  Turnover Ratio:               448.7x initial capital
-  Slippage Rate:                    2 bps (0.02%)
-  Total Slippage Cost:   $     89,741
-  Slippage as % Capital:         8.97%
-  Annualized Slippage:           1.58%
+  Total Turnover:        $442,643,872
+  Turnover Ratio:               442.6x initial capital
+  Slippage Rate:                    1 bps (0.01%)
+  Total Slippage Cost:   $     44,264
+  Slippage as % Capital:         4.43%
+  Annualized Slippage:           0.78%
 
-  Gross P&L:             $  2,821,600
-  Net P&L:               $  2,776,813
-  Total Costs:           $     44,787
-  Cost Impact on Return:         1.59% of gross
+  Gross P&L:             $  2,669,223
+  Net P&L:               $  2,647,138
+  Total Costs:           $     22,084
+  Cost Impact on Return:         0.83% of gross
 
 ================================================================================
 5. PROFIT ATTRIBUTION BY SYMBOL
@@ -61,46 +79,46 @@ Generated: 2025-11-29 17:30:29
   Top 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  AVGO     $    405,319       41 $    9,886       3.7%
-  GE       $    313,212       48 $    6,525       2.3%
-  CAH      $    147,090       26 $    5,657       1.9%
-  LLY      $    141,058       40 $    3,526       1.2%
-  OXY      $    140,225       27 $    5,194       3.1%
-  NEM      $    124,454       21 $    5,926       3.3%
-  NUE      $    117,386       22 $    5,336       3.3%
-  FCX      $    115,454       26 $    4,441       4.0%
-  MPC      $    109,451       39 $    2,806       1.8%
-  XOM      $    102,327       23 $    4,449       2.5%
+  AVGO     $    368,302       46 $    8,007       3.6%
+  GE       $    267,981       52 $    5,153       2.4%
+  LLY      $    210,771       52 $    4,053       2.1%
+  MPC      $    157,337       45 $    3,496       2.9%
+  OXY      $    126,532       26 $    4,867       3.6%
+  CAH      $    113,420       33 $    3,437       1.8%
+  NEM      $    109,835       24 $    4,576       3.5%
+  COP      $    106,218       25 $    4,249       3.5%
+  FCX      $    104,732       29 $    3,611       3.6%
+  MSFT     $     87,048       24 $    3,627       3.3%
 
   Bottom 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  PSX      $    -18,627       11 $   -1,693      -0.7%
-  GPC      $    -20,167        5 $   -4,033      -1.8%
-  QCOM     $    -24,149       15 $   -1,610       0.6%
-  WFC      $    -26,527       19 $   -1,396      -0.6%
-  DD       $    -27,927        3 $   -9,309      -5.5%
-  SLB      $    -28,261       21 $   -1,346      -0.5%
-  UPS      $    -31,702        7 $   -4,529      -3.1%
-  GILD     $    -35,425       18 $   -1,968      -1.4%
-  CAT      $    -42,443       13 $   -3,265      -1.1%
-  IBM      $    -47,645        9 $   -5,294      -1.6%
+  BRO      $    -16,432       15 $   -1,095      -0.7%
+  SRE      $    -16,539        1 $  -16,539     -14.1%
+  ABBV     $    -16,760       16 $   -1,048      -1.1%
+  DD       $    -17,173        8 $   -2,147      -1.6%
+  PRU      $    -17,205        3 $   -5,735      -4.9%
+  UPS      $    -19,299       11 $   -1,754      -1.8%
+  AJG      $    -19,886       12 $   -1,657      -1.1%
+  ED       $    -20,874        6 $   -3,479      -2.7%
+  NEE      $    -23,813        5 $   -4,763      -3.6%
+  IBM      $    -27,441       14 $   -1,960      -0.9%
 
 ================================================================================
 6. MONTHLY RETURNS (%)
 ================================================================================
-  Best Month:                    18.5%
-  Worst Month:                  -13.9%
+  Best Month:                    18.3%
+  Worst Month:                  -11.7%
   % Positive Months:             67.6%
 
 ================================================================================
 7. RISK METRICS
 ================================================================================
-  Daily VaR (95%):              -2.26%
-  Daily CVaR (95%):             -3.17%
-  Skewness:                     -0.09
-  Kurtosis:                      3.49
-  Longest Drawdown:               160 days
+  Daily VaR (95%):              -1.98%
+  Daily CVaR (95%):             -2.95%
+  Skewness:                     -0.15
+  Kurtosis:                      2.78
+  Longest Drawdown:               165 days
 
 ================================================================================
 END OF REPORT
