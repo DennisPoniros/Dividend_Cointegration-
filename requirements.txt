@@ -2,6 +2,7 @@
 numpy>=1.24.0
 pandas>=2.0.0
 scipy>=1.10.0
+pyarrow>=14.0.0  # For parquet file support
 
 # Statistical Analysis
 statsmodels>=0.14.0
@@ -10,6 +11,10 @@ arch>=6.0.0
 # IBKR API
 ib_insync>=0.9.86
 
+# Data APIs
+alpaca-py>=0.21.0  # Alpaca Markets API
+yfinance>=0.2.28   # Yahoo Finance (fallback + dividends)
+
 # Dashboard & Visualization
 streamlit>=1.28.0
 plotly>=5.17.0
@@ -17,8 +22,9 @@ matplotlib>=3.7.0
 seaborn>=0.12.0
 
 # Data Processing
-yfinance>=0.2.28
 pandas-market-calendars>=4.3.0
+lxml>=5.0.0   # For HTML parsing (S&P 500 list)
+html5lib>=1.1 # Alternative HTML parser
 
 # Testing
 pytest>=7.4.0

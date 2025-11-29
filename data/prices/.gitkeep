@@ -1,0 +1,2 @@
+# Price data directory
+# Contains OHLCV data in parquet format: {SYMBOL}.parquet

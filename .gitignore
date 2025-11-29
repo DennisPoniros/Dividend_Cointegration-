@@ -32,16 +32,17 @@ ENV/
 *.swo
 *~
 
-# Data
-data/
-*.csv
-*.parquet
+# Data - large temporary files only (we keep data/ for strategy testing)
+# data/  # Commented out - we store market data locally
+data/temp/
+data/cache/
 *.h5
 *.hdf5
 
 # Secrets
 .env
 config/ibkr_config.yaml
+config/alpaca_config.yaml
 *.key
 *.pem
 

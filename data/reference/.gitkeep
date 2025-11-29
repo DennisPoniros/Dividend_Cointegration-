@@ -1,0 +1,2 @@
+# Reference data directory
+# Contains benchmark/ETF data: SPY.parquet, sector ETFs, etc.

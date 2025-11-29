@@ -1,0 +1,14 @@
+# Alpaca Markets API Configuration
+# Copy this file to alpaca_config.yaml and fill in your credentials
+# Or set environment variables: ALPACA_API_KEY, ALPACA_SECRET_KEY
+
+# API credentials (get from https://alpaca.markets/)
+api_key: "YOUR_API_KEY_HERE"
+secret_key: "YOUR_SECRET_KEY_HERE"
+
+# Paper trading endpoint (for testing)
+# Set to true to use paper trading API
+paper: true
+
+# Rate limiting
+requests_per_minute: 200  # Free tier limit
