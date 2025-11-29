@@ -46,7 +46,7 @@ class DualMomentumStrategy:
         self.USE_RISK_PARITY = False  # Equal weight
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
-        self.LEVERAGE = 2.0         # 2x leverage
+        self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
 
         self.price_data = {}
 
@@ -104,6 +104,7 @@ class DualMomentumStrategy:
         self.logger.info(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()}")
 
         cash = self.initial_capital
+        margin_debt = 0  # Track borrowed amount for leverage
         positions = {}
         equity_curve = []
         last_rebalance = None
@@ -114,7 +115,7 @@ class DualMomentumStrategy:
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            total_equity = cash + pos_val
+            total_equity = cash + pos_val - margin_debt
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
@@ -151,6 +152,9 @@ class DualMomentumStrategy:
                         cash += shares * p
                         cash -= abs(shares * p) * self.COMMISSION_BPS / 10000
 
+                # Pay off margin debt after selling all positions
+                cash -= margin_debt
+                margin_debt = 0
                 positions = {}
 
                 # Only invest if we have qualifying stocks
@@ -171,30 +175,36 @@ class DualMomentumStrategy:
                         # Equal weight
                         weights = {s: 1.0 / len(top) for s in top}
 
-                    available = cash  # Use cash as base
+                    available = cash
+                    # With leverage: invest LEVERAGE times our equity
+                    leveraged_amount = available * 0.98 * self.LEVERAGE
+                    equity_spent = available * 0.98  # What we actually spend from cash
+
                     for sym in top:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             p = self.price_data[sym].loc[date]
-                            # Buy LEVERAGE times the normal position
-                            target = available * weights[sym] * 0.98 * self.LEVERAGE
+                            target = leveraged_amount * weights[sym]
                             positions[sym] = target / p
-                            # Deduct only the unleveraged portion from cash
-                            cash -= target / self.LEVERAGE
+                            # We only spend our equity portion from cash
+                            cash -= equity_spent * weights[sym]
                             cash -= target * self.COMMISSION_BPS / 10000
+
+                    # Track borrowed amount
+                    margin_debt = leveraged_amount - equity_spent
 
                 last_rebalance = date
 
                 if i % 100 == 0:
                     invested = len(positions) > 0
                     pv = sum(positions[s] * self.price_data[s].loc[date] for s in positions if s in self.price_data and date in self.price_data[s].index)
-                    self.logger.info(f"  {date.date()}: {len(positive_mom)} qualify, holding {len(positions)}, ${cash + pv:,.0f}")
+                    self.logger.info(f"  {date.date()}: {len(positive_mom)} qualify, holding {len(positions)}, ${cash + pv - margin_debt:,.0f}")
 
             pos_val = sum(
                 positions[s] * self.price_data[s].loc[date]
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            equity_curve.append({'date': date, 'equity': cash + pos_val})
+            equity_curve.append({'date': date, 'equity': cash + pos_val - margin_debt})
 
         eq_df = pd.DataFrame(equity_curve).set_index('date')
         rets = eq_df['equity'].pct_change().dropna()

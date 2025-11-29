@@ -37,7 +37,7 @@ class DetailedDualMomentum:
         self.USE_RISK_PARITY = False  # Equal weight
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
-        self.LEVERAGE = 2.0  # 2x leverage
+        self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
 
         self.price_data = {}
         self.all_trades = []
@@ -87,8 +87,8 @@ class DetailedDualMomentum:
 
         print(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()} ({len(trading_dates)} days)")
 
-        equity = self.initial_capital  # Track equity directly
-        margin_debt = 0
+        cash = self.initial_capital
+        margin_debt = 0  # Track borrowed amount for leverage
         positions = {}  # symbol -> {shares, entry_price, entry_date}
         equity_curve = []
         last_rebalance = None
@@ -102,12 +102,7 @@ class DetailedDualMomentum:
                 if sym in self.price_data and date in self.price_data[sym].index:
                     pos_val += pos['shares'] * self.price_data[sym].loc[date]
 
-            # Equity = positions - debt
-            if pos_val > 0:
-                total_equity = pos_val - margin_debt
-                equity = total_equity  # Update equity tracker
-            else:
-                total_equity = equity
+            total_equity = cash + pos_val - margin_debt
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
@@ -145,6 +140,7 @@ class DetailedDualMomentum:
                         exit_price = self.price_data[sym].loc[date]
                         value = pos['shares'] * exit_price
                         slippage = value * self.SLIPPAGE_BPS / 10000
+                        cash += value - slippage
                         total_slippage_cost += slippage
                         rebalance_slippage += slippage
                         total_turnover += value
@@ -177,8 +173,8 @@ class DetailedDualMomentum:
                             'value': value
                         })
 
-                # After selling, equity = pos_val - margin_debt (already calculated above)
-                # Reset for new positions
+                # Pay off margin debt after selling all positions
+                cash -= margin_debt
                 margin_debt = 0
                 positions = {}
 
@@ -200,15 +196,15 @@ class DetailedDualMomentum:
                         # Equal weight
                         weights = {s: 1.0 / len(new_holdings) for s in new_holdings}
 
-                    # Invest equity * LEVERAGE (keep 2% buffer from equity portion)
-                    equity_portion = equity * 0.98  # Our equity going in
-                    total_investment = equity_portion * self.LEVERAGE
-                    margin_debt = total_investment - equity_portion  # Borrow the rest
+                    available = cash
+                    # With leverage: invest LEVERAGE times our equity
+                    leveraged_amount = available * 0.98 * self.LEVERAGE
+                    equity_spent = available * 0.98  # What we actually spend from cash
 
                     for sym in new_holdings:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             price = self.price_data[sym].loc[date]
-                            target = total_investment * weights[sym]
+                            target = leveraged_amount * weights[sym]
                             shares = target / price
                             slippage = target * self.SLIPPAGE_BPS / 10000
 
@@ -219,6 +215,8 @@ class DetailedDualMomentum:
                                 'momentum': positive_mom.get(sym, 0)
                             }
 
+                            # We only spend our equity portion from cash
+                            cash -= equity_spent * weights[sym] + slippage
                             total_slippage_cost += slippage
                             rebalance_slippage += slippage
                             total_turnover += target
@@ -230,6 +228,9 @@ class DetailedDualMomentum:
                                 'value': target,
                                 'momentum': positive_mom.get(sym, 0)
                             })
+
+                    # Track borrowed amount
+                    margin_debt = leveraged_amount - equity_spent
 
                 self.rebalance_events.append({
                     'date': date,
@@ -244,23 +245,25 @@ class DetailedDualMomentum:
 
                 last_rebalance = date
 
-            # Daily tracking - recalculate equity
+            # Daily tracking
             pos_val = 0
+            position_details = {}
             for sym, pos in positions.items():
                 if sym in self.price_data and date in self.price_data[sym].index:
-                    pos_val += pos['shares'] * self.price_data[sym].loc[date]
+                    val = pos['shares'] * self.price_data[sym].loc[date]
+                    pos_val += val
+                    position_details[sym] = val
 
-            if pos_val > 0:
-                total_equity = pos_val - margin_debt
-                equity = total_equity
+            total_equity = cash + pos_val - margin_debt
 
             self.daily_data.append({
                 'date': date,
                 'equity': total_equity,
-                'cash': 0,
+                'cash': cash,
                 'invested': pos_val,
+                'margin_debt': margin_debt,
                 'num_positions': len(positions),
-                'pct_invested': 100 if pos_val > 0 else 0
+                'pct_invested': pos_val / total_equity * 100 if total_equity > 0 else 0
             })
 
         # Final metrics

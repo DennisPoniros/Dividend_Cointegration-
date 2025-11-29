@@ -2,20 +2,20 @@
 DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS REPORT
 ================================================================================
 
-Generated: 2025-11-29 21:10:14
+Generated: 2025-11-29 21:21:26
 
 ================================================================================
 1. PERFORMANCE SUMMARY
 ================================================================================
-  Total Return:                  5.48%
-  Annual Return:                11.89%
-  Annual Volatility:            46.11%
-  Sharpe Ratio:                  0.21
-  Sortino Ratio:                 0.32
-  Calmar Ratio:                  0.18
-  Max Drawdown:                -64.62%
+  Total Return:               1708.80%
+  Annual Return:                60.65%
+  Annual Volatility:            44.03%
+  Sharpe Ratio:                  1.33
+  Sortino Ratio:                 2.00
+  Calmar Ratio:                  1.85
+  Max Drawdown:                -32.81%
     Drawdown Start:      2022-06-07
-    Drawdown End:        2025-04-08
+    Drawdown End:        2022-07-14
 
 ================================================================================
 2. BACKTEST STATISTICS
@@ -31,28 +31,28 @@ Generated: 2025-11-29 21:10:14
 3. TRADE STATISTICS
 ================================================================================
   Win Rate:                      57.1%
-  Profit Factor:                 1.55
-  Avg Trade P&L:         $      2,621
-  Avg Winner:            $     12,866
-  Avg Loser:             $    -11,020
-  Best Trade:            $    230,349
-  Worst Trade:           $    -66,456
+  Profit Factor:                 1.46
+  Avg Trade P&L:         $      9,998
+  Avg Winner:            $     55,788
+  Avg Loser:             $    -50,974
+  Best Trade:            $    849,188
+  Worst Trade:           $   -430,190
   Avg Hold Days:                 14.0
 
 ================================================================================
 4. COST ATTRIBUTION
 ================================================================================
-  Total Turnover:        $895,212,249
-  Turnover Ratio:               895.2x initial capital
+  Total Turnover:        $4,242,532,470
+  Turnover Ratio:              4242.5x initial capital
   Slippage Rate:                    2 bps (0.02%)
-  Total Slippage Cost:   $    179,042
-  Slippage as % Capital:        17.90%
-  Annualized Slippage:           3.15%
+  Total Slippage Cost:   $    848,506
+  Slippage as % Capital:        84.85%
+  Annualized Slippage:          14.92%
 
-  Gross P&L:             $  4,588,059
-  Net P&L:               $  4,498,286
-  Total Costs:           $     89,773
-  Cost Impact on Return:         1.96% of gross
+  Gross P&L:             $ 17,578,476
+  Net P&L:               $ 17,155,941
+  Total Costs:           $    422,535
+  Cost Impact on Return:         2.40% of gross
 
 ================================================================================
 5. PROFIT ATTRIBUTION BY SYMBOL
@@ -61,46 +61,46 @@ Generated: 2025-11-29 21:10:14
   Top 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  WST      $    666,115       38 $   17,529       1.3%
-  FCX      $    273,996       42 $    6,524       2.2%
-  MPC      $    269,056       64 $    4,204       1.5%
-  AVGO     $    265,791       66 $    4,027       2.3%
-  OXY      $    249,976       39 $    6,410       2.5%
-  NUE      $    247,568       38 $    6,515       2.4%
-  GE       $    242,755       78 $    3,112       1.6%
-  AAPL     $    203,728       29 $    7,025       1.8%
-  ALB      $    192,738       34 $    5,669       2.0%
-  EOG      $    192,116       35 $    5,489       2.0%
+  AVGO     $  2,676,332       66 $   40,550       2.3%
+  GE       $  1,883,613       78 $   24,149       1.6%
+  CAH      $  1,290,442       47 $   27,456       1.5%
+  LLY      $  1,119,781       65 $   17,227       1.3%
+  ORCL     $    919,096       38 $   24,187       1.2%
+  MPC      $    700,247       64 $   10,941       1.5%
+  NEM      $    652,717       30 $   21,757       1.1%
+  NUE      $    625,584       38 $   16,463       2.4%
+  OXY      $    602,461       39 $   15,448       2.5%
+  GS       $    566,817       38 $   14,916       0.8%
 
   Bottom 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  PRU      $    -18,069        3 $   -6,023      -1.8%
-  CFG      $    -20,134       22 $     -915      -0.4%
-  APD      $    -20,969        6 $   -3,495      -1.3%
-  HBAN     $    -20,997        2 $  -10,499      -4.2%
-  C        $    -22,009       14 $   -1,572      -0.5%
-  GILD     $    -28,308       25 $   -1,132      -0.4%
-  BLK      $    -37,889        8 $   -4,736      -1.6%
-  PSX      $    -41,294       24 $   -1,721      -0.6%
-  JPM      $    -43,123       17 $   -2,537      -1.0%
-  UPS      $    -45,504       16 $   -2,844      -0.8%
+  WEC      $    -95,293        3 $  -31,764      -1.6%
+  SCHW     $   -111,076       26 $   -4,272       0.1%
+  HBAN     $   -126,352        2 $  -63,176      -4.2%
+  GILD     $   -134,133       25 $   -5,365      -0.4%
+  IBM      $   -153,432       17 $   -9,025      -0.2%
+  C        $   -186,201       14 $  -13,300      -0.5%
+  PSX      $   -186,641       24 $   -7,777      -0.6%
+  CFG      $   -199,261       22 $   -9,057      -0.4%
+  JPM      $   -301,741       17 $  -17,749      -1.0%
+  QCOM     $   -330,516       22 $  -15,023      -0.2%
 
 ================================================================================
 6. MONTHLY RETURNS (%)
 ================================================================================
-  Best Month:                    35.0%
-  Worst Month:                  -24.2%
-  % Positive Months:             52.9%
+  Best Month:                    39.4%
+  Worst Month:                  -20.8%
+  % Positive Months:             64.7%
 
 ================================================================================
 7. RISK METRICS
 ================================================================================
-  Daily VaR (95%):              -4.55%
-  Daily CVaR (95%):             -6.33%
-  Skewness:                      0.25
-  Kurtosis:                      4.38
-  Longest Drawdown:               873 days
+  Daily VaR (95%):              -4.18%
+  Daily CVaR (95%):             -5.96%
+  Skewness:                      0.26
+  Kurtosis:                      4.79
+  Longest Drawdown:               162 days
 
 ================================================================================
 END OF REPORT
