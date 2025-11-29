@@ -46,6 +46,7 @@ class DualMomentumStrategy:
         self.USE_RISK_PARITY = False  # Equal weight
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
+        self.LEVERAGE = 2.0         # 2x leverage
 
         self.price_data = {}
 
@@ -170,13 +171,15 @@ class DualMomentumStrategy:
                         # Equal weight
                         weights = {s: 1.0 / len(top) for s in top}
 
-                    available = cash
+                    available = cash  # Use cash as base
                     for sym in top:
                         if sym in self.price_data and date in self.price_data[sym].index:
                             p = self.price_data[sym].loc[date]
-                            target = available * weights[sym] * 0.98
+                            # Buy LEVERAGE times the normal position
+                            target = available * weights[sym] * 0.98 * self.LEVERAGE
                             positions[sym] = target / p
-                            cash -= target
+                            # Deduct only the unleveraged portion from cash
+                            cash -= target / self.LEVERAGE
                             cash -= target * self.COMMISSION_BPS / 10000
 
                 last_rebalance = date
