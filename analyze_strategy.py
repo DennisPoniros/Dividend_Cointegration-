@@ -914,7 +914,7 @@ def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=
     return results_by_slippage
 
 
-def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir):
+def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir, strategy_returns=None):
     """Create slippage sensitivity analysis plot."""
 
     slippage_range = list(range(1, 11))  # 1 to 10 bps
@@ -922,14 +922,29 @@ def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_
     print("\nRunning slippage sensitivity analysis...")
     sensitivity_results = run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns)
 
-    # Calculate S&P 500 Sharpe ratio
-    if benchmark_returns is not None and len(benchmark_returns) > 252:
-        rf_daily = 0.02 / 252
-        bench_excess = benchmark_returns - rf_daily
-        spy_sharpe = bench_excess.mean() / benchmark_returns.std() * np.sqrt(252)
-        print(f"  S&P 500 Sharpe: {spy_sharpe:.2f}")
-    else:
-        spy_sharpe = None
+    # Calculate S&P 500 Sharpe ratio over ALIGNED period with strategy
+    spy_sharpe = None
+    aligned_period = None
+    if benchmark_returns is not None and strategy_returns is not None:
+        # Align strategy and benchmark returns
+        aligned = pd.DataFrame({
+            'strategy': strategy_returns,
+            'benchmark': benchmark_returns
+        }).dropna()
+
+        if len(aligned) > 252:
+            rf_daily = 0.02 / 252
+            bench_excess = aligned['benchmark'] - rf_daily
+            spy_sharpe = bench_excess.mean() / aligned['benchmark'].std() * np.sqrt(252)
+
+            # Also calculate strategy Sharpe over same period for fair comparison
+            strat_excess = aligned['strategy'] - rf_daily
+            strat_sharpe_aligned = strat_excess.mean() / aligned['strategy'].std() * np.sqrt(252)
+
+            aligned_period = f"{aligned.index.min().strftime('%Y-%m-%d')} to {aligned.index.max().strftime('%Y-%m-%d')}"
+            print(f"  Aligned period: {aligned_period} ({len(aligned)} days)")
+            print(f"  S&P 500 Sharpe (aligned): {spy_sharpe:.2f}")
+            print(f"  Strategy Sharpe (aligned): {strat_sharpe_aligned:.2f}")
 
     # Extract data for plotting
     slippages = list(sensitivity_results.keys())
@@ -966,7 +981,10 @@ def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_
 
     ax1.set_xlabel('Slippage (bps)', fontsize=11)
     ax1.set_ylabel('Sharpe Ratio', fontsize=11)
-    ax1.set_title('Sharpe Ratio vs Transaction Costs', fontsize=14, fontweight='bold')
+    title = 'Sharpe Ratio vs Transaction Costs (Full Backtest Period)'
+    if aligned_period:
+        title += f'\nS&P 500 comparison: {aligned_period}'
+    ax1.set_title(title, fontsize=14, fontweight='bold')
     ax1.set_xticks(slippages)
     ax1.legend(loc='upper right')
     ax1.set_ylim(0, max(sharpes) * 1.2)
@@ -1249,7 +1267,7 @@ def main():
         print("SLIPPAGE SENSITIVITY ANALYSIS")
         print("=" * 50)
         sensitivity_results, spy_sharpe = create_slippage_sensitivity_plot(
-            loader, symbols, benchmark_returns, OUTPUT_DIR
+            loader, symbols, benchmark_returns, OUTPUT_DIR, strategy_returns=results['returns']
         )
 
         # Print summary table
