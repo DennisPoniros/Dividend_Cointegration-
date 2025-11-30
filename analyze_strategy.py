@@ -882,6 +882,150 @@ def create_benchmark_comparison_plot(results, benchmark_returns, output_dir):
     }
 
 
+def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=None):
+    """
+    Run backtest with different slippage values to analyze sensitivity.
+    Returns dict with slippage -> metrics mapping.
+    """
+    results_by_slippage = {}
+
+    for slippage_bps in slippage_range:
+        print(f"  Running backtest with {slippage_bps} bps slippage...", end=" ")
+
+        # Create strategy with specific slippage
+        strategy = DetailedDualMomentum(loader)
+        strategy.SLIPPAGE_BPS = slippage_bps
+        strategy.load_data(symbols)
+        results = strategy.run()
+
+        # Extract key metrics
+        m = results['metrics']
+        results_by_slippage[slippage_bps] = {
+            'sharpe': m['sharpe'],
+            'sortino': m['sortino'],
+            'total_return': m['total_return'],
+            'annual_return': m['annual_return'],
+            'max_drawdown': m['max_drawdown'],
+            'total_slippage': m['total_slippage'],
+            'slippage_pct': m['slippage_pct']
+        }
+        print(f"Sharpe: {m['sharpe']:.2f}")
+
+    return results_by_slippage
+
+
+def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir):
+    """Create slippage sensitivity analysis plot."""
+
+    slippage_range = list(range(1, 11))  # 1 to 10 bps
+
+    print("\nRunning slippage sensitivity analysis...")
+    sensitivity_results = run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns)
+
+    # Calculate S&P 500 Sharpe ratio
+    if benchmark_returns is not None and len(benchmark_returns) > 252:
+        rf_daily = 0.02 / 252
+        bench_excess = benchmark_returns - rf_daily
+        spy_sharpe = bench_excess.mean() / benchmark_returns.std() * np.sqrt(252)
+        print(f"  S&P 500 Sharpe: {spy_sharpe:.2f}")
+    else:
+        spy_sharpe = None
+
+    # Extract data for plotting
+    slippages = list(sensitivity_results.keys())
+    sharpes = [sensitivity_results[s]['sharpe'] for s in slippages]
+    sortinos = [sensitivity_results[s]['sortino'] for s in slippages]
+    annual_returns = [sensitivity_results[s]['annual_return'] * 100 for s in slippages]
+    slippage_costs = [sensitivity_results[s]['slippage_pct'] for s in slippages]
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # 1. Sharpe Ratio vs Slippage (main plot)
+    ax1 = axes[0, 0]
+    ax1.plot(slippages, sharpes, 'bo-', markersize=10, linewidth=2, label='Strategy Sharpe')
+    ax1.scatter(slippages, sharpes, s=100, c='blue', zorder=5)
+
+    # Add S&P 500 reference line
+    if spy_sharpe is not None:
+        ax1.axhline(y=spy_sharpe, color='gray', linestyle='--', linewidth=2,
+                   label=f'S&P 500 Sharpe ({spy_sharpe:.2f})')
+        ax1.fill_between(slippages, spy_sharpe, sharpes,
+                        where=[s > spy_sharpe for s in sharpes],
+                        color='green', alpha=0.2, label='Outperformance')
+        ax1.fill_between(slippages, spy_sharpe, sharpes,
+                        where=[s <= spy_sharpe for s in sharpes],
+                        color='red', alpha=0.2)
+
+    # Add value labels
+    for i, (slip, sharpe) in enumerate(zip(slippages, sharpes)):
+        ax1.annotate(f'{sharpe:.2f}', (slip, sharpe), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax1.set_xlabel('Slippage (bps)', fontsize=11)
+    ax1.set_ylabel('Sharpe Ratio', fontsize=11)
+    ax1.set_title('Sharpe Ratio vs Transaction Costs', fontsize=14, fontweight='bold')
+    ax1.set_xticks(slippages)
+    ax1.legend(loc='upper right')
+    ax1.set_ylim(0, max(sharpes) * 1.2)
+
+    # 2. Sortino Ratio vs Slippage
+    ax2 = axes[0, 1]
+    ax2.plot(slippages, sortinos, 'mo-', markersize=10, linewidth=2, label='Strategy Sortino')
+    ax2.scatter(slippages, sortinos, s=100, c='purple', zorder=5)
+
+    # Add value labels
+    for slip, sortino in zip(slippages, sortinos):
+        ax2.annotate(f'{sortino:.2f}', (slip, sortino), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax2.set_xlabel('Slippage (bps)', fontsize=11)
+    ax2.set_ylabel('Sortino Ratio', fontsize=11)
+    ax2.set_title('Sortino Ratio vs Transaction Costs', fontsize=14, fontweight='bold')
+    ax2.set_xticks(slippages)
+    ax2.legend(loc='upper right')
+    ax2.set_ylim(0, max(sortinos) * 1.2)
+
+    # 3. Annual Return vs Slippage
+    ax3 = axes[1, 0]
+    ax3.plot(slippages, annual_returns, 'go-', markersize=10, linewidth=2, label='Annual Return')
+    ax3.scatter(slippages, annual_returns, s=100, c='green', zorder=5)
+
+    # Add value labels
+    for slip, ret in zip(slippages, annual_returns):
+        ax3.annotate(f'{ret:.1f}%', (slip, ret), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax3.set_xlabel('Slippage (bps)', fontsize=11)
+    ax3.set_ylabel('Annual Return (%)', fontsize=11)
+    ax3.set_title('Annual Return vs Transaction Costs', fontsize=14, fontweight='bold')
+    ax3.set_xticks(slippages)
+    ax3.legend(loc='upper right')
+
+    # 4. Cumulative Slippage Cost vs Slippage Rate
+    ax4 = axes[1, 1]
+    ax4.bar(slippages, slippage_costs, color='coral', edgecolor='darkred', alpha=0.7)
+
+    # Add value labels on bars
+    for slip, cost in zip(slippages, slippage_costs):
+        ax4.annotate(f'{cost:.1f}%', (slip, cost), textcoords="offset points",
+                    xytext=(0, 5), ha='center', fontsize=9, fontweight='bold')
+
+    ax4.set_xlabel('Slippage (bps)', fontsize=11)
+    ax4.set_ylabel('Total Slippage Cost (% of Capital)', fontsize=11)
+    ax4.set_title('Cumulative Slippage Cost Over Backtest', fontsize=14, fontweight='bold')
+    ax4.set_xticks(slippages)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'slippage_sensitivity.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: slippage_sensitivity.png")
+
+    return sensitivity_results, spy_sharpe
+
+
 def generate_report(results, output_dir, benchmark_metrics=None):
     """Generate text report."""
 
@@ -1100,8 +1244,27 @@ def main():
             print(f"  Downside Capture:  {benchmark_metrics['downside_capture']:.1f}%")
             print(f"  Alpha:             {benchmark_metrics['alpha']*100:.2f}%")
             print("=" * 50)
+        # Slippage sensitivity analysis
+        print("\n" + "=" * 50)
+        print("SLIPPAGE SENSITIVITY ANALYSIS")
+        print("=" * 50)
+        sensitivity_results, spy_sharpe = create_slippage_sensitivity_plot(
+            loader, symbols, benchmark_returns, OUTPUT_DIR
+        )
+
+        # Print summary table
+        print("\nSlippage Sensitivity Summary:")
+        print(f"{'Slippage (bps)':<15} {'Sharpe':<10} {'Sortino':<10} {'Annual Ret':<12}")
+        print("-" * 47)
+        for slip, data in sensitivity_results.items():
+            print(f"{slip:<15} {data['sharpe']:<10.2f} {data['sortino']:<10.2f} {data['annual_return']*100:<12.1f}%")
+        if spy_sharpe:
+            print(f"\nS&P 500 Sharpe: {spy_sharpe:.2f}")
+        print("=" * 50)
+
     else:
         print("Warning: Could not load S&P 500 benchmark data")
+        benchmark_returns = None
 
     # Generate report
     print("\nGenerating report...")
