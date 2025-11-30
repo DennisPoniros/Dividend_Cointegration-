@@ -472,7 +472,7 @@ def create_plots(results, output_dir):
     plt.close()
     print(f"Saved: trade_analysis.png")
 
-    # 6. Rolling Sharpe
+    # 6. Rolling Sharpe (legacy - keeping for backwards compatibility)
     fig, ax = plt.subplots(figsize=(14, 5))
 
     rolling_sharpe = (returns.rolling(252).mean() * 252) / (returns.rolling(252).std() * np.sqrt(252))
@@ -495,7 +495,866 @@ def create_plots(results, output_dir):
     print(f"Saved: rolling_sharpe.png")
 
 
-def generate_report(results, output_dir):
+def calculate_rolling_omega(returns, window=252, threshold=0):
+    """
+    Calculate rolling Omega ratio.
+    Omega = sum of returns above threshold / abs(sum of returns below threshold)
+    """
+    def omega_ratio(r):
+        above = r[r > threshold].sum()
+        below = abs(r[r <= threshold].sum())
+        if below == 0:
+            return np.nan
+        return above / below
+
+    return returns.rolling(window).apply(omega_ratio, raw=False)
+
+
+def calculate_rolling_calmar(returns, window=252):
+    """
+    Calculate rolling Calmar ratio.
+    Calmar = Annualized Return / Max Drawdown
+    """
+    def calmar_ratio(r):
+        ann_ret = r.mean() * 252
+        # Calculate max drawdown for this window
+        cumulative = (1 + r).cumprod()
+        rolling_max = cumulative.expanding().max()
+        drawdown = (cumulative / rolling_max) - 1
+        max_dd = abs(drawdown.min())
+        if max_dd == 0:
+            return np.nan
+        return ann_ret / max_dd
+
+    return returns.rolling(window).apply(calmar_ratio, raw=False)
+
+
+def calculate_rolling_sortino(returns, window=252, rf=0.02):
+    """
+    Calculate rolling Sortino ratio.
+    Sortino = (Return - Rf) / Downside Deviation
+    """
+    rf_daily = rf / 252
+
+    def sortino_ratio(r):
+        excess = r - rf_daily
+        mean_excess = excess.mean() * 252
+        downside = r[r < 0]
+        if len(downside) < 2:
+            return np.nan
+        downside_dev = downside.std() * np.sqrt(252)
+        if downside_dev == 0:
+            return np.nan
+        return mean_excess / downside_dev
+
+    return returns.rolling(window).apply(sortino_ratio, raw=False)
+
+
+def calculate_upside_downside_beta(strategy_returns, benchmark_returns):
+    """
+    Calculate upside and downside beta.
+    Upside beta: beta when benchmark is positive
+    Downside beta: beta when benchmark is negative
+    """
+    # Align the returns
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        return None, None, None
+
+    # Overall beta
+    cov = np.cov(aligned['strategy'], aligned['benchmark'])[0, 1]
+    var_bench = np.var(aligned['benchmark'])
+    overall_beta = cov / var_bench if var_bench > 0 else np.nan
+
+    # Upside beta (when benchmark is positive)
+    up_days = aligned[aligned['benchmark'] > 0]
+    if len(up_days) > 10:
+        cov_up = np.cov(up_days['strategy'], up_days['benchmark'])[0, 1]
+        var_up = np.var(up_days['benchmark'])
+        upside_beta = cov_up / var_up if var_up > 0 else np.nan
+    else:
+        upside_beta = np.nan
+
+    # Downside beta (when benchmark is negative)
+    down_days = aligned[aligned['benchmark'] < 0]
+    if len(down_days) > 10:
+        cov_down = np.cov(down_days['strategy'], down_days['benchmark'])[0, 1]
+        var_down = np.var(down_days['benchmark'])
+        downside_beta = cov_down / var_down if var_down > 0 else np.nan
+    else:
+        downside_beta = np.nan
+
+    return overall_beta, upside_beta, downside_beta
+
+
+def calculate_capture_ratios(strategy_returns, benchmark_returns):
+    """
+    Calculate upside and downside capture ratios.
+    Upside capture: strategy return in up markets / benchmark return in up markets
+    Downside capture: strategy return in down markets / benchmark return in down markets
+    """
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        return None, None
+
+    # Upside capture
+    up_days = aligned[aligned['benchmark'] > 0]
+    if len(up_days) > 10:
+        upside_capture = (up_days['strategy'].mean() / up_days['benchmark'].mean()) * 100
+    else:
+        upside_capture = np.nan
+
+    # Downside capture
+    down_days = aligned[aligned['benchmark'] < 0]
+    if len(down_days) > 10:
+        downside_capture = (down_days['strategy'].mean() / down_days['benchmark'].mean()) * 100
+    else:
+        downside_capture = np.nan
+
+    return upside_capture, downside_capture
+
+
+def create_rolling_metrics_plot(results, output_dir, window=252):
+    """Create combined rolling metrics plot (Sharpe, Sortino, Omega, Calmar)."""
+
+    returns = results['returns']
+
+    # Calculate all rolling metrics
+    rolling_sharpe = (returns.rolling(window).mean() * 252) / (returns.rolling(window).std() * np.sqrt(252))
+    rolling_sortino = calculate_rolling_sortino(returns, window)
+    rolling_omega = calculate_rolling_omega(returns, window)
+    rolling_calmar = calculate_rolling_calmar(returns, window)
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig, axes = plt.subplots(4, 1, figsize=(14, 16), sharex=True)
+
+    # 1. Rolling Sharpe
+    ax1 = axes[0]
+    ax1.plot(rolling_sharpe.index, rolling_sharpe, 'b-', linewidth=1.5, label='Rolling Sharpe')
+    ax1.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Target = 1.0')
+    ax1.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax1.fill_between(rolling_sharpe.index, rolling_sharpe, 0,
+                     where=rolling_sharpe >= 0, color='green', alpha=0.2)
+    ax1.fill_between(rolling_sharpe.index, rolling_sharpe, 0,
+                     where=rolling_sharpe < 0, color='red', alpha=0.2)
+    ax1.set_ylabel('Sharpe Ratio')
+    ax1.set_title(f'Rolling {window}-Day Risk-Adjusted Performance Metrics', fontsize=14, fontweight='bold')
+    ax1.legend(loc='upper left')
+    ax1.set_ylim(-2, 4)
+
+    # 2. Rolling Sortino
+    ax2 = axes[1]
+    ax2.plot(rolling_sortino.index, rolling_sortino, 'purple', linewidth=1.5, label='Rolling Sortino')
+    ax2.axhline(y=1.5, color='green', linestyle='--', alpha=0.7, label='Target = 1.5')
+    ax2.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax2.fill_between(rolling_sortino.index, rolling_sortino, 0,
+                     where=rolling_sortino >= 0, color='purple', alpha=0.2)
+    ax2.fill_between(rolling_sortino.index, rolling_sortino, 0,
+                     where=rolling_sortino < 0, color='red', alpha=0.2)
+    ax2.set_ylabel('Sortino Ratio')
+    ax2.legend(loc='upper left')
+    ax2.set_ylim(-3, 6)
+
+    # 3. Rolling Omega
+    ax3 = axes[2]
+    ax3.plot(rolling_omega.index, rolling_omega, 'darkorange', linewidth=1.5, label='Rolling Omega')
+    ax3.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Breakeven = 1.0')
+    ax3.fill_between(rolling_omega.index, rolling_omega, 1,
+                     where=rolling_omega >= 1, color='green', alpha=0.2)
+    ax3.fill_between(rolling_omega.index, rolling_omega, 1,
+                     where=rolling_omega < 1, color='red', alpha=0.2)
+    ax3.set_ylabel('Omega Ratio')
+    ax3.legend(loc='upper left')
+    ax3.set_ylim(0, 4)
+
+    # 4. Rolling Calmar
+    ax4 = axes[3]
+    ax4.plot(rolling_calmar.index, rolling_calmar, 'teal', linewidth=1.5, label='Rolling Calmar')
+    ax4.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Target = 1.0')
+    ax4.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax4.fill_between(rolling_calmar.index, rolling_calmar, 0,
+                     where=rolling_calmar >= 0, color='teal', alpha=0.2)
+    ax4.fill_between(rolling_calmar.index, rolling_calmar, 0,
+                     where=rolling_calmar < 0, color='red', alpha=0.2)
+    ax4.set_ylabel('Calmar Ratio')
+    ax4.set_xlabel('Date')
+    ax4.legend(loc='upper left')
+    ax4.set_ylim(-2, 6)
+
+    # Format x-axis
+    for ax in axes:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+        ax.xaxis.set_major_locator(mdates.MonthLocator(interval=6))
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'rolling_metrics.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: rolling_metrics.png")
+
+    return {
+        'rolling_sharpe': rolling_sharpe,
+        'rolling_sortino': rolling_sortino,
+        'rolling_omega': rolling_omega,
+        'rolling_calmar': rolling_calmar
+    }
+
+
+def create_benchmark_comparison_plot(results, benchmark_returns, output_dir):
+    """Create strategy vs benchmark comparison plot with performance metrics."""
+
+    strategy_returns = results['returns']
+    equity_df = results['equity_df']
+
+    # Align returns
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        print("Warning: Not enough aligned data for benchmark comparison")
+        return None
+
+    # Calculate cumulative returns
+    strat_cumret = (1 + aligned['strategy']).cumprod()
+    bench_cumret = (1 + aligned['benchmark']).cumprod()
+
+    # Calculate betas and capture ratios
+    overall_beta, upside_beta, downside_beta = calculate_upside_downside_beta(
+        aligned['strategy'], aligned['benchmark']
+    )
+    upside_capture, downside_capture = calculate_capture_ratios(
+        aligned['strategy'], aligned['benchmark']
+    )
+
+    # Calculate correlation
+    correlation = aligned['strategy'].corr(aligned['benchmark'])
+
+    # Calculate alpha (Jensen's alpha)
+    rf_daily = 0.02 / 252
+    strat_excess = aligned['strategy'].mean() - rf_daily
+    bench_excess = aligned['benchmark'].mean() - rf_daily
+    alpha = (strat_excess - overall_beta * bench_excess) * 252  # Annualized
+
+    # Calculate Information Ratio
+    active_returns = aligned['strategy'] - aligned['benchmark']
+    tracking_error = active_returns.std() * np.sqrt(252)
+    info_ratio = active_returns.mean() * 252 / tracking_error if tracking_error > 0 else np.nan
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig = plt.figure(figsize=(16, 12))
+
+    # Create grid spec for complex layout
+    gs = fig.add_gridspec(3, 2, hspace=0.3, wspace=0.25)
+
+    # 1. Cumulative returns comparison (top left, spans 2 columns)
+    ax1 = fig.add_subplot(gs[0, :])
+    ax1.plot(strat_cumret.index, strat_cumret, 'b-', linewidth=2, label='Strategy')
+    ax1.plot(bench_cumret.index, bench_cumret, 'gray', linewidth=2, alpha=0.8, label='S&P 500 (SPY)')
+    ax1.set_ylabel('Cumulative Return (Growth of $1)')
+    ax1.set_title('Strategy vs S&P 500 Benchmark', fontsize=14, fontweight='bold')
+    ax1.legend(loc='upper left')
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    ax1.set_yscale('log')
+    ax1.grid(True, alpha=0.3)
+
+    # Add final values annotation
+    strat_final = strat_cumret.iloc[-1]
+    bench_final = bench_cumret.iloc[-1]
+    ax1.annotate(f'Strategy: {strat_final:.2f}x',
+                xy=(strat_cumret.index[-1], strat_final),
+                xytext=(10, 0), textcoords='offset points',
+                fontsize=10, fontweight='bold', color='blue')
+    ax1.annotate(f'S&P 500: {bench_final:.2f}x',
+                xy=(bench_cumret.index[-1], bench_final),
+                xytext=(10, 0), textcoords='offset points',
+                fontsize=10, fontweight='bold', color='gray')
+
+    # 2. Relative performance (middle left)
+    ax2 = fig.add_subplot(gs[1, 0])
+    relative_perf = strat_cumret / bench_cumret
+    ax2.plot(relative_perf.index, relative_perf, 'green', linewidth=1.5)
+    ax2.axhline(y=1, color='gray', linestyle='--', alpha=0.7)
+    ax2.fill_between(relative_perf.index, relative_perf, 1,
+                     where=relative_perf >= 1, color='green', alpha=0.3)
+    ax2.fill_between(relative_perf.index, relative_perf, 1,
+                     where=relative_perf < 1, color='red', alpha=0.3)
+    ax2.set_ylabel('Strategy / Benchmark')
+    ax2.set_title('Relative Performance (Strategy ÷ S&P 500)', fontweight='bold')
+    ax2.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
+    # 3. Rolling correlation (middle right)
+    ax3 = fig.add_subplot(gs[1, 1])
+    rolling_corr = aligned['strategy'].rolling(63).corr(aligned['benchmark'])
+    ax3.plot(rolling_corr.index, rolling_corr, 'purple', linewidth=1.5)
+    ax3.axhline(y=correlation, color='red', linestyle='--', alpha=0.7,
+                label=f'Avg: {correlation:.2f}')
+    ax3.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
+    ax3.set_ylabel('Correlation')
+    ax3.set_title('Rolling 63-Day Correlation with S&P 500', fontweight='bold')
+    ax3.set_ylim(-1, 1)
+    ax3.legend(loc='lower right')
+    ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
+    # 4. Scatter plot with regression (bottom left)
+    ax4 = fig.add_subplot(gs[2, 0])
+
+    # Color points by benchmark return
+    up_mask = aligned['benchmark'] > 0
+    ax4.scatter(aligned.loc[up_mask, 'benchmark'] * 100,
+               aligned.loc[up_mask, 'strategy'] * 100,
+               c='green', alpha=0.4, s=20, label=f'Up days (β={upside_beta:.2f})')
+    ax4.scatter(aligned.loc[~up_mask, 'benchmark'] * 100,
+               aligned.loc[~up_mask, 'strategy'] * 100,
+               c='red', alpha=0.4, s=20, label=f'Down days (β={downside_beta:.2f})')
+
+    # Add regression lines
+    x_range = np.linspace(aligned['benchmark'].min(), aligned['benchmark'].max(), 100) * 100
+    ax4.plot(x_range, overall_beta * x_range, 'b-', linewidth=2,
+             label=f'Overall β={overall_beta:.2f}')
+    ax4.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
+    ax4.axvline(x=0, color='gray', linestyle='-', alpha=0.3)
+    ax4.set_xlabel('S&P 500 Daily Return (%)')
+    ax4.set_ylabel('Strategy Daily Return (%)')
+    ax4.set_title('Return Scatter: Strategy vs S&P 500', fontweight='bold')
+    ax4.legend(loc='upper left', fontsize=9)
+
+    # 5. Key metrics panel (bottom right)
+    ax5 = fig.add_subplot(gs[2, 1])
+    ax5.axis('off')
+
+    # Create metrics text box
+    metrics_text = [
+        "═══════════════════════════════════",
+        "     BENCHMARK COMPARISON METRICS      ",
+        "═══════════════════════════════════",
+        "",
+        f"  Overall Beta:        {overall_beta:.3f}",
+        f"  Upside Beta:         {upside_beta:.3f}",
+        f"  Downside Beta:       {downside_beta:.3f}",
+        "",
+        f"  Upside Capture:      {upside_capture:.1f}%",
+        f"  Downside Capture:    {downside_capture:.1f}%",
+        f"  Capture Ratio:       {upside_capture/downside_capture:.2f}x" if downside_capture else "  Capture Ratio:       N/A",
+        "",
+        f"  Correlation:         {correlation:.3f}",
+        f"  Alpha (annualized):  {alpha*100:.2f}%",
+        f"  Information Ratio:   {info_ratio:.2f}",
+        f"  Tracking Error:      {tracking_error*100:.1f}%",
+        "",
+        "═══════════════════════════════════",
+        f"  Strategy Total:      {(strat_final-1)*100:.1f}%",
+        f"  Benchmark Total:     {(bench_final-1)*100:.1f}%",
+        f"  Outperformance:      {(strat_final/bench_final-1)*100:.1f}%",
+        "═══════════════════════════════════",
+    ]
+
+    ax5.text(0.1, 0.95, '\n'.join(metrics_text), transform=ax5.transAxes,
+             fontsize=11, fontfamily='monospace', verticalalignment='top',
+             bbox=dict(boxstyle='round', facecolor='lightgray', alpha=0.8))
+
+    plt.savefig(output_dir / 'benchmark_comparison.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: benchmark_comparison.png")
+
+    return {
+        'overall_beta': overall_beta,
+        'upside_beta': upside_beta,
+        'downside_beta': downside_beta,
+        'upside_capture': upside_capture,
+        'downside_capture': downside_capture,
+        'correlation': correlation,
+        'alpha': alpha,
+        'info_ratio': info_ratio,
+        'tracking_error': tracking_error
+    }
+
+
+def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=None):
+    """
+    Run backtest with different slippage values to analyze sensitivity.
+    Returns dict with slippage -> metrics mapping.
+    """
+    results_by_slippage = {}
+
+    for slippage_bps in slippage_range:
+        print(f"  Running backtest with {slippage_bps} bps slippage...", end=" ")
+
+        # Create strategy with specific slippage
+        strategy = DetailedDualMomentum(loader)
+        strategy.SLIPPAGE_BPS = slippage_bps
+        strategy.load_data(symbols)
+        results = strategy.run()
+
+        # Extract key metrics
+        m = results['metrics']
+        results_by_slippage[slippage_bps] = {
+            'sharpe': m['sharpe'],
+            'sortino': m['sortino'],
+            'total_return': m['total_return'],
+            'annual_return': m['annual_return'],
+            'max_drawdown': m['max_drawdown'],
+            'total_slippage': m['total_slippage'],
+            'slippage_pct': m['slippage_pct']
+        }
+        print(f"Sharpe: {m['sharpe']:.2f}")
+
+    return results_by_slippage
+
+
+def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir, strategy_returns=None):
+    """Create slippage sensitivity analysis plot."""
+
+    slippage_range = list(range(1, 11))  # 1 to 10 bps
+
+    print("\nRunning slippage sensitivity analysis...")
+    sensitivity_results = run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns)
+
+    # Calculate S&P 500 Sharpe ratio over ALIGNED period with strategy
+    spy_sharpe = None
+    aligned_period = None
+    if benchmark_returns is not None and strategy_returns is not None:
+        # Align strategy and benchmark returns
+        aligned = pd.DataFrame({
+            'strategy': strategy_returns,
+            'benchmark': benchmark_returns
+        }).dropna()
+
+        if len(aligned) > 252:
+            rf_daily = 0.02 / 252
+            bench_excess = aligned['benchmark'] - rf_daily
+            spy_sharpe = bench_excess.mean() / aligned['benchmark'].std() * np.sqrt(252)
+
+            # Also calculate strategy Sharpe over same period for fair comparison
+            strat_excess = aligned['strategy'] - rf_daily
+            strat_sharpe_aligned = strat_excess.mean() / aligned['strategy'].std() * np.sqrt(252)
+
+            aligned_period = f"{aligned.index.min().strftime('%Y-%m-%d')} to {aligned.index.max().strftime('%Y-%m-%d')}"
+            print(f"  Aligned period: {aligned_period} ({len(aligned)} days)")
+            print(f"  S&P 500 Sharpe (aligned): {spy_sharpe:.2f}")
+            print(f"  Strategy Sharpe (aligned): {strat_sharpe_aligned:.2f}")
+
+    # Extract data for plotting
+    slippages = list(sensitivity_results.keys())
+    sharpes = [sensitivity_results[s]['sharpe'] for s in slippages]
+    sortinos = [sensitivity_results[s]['sortino'] for s in slippages]
+    annual_returns = [sensitivity_results[s]['annual_return'] * 100 for s in slippages]
+    slippage_costs = [sensitivity_results[s]['slippage_pct'] for s in slippages]
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # 1. Sharpe Ratio vs Slippage (main plot)
+    ax1 = axes[0, 0]
+    ax1.plot(slippages, sharpes, 'bo-', markersize=10, linewidth=2, label='Strategy Sharpe')
+    ax1.scatter(slippages, sharpes, s=100, c='blue', zorder=5)
+
+    # Add S&P 500 reference line
+    if spy_sharpe is not None:
+        ax1.axhline(y=spy_sharpe, color='gray', linestyle='--', linewidth=2,
+                   label=f'S&P 500 Sharpe ({spy_sharpe:.2f})')
+        ax1.fill_between(slippages, spy_sharpe, sharpes,
+                        where=[s > spy_sharpe for s in sharpes],
+                        color='green', alpha=0.2, label='Outperformance')
+        ax1.fill_between(slippages, spy_sharpe, sharpes,
+                        where=[s <= spy_sharpe for s in sharpes],
+                        color='red', alpha=0.2)
+
+    # Add value labels
+    for i, (slip, sharpe) in enumerate(zip(slippages, sharpes)):
+        ax1.annotate(f'{sharpe:.2f}', (slip, sharpe), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax1.set_xlabel('Slippage (bps)', fontsize=11)
+    ax1.set_ylabel('Sharpe Ratio', fontsize=11)
+    title = 'Sharpe Ratio vs Transaction Costs (Full Backtest Period)'
+    if aligned_period:
+        title += f'\nS&P 500 comparison: {aligned_period}'
+    ax1.set_title(title, fontsize=14, fontweight='bold')
+    ax1.set_xticks(slippages)
+    ax1.legend(loc='upper right')
+    ax1.set_ylim(0, max(sharpes) * 1.2)
+
+    # 2. Sortino Ratio vs Slippage
+    ax2 = axes[0, 1]
+    ax2.plot(slippages, sortinos, 'mo-', markersize=10, linewidth=2, label='Strategy Sortino')
+    ax2.scatter(slippages, sortinos, s=100, c='purple', zorder=5)
+
+    # Add value labels
+    for slip, sortino in zip(slippages, sortinos):
+        ax2.annotate(f'{sortino:.2f}', (slip, sortino), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax2.set_xlabel('Slippage (bps)', fontsize=11)
+    ax2.set_ylabel('Sortino Ratio', fontsize=11)
+    ax2.set_title('Sortino Ratio vs Transaction Costs', fontsize=14, fontweight='bold')
+    ax2.set_xticks(slippages)
+    ax2.legend(loc='upper right')
+    ax2.set_ylim(0, max(sortinos) * 1.2)
+
+    # 3. Annual Return vs Slippage
+    ax3 = axes[1, 0]
+    ax3.plot(slippages, annual_returns, 'go-', markersize=10, linewidth=2, label='Annual Return')
+    ax3.scatter(slippages, annual_returns, s=100, c='green', zorder=5)
+
+    # Add value labels
+    for slip, ret in zip(slippages, annual_returns):
+        ax3.annotate(f'{ret:.1f}%', (slip, ret), textcoords="offset points",
+                    xytext=(0, 10), ha='center', fontsize=9, fontweight='bold')
+
+    ax3.set_xlabel('Slippage (bps)', fontsize=11)
+    ax3.set_ylabel('Annual Return (%)', fontsize=11)
+    ax3.set_title('Annual Return vs Transaction Costs', fontsize=14, fontweight='bold')
+    ax3.set_xticks(slippages)
+    ax3.legend(loc='upper right')
+
+    # 4. Cumulative Slippage Cost vs Slippage Rate
+    ax4 = axes[1, 1]
+    ax4.bar(slippages, slippage_costs, color='coral', edgecolor='darkred', alpha=0.7)
+
+    # Add value labels on bars
+    for slip, cost in zip(slippages, slippage_costs):
+        ax4.annotate(f'{cost:.1f}%', (slip, cost), textcoords="offset points",
+                    xytext=(0, 5), ha='center', fontsize=9, fontweight='bold')
+
+    ax4.set_xlabel('Slippage (bps)', fontsize=11)
+    ax4.set_ylabel('Total Slippage Cost (% of Capital)', fontsize=11)
+    ax4.set_title('Cumulative Slippage Cost Over Backtest', fontsize=14, fontweight='bold')
+    ax4.set_xticks(slippages)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'slippage_sensitivity.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: slippage_sensitivity.png")
+
+    return sensitivity_results, spy_sharpe
+
+
+def identify_drawdown_periods(equity_series):
+    """
+    Identify all drawdown periods with their depth, duration, and recovery time.
+    Returns a list of drawdown events.
+    """
+    rolling_max = equity_series.expanding().max()
+    drawdown = (equity_series / rolling_max) - 1
+
+    drawdowns = []
+    in_drawdown = False
+    dd_start = None
+    dd_trough = None
+    dd_trough_date = None
+    dd_min = 0
+
+    for date, dd_val in drawdown.items():
+        if dd_val < 0 and not in_drawdown:
+            # Start of new drawdown
+            in_drawdown = True
+            dd_start = date
+            dd_min = dd_val
+            dd_trough_date = date
+        elif dd_val < 0 and in_drawdown:
+            # Continuing drawdown
+            if dd_val < dd_min:
+                dd_min = dd_val
+                dd_trough_date = date
+        elif dd_val >= 0 and in_drawdown:
+            # Recovery - end of drawdown
+            in_drawdown = False
+            duration = (dd_trough_date - dd_start).days
+            recovery = (date - dd_trough_date).days
+            total_duration = (date - dd_start).days
+
+            drawdowns.append({
+                'start': dd_start,
+                'trough_date': dd_trough_date,
+                'end': date,
+                'depth': dd_min,
+                'duration_to_trough': duration,
+                'recovery_duration': recovery,
+                'total_duration': total_duration
+            })
+
+    # Handle ongoing drawdown at end of series
+    if in_drawdown:
+        duration = (dd_trough_date - dd_start).days
+        recovery = (equity_series.index[-1] - dd_trough_date).days
+        total_duration = (equity_series.index[-1] - dd_start).days
+
+        drawdowns.append({
+            'start': dd_start,
+            'trough_date': dd_trough_date,
+            'end': None,  # Still in drawdown
+            'depth': dd_min,
+            'duration_to_trough': duration,
+            'recovery_duration': recovery,
+            'total_duration': total_duration,
+            'ongoing': True
+        })
+
+    return drawdowns
+
+
+def block_bootstrap_max_drawdown(returns, n_simulations=1000, block_size=21, confidence_levels=[0.95, 0.99]):
+    """
+    Block bootstrap for max drawdown confidence intervals.
+    Uses overlapping blocks to preserve temporal structure.
+
+    Args:
+        returns: Daily returns series
+        n_simulations: Number of bootstrap samples
+        block_size: Size of each block (21 = ~1 month of trading days)
+        confidence_levels: CI levels to compute
+
+    Returns:
+        Dict with max drawdown distribution and confidence intervals
+    """
+    returns_array = returns.values
+    n = len(returns_array)
+    n_blocks = int(np.ceil(n / block_size))
+
+    max_drawdowns = []
+
+    for _ in range(n_simulations):
+        # Sample block starting indices with replacement
+        block_starts = np.random.randint(0, n - block_size + 1, size=n_blocks)
+
+        # Construct bootstrap sample from blocks
+        bootstrap_returns = []
+        for start in block_starts:
+            bootstrap_returns.extend(returns_array[start:start + block_size])
+
+        # Trim to original length
+        bootstrap_returns = np.array(bootstrap_returns[:n])
+
+        # Calculate max drawdown for this bootstrap sample
+        cumulative = np.cumprod(1 + bootstrap_returns)
+        running_max = np.maximum.accumulate(cumulative)
+        drawdown = (cumulative / running_max) - 1
+        max_dd = np.min(drawdown)
+        max_drawdowns.append(max_dd)
+
+    max_drawdowns = np.array(max_drawdowns)
+
+    # Calculate confidence intervals (lower tail for drawdowns)
+    results = {
+        'max_drawdowns': max_drawdowns,
+        'mean': np.mean(max_drawdowns),
+        'median': np.median(max_drawdowns),
+        'std': np.std(max_drawdowns),
+        'observed_max_dd': returns.add(1).cumprod().pipe(
+            lambda x: ((x / x.expanding().max()) - 1).min()
+        )
+    }
+
+    for cl in confidence_levels:
+        # For drawdowns, we want the lower percentile (worse drawdowns)
+        lower_pct = (1 - cl) / 2 * 100
+        upper_pct = (1 - (1 - cl) / 2) * 100
+        results[f'ci_{int(cl*100)}_lower'] = np.percentile(max_drawdowns, lower_pct)
+        results[f'ci_{int(cl*100)}_upper'] = np.percentile(max_drawdowns, upper_pct)
+
+    return results
+
+
+def create_drawdown_analysis_plot(results, output_dir, n_bootstrap=1000):
+    """Create drawdown depth vs duration plot with bootstrap analysis."""
+
+    equity_df = results['equity_df']
+    returns = results['returns']
+
+    # Identify all drawdown periods
+    print("  Analyzing drawdown periods...")
+    drawdowns = identify_drawdown_periods(equity_df['equity'])
+
+    if len(drawdowns) == 0:
+        print("  No drawdowns found")
+        return None
+
+    # Convert to DataFrame for easier plotting
+    dd_df = pd.DataFrame(drawdowns)
+
+    # Run block bootstrap for max drawdown CI
+    print(f"  Running block bootstrap ({n_bootstrap} simulations)...")
+    bootstrap_results = block_bootstrap_max_drawdown(
+        returns, n_simulations=n_bootstrap, block_size=21
+    )
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig = plt.figure(figsize=(16, 12))
+    gs = fig.add_gridspec(2, 2, hspace=0.3, wspace=0.25)
+
+    # 1. Drawdown Depth vs Duration scatter
+    ax1 = fig.add_subplot(gs[0, 0])
+
+    # Color by whether ongoing
+    ongoing_mask = dd_df.get('ongoing', pd.Series([False] * len(dd_df))).fillna(False)
+    completed = dd_df[~ongoing_mask]
+    ongoing = dd_df[ongoing_mask]
+
+    if len(completed) > 0:
+        scatter = ax1.scatter(
+            completed['total_duration'],
+            completed['depth'] * 100,
+            c=completed['depth'] * 100,
+            cmap='RdYlGn',
+            s=100,
+            alpha=0.7,
+            edgecolors='black',
+            linewidth=0.5
+        )
+        plt.colorbar(scatter, ax=ax1, label='Drawdown Depth (%)')
+
+    if len(ongoing) > 0:
+        ax1.scatter(
+            ongoing['total_duration'],
+            ongoing['depth'] * 100,
+            c='red',
+            s=150,
+            marker='X',
+            alpha=0.9,
+            edgecolors='black',
+            linewidth=1,
+            label='Ongoing'
+        )
+
+    # Mark the worst drawdown
+    worst_idx = dd_df['depth'].idxmin()
+    worst = dd_df.loc[worst_idx]
+    ax1.annotate(
+        f'Max DD: {worst["depth"]*100:.1f}%\n{worst["total_duration"]} days',
+        xy=(worst['total_duration'], worst['depth'] * 100),
+        xytext=(20, 20),
+        textcoords='offset points',
+        fontsize=9,
+        fontweight='bold',
+        arrowprops=dict(arrowstyle='->', color='red'),
+        bbox=dict(boxstyle='round', facecolor='white', alpha=0.8)
+    )
+
+    ax1.set_xlabel('Total Duration (days)', fontsize=11)
+    ax1.set_ylabel('Drawdown Depth (%)', fontsize=11)
+    ax1.set_title('Drawdown Depth vs Duration', fontsize=14, fontweight='bold')
+    ax1.axhline(y=-10, color='orange', linestyle='--', alpha=0.5, label='-10% threshold')
+    ax1.axhline(y=-20, color='red', linestyle='--', alpha=0.5, label='-20% threshold')
+    ax1.legend(loc='lower left')
+
+    # 2. Bootstrap Max Drawdown Distribution
+    ax2 = fig.add_subplot(gs[0, 1])
+
+    max_dds = bootstrap_results['max_drawdowns'] * 100
+    observed = bootstrap_results['observed_max_dd'] * 100
+
+    ax2.hist(max_dds, bins=50, density=True, alpha=0.7, color='steelblue', edgecolor='black')
+
+    # Add observed max drawdown line
+    ax2.axvline(x=observed, color='red', linewidth=2, linestyle='-',
+               label=f'Observed: {observed:.1f}%')
+
+    # Add CI lines
+    ci95_lower = bootstrap_results['ci_95_lower'] * 100
+    ci95_upper = bootstrap_results['ci_95_upper'] * 100
+    ci99_lower = bootstrap_results['ci_99_lower'] * 100
+    ci99_upper = bootstrap_results['ci_99_upper'] * 100
+
+    ax2.axvline(x=ci95_lower, color='orange', linewidth=2, linestyle='--',
+               label=f'95% CI: [{ci95_lower:.1f}%, {ci95_upper:.1f}%]')
+    ax2.axvline(x=ci95_upper, color='orange', linewidth=2, linestyle='--')
+    ax2.axvline(x=ci99_lower, color='darkred', linewidth=2, linestyle=':',
+               label=f'99% CI: [{ci99_lower:.1f}%, {ci99_upper:.1f}%]')
+    ax2.axvline(x=ci99_upper, color='darkred', linewidth=2, linestyle=':')
+
+    ax2.set_xlabel('Max Drawdown (%)', fontsize=11)
+    ax2.set_ylabel('Density', fontsize=11)
+    ax2.set_title(f'Block Bootstrap Max Drawdown Distribution\n({n_bootstrap} simulations, 21-day blocks)',
+                 fontsize=14, fontweight='bold')
+    ax2.legend(loc='upper left', fontsize=9)
+
+    # 3. Drawdown Duration Distribution
+    ax3 = fig.add_subplot(gs[1, 0])
+
+    ax3.hist(dd_df['total_duration'], bins=20, alpha=0.7, color='teal', edgecolor='black')
+    ax3.axvline(x=dd_df['total_duration'].mean(), color='red', linewidth=2,
+               linestyle='-', label=f'Mean: {dd_df["total_duration"].mean():.0f} days')
+    ax3.axvline(x=dd_df['total_duration'].median(), color='orange', linewidth=2,
+               linestyle='--', label=f'Median: {dd_df["total_duration"].median():.0f} days')
+
+    ax3.set_xlabel('Drawdown Duration (days)', fontsize=11)
+    ax3.set_ylabel('Frequency', fontsize=11)
+    ax3.set_title('Distribution of Drawdown Durations', fontsize=14, fontweight='bold')
+    ax3.legend()
+
+    # 4. Summary Statistics Panel
+    ax4 = fig.add_subplot(gs[1, 1])
+    ax4.axis('off')
+
+    # Create summary text
+    summary_text = [
+        "═══════════════════════════════════════",
+        "     DRAWDOWN ANALYSIS SUMMARY         ",
+        "═══════════════════════════════════════",
+        "",
+        f"  Total Drawdown Events:    {len(dd_df)}",
+        f"  Avg Drawdown Depth:       {dd_df['depth'].mean()*100:.1f}%",
+        f"  Avg Duration to Trough:   {dd_df['duration_to_trough'].mean():.0f} days",
+        f"  Avg Recovery Duration:    {dd_df['recovery_duration'].mean():.0f} days",
+        f"  Avg Total Duration:       {dd_df['total_duration'].mean():.0f} days",
+        "",
+        "───────────────────────────────────────",
+        "  WORST DRAWDOWN",
+        "───────────────────────────────────────",
+        f"  Depth:                    {worst['depth']*100:.1f}%",
+        f"  Start:                    {worst['start'].strftime('%Y-%m-%d')}",
+        f"  Trough:                   {worst['trough_date'].strftime('%Y-%m-%d')}",
+        f"  Duration to Trough:       {worst['duration_to_trough']} days",
+        f"  Total Duration:           {worst['total_duration']} days",
+        "",
+        "───────────────────────────────────────",
+        "  BLOCK BOOTSTRAP RESULTS (21-day blocks)",
+        "───────────────────────────────────────",
+        f"  Observed Max DD:          {observed:.1f}%",
+        f"  Bootstrap Mean:           {bootstrap_results['mean']*100:.1f}%",
+        f"  Bootstrap Std:            {bootstrap_results['std']*100:.1f}%",
+        "",
+        f"  95% CI:  [{ci95_lower:.1f}%, {ci95_upper:.1f}%]",
+        f"  99% CI:  [{ci99_lower:.1f}%, {ci99_upper:.1f}%]",
+        "",
+        "  Note: Block bootstrap preserves temporal",
+        "  dependencies in return series.",
+        "═══════════════════════════════════════",
+    ]
+
+    ax4.text(0.05, 0.95, '\n'.join(summary_text), transform=ax4.transAxes,
+             fontsize=10, fontfamily='monospace', verticalalignment='top',
+             bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.9))
+
+    plt.savefig(output_dir / 'drawdown_analysis.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: drawdown_analysis.png")
+
+    return {
+        'drawdowns': dd_df,
+        'bootstrap_results': bootstrap_results,
+        'worst_drawdown': worst
+    }
+
+
+def generate_report(results, output_dir, benchmark_metrics=None):
     """Generate text report."""
 
     m = results['metrics']
@@ -618,6 +1477,28 @@ def generate_report(results, output_dir):
     max_dd_length = dd_lengths.max()
     report.append(f"  Longest Drawdown:      {max_dd_length:>12} days")
 
+    # Benchmark comparison section
+    if benchmark_metrics is not None:
+        bm = benchmark_metrics
+        report.append("\n" + "=" * 80)
+        report.append("8. BENCHMARK COMPARISON (vs S&P 500)")
+        report.append("=" * 80)
+        report.append(f"  Overall Beta:          {bm['overall_beta']:>12.3f}")
+        report.append(f"  Upside Beta:           {bm['upside_beta']:>12.3f}")
+        report.append(f"  Downside Beta:         {bm['downside_beta']:>12.3f}")
+        report.append(f"  Beta Asymmetry:        {bm['upside_beta'] - bm['downside_beta']:>12.3f} (upside - downside)")
+        report.append("")
+        report.append(f"  Upside Capture:        {bm['upside_capture']:>12.1f}%")
+        report.append(f"  Downside Capture:      {bm['downside_capture']:>12.1f}%")
+        if bm['downside_capture'] and bm['downside_capture'] != 0:
+            capture_ratio = bm['upside_capture'] / bm['downside_capture']
+            report.append(f"  Capture Ratio:         {capture_ratio:>12.2f}x")
+        report.append("")
+        report.append(f"  Correlation:           {bm['correlation']:>12.3f}")
+        report.append(f"  Alpha (annualized):    {bm['alpha']*100:>12.2f}%")
+        report.append(f"  Information Ratio:     {bm['info_ratio']:>12.2f}")
+        report.append(f"  Tracking Error:        {bm['tracking_error']*100:>12.1f}%")
+
     report.append("\n" + "=" * 80)
     report.append("END OF REPORT")
     report.append("=" * 80)
@@ -664,9 +1545,69 @@ def main():
     print("\nGenerating plots...")
     create_plots(results, OUTPUT_DIR)
 
+    # Generate rolling metrics plot
+    print("\nGenerating rolling metrics plot...")
+    create_rolling_metrics_plot(results, OUTPUT_DIR)
+
+    # Generate drawdown analysis plot with bootstrap
+    print("\nGenerating drawdown analysis plot...")
+    drawdown_analysis = create_drawdown_analysis_plot(results, OUTPUT_DIR, n_bootstrap=1000)
+
+    if drawdown_analysis:
+        bs = drawdown_analysis['bootstrap_results']
+        print(f"\n  Block Bootstrap Max Drawdown Results:")
+        print(f"    Observed:  {bs['observed_max_dd']*100:.1f}%")
+        print(f"    95% CI:    [{bs['ci_95_lower']*100:.1f}%, {bs['ci_95_upper']*100:.1f}%]")
+        print(f"    99% CI:    [{bs['ci_99_lower']*100:.1f}%, {bs['ci_99_upper']*100:.1f}%]")
+
+    # Load benchmark data and generate comparison
+    print("\nLoading S&P 500 benchmark data...")
+    spy_data = loader.get_spy()
+    benchmark_metrics = None
+
+    if spy_data is not None and len(spy_data) > 0:
+        benchmark_returns = spy_data['close'].pct_change().dropna()
+        print(f"Loaded SPY data: {len(benchmark_returns)} days")
+
+        print("Generating benchmark comparison plot...")
+        benchmark_metrics = create_benchmark_comparison_plot(results, benchmark_returns, OUTPUT_DIR)
+
+        if benchmark_metrics:
+            print("\n" + "=" * 50)
+            print("BENCHMARK COMPARISON SUMMARY (vs S&P 500)")
+            print("=" * 50)
+            print(f"  Overall Beta:      {benchmark_metrics['overall_beta']:.3f}")
+            print(f"  Upside Beta:       {benchmark_metrics['upside_beta']:.3f}")
+            print(f"  Downside Beta:     {benchmark_metrics['downside_beta']:.3f}")
+            print(f"  Upside Capture:    {benchmark_metrics['upside_capture']:.1f}%")
+            print(f"  Downside Capture:  {benchmark_metrics['downside_capture']:.1f}%")
+            print(f"  Alpha:             {benchmark_metrics['alpha']*100:.2f}%")
+            print("=" * 50)
+        # Slippage sensitivity analysis
+        print("\n" + "=" * 50)
+        print("SLIPPAGE SENSITIVITY ANALYSIS")
+        print("=" * 50)
+        sensitivity_results, spy_sharpe = create_slippage_sensitivity_plot(
+            loader, symbols, benchmark_returns, OUTPUT_DIR, strategy_returns=results['returns']
+        )
+
+        # Print summary table
+        print("\nSlippage Sensitivity Summary:")
+        print(f"{'Slippage (bps)':<15} {'Sharpe':<10} {'Sortino':<10} {'Annual Ret':<12}")
+        print("-" * 47)
+        for slip, data in sensitivity_results.items():
+            print(f"{slip:<15} {data['sharpe']:<10.2f} {data['sortino']:<10.2f} {data['annual_return']*100:<12.1f}%")
+        if spy_sharpe:
+            print(f"\nS&P 500 Sharpe: {spy_sharpe:.2f}")
+        print("=" * 50)
+
+    else:
+        print("Warning: Could not load S&P 500 benchmark data")
+        benchmark_returns = None
+
     # Generate report
     print("\nGenerating report...")
-    report = generate_report(results, OUTPUT_DIR)
+    report = generate_report(results, OUTPUT_DIR, benchmark_metrics)
 
     # Print report to console
     print("\n" + report)

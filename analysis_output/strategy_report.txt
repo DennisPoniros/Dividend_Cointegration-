@@ -2,7 +2,7 @@
 DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS REPORT
 ================================================================================
 
-Generated: 2025-11-29 21:21:26
+Generated: 2025-11-30 00:57:38
 
 ================================================================================
 1. PERFORMANCE SUMMARY
@@ -101,6 +101,23 @@ Generated: 2025-11-29 21:21:26
   Skewness:                      0.26
   Kurtosis:                      4.79
   Longest Drawdown:               162 days
+
+================================================================================
+8. BENCHMARK COMPARISON (vs S&P 500)
+================================================================================
+  Overall Beta:                 1.601
+  Upside Beta:                  1.421
+  Downside Beta:                1.415
+  Beta Asymmetry:               0.006 (upside - downside)
+
+  Upside Capture:               189.9%
+  Downside Capture:             182.7%
+  Capture Ratio:                 1.04x
+
+  Correlation:                  0.712
+  Alpha (annualized):           13.60%
+  Information Ratio:             0.99
+  Tracking Error:                27.4%
 
 ================================================================================
 END OF REPORT
