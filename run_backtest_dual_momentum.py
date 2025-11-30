@@ -5,9 +5,10 @@ Dual Momentum Strategy for Dividend Stocks
 Based on Gary Antonacci's Dual Momentum:
 1. Absolute momentum: Only invest when 12-month return > 0
 2. Relative momentum: Among qualifying stocks, buy highest momentum
-3. Go to cash when no stocks qualify
+3. Inverse yield weighting: Lower yield = higher weight (momentum confirmation)
+4. Go to cash when no stocks qualify
 
-This is a proven, research-backed approach.
+This is a proven, research-backed approach enhanced with dividend signals.
 """
 
 import sys
@@ -47,15 +48,20 @@ class DualMomentumStrategy:
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
         self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
+        self.USE_INVERSE_YIELD_WEIGHT = True  # Weight inversely to dividend yield
 
         self.price_data = {}
+        self.dividend_data = {}
 
     def load_data(self, symbols):
         for symbol in symbols:
             df = self.loader.load_price_data(symbol)
             if df is not None and len(df) > self.LOOKBACK + 100:
                 self.price_data[symbol] = df['close']
-        self.logger.info(f"Loaded {len(self.price_data)} symbols")
+                if 'dividends' in df.columns:
+                    self.dividend_data[symbol] = df['dividends']
+        self.logger.info(f"Loaded {len(self.price_data)} symbols with price data")
+        self.logger.info(f"Loaded {len(self.dividend_data)} symbols with dividend data")
 
     def calculate_12m_momentum(self, symbol, date):
         """Calculate 12-month total return."""
@@ -93,6 +99,33 @@ class DualMomentumStrategy:
 
         returns = prices.pct_change().dropna().iloc[-lookback:]
         return returns.std() * np.sqrt(252)
+
+    def calculate_dividend_yield(self, symbol, date):
+        """Calculate trailing 12-month dividend yield."""
+        if symbol not in self.dividend_data:
+            return 0.02  # Default 2% yield if no dividend data
+        divs = self.dividend_data[symbol][self.dividend_data[symbol].index <= date]
+        prices = self.price_data[symbol][self.price_data[symbol].index <= date]
+        if len(divs) < self.LOOKBACK or len(prices) < 1:
+            return 0.02
+        annual_div = divs.iloc[-self.LOOKBACK:].sum()
+        current_price = prices.iloc[-1]
+        if current_price <= 0:
+            return 0.02
+        div_yield = annual_div / current_price
+        return max(div_yield, 0.005)  # Floor at 0.5% to avoid division issues
+
+    def calculate_inverse_yield_weights(self, symbols, date):
+        """Calculate weights inversely proportional to dividend yield.
+
+        Lower yield = price ran up = momentum confirmation = higher weight.
+        """
+        inverse_yields = {}
+        for sym in symbols:
+            div_yield = self.calculate_dividend_yield(sym, date)
+            inverse_yields[sym] = 1.0 / div_yield
+        total = sum(inverse_yields.values())
+        return {s: inverse_yields[s] / total for s in symbols}
 
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
@@ -171,6 +204,10 @@ class DualMomentumStrategy:
                                 inv_vols[sym] = 1.0  # fallback to equal weight
                         total_inv_vol = sum(inv_vols.values())
                         weights = {s: inv_vols[s] / total_inv_vol for s in top}
+                    elif self.USE_INVERSE_YIELD_WEIGHT:
+                        # Inverse yield weighting: lower yield = higher weight
+                        # Lower yield means price ran up = momentum confirmation
+                        weights = self.calculate_inverse_yield_weights(top, date)
                     else:
                         # Equal weight
                         weights = {s: 1.0 / len(top) for s in top}
