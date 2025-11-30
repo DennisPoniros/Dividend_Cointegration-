@@ -1044,6 +1044,316 @@ def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_
     return sensitivity_results, spy_sharpe
 
 
+def identify_drawdown_periods(equity_series):
+    """
+    Identify all drawdown periods with their depth, duration, and recovery time.
+    Returns a list of drawdown events.
+    """
+    rolling_max = equity_series.expanding().max()
+    drawdown = (equity_series / rolling_max) - 1
+
+    drawdowns = []
+    in_drawdown = False
+    dd_start = None
+    dd_trough = None
+    dd_trough_date = None
+    dd_min = 0
+
+    for date, dd_val in drawdown.items():
+        if dd_val < 0 and not in_drawdown:
+            # Start of new drawdown
+            in_drawdown = True
+            dd_start = date
+            dd_min = dd_val
+            dd_trough_date = date
+        elif dd_val < 0 and in_drawdown:
+            # Continuing drawdown
+            if dd_val < dd_min:
+                dd_min = dd_val
+                dd_trough_date = date
+        elif dd_val >= 0 and in_drawdown:
+            # Recovery - end of drawdown
+            in_drawdown = False
+            duration = (dd_trough_date - dd_start).days
+            recovery = (date - dd_trough_date).days
+            total_duration = (date - dd_start).days
+
+            drawdowns.append({
+                'start': dd_start,
+                'trough_date': dd_trough_date,
+                'end': date,
+                'depth': dd_min,
+                'duration_to_trough': duration,
+                'recovery_duration': recovery,
+                'total_duration': total_duration
+            })
+
+    # Handle ongoing drawdown at end of series
+    if in_drawdown:
+        duration = (dd_trough_date - dd_start).days
+        recovery = (equity_series.index[-1] - dd_trough_date).days
+        total_duration = (equity_series.index[-1] - dd_start).days
+
+        drawdowns.append({
+            'start': dd_start,
+            'trough_date': dd_trough_date,
+            'end': None,  # Still in drawdown
+            'depth': dd_min,
+            'duration_to_trough': duration,
+            'recovery_duration': recovery,
+            'total_duration': total_duration,
+            'ongoing': True
+        })
+
+    return drawdowns
+
+
+def block_bootstrap_max_drawdown(returns, n_simulations=1000, block_size=21, confidence_levels=[0.95, 0.99]):
+    """
+    Block bootstrap for max drawdown confidence intervals.
+    Uses overlapping blocks to preserve temporal structure.
+
+    Args:
+        returns: Daily returns series
+        n_simulations: Number of bootstrap samples
+        block_size: Size of each block (21 = ~1 month of trading days)
+        confidence_levels: CI levels to compute
+
+    Returns:
+        Dict with max drawdown distribution and confidence intervals
+    """
+    returns_array = returns.values
+    n = len(returns_array)
+    n_blocks = int(np.ceil(n / block_size))
+
+    max_drawdowns = []
+
+    for _ in range(n_simulations):
+        # Sample block starting indices with replacement
+        block_starts = np.random.randint(0, n - block_size + 1, size=n_blocks)
+
+        # Construct bootstrap sample from blocks
+        bootstrap_returns = []
+        for start in block_starts:
+            bootstrap_returns.extend(returns_array[start:start + block_size])
+
+        # Trim to original length
+        bootstrap_returns = np.array(bootstrap_returns[:n])
+
+        # Calculate max drawdown for this bootstrap sample
+        cumulative = np.cumprod(1 + bootstrap_returns)
+        running_max = np.maximum.accumulate(cumulative)
+        drawdown = (cumulative / running_max) - 1
+        max_dd = np.min(drawdown)
+        max_drawdowns.append(max_dd)
+
+    max_drawdowns = np.array(max_drawdowns)
+
+    # Calculate confidence intervals (lower tail for drawdowns)
+    results = {
+        'max_drawdowns': max_drawdowns,
+        'mean': np.mean(max_drawdowns),
+        'median': np.median(max_drawdowns),
+        'std': np.std(max_drawdowns),
+        'observed_max_dd': returns.add(1).cumprod().pipe(
+            lambda x: ((x / x.expanding().max()) - 1).min()
+        )
+    }
+
+    for cl in confidence_levels:
+        # For drawdowns, we want the lower percentile (worse drawdowns)
+        lower_pct = (1 - cl) / 2 * 100
+        upper_pct = (1 - (1 - cl) / 2) * 100
+        results[f'ci_{int(cl*100)}_lower'] = np.percentile(max_drawdowns, lower_pct)
+        results[f'ci_{int(cl*100)}_upper'] = np.percentile(max_drawdowns, upper_pct)
+
+    return results
+
+
+def create_drawdown_analysis_plot(results, output_dir, n_bootstrap=1000):
+    """Create drawdown depth vs duration plot with bootstrap analysis."""
+
+    equity_df = results['equity_df']
+    returns = results['returns']
+
+    # Identify all drawdown periods
+    print("  Analyzing drawdown periods...")
+    drawdowns = identify_drawdown_periods(equity_df['equity'])
+
+    if len(drawdowns) == 0:
+        print("  No drawdowns found")
+        return None
+
+    # Convert to DataFrame for easier plotting
+    dd_df = pd.DataFrame(drawdowns)
+
+    # Run block bootstrap for max drawdown CI
+    print(f"  Running block bootstrap ({n_bootstrap} simulations)...")
+    bootstrap_results = block_bootstrap_max_drawdown(
+        returns, n_simulations=n_bootstrap, block_size=21
+    )
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig = plt.figure(figsize=(16, 12))
+    gs = fig.add_gridspec(2, 2, hspace=0.3, wspace=0.25)
+
+    # 1. Drawdown Depth vs Duration scatter
+    ax1 = fig.add_subplot(gs[0, 0])
+
+    # Color by whether ongoing
+    ongoing_mask = dd_df.get('ongoing', pd.Series([False] * len(dd_df))).fillna(False)
+    completed = dd_df[~ongoing_mask]
+    ongoing = dd_df[ongoing_mask]
+
+    if len(completed) > 0:
+        scatter = ax1.scatter(
+            completed['total_duration'],
+            completed['depth'] * 100,
+            c=completed['depth'] * 100,
+            cmap='RdYlGn',
+            s=100,
+            alpha=0.7,
+            edgecolors='black',
+            linewidth=0.5
+        )
+        plt.colorbar(scatter, ax=ax1, label='Drawdown Depth (%)')
+
+    if len(ongoing) > 0:
+        ax1.scatter(
+            ongoing['total_duration'],
+            ongoing['depth'] * 100,
+            c='red',
+            s=150,
+            marker='X',
+            alpha=0.9,
+            edgecolors='black',
+            linewidth=1,
+            label='Ongoing'
+        )
+
+    # Mark the worst drawdown
+    worst_idx = dd_df['depth'].idxmin()
+    worst = dd_df.loc[worst_idx]
+    ax1.annotate(
+        f'Max DD: {worst["depth"]*100:.1f}%\n{worst["total_duration"]} days',
+        xy=(worst['total_duration'], worst['depth'] * 100),
+        xytext=(20, 20),
+        textcoords='offset points',
+        fontsize=9,
+        fontweight='bold',
+        arrowprops=dict(arrowstyle='->', color='red'),
+        bbox=dict(boxstyle='round', facecolor='white', alpha=0.8)
+    )
+
+    ax1.set_xlabel('Total Duration (days)', fontsize=11)
+    ax1.set_ylabel('Drawdown Depth (%)', fontsize=11)
+    ax1.set_title('Drawdown Depth vs Duration', fontsize=14, fontweight='bold')
+    ax1.axhline(y=-10, color='orange', linestyle='--', alpha=0.5, label='-10% threshold')
+    ax1.axhline(y=-20, color='red', linestyle='--', alpha=0.5, label='-20% threshold')
+    ax1.legend(loc='lower left')
+
+    # 2. Bootstrap Max Drawdown Distribution
+    ax2 = fig.add_subplot(gs[0, 1])
+
+    max_dds = bootstrap_results['max_drawdowns'] * 100
+    observed = bootstrap_results['observed_max_dd'] * 100
+
+    ax2.hist(max_dds, bins=50, density=True, alpha=0.7, color='steelblue', edgecolor='black')
+
+    # Add observed max drawdown line
+    ax2.axvline(x=observed, color='red', linewidth=2, linestyle='-',
+               label=f'Observed: {observed:.1f}%')
+
+    # Add CI lines
+    ci95_lower = bootstrap_results['ci_95_lower'] * 100
+    ci95_upper = bootstrap_results['ci_95_upper'] * 100
+    ci99_lower = bootstrap_results['ci_99_lower'] * 100
+    ci99_upper = bootstrap_results['ci_99_upper'] * 100
+
+    ax2.axvline(x=ci95_lower, color='orange', linewidth=2, linestyle='--',
+               label=f'95% CI: [{ci95_lower:.1f}%, {ci95_upper:.1f}%]')
+    ax2.axvline(x=ci95_upper, color='orange', linewidth=2, linestyle='--')
+    ax2.axvline(x=ci99_lower, color='darkred', linewidth=2, linestyle=':',
+               label=f'99% CI: [{ci99_lower:.1f}%, {ci99_upper:.1f}%]')
+    ax2.axvline(x=ci99_upper, color='darkred', linewidth=2, linestyle=':')
+
+    ax2.set_xlabel('Max Drawdown (%)', fontsize=11)
+    ax2.set_ylabel('Density', fontsize=11)
+    ax2.set_title(f'Block Bootstrap Max Drawdown Distribution\n({n_bootstrap} simulations, 21-day blocks)',
+                 fontsize=14, fontweight='bold')
+    ax2.legend(loc='upper left', fontsize=9)
+
+    # 3. Drawdown Duration Distribution
+    ax3 = fig.add_subplot(gs[1, 0])
+
+    ax3.hist(dd_df['total_duration'], bins=20, alpha=0.7, color='teal', edgecolor='black')
+    ax3.axvline(x=dd_df['total_duration'].mean(), color='red', linewidth=2,
+               linestyle='-', label=f'Mean: {dd_df["total_duration"].mean():.0f} days')
+    ax3.axvline(x=dd_df['total_duration'].median(), color='orange', linewidth=2,
+               linestyle='--', label=f'Median: {dd_df["total_duration"].median():.0f} days')
+
+    ax3.set_xlabel('Drawdown Duration (days)', fontsize=11)
+    ax3.set_ylabel('Frequency', fontsize=11)
+    ax3.set_title('Distribution of Drawdown Durations', fontsize=14, fontweight='bold')
+    ax3.legend()
+
+    # 4. Summary Statistics Panel
+    ax4 = fig.add_subplot(gs[1, 1])
+    ax4.axis('off')
+
+    # Create summary text
+    summary_text = [
+        "═══════════════════════════════════════",
+        "     DRAWDOWN ANALYSIS SUMMARY         ",
+        "═══════════════════════════════════════",
+        "",
+        f"  Total Drawdown Events:    {len(dd_df)}",
+        f"  Avg Drawdown Depth:       {dd_df['depth'].mean()*100:.1f}%",
+        f"  Avg Duration to Trough:   {dd_df['duration_to_trough'].mean():.0f} days",
+        f"  Avg Recovery Duration:    {dd_df['recovery_duration'].mean():.0f} days",
+        f"  Avg Total Duration:       {dd_df['total_duration'].mean():.0f} days",
+        "",
+        "───────────────────────────────────────",
+        "  WORST DRAWDOWN",
+        "───────────────────────────────────────",
+        f"  Depth:                    {worst['depth']*100:.1f}%",
+        f"  Start:                    {worst['start'].strftime('%Y-%m-%d')}",
+        f"  Trough:                   {worst['trough_date'].strftime('%Y-%m-%d')}",
+        f"  Duration to Trough:       {worst['duration_to_trough']} days",
+        f"  Total Duration:           {worst['total_duration']} days",
+        "",
+        "───────────────────────────────────────",
+        "  BLOCK BOOTSTRAP RESULTS (21-day blocks)",
+        "───────────────────────────────────────",
+        f"  Observed Max DD:          {observed:.1f}%",
+        f"  Bootstrap Mean:           {bootstrap_results['mean']*100:.1f}%",
+        f"  Bootstrap Std:            {bootstrap_results['std']*100:.1f}%",
+        "",
+        f"  95% CI:  [{ci95_lower:.1f}%, {ci95_upper:.1f}%]",
+        f"  99% CI:  [{ci99_lower:.1f}%, {ci99_upper:.1f}%]",
+        "",
+        "  Note: Block bootstrap preserves temporal",
+        "  dependencies in return series.",
+        "═══════════════════════════════════════",
+    ]
+
+    ax4.text(0.05, 0.95, '\n'.join(summary_text), transform=ax4.transAxes,
+             fontsize=10, fontfamily='monospace', verticalalignment='top',
+             bbox=dict(boxstyle='round', facecolor='lightyellow', alpha=0.9))
+
+    plt.savefig(output_dir / 'drawdown_analysis.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: drawdown_analysis.png")
+
+    return {
+        'drawdowns': dd_df,
+        'bootstrap_results': bootstrap_results,
+        'worst_drawdown': worst
+    }
+
+
 def generate_report(results, output_dir, benchmark_metrics=None):
     """Generate text report."""
 
@@ -1238,6 +1548,17 @@ def main():
     # Generate rolling metrics plot
     print("\nGenerating rolling metrics plot...")
     create_rolling_metrics_plot(results, OUTPUT_DIR)
+
+    # Generate drawdown analysis plot with bootstrap
+    print("\nGenerating drawdown analysis plot...")
+    drawdown_analysis = create_drawdown_analysis_plot(results, OUTPUT_DIR, n_bootstrap=1000)
+
+    if drawdown_analysis:
+        bs = drawdown_analysis['bootstrap_results']
+        print(f"\n  Block Bootstrap Max Drawdown Results:")
+        print(f"    Observed:  {bs['observed_max_dd']*100:.1f}%")
+        print(f"    95% CI:    [{bs['ci_95_lower']*100:.1f}%, {bs['ci_95_upper']*100:.1f}%]")
+        print(f"    99% CI:    [{bs['ci_99_lower']*100:.1f}%, {bs['ci_99_upper']*100:.1f}%]")
 
     # Load benchmark data and generate comparison
     print("\nLoading S&P 500 benchmark data...")
