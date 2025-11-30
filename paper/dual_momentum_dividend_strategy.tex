@@ -65,7 +65,7 @@
 \title{%
     \textbf{Dual Momentum Strategy for Dividend-Quality Equities} \\[0.5em]
     \large A Systematic Approach to Equity Alpha Generation Through \\
-    Combined Absolute and Relative Momentum
+    Combined Absolute and Relative Momentum with Yield-Based Position Sizing
 }
 
 \author{%
@@ -84,7 +84,7 @@
 \maketitle
 
 \begin{abstract}
-This paper presents a systematic equity trading strategy that combines dual momentum principles with a dividend-quality stock universe. The strategy exploits the well-documented momentum anomaly by applying both absolute momentum (time-series) and relative momentum (cross-sectional) filters to a carefully constructed universe of 132 large-capitalization, dividend-paying stocks. We formalize the alpha generation mechanism through a signal-to-noise quality filter that improves upon naive momentum implementations. The strategy employs bi-weekly rebalancing with equal-weighted position sizing, designed to capture intermediate-term momentum while managing transaction costs. We provide theoretical justification grounded in behavioral finance and market microstructure literature, demonstrating how our approach addresses known weaknesses in traditional momentum strategies through universe construction and signal quality filtering.
+This paper presents a systematic equity trading strategy that combines dual momentum principles with a dividend-quality stock universe and novel yield-based position sizing. The strategy exploits the well-documented momentum anomaly by applying both absolute momentum (time-series) and relative momentum (cross-sectional) filters to a carefully constructed universe of 132 large-capitalization, dividend-paying stocks. We formalize the alpha generation mechanism through a signal-to-noise quality filter and introduce inverse yield-weighted position sizing, where stocks with lower dividend yields receive larger allocations. This weighting scheme leverages the insight that lower yields indicate recent price appreciation, serving as an additional momentum confirmation signal. The strategy employs bi-weekly rebalancing designed to capture intermediate-term momentum while managing transaction costs. We provide theoretical justification grounded in behavioral finance and market microstructure literature, demonstrating how our approach addresses known weaknesses in traditional momentum strategies through universe construction, signal quality filtering, and dividend-informed position sizing.
 \end{abstract}
 
 \textbf{Keywords:} Momentum investing, dual momentum, dividend stocks, systematic trading, alpha generation, factor investing, quantitative equity strategies
@@ -112,17 +112,18 @@ Despite its empirical robustness, naive momentum strategies suffer from several 
     \item \textbf{Tail risk}: Momentum portfolios exhibit negative skewness and excess kurtosis
 \end{enumerate}
 
-This paper addresses these challenges through three methodological innovations:
+This paper addresses these challenges through four methodological innovations:
 
 \begin{enumerate}
     \item \textbf{Dual momentum framework}: Combining absolute and relative momentum filters as proposed by \citet{antonacci2014dual}
     \item \textbf{Dividend-quality universe}: Restricting the investment universe to high-quality, dividend-paying stocks
     \item \textbf{Signal quality filter}: Applying a momentum-to-volatility ratio threshold to eliminate low-quality signals
+    \item \textbf{Inverse yield-weighted sizing}: Allocating larger positions to stocks with lower dividend yields, which serves as momentum confirmation since lower yields indicate recent price appreciation
 \end{enumerate}
 
 \subsection{Contribution}
 
-Our contribution is threefold. First, we formalize the dual momentum approach within a rigorous mathematical framework, providing explicit decision rules that can be implemented systematically. Second, we demonstrate how universe construction---specifically, focusing on dividend-paying stocks---can improve momentum strategy characteristics by reducing volatility and improving signal quality. Third, we introduce a signal-to-noise filter based on the momentum-to-volatility ratio that systematically eliminates false signals.
+Our contribution is fourfold. First, we formalize the dual momentum approach within a rigorous mathematical framework, providing explicit decision rules that can be implemented systematically. Second, we demonstrate how universe construction---specifically, focusing on dividend-paying stocks---can improve momentum strategy characteristics by reducing volatility and improving signal quality. Third, we introduce a signal-to-noise filter based on the momentum-to-volatility ratio that systematically eliminates false signals. Fourth, we develop inverse yield-weighted position sizing that uses dividend yield as a momentum confirmation signal, amplifying exposure to stocks exhibiting the strongest price appreciation.
 
 \subsection{Paper Organization}
 
@@ -296,6 +297,8 @@ Let $\mathcal{U} = \{s_1, s_2, \ldots, s_N\}$ denote our investment universe of 
     \item $P_{i,t}$: Adjusted closing price
     \item $R_{i,t}^{(k)}$: $k$-period return, defined as $R_{i,t}^{(k)} = \frac{P_{i,t}}{P_{i,t-k}} - 1$
     \item $\sigma_{i,t}^{(m)}$: $m$-period rolling volatility of daily returns
+    \item $D_{i,t}$: Dividend payment on date $t$ (zero on non-payment dates)
+    \item $Y_{i,t}$: Trailing 12-month dividend yield
 \end{itemize}
 
 \subsection{Momentum Calculation}
@@ -351,20 +354,46 @@ The portfolio selects the top $K = 12$ securities by rank:
     \label{eq:portfolio}
 \end{equation}
 
-\subsection{Position Sizing}
+\subsection{Dividend Yield Calculation}
 
-The strategy employs equal weighting with leverage factor $\lambda$:
+For each security, we calculate the trailing 12-month dividend yield:
 
 \begin{equation}
-    w_{i,t} =
-    \begin{cases}
-        \frac{\lambda}{|\mathcal{P}_t|} & \text{if } s_i \in \mathcal{P}_t \\
-        0 & \text{otherwise}
-    \end{cases}
+    Y_{i,t} = \frac{\sum_{k=1}^{L} D_{i,t-k}}{P_{i,t}}
+    \label{eq:dividend_yield}
+\end{equation}
+
+where $D_{i,t-k}$ represents dividend payments over the lookback period and $P_{i,t}$ is the current price. A floor of 0.5\% is applied to prevent extreme weights.
+
+\subsection{Position Sizing: Inverse Yield Weighting}
+
+Rather than equal weighting, the strategy employs \textbf{inverse yield-weighted} position sizing. The key insight is that within a dividend-paying universe, \textit{lower dividend yield indicates recent price appreciation}---serving as an additional momentum confirmation signal.
+
+\begin{definition}[Inverse Yield Weight]
+For each security $s_i \in \mathcal{P}_t$, the raw inverse yield score is:
+\begin{equation}
+    \tilde{w}_{i,t} = \frac{1}{Y_{i,t}}
+    \label{eq:inverse_yield_raw}
+\end{equation}
+\end{definition}
+
+Normalized weights with leverage factor $\lambda$ are:
+
+\begin{equation}
+    w_{i,t} = \lambda \cdot \frac{\tilde{w}_{i,t}}{\sum_{j \in \mathcal{P}_t} \tilde{w}_{j,t}}
     \label{eq:weights}
 \end{equation}
 
-With $\lambda = 2$ and $K = 12$ positions, each position receives approximately 16.67\% of capital.
+\begin{remark}[Momentum Confirmation]
+Consider two stocks both selected for the portfolio:
+\begin{itemize}
+    \item \textbf{Stock A}: 1.5\% yield $\rightarrow$ inverse score = 66.7
+    \item \textbf{Stock B}: 3.0\% yield $\rightarrow$ inverse score = 33.3
+\end{itemize}
+Stock A receives twice the weight of Stock B. The lower yield indicates Stock A's price has appreciated more relative to its dividend payments, confirming stronger momentum.
+\end{remark}
+
+With $\lambda = 2$ and $K = 12$ positions, the average position size is 16.67\% of capital, but individual positions vary based on relative dividend yields.
 
 \subsection{Rebalancing Protocol}
 
@@ -376,7 +405,9 @@ The portfolio is rebalanced every $\tau = 14$ trading days (bi-weekly). At each 
     \item Apply absolute momentum filter to obtain $\mathcal{A}_t$
     \item Apply quality filter to obtain $\mathcal{Q}_t$
     \item Rank securities and select top $K$ for $\mathcal{P}_t$
-    \item Establish new positions with equal weights
+    \item Calculate dividend yields $Y_{i,t}$ for selected securities
+    \item Compute inverse yield weights per Equation \ref{eq:weights}
+    \item Establish new positions with inverse yield weights
 \end{enumerate}
 
 \subsection{Cash Safety Mechanism}
@@ -395,7 +426,7 @@ This mechanism provides automatic de-risking during periods of broad market weak
 Algorithm \ref{alg:dual_momentum} presents the complete strategy specification.
 
 \begin{algorithm}[H]
-\caption{Dual Momentum Strategy for Dividend Equities}
+\caption{Dual Momentum Strategy with Inverse Yield Weighting}
 \label{alg:dual_momentum}
 \begin{algorithmic}[1]
 \Require Universe $\mathcal{U}$, lookback $L=252$, volatility window $m=63$, quality threshold $\gamma=0.75$, holdings $K=12$, leverage $\lambda=2$, rebalance period $\tau=14$
@@ -407,7 +438,7 @@ Algorithm \ref{alg:dual_momentum} presents the complete strategy specification.
     \State $d \gets d + 1$
 
     \If{$d \mod \tau = 0$} \Comment{Rebalance day}
-        \State \textbf{Step 1: Calculate Momentum}
+        \State \textbf{Step 1: Calculate Momentum and Volatility}
         \For{each $s_i \in \mathcal{U}$}
             \State $\text{MOM}_{i,t} \gets \frac{P_{i,t}}{P_{i,t-L}} - 1$
             \State $\sigma_{i,t} \gets \text{StdDev}(R_{i,t-m:t})$
@@ -423,16 +454,25 @@ Algorithm \ref{alg:dual_momentum} presents the complete strategy specification.
         \State Sort $\mathcal{Q}_t$ by $\text{MOM}_{i,t}$ descending
         \State $\mathcal{P}_t \gets \text{Top-}K(\mathcal{Q}_t)$
 
-        \State \textbf{Step 5: Assign Weights}
+        \State \textbf{Step 5: Calculate Dividend Yields}
+        \For{each $s_i \in \mathcal{P}_t$}
+            \State $Y_{i,t} \gets \max\left(\frac{\sum_{k=1}^{L} D_{i,t-k}}{P_{i,t}}, 0.005\right)$ \Comment{Floor at 0.5\%}
+        \EndFor
+
+        \State \textbf{Step 6: Compute Inverse Yield Weights}
         \If{$|\mathcal{P}_t| \geq 1$}
             \For{each $s_i \in \mathcal{P}_t$}
-                \State $w_{i,t} \gets \frac{\lambda}{|\mathcal{P}_t|}$
+                \State $\tilde{w}_{i,t} \gets 1 / Y_{i,t}$ \Comment{Inverse yield score}
+            \EndFor
+            \State $W_{\text{total}} \gets \sum_{j \in \mathcal{P}_t} \tilde{w}_{j,t}$
+            \For{each $s_i \in \mathcal{P}_t$}
+                \State $w_{i,t} \gets \lambda \cdot \tilde{w}_{i,t} / W_{\text{total}}$ \Comment{Normalized with leverage}
             \EndFor
         \Else
             \State Hold cash (all weights = 0)
         \EndIf
 
-        \State \textbf{Step 6: Execute Rebalance}
+        \State \textbf{Step 7: Execute Rebalance}
         \State Liquidate previous positions
         \State Establish new positions per $\{w_{i,t}\}$
     \EndIf
@@ -494,6 +534,23 @@ The absolute momentum filter provides timing alpha by avoiding exposure during d
 \end{equation}
 
 Historical evidence suggests this conditional expectation is significantly positive.
+
+\subsubsection{Yield Confirmation Alpha}
+
+The inverse yield weighting provides an additional source of alpha by amplifying exposure to stocks with the strongest price appreciation. Within a dividend-paying universe, yield serves as a normalized measure of price performance:
+
+\begin{equation}
+    \alpha_{\text{yield}} = \E\left[\sum_{i \in \mathcal{P}_t} w_{i,t}^{\text{inv}} R_{i,t+\tau}\right] - \E\left[\sum_{i \in \mathcal{P}_t} w_{i,t}^{\text{eq}} R_{i,t+\tau}\right]
+    \label{eq:yield_alpha}
+\end{equation}
+
+where $w^{\text{inv}}$ denotes inverse yield weights and $w^{\text{eq}}$ denotes equal weights. This alpha arises because:
+
+\begin{itemize}
+    \item Lower yield confirms price momentum (price appreciated faster than dividends)
+    \item Overweighting confirmed momentum stocks amplifies the momentum effect
+    \item The signal is orthogonal to the price momentum signal itself
+\end{itemize}
 
 \subsection{Signal Quality Enhancement}
 
@@ -745,22 +802,24 @@ Margin Utilization & 80\% & Reduce gross exposure \\
 \section{Conclusion}
 \label{sec:conclusion}
 
-This paper has presented a systematic equity trading strategy that combines dual momentum principles with a dividend-quality investment universe. The strategy addresses known weaknesses of naive momentum implementations through three key innovations:
+This paper has presented a systematic equity trading strategy that combines dual momentum principles with a dividend-quality investment universe and inverse yield-weighted position sizing. The strategy addresses known weaknesses of naive momentum implementations through four key innovations:
 
 \begin{enumerate}
     \item \textbf{Dual momentum filtering}: Combining absolute and relative momentum reduces drawdowns and improves risk-adjusted returns
     \item \textbf{Dividend-quality universe}: Restricting to 132 large-cap, dividend-paying stocks reduces volatility and improves signal quality
     \item \textbf{Signal quality filter}: The momentum-to-volatility ratio threshold eliminates noisy signals
+    \item \textbf{Inverse yield weighting}: Position sizing based on dividend yield provides momentum confirmation, allocating more capital to stocks with stronger price appreciation
 \end{enumerate}
 
-The strategy's theoretical foundation rests on well-documented behavioral biases---investor underreaction, the disposition effect, and limited attention---that cause prices to adjust slowly to information. By systematically identifying and exploiting these patterns within a high-quality universe, the strategy aims to generate alpha while managing the tail risks associated with momentum investing.
+The strategy's theoretical foundation rests on well-documented behavioral biases---investor underreaction, the disposition effect, and limited attention---that cause prices to adjust slowly to information. The inverse yield weighting leverages a key insight: within a dividend-paying universe, lower yield indicates that price has appreciated faster than dividend payments, serving as an independent confirmation of the momentum signal. By systematically identifying and exploiting these patterns within a high-quality universe, the strategy aims to generate alpha while managing the tail risks associated with momentum investing.
 
 Key implementation parameters include:
 \begin{itemize}
     \item 252-day momentum lookback (12 months)
     \item Bi-weekly rebalancing (14 trading days)
-    \item 12 equal-weighted positions
+    \item 12 positions with inverse yield weighting
     \item 0.75 signal-to-noise threshold
+    \item 0.5\% yield floor for weight calculation
     \item 2x leverage (optional)
 \end{itemize}
 
@@ -888,6 +947,8 @@ Quality Threshold ($\gamma$) & 0.75 & Balances signal quality vs. opportunity se
 Holdings ($K$) & 12 & Diversification without dilution \\
 Rebalance Period ($\tau$) & 14 days & Intermediate-term momentum capture \\
 Leverage ($\lambda$) & 2.0 & Return amplification (optional) \\
+Yield Floor & 0.5\% & Prevents extreme weights from very low yields \\
+Position Weighting & Inverse Yield & Momentum confirmation via price appreciation \\
 Market Cap Minimum & \$5B & Large-cap liquidity and stability \\
 Dividend Years & 5+ & Demonstrated dividend commitment \\
 Volume Minimum & \$10M ADV & Execution liquidity \\
