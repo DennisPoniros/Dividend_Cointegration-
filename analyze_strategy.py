@@ -472,7 +472,7 @@ def create_plots(results, output_dir):
     plt.close()
     print(f"Saved: trade_analysis.png")
 
-    # 6. Rolling Sharpe
+    # 6. Rolling Sharpe (legacy - keeping for backwards compatibility)
     fig, ax = plt.subplots(figsize=(14, 5))
 
     rolling_sharpe = (returns.rolling(252).mean() * 252) / (returns.rolling(252).std() * np.sqrt(252))
@@ -495,7 +495,394 @@ def create_plots(results, output_dir):
     print(f"Saved: rolling_sharpe.png")
 
 
-def generate_report(results, output_dir):
+def calculate_rolling_omega(returns, window=252, threshold=0):
+    """
+    Calculate rolling Omega ratio.
+    Omega = sum of returns above threshold / abs(sum of returns below threshold)
+    """
+    def omega_ratio(r):
+        above = r[r > threshold].sum()
+        below = abs(r[r <= threshold].sum())
+        if below == 0:
+            return np.nan
+        return above / below
+
+    return returns.rolling(window).apply(omega_ratio, raw=False)
+
+
+def calculate_rolling_calmar(returns, window=252):
+    """
+    Calculate rolling Calmar ratio.
+    Calmar = Annualized Return / Max Drawdown
+    """
+    def calmar_ratio(r):
+        ann_ret = r.mean() * 252
+        # Calculate max drawdown for this window
+        cumulative = (1 + r).cumprod()
+        rolling_max = cumulative.expanding().max()
+        drawdown = (cumulative / rolling_max) - 1
+        max_dd = abs(drawdown.min())
+        if max_dd == 0:
+            return np.nan
+        return ann_ret / max_dd
+
+    return returns.rolling(window).apply(calmar_ratio, raw=False)
+
+
+def calculate_rolling_sortino(returns, window=252, rf=0.02):
+    """
+    Calculate rolling Sortino ratio.
+    Sortino = (Return - Rf) / Downside Deviation
+    """
+    rf_daily = rf / 252
+
+    def sortino_ratio(r):
+        excess = r - rf_daily
+        mean_excess = excess.mean() * 252
+        downside = r[r < 0]
+        if len(downside) < 2:
+            return np.nan
+        downside_dev = downside.std() * np.sqrt(252)
+        if downside_dev == 0:
+            return np.nan
+        return mean_excess / downside_dev
+
+    return returns.rolling(window).apply(sortino_ratio, raw=False)
+
+
+def calculate_upside_downside_beta(strategy_returns, benchmark_returns):
+    """
+    Calculate upside and downside beta.
+    Upside beta: beta when benchmark is positive
+    Downside beta: beta when benchmark is negative
+    """
+    # Align the returns
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        return None, None, None
+
+    # Overall beta
+    cov = np.cov(aligned['strategy'], aligned['benchmark'])[0, 1]
+    var_bench = np.var(aligned['benchmark'])
+    overall_beta = cov / var_bench if var_bench > 0 else np.nan
+
+    # Upside beta (when benchmark is positive)
+    up_days = aligned[aligned['benchmark'] > 0]
+    if len(up_days) > 10:
+        cov_up = np.cov(up_days['strategy'], up_days['benchmark'])[0, 1]
+        var_up = np.var(up_days['benchmark'])
+        upside_beta = cov_up / var_up if var_up > 0 else np.nan
+    else:
+        upside_beta = np.nan
+
+    # Downside beta (when benchmark is negative)
+    down_days = aligned[aligned['benchmark'] < 0]
+    if len(down_days) > 10:
+        cov_down = np.cov(down_days['strategy'], down_days['benchmark'])[0, 1]
+        var_down = np.var(down_days['benchmark'])
+        downside_beta = cov_down / var_down if var_down > 0 else np.nan
+    else:
+        downside_beta = np.nan
+
+    return overall_beta, upside_beta, downside_beta
+
+
+def calculate_capture_ratios(strategy_returns, benchmark_returns):
+    """
+    Calculate upside and downside capture ratios.
+    Upside capture: strategy return in up markets / benchmark return in up markets
+    Downside capture: strategy return in down markets / benchmark return in down markets
+    """
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        return None, None
+
+    # Upside capture
+    up_days = aligned[aligned['benchmark'] > 0]
+    if len(up_days) > 10:
+        upside_capture = (up_days['strategy'].mean() / up_days['benchmark'].mean()) * 100
+    else:
+        upside_capture = np.nan
+
+    # Downside capture
+    down_days = aligned[aligned['benchmark'] < 0]
+    if len(down_days) > 10:
+        downside_capture = (down_days['strategy'].mean() / down_days['benchmark'].mean()) * 100
+    else:
+        downside_capture = np.nan
+
+    return upside_capture, downside_capture
+
+
+def create_rolling_metrics_plot(results, output_dir, window=252):
+    """Create combined rolling metrics plot (Sharpe, Sortino, Omega, Calmar)."""
+
+    returns = results['returns']
+
+    # Calculate all rolling metrics
+    rolling_sharpe = (returns.rolling(window).mean() * 252) / (returns.rolling(window).std() * np.sqrt(252))
+    rolling_sortino = calculate_rolling_sortino(returns, window)
+    rolling_omega = calculate_rolling_omega(returns, window)
+    rolling_calmar = calculate_rolling_calmar(returns, window)
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig, axes = plt.subplots(4, 1, figsize=(14, 16), sharex=True)
+
+    # 1. Rolling Sharpe
+    ax1 = axes[0]
+    ax1.plot(rolling_sharpe.index, rolling_sharpe, 'b-', linewidth=1.5, label='Rolling Sharpe')
+    ax1.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Target = 1.0')
+    ax1.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax1.fill_between(rolling_sharpe.index, rolling_sharpe, 0,
+                     where=rolling_sharpe >= 0, color='green', alpha=0.2)
+    ax1.fill_between(rolling_sharpe.index, rolling_sharpe, 0,
+                     where=rolling_sharpe < 0, color='red', alpha=0.2)
+    ax1.set_ylabel('Sharpe Ratio')
+    ax1.set_title(f'Rolling {window}-Day Risk-Adjusted Performance Metrics', fontsize=14, fontweight='bold')
+    ax1.legend(loc='upper left')
+    ax1.set_ylim(-2, 4)
+
+    # 2. Rolling Sortino
+    ax2 = axes[1]
+    ax2.plot(rolling_sortino.index, rolling_sortino, 'purple', linewidth=1.5, label='Rolling Sortino')
+    ax2.axhline(y=1.5, color='green', linestyle='--', alpha=0.7, label='Target = 1.5')
+    ax2.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax2.fill_between(rolling_sortino.index, rolling_sortino, 0,
+                     where=rolling_sortino >= 0, color='purple', alpha=0.2)
+    ax2.fill_between(rolling_sortino.index, rolling_sortino, 0,
+                     where=rolling_sortino < 0, color='red', alpha=0.2)
+    ax2.set_ylabel('Sortino Ratio')
+    ax2.legend(loc='upper left')
+    ax2.set_ylim(-3, 6)
+
+    # 3. Rolling Omega
+    ax3 = axes[2]
+    ax3.plot(rolling_omega.index, rolling_omega, 'darkorange', linewidth=1.5, label='Rolling Omega')
+    ax3.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Breakeven = 1.0')
+    ax3.fill_between(rolling_omega.index, rolling_omega, 1,
+                     where=rolling_omega >= 1, color='green', alpha=0.2)
+    ax3.fill_between(rolling_omega.index, rolling_omega, 1,
+                     where=rolling_omega < 1, color='red', alpha=0.2)
+    ax3.set_ylabel('Omega Ratio')
+    ax3.legend(loc='upper left')
+    ax3.set_ylim(0, 4)
+
+    # 4. Rolling Calmar
+    ax4 = axes[3]
+    ax4.plot(rolling_calmar.index, rolling_calmar, 'teal', linewidth=1.5, label='Rolling Calmar')
+    ax4.axhline(y=1, color='green', linestyle='--', alpha=0.7, label='Target = 1.0')
+    ax4.axhline(y=0, color='red', linestyle='--', alpha=0.5)
+    ax4.fill_between(rolling_calmar.index, rolling_calmar, 0,
+                     where=rolling_calmar >= 0, color='teal', alpha=0.2)
+    ax4.fill_between(rolling_calmar.index, rolling_calmar, 0,
+                     where=rolling_calmar < 0, color='red', alpha=0.2)
+    ax4.set_ylabel('Calmar Ratio')
+    ax4.set_xlabel('Date')
+    ax4.legend(loc='upper left')
+    ax4.set_ylim(-2, 6)
+
+    # Format x-axis
+    for ax in axes:
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+        ax.xaxis.set_major_locator(mdates.MonthLocator(interval=6))
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'rolling_metrics.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: rolling_metrics.png")
+
+    return {
+        'rolling_sharpe': rolling_sharpe,
+        'rolling_sortino': rolling_sortino,
+        'rolling_omega': rolling_omega,
+        'rolling_calmar': rolling_calmar
+    }
+
+
+def create_benchmark_comparison_plot(results, benchmark_returns, output_dir):
+    """Create strategy vs benchmark comparison plot with performance metrics."""
+
+    strategy_returns = results['returns']
+    equity_df = results['equity_df']
+
+    # Align returns
+    aligned = pd.DataFrame({
+        'strategy': strategy_returns,
+        'benchmark': benchmark_returns
+    }).dropna()
+
+    if len(aligned) < 30:
+        print("Warning: Not enough aligned data for benchmark comparison")
+        return None
+
+    # Calculate cumulative returns
+    strat_cumret = (1 + aligned['strategy']).cumprod()
+    bench_cumret = (1 + aligned['benchmark']).cumprod()
+
+    # Calculate betas and capture ratios
+    overall_beta, upside_beta, downside_beta = calculate_upside_downside_beta(
+        aligned['strategy'], aligned['benchmark']
+    )
+    upside_capture, downside_capture = calculate_capture_ratios(
+        aligned['strategy'], aligned['benchmark']
+    )
+
+    # Calculate correlation
+    correlation = aligned['strategy'].corr(aligned['benchmark'])
+
+    # Calculate alpha (Jensen's alpha)
+    rf_daily = 0.02 / 252
+    strat_excess = aligned['strategy'].mean() - rf_daily
+    bench_excess = aligned['benchmark'].mean() - rf_daily
+    alpha = (strat_excess - overall_beta * bench_excess) * 252  # Annualized
+
+    # Calculate Information Ratio
+    active_returns = aligned['strategy'] - aligned['benchmark']
+    tracking_error = active_returns.std() * np.sqrt(252)
+    info_ratio = active_returns.mean() * 252 / tracking_error if tracking_error > 0 else np.nan
+
+    # Set style
+    plt.style.use('seaborn-v0_8-whitegrid')
+
+    fig = plt.figure(figsize=(16, 12))
+
+    # Create grid spec for complex layout
+    gs = fig.add_gridspec(3, 2, hspace=0.3, wspace=0.25)
+
+    # 1. Cumulative returns comparison (top left, spans 2 columns)
+    ax1 = fig.add_subplot(gs[0, :])
+    ax1.plot(strat_cumret.index, strat_cumret, 'b-', linewidth=2, label='Strategy')
+    ax1.plot(bench_cumret.index, bench_cumret, 'gray', linewidth=2, alpha=0.8, label='S&P 500 (SPY)')
+    ax1.set_ylabel('Cumulative Return (Growth of $1)')
+    ax1.set_title('Strategy vs S&P 500 Benchmark', fontsize=14, fontweight='bold')
+    ax1.legend(loc='upper left')
+    ax1.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+    ax1.set_yscale('log')
+    ax1.grid(True, alpha=0.3)
+
+    # Add final values annotation
+    strat_final = strat_cumret.iloc[-1]
+    bench_final = bench_cumret.iloc[-1]
+    ax1.annotate(f'Strategy: {strat_final:.2f}x',
+                xy=(strat_cumret.index[-1], strat_final),
+                xytext=(10, 0), textcoords='offset points',
+                fontsize=10, fontweight='bold', color='blue')
+    ax1.annotate(f'S&P 500: {bench_final:.2f}x',
+                xy=(bench_cumret.index[-1], bench_final),
+                xytext=(10, 0), textcoords='offset points',
+                fontsize=10, fontweight='bold', color='gray')
+
+    # 2. Relative performance (middle left)
+    ax2 = fig.add_subplot(gs[1, 0])
+    relative_perf = strat_cumret / bench_cumret
+    ax2.plot(relative_perf.index, relative_perf, 'green', linewidth=1.5)
+    ax2.axhline(y=1, color='gray', linestyle='--', alpha=0.7)
+    ax2.fill_between(relative_perf.index, relative_perf, 1,
+                     where=relative_perf >= 1, color='green', alpha=0.3)
+    ax2.fill_between(relative_perf.index, relative_perf, 1,
+                     where=relative_perf < 1, color='red', alpha=0.3)
+    ax2.set_ylabel('Strategy / Benchmark')
+    ax2.set_title('Relative Performance (Strategy ÷ S&P 500)', fontweight='bold')
+    ax2.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
+    # 3. Rolling correlation (middle right)
+    ax3 = fig.add_subplot(gs[1, 1])
+    rolling_corr = aligned['strategy'].rolling(63).corr(aligned['benchmark'])
+    ax3.plot(rolling_corr.index, rolling_corr, 'purple', linewidth=1.5)
+    ax3.axhline(y=correlation, color='red', linestyle='--', alpha=0.7,
+                label=f'Avg: {correlation:.2f}')
+    ax3.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
+    ax3.set_ylabel('Correlation')
+    ax3.set_title('Rolling 63-Day Correlation with S&P 500', fontweight='bold')
+    ax3.set_ylim(-1, 1)
+    ax3.legend(loc='lower right')
+    ax3.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
+
+    # 4. Scatter plot with regression (bottom left)
+    ax4 = fig.add_subplot(gs[2, 0])
+
+    # Color points by benchmark return
+    up_mask = aligned['benchmark'] > 0
+    ax4.scatter(aligned.loc[up_mask, 'benchmark'] * 100,
+               aligned.loc[up_mask, 'strategy'] * 100,
+               c='green', alpha=0.4, s=20, label=f'Up days (β={upside_beta:.2f})')
+    ax4.scatter(aligned.loc[~up_mask, 'benchmark'] * 100,
+               aligned.loc[~up_mask, 'strategy'] * 100,
+               c='red', alpha=0.4, s=20, label=f'Down days (β={downside_beta:.2f})')
+
+    # Add regression lines
+    x_range = np.linspace(aligned['benchmark'].min(), aligned['benchmark'].max(), 100) * 100
+    ax4.plot(x_range, overall_beta * x_range, 'b-', linewidth=2,
+             label=f'Overall β={overall_beta:.2f}')
+    ax4.axhline(y=0, color='gray', linestyle='-', alpha=0.3)
+    ax4.axvline(x=0, color='gray', linestyle='-', alpha=0.3)
+    ax4.set_xlabel('S&P 500 Daily Return (%)')
+    ax4.set_ylabel('Strategy Daily Return (%)')
+    ax4.set_title('Return Scatter: Strategy vs S&P 500', fontweight='bold')
+    ax4.legend(loc='upper left', fontsize=9)
+
+    # 5. Key metrics panel (bottom right)
+    ax5 = fig.add_subplot(gs[2, 1])
+    ax5.axis('off')
+
+    # Create metrics text box
+    metrics_text = [
+        "═══════════════════════════════════",
+        "     BENCHMARK COMPARISON METRICS      ",
+        "═══════════════════════════════════",
+        "",
+        f"  Overall Beta:        {overall_beta:.3f}",
+        f"  Upside Beta:         {upside_beta:.3f}",
+        f"  Downside Beta:       {downside_beta:.3f}",
+        "",
+        f"  Upside Capture:      {upside_capture:.1f}%",
+        f"  Downside Capture:    {downside_capture:.1f}%",
+        f"  Capture Ratio:       {upside_capture/downside_capture:.2f}x" if downside_capture else "  Capture Ratio:       N/A",
+        "",
+        f"  Correlation:         {correlation:.3f}",
+        f"  Alpha (annualized):  {alpha*100:.2f}%",
+        f"  Information Ratio:   {info_ratio:.2f}",
+        f"  Tracking Error:      {tracking_error*100:.1f}%",
+        "",
+        "═══════════════════════════════════",
+        f"  Strategy Total:      {(strat_final-1)*100:.1f}%",
+        f"  Benchmark Total:     {(bench_final-1)*100:.1f}%",
+        f"  Outperformance:      {(strat_final/bench_final-1)*100:.1f}%",
+        "═══════════════════════════════════",
+    ]
+
+    ax5.text(0.1, 0.95, '\n'.join(metrics_text), transform=ax5.transAxes,
+             fontsize=11, fontfamily='monospace', verticalalignment='top',
+             bbox=dict(boxstyle='round', facecolor='lightgray', alpha=0.8))
+
+    plt.savefig(output_dir / 'benchmark_comparison.png', dpi=150, bbox_inches='tight')
+    plt.close()
+    print(f"Saved: benchmark_comparison.png")
+
+    return {
+        'overall_beta': overall_beta,
+        'upside_beta': upside_beta,
+        'downside_beta': downside_beta,
+        'upside_capture': upside_capture,
+        'downside_capture': downside_capture,
+        'correlation': correlation,
+        'alpha': alpha,
+        'info_ratio': info_ratio,
+        'tracking_error': tracking_error
+    }
+
+
+def generate_report(results, output_dir, benchmark_metrics=None):
     """Generate text report."""
 
     m = results['metrics']
@@ -618,6 +1005,28 @@ def generate_report(results, output_dir):
     max_dd_length = dd_lengths.max()
     report.append(f"  Longest Drawdown:      {max_dd_length:>12} days")
 
+    # Benchmark comparison section
+    if benchmark_metrics is not None:
+        bm = benchmark_metrics
+        report.append("\n" + "=" * 80)
+        report.append("8. BENCHMARK COMPARISON (vs S&P 500)")
+        report.append("=" * 80)
+        report.append(f"  Overall Beta:          {bm['overall_beta']:>12.3f}")
+        report.append(f"  Upside Beta:           {bm['upside_beta']:>12.3f}")
+        report.append(f"  Downside Beta:         {bm['downside_beta']:>12.3f}")
+        report.append(f"  Beta Asymmetry:        {bm['upside_beta'] - bm['downside_beta']:>12.3f} (upside - downside)")
+        report.append("")
+        report.append(f"  Upside Capture:        {bm['upside_capture']:>12.1f}%")
+        report.append(f"  Downside Capture:      {bm['downside_capture']:>12.1f}%")
+        if bm['downside_capture'] and bm['downside_capture'] != 0:
+            capture_ratio = bm['upside_capture'] / bm['downside_capture']
+            report.append(f"  Capture Ratio:         {capture_ratio:>12.2f}x")
+        report.append("")
+        report.append(f"  Correlation:           {bm['correlation']:>12.3f}")
+        report.append(f"  Alpha (annualized):    {bm['alpha']*100:>12.2f}%")
+        report.append(f"  Information Ratio:     {bm['info_ratio']:>12.2f}")
+        report.append(f"  Tracking Error:        {bm['tracking_error']*100:>12.1f}%")
+
     report.append("\n" + "=" * 80)
     report.append("END OF REPORT")
     report.append("=" * 80)
@@ -664,9 +1073,39 @@ def main():
     print("\nGenerating plots...")
     create_plots(results, OUTPUT_DIR)
 
+    # Generate rolling metrics plot
+    print("\nGenerating rolling metrics plot...")
+    create_rolling_metrics_plot(results, OUTPUT_DIR)
+
+    # Load benchmark data and generate comparison
+    print("\nLoading S&P 500 benchmark data...")
+    spy_data = loader.get_spy()
+    benchmark_metrics = None
+
+    if spy_data is not None and len(spy_data) > 0:
+        benchmark_returns = spy_data['close'].pct_change().dropna()
+        print(f"Loaded SPY data: {len(benchmark_returns)} days")
+
+        print("Generating benchmark comparison plot...")
+        benchmark_metrics = create_benchmark_comparison_plot(results, benchmark_returns, OUTPUT_DIR)
+
+        if benchmark_metrics:
+            print("\n" + "=" * 50)
+            print("BENCHMARK COMPARISON SUMMARY (vs S&P 500)")
+            print("=" * 50)
+            print(f"  Overall Beta:      {benchmark_metrics['overall_beta']:.3f}")
+            print(f"  Upside Beta:       {benchmark_metrics['upside_beta']:.3f}")
+            print(f"  Downside Beta:     {benchmark_metrics['downside_beta']:.3f}")
+            print(f"  Upside Capture:    {benchmark_metrics['upside_capture']:.1f}%")
+            print(f"  Downside Capture:  {benchmark_metrics['downside_capture']:.1f}%")
+            print(f"  Alpha:             {benchmark_metrics['alpha']*100:.2f}%")
+            print("=" * 50)
+    else:
+        print("Warning: Could not load S&P 500 benchmark data")
+
     # Generate report
     print("\nGenerating report...")
-    report = generate_report(results, OUTPUT_DIR)
+    report = generate_report(results, OUTPUT_DIR, benchmark_metrics)
 
     # Print report to console
     print("\n" + report)
