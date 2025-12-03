@@ -314,8 +314,34 @@ class DataLoader:
         start_date: Optional[Union[str, datetime]] = None,
         end_date: Optional[Union[str, datetime]] = None
     ) -> Optional[pd.DataFrame]:
-        """Convenience method to load SPY data."""
-        return self.load_reference_data('SPY', start_date, end_date)
+        """Convenience method to load SPY data from the 10-year CSV file."""
+        # Use the correct 10-year SPY close prices CSV
+        spy_csv_path = self.data_dir / "spy_10y_close.csv"
+
+        if spy_csv_path.exists():
+            # Parse the CSV (skip first 2 header rows)
+            df = pd.read_csv(spy_csv_path, skiprows=2)
+            df.columns = ['date', 'close']
+            df['date'] = pd.to_datetime(df['date'])
+            df = df.set_index('date')
+            df = df.sort_index()
+
+            # Filter by date range
+            if start_date is not None:
+                if isinstance(start_date, str):
+                    start_date = pd.to_datetime(start_date)
+                df = df[df.index >= start_date]
+
+            if end_date is not None:
+                if isinstance(end_date, str):
+                    end_date = pd.to_datetime(end_date)
+                df = df[df.index <= end_date]
+
+            return df
+        else:
+            # Fall back to parquet if CSV not available
+            logger.warning("spy_10y_close.csv not found, falling back to SPY.parquet")
+            return self.load_reference_data('SPY', start_date, end_date)
 
     def calculate_dividend_metrics(self, symbol: str) -> Optional[Dict]:
         """

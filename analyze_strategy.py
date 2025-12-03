@@ -42,12 +42,15 @@ class DetailedDualMomentum:
         self.QUALITY_MULT = 0.75
         self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
         self.USE_INVERSE_YIELD_WEIGHT = True  # Weight inversely to dividend yield
+        self.DEFAULT_RISK_FREE_RATE = 0.02  # Default 2% annual rate for borrowing costs
 
         self.price_data = {}
         self.dividend_data = {}
+        self.risk_free_rates = {}  # Daily risk-free rates from TNX
         self.all_trades = []
         self.daily_data = []
         self.rebalance_events = []
+        self.total_borrowing_cost = 0  # Track total borrowing costs
 
     def load_data(self, symbols):
         for symbol in symbols:
@@ -58,6 +61,38 @@ class DetailedDualMomentum:
                     self.dividend_data[symbol] = df['dividends']
         print(f"Loaded {len(self.price_data)} symbols with price data")
         print(f"Loaded {len(self.dividend_data)} symbols with dividend data")
+
+        # Load risk-free rate data (TNX - 10Y Treasury)
+        self._load_risk_free_rates()
+
+    def _load_risk_free_rates(self):
+        """Load 10-Year Treasury rates for borrowing cost calculation."""
+        tnx_data = self.loader.load_reference_data('TNX')
+        if tnx_data is not None and 'close' in tnx_data.columns:
+            # TNX is quoted as percentage (e.g., 4.0 = 4%)
+            # Convert to decimal rate (4.0 -> 0.04)
+            for date, row in tnx_data.iterrows():
+                self.risk_free_rates[date] = row['close'] / 100.0
+            print(f"Loaded {len(self.risk_free_rates)} days of risk-free rate data (TNX)")
+        else:
+            print(f"Warning: No TNX data available, using default rate of {self.DEFAULT_RISK_FREE_RATE*100:.1f}%")
+
+    def get_risk_free_rate(self, date):
+        """Get the risk-free rate for a given date.
+
+        Uses TNX data if available, otherwise falls back to default rate.
+        For dates before TNX data, uses the earliest available rate or default.
+        """
+        if date in self.risk_free_rates:
+            return self.risk_free_rates[date]
+
+        # Find the most recent rate before this date
+        available_dates = [d for d in self.risk_free_rates.keys() if d <= date]
+        if available_dates:
+            return self.risk_free_rates[max(available_dates)]
+
+        # If no rates available before this date, use default
+        return self.DEFAULT_RISK_FREE_RATE
 
     def calculate_12m_momentum(self, symbol, date):
         prices = self.price_data[symbol][self.price_data[symbol].index <= date]
@@ -293,6 +328,16 @@ class DetailedDualMomentum:
                     pos_val += val
                     position_details[sym] = val
 
+            # Calculate daily borrowing cost on margin debt
+            daily_borrowing_cost = 0
+            if margin_debt > 0:
+                # Get the risk-free rate for borrowing cost
+                annual_rate = self.get_risk_free_rate(date)
+                daily_rate = annual_rate / 252
+                daily_borrowing_cost = margin_debt * daily_rate
+                cash -= daily_borrowing_cost  # Deduct borrowing cost from cash
+                self.total_borrowing_cost += daily_borrowing_cost
+
             total_equity = cash + pos_val - margin_debt
 
             self.daily_data.append({
@@ -301,6 +346,7 @@ class DetailedDualMomentum:
                 'cash': cash,
                 'invested': pos_val,
                 'margin_debt': margin_debt,
+                'borrowing_cost': daily_borrowing_cost,
                 'num_positions': len(positions),
                 'pct_invested': pos_val / total_equity * 100 if total_equity > 0 else 0
             })
@@ -328,6 +374,10 @@ class DetailedDualMomentum:
         dd_end = drawdown.idxmin()
         dd_start = df['equity'][:dd_end].idxmax()
 
+        # Calculate total borrowing cost from daily data
+        total_borrowing_cost = df['borrowing_cost'].sum() if 'borrowing_cost' in df.columns else self.total_borrowing_cost
+        years = len(df) / 252
+
         metrics = {
             'total_return': (df['equity'].iloc[-1] / self.initial_capital) - 1,
             'annual_return': returns.mean() * 252,
@@ -347,6 +397,9 @@ class DetailedDualMomentum:
             'worst_trade': trades_df['pnl_net'].min() if len(trades_df) > 0 else 0,
             'avg_hold_days': trades_df['hold_days'].mean() if len(trades_df) > 0 else 0,
             'total_slippage': self.total_slippage,
+            'total_borrowing_cost': total_borrowing_cost,
+            'borrowing_cost_pct': total_borrowing_cost / self.initial_capital * 100,
+            'annualized_borrowing_cost': (total_borrowing_cost / self.initial_capital * 100) / years if years > 0 else 0,
             'total_turnover': self.total_turnover,
             'turnover_ratio': self.total_turnover / self.initial_capital,
             'slippage_pct': self.total_slippage / self.initial_capital * 100,
@@ -1447,19 +1500,34 @@ def generate_report(results, output_dir, benchmark_metrics=None):
     report.append("=" * 80)
     report.append(f"  Total Turnover:        ${m['total_turnover']:>11,.0f}")
     report.append(f"  Turnover Ratio:        {m['turnover_ratio']:>12.1f}x initial capital")
+    report.append("")
+    report.append("  --- Slippage Costs ---")
     report.append(f"  Slippage Rate:         {2:>12} bps (0.02%)")
     report.append(f"  Total Slippage Cost:   ${m['total_slippage']:>11,.0f}")
     report.append(f"  Slippage as % Capital: {m['slippage_pct']:>12.2f}%")
     annual_slippage = m['slippage_pct'] / (len(equity_df) / 252)
     report.append(f"  Annualized Slippage:   {annual_slippage:>12.2f}%")
+    report.append("")
+    report.append("  --- Borrowing Costs (Leverage) ---")
+    report.append(f"  Leverage:              {2.0:>12.1f}x")
+    report.append(f"  Borrowing Rate:        Risk-free rate (TNX/default 2%)")
+    report.append(f"  Total Borrowing Cost:  ${m['total_borrowing_cost']:>11,.0f}")
+    report.append(f"  Borrowing as % Cap:    {m['borrowing_cost_pct']:>12.2f}%")
+    report.append(f"  Annualized Borrow Cost:{m['annualized_borrowing_cost']:>12.2f}%")
 
     # Gross vs Net comparison
     gross_pnl = trades_df['pnl_gross'].sum()
     net_pnl = trades_df['pnl_net'].sum()
-    report.append(f"\n  Gross P&L:             ${gross_pnl:>11,.0f}")
-    report.append(f"  Net P&L:               ${net_pnl:>11,.0f}")
-    report.append(f"  Total Costs:           ${gross_pnl - net_pnl:>11,.0f}")
-    report.append(f"  Cost Impact on Return: {(gross_pnl - net_pnl) / gross_pnl * 100:>12.2f}% of gross")
+    total_costs = (gross_pnl - net_pnl) + m['total_borrowing_cost']
+    report.append("")
+    report.append("  --- Total Cost Summary ---")
+    report.append(f"  Gross P&L:             ${gross_pnl:>11,.0f}")
+    report.append(f"  Slippage Costs:        ${gross_pnl - net_pnl:>11,.0f}")
+    report.append(f"  Borrowing Costs:       ${m['total_borrowing_cost']:>11,.0f}")
+    report.append(f"  Total Costs:           ${total_costs:>11,.0f}")
+    report.append(f"  Net P&L (after costs): ${net_pnl - m['total_borrowing_cost']:>11,.0f}")
+    if gross_pnl > 0:
+        report.append(f"  Cost Impact on Return: {total_costs / gross_pnl * 100:>12.2f}% of gross")
 
     report.append("\n" + "=" * 80)
     report.append("5. PROFIT ATTRIBUTION BY SYMBOL")
