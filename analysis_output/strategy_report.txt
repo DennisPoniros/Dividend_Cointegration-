@@ -2,69 +2,69 @@
 DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS REPORT
 ================================================================================
 
-Generated: 2025-12-03 00:23:55
+Generated: 2025-12-03 19:13:24
 
 ================================================================================
 1. PERFORMANCE SUMMARY
 ================================================================================
-  Total Return:               1942.77%
-  Annual Return:                64.56%
-  Annual Volatility:            47.85%
-  Sharpe Ratio:                  1.31
-  Sortino Ratio:                 1.96
-  Calmar Ratio:                  1.81
-  Max Drawdown:                -35.70%
+  Total Return:               1254.20%
+  Annual Return:                56.45%
+  Annual Volatility:            46.00%
+  Sharpe Ratio:                  1.18
+  Sortino Ratio:                 1.74
+  Calmar Ratio:                  1.58
+  Max Drawdown:                -35.69%
     Drawdown Start:      2025-02-19
     Drawdown End:        2025-04-08
 
 ================================================================================
 2. BACKTEST STATISTICS
 ================================================================================
-  Start Date:            2020-03-19
-  End Date:              2025-11-28
-  Trading Days:                  1433
+  Start Date:            2020-03-23
+  End Date:              2025-12-03
+  Trading Days:                  1434
   Years:                         5.69
   Number of Rebalances:           149
-  Total Trades:                  1716
+  Total Trades:                  1717
 
 ================================================================================
 3. TRADE STATISTICS
 ================================================================================
-  Win Rate:                      57.1%
-  Profit Factor:                 1.45
-  Avg Trade P&L:         $     12,245
-  Avg Winner:            $     68,946
-  Avg Loser:             $    -63,255
-  Best Trade:            $  1,507,516
-  Worst Trade:           $   -728,962
+  Win Rate:                      56.6%
+  Profit Factor:                 1.44
+  Avg Trade P&L:         $      8,403
+  Avg Winner:            $     48,586
+  Avg Loser:             $    -44,023
+  Best Trade:            $  1,056,714
+  Worst Trade:           $   -511,008
   Avg Hold Days:                 14.0
 
 ================================================================================
 4. COST ATTRIBUTION
 ================================================================================
-  Total Turnover:        $4,904,532,329
-  Turnover Ratio:              4904.5x initial capital
+  Total Turnover:        $3,450,319,407
+  Turnover Ratio:              3450.3x initial capital
 
   --- Slippage Costs ---
   Slippage Rate:                    2 bps (0.02%)
-  Total Slippage Cost:   $    980,906
-  Slippage as % Capital:        98.09%
-  Annualized Slippage:          17.25%
+  Total Slippage Cost:   $    690,064
+  Slippage as % Capital:        69.01%
+  Annualized Slippage:          12.13%
 
   --- Borrowing Costs (Leverage) ---
   Leverage:                       2.0x
   Borrowing Rate:        Risk-free rate (TNX/default 2%)
-  Total Borrowing Cost:  $  1,538,793
-  Borrowing as % Cap:          153.88%
-  Annualized Borrow Cost:       27.06%
+  Total Borrowing Cost:  $  1,085,580
+  Borrowing as % Cap:          108.56%
+  Annualized Borrow Cost:       19.08%
 
   --- Total Cost Summary ---
-  Gross P&L:             $ 21,500,457
-  Slippage Costs:        $    488,684
-  Borrowing Costs:       $  1,538,793
-  Total Costs:           $  2,027,477
-  Net P&L (after costs): $ 19,472,980
-  Cost Impact on Return:         9.43% of gross
+  Gross P&L:             $ 14,771,606
+  Slippage Costs:        $    343,762
+  Borrowing Costs:       $  1,085,580
+  Total Costs:           $  1,429,342
+  Net P&L (after costs): $ 13,342,264
+  Cost Impact on Return:         9.68% of gross
 
 ================================================================================
 5. PROFIT ATTRIBUTION BY SYMBOL
@@ -73,63 +73,63 @@ Generated: 2025-12-03 00:23:55
   Top 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  GE       $  4,837,709       78 $   62,022       1.6%
-  AVGO     $  2,956,433       66 $   44,794       2.3%
-  OXY      $  2,021,125       39 $   51,824       2.5%
-  LLY      $  2,016,901       65 $   31,029       1.3%
-  ORCL     $  1,333,382       38 $   35,089       1.2%
-  CAH      $  1,193,991       47 $   25,404       1.5%
-  CTAS     $    957,264       19 $   50,382       1.8%
-  FCX      $    903,444       42 $   21,511       2.2%
-  NUE      $    675,327       38 $   17,772       2.4%
-  NEM      $    543,956       30 $   18,132       1.1%
+  GE       $  3,262,988       78 $   41,833       1.4%
+  AVGO     $  2,081,112       66 $   31,532       2.4%
+  LLY      $  1,401,400       67 $   20,916       1.2%
+  OXY      $  1,367,934       40 $   34,198       2.3%
+  ORCL     $    934,596       38 $   24,595       1.2%
+  CAH      $    836,879       47 $   17,806       1.5%
+  CTAS     $    668,472       20 $   33,424       1.6%
+  FCX      $    658,232       42 $   15,672       2.2%
+  NUE      $    463,917       36 $   12,887       2.4%
+  MSFT     $    429,481       29 $   14,810       1.6%
 
   Bottom 10 Contributing Symbols:
   Symbol      Total P&L  #Trades    Avg P&L   Avg Ret%
   --------------------------------------------------
-  BLK      $    -66,896        8 $   -8,362      -1.6%
-  GILD     $    -85,342       25 $   -3,414      -0.4%
-  C        $    -94,410       14 $   -6,744      -0.5%
-  IBM      $   -100,240       17 $   -5,896      -0.2%
-  PSX      $   -158,073       24 $   -6,586      -0.6%
-  SCHW     $   -228,156       26 $   -8,775       0.1%
-  JPM      $   -240,225       17 $  -14,131      -1.0%
-  ALB      $   -323,225       34 $   -9,507       2.0%
-  QCOM     $   -331,303       22 $  -15,059      -0.2%
-  BRO      $   -348,312       11 $  -31,665      -0.3%
+  GILD     $    -59,803       25 $   -2,392      -0.4%
+  C        $    -66,113       14 $   -4,722      -0.5%
+  IBM      $    -70,352       17 $   -4,138      -0.2%
+  DD       $    -70,810        9 $   -7,868      -1.6%
+  PSX      $   -110,821       24 $   -4,618      -0.6%
+  ALB      $   -150,072       37 $   -4,056       2.3%
+  SCHW     $   -165,238       26 $   -6,355       0.1%
+  JPM      $   -168,367       17 $   -9,904      -1.0%
+  QCOM     $   -211,516       22 $   -9,614       0.2%
+  BRO      $   -243,958       11 $  -22,178      -0.3%
 
 ================================================================================
 6. MONTHLY RETURNS (%)
 ================================================================================
-  Best Month:                    38.4%
+  Best Month:                    38.0%
   Worst Month:                  -23.7%
-  % Positive Months:             64.7%
+  % Positive Months:             63.8%
 
 ================================================================================
 7. RISK METRICS
 ================================================================================
-  Daily VaR (95%):              -4.61%
-  Daily CVaR (95%):             -6.49%
-  Skewness:                      0.15
-  Kurtosis:                      3.12
+  Daily VaR (95%):              -4.56%
+  Daily CVaR (95%):             -6.36%
+  Skewness:                     -0.05
+  Kurtosis:                      2.37
   Longest Drawdown:               176 days
 
 ================================================================================
 8. BENCHMARK COMPARISON (vs S&P 500)
 ================================================================================
-  Overall Beta:                 1.696
-  Upside Beta:                  1.490
-  Downside Beta:                1.677
-  Beta Asymmetry:              -0.187 (upside - downside)
+  Overall Beta:                 1.502
+  Upside Beta:                  0.999
+  Downside Beta:                1.579
+  Beta Asymmetry:              -0.580 (upside - downside)
 
-  Upside Capture:               196.0%
-  Downside Capture:             169.8%
-  Capture Ratio:                 1.15x
+  Upside Capture:               185.9%
+  Downside Capture:             168.3%
+  Capture Ratio:                 1.10x
 
-  Correlation:                  0.666
-  Alpha (annualized):           31.79%
-  Information Ratio:             1.17
-  Tracking Error:                38.0%
+  Correlation:                  0.609
+  Alpha (annualized):           25.45%
+  Information Ratio:             0.93
+  Tracking Error:                37.7%
 
 ================================================================================
 END OF REPORT

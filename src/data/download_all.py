@@ -74,7 +74,8 @@ def screen_universe(args) -> list:
 
     universe_df = screener.screen_universe(
         max_workers=args.workers,
-        save=True
+        save=True,
+        include_midcaps=getattr(args, 'include_midcaps', False)
     )
 
     if universe_df.empty:
@@ -178,6 +179,11 @@ def main():
         type=float,
         default=10_000_000,
         help='Minimum average daily dollar volume (default: 10M)'
+    )
+    parser.add_argument(
+        '--include-midcaps',
+        action='store_true',
+        help='Include S&P 400 Mid-Cap stocks in screening pool'
     )
 
     # Download parameters

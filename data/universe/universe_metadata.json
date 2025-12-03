@@ -1,19 +1,19 @@
 {
-  "last_updated": "2025-11-29T09:41:04.825029",
-  "total_stocks": 132,
-  "market_cap_min": 5000000000,
-  "min_dividend_years": 5,
-  "avg_daily_volume_min": 10000000,
+  "last_updated": "2025-12-03T19:04:04.635444",
+  "total_stocks": 319,
+  "market_cap_min": 2000000000.0,
+  "min_dividend_years": 3,
+  "avg_daily_volume_min": 5000000.0,
   "sectors": {
-    "Financial Services": 33,
-    "Industrials": 19,
-    "Consumer Defensive": 16,
-    "Healthcare": 14,
-    "Technology": 11,
-    "Utilities": 11,
-    "Basic Materials": 10,
-    "Energy": 9,
-    "Consumer Cyclical": 6,
-    "Communication Services": 3
+    "Financial Services": 67,
+    "Industrials": 60,
+    "Technology": 36,
+    "Consumer Cyclical": 33,
+    "Utilities": 28,
+    "Consumer Defensive": 27,
+    "Healthcare": 23,
+    "Basic Materials": 21,
+    "Energy": 18,
+    "Communication Services": 6
   }
 }
