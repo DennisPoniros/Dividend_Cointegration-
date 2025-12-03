@@ -2,7 +2,7 @@
 DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS REPORT
 ================================================================================
 
-Generated: 2025-12-03 00:11:18
+Generated: 2025-12-03 00:23:55
 
 ================================================================================
 1. PERFORMANCE SUMMARY
@@ -117,18 +117,18 @@ Generated: 2025-12-03 00:11:18
 ================================================================================
 8. BENCHMARK COMPARISON (vs S&P 500)
 ================================================================================
-  Overall Beta:                 1.700
-  Upside Beta:                  1.497
-  Downside Beta:                1.691
-  Beta Asymmetry:              -0.194 (upside - downside)
+  Overall Beta:                 1.696
+  Upside Beta:                  1.490
+  Downside Beta:                1.677
+  Beta Asymmetry:              -0.187 (upside - downside)
 
-  Upside Capture:               194.8%
-  Downside Capture:             170.9%
-  Capture Ratio:                 1.14x
+  Upside Capture:               196.0%
+  Downside Capture:             169.8%
+  Capture Ratio:                 1.15x
 
-  Correlation:                  0.665
-  Alpha (annualized):           29.37%
-  Information Ratio:             1.13
+  Correlation:                  0.666
+  Alpha (annualized):           31.79%
+  Information Ratio:             1.17
   Tracking Error:                38.0%
 
 ================================================================================
