@@ -43,7 +43,7 @@ class DualMomentumStrategy:
         self.SKIP_RECENT = 0        # Don't skip any days
         self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
         self.NUM_HOLDINGS = 12      # Top 12 stocks (more diversification)
-        self.COMMISSION_BPS = 5
+        self.SLIPPAGE_BPS = 2  # Realistic slippage only
         self.USE_RISK_PARITY = False  # Equal weight
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
@@ -53,10 +53,15 @@ class DualMomentumStrategy:
         self.price_data = {}
         self.dividend_data = {}
         self.dividend_events = {}  # Track dividend amounts by symbol and date
+        self.risk_free_rates = {}  # Daily risk-free rates from TNX
+        self.DEFAULT_RISK_FREE_RATE = 0.02  # Default 2% annual rate
 
         # Dividend handling
         self.COLLECT_DIVIDENDS = True  # Whether to collect dividends on held positions
+        self.DIVIDEND_MODE = 'reinvest'  # 'reinvest' or 'cash' (earn risk-free rate)
         self.total_dividends_collected = 0  # Track total dividends for reporting
+        self.dividend_cash_account = 0  # Separate account for dividends earning risk-free
+        self.total_borrowing_cost = 0  # Track borrowing costs
 
     def load_data(self, symbols):
         for symbol in symbols:
@@ -74,6 +79,28 @@ class DualMomentumStrategy:
         self.logger.info(f"Loaded {len(self.dividend_data)} symbols with dividend data")
         total_div_events = sum(len(v) for v in self.dividend_events.values())
         self.logger.info(f"Loaded {total_div_events} dividend events across {len(self.dividend_events)} symbols")
+
+        # Load risk-free rate data
+        self._load_risk_free_rates()
+
+    def _load_risk_free_rates(self):
+        """Load 10-Year Treasury rates for borrowing cost calculation."""
+        tnx_data = self.loader.load_reference_data('TNX')
+        if tnx_data is not None and 'close' in tnx_data.columns:
+            for date, row in tnx_data.iterrows():
+                self.risk_free_rates[date] = row['close'] / 100.0
+            self.logger.info(f"Loaded {len(self.risk_free_rates)} days of risk-free rate data (TNX)")
+        else:
+            self.logger.warning(f"No TNX data available, using default rate of {self.DEFAULT_RISK_FREE_RATE*100:.1f}%")
+
+    def get_risk_free_rate(self, date):
+        """Get the risk-free rate for a given date."""
+        if date in self.risk_free_rates:
+            return self.risk_free_rates[date]
+        available_dates = [d for d in self.risk_free_rates.keys() if d <= date]
+        if available_dates:
+            return self.risk_free_rates[max(available_dates)]
+        return self.DEFAULT_RISK_FREE_RATE
 
     def calculate_12m_momentum(self, symbol, date):
         """Calculate 12-month total return."""
@@ -148,10 +175,10 @@ class DualMomentumStrategy:
             date: Current date
 
         Returns:
-            Total dividend cash collected
+            Tuple of (dividend to add to trading cash, dividend to add to separate account)
         """
         if not self.COLLECT_DIVIDENDS:
-            return 0.0
+            return 0.0, 0.0
 
         dividend_income = 0.0
         for symbol, shares in positions.items():
@@ -163,7 +190,12 @@ class DualMomentumStrategy:
                     dividend_income += div_amount
                     self.total_dividends_collected += div_amount
 
-        return dividend_income
+        if self.DIVIDEND_MODE == 'reinvest':
+            # All dividends go back into trading cash (reinvested)
+            return dividend_income, 0.0
+        else:  # 'cash' mode
+            # Dividends go to separate account earning risk-free rate
+            return 0.0, dividend_income
 
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
@@ -174,8 +206,10 @@ class DualMomentumStrategy:
 
         self.logger.info(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()}")
 
-        # Reset dividend tracking
+        # Reset tracking
         self.total_dividends_collected = 0
+        self.dividend_cash_account = 0
+        self.total_borrowing_cost = 0
 
         cash = self.initial_capital
         margin_debt = 0  # Track borrowed amount for leverage
@@ -185,15 +219,32 @@ class DualMomentumStrategy:
 
         for i, date in enumerate(trading_dates):
             # Collect dividends for held positions BEFORE calculating equity
-            dividend_income = self.collect_dividends(positions, date)
-            cash += dividend_income
+            div_to_cash, div_to_account = self.collect_dividends(positions, date)
+            cash += div_to_cash
+            self.dividend_cash_account += div_to_account
+
+            # Accrue interest on dividend cash account (if using 'cash' mode)
+            if self.dividend_cash_account > 0:
+                rf_rate = self.get_risk_free_rate(date)
+                daily_rate = rf_rate / 252
+                interest = self.dividend_cash_account * daily_rate
+                self.dividend_cash_account += interest
+
+            # Calculate daily borrowing cost on margin debt
+            if margin_debt > 0:
+                rf_rate = self.get_risk_free_rate(date)
+                daily_rate = rf_rate / 252
+                daily_borrowing_cost = margin_debt * daily_rate
+                cash -= daily_borrowing_cost
+                self.total_borrowing_cost += daily_borrowing_cost
 
             pos_val = sum(
                 positions[s] * self.price_data[s].loc[date]
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            total_equity = cash + pos_val - margin_debt
+            # Total equity includes dividend cash account
+            total_equity = cash + pos_val - margin_debt + self.dividend_cash_account
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
@@ -228,7 +279,7 @@ class DualMomentumStrategy:
                     if s in self.price_data and date in self.price_data[s].index:
                         p = self.price_data[s].loc[date]
                         cash += shares * p
-                        cash -= abs(shares * p) * self.COMMISSION_BPS / 10000
+                        cash -= abs(shares * p) * self.SLIPPAGE_BPS / 10000
 
                 # Pay off margin debt after selling all positions
                 cash -= margin_debt
@@ -269,7 +320,7 @@ class DualMomentumStrategy:
                             positions[sym] = target / p
                             # We only spend our equity portion from cash
                             cash -= equity_spent * weights[sym]
-                            cash -= target * self.COMMISSION_BPS / 10000
+                            cash -= target * self.SLIPPAGE_BPS / 10000
 
                     # Track borrowed amount
                     margin_debt = leveraged_amount - equity_spent
@@ -286,7 +337,7 @@ class DualMomentumStrategy:
                 for s in positions
                 if s in self.price_data and date in self.price_data[s].index
             )
-            equity_curve.append({'date': date, 'equity': cash + pos_val - margin_debt})
+            equity_curve.append({'date': date, 'equity': cash + pos_val - margin_debt + self.dividend_cash_account})
 
         eq_df = pd.DataFrame(equity_curve).set_index('date')
         rets = eq_df['equity'].pct_change().dropna()
@@ -306,6 +357,9 @@ class DualMomentumStrategy:
             'total_dividends': self.total_dividends_collected,
             'annual_dividends': self.total_dividends_collected / years if years > 0 else 0,
             'dividend_contribution': self.total_dividends_collected / self.initial_capital,
+            'dividend_cash_account': self.dividend_cash_account,
+            'total_borrowing_cost': self.total_borrowing_cost,
+            'dividend_mode': self.DIVIDEND_MODE,
         }
 
         return {'equity_curve': eq_df, 'metrics': metrics}

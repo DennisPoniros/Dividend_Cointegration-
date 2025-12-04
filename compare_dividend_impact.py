@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """
-Compare strategy results with and without dividend collection.
+Compare strategy results with different dividend handling modes.
 
-This script runs the dual momentum strategy twice:
+This script runs the dual momentum strategy three ways:
 1. Without dividend collection (original behavior)
-2. With dividend collection (new behavior)
+2. With dividend reinvestment (dividends go into trading cash)
+3. With dividends held as cash earning risk-free rate
 
-And compares the results to show the impact of dividend income.
+And compares the results to show the impact of each approach.
 """
 
 import sys
@@ -33,116 +34,153 @@ def setup_logging():
 def run_comparison():
     logger = setup_logging()
 
-    print("=" * 70)
+    print("=" * 80)
     print("DIVIDEND IMPACT ANALYSIS")
-    print("=" * 70)
+    print("=" * 80)
     print("\nLoading data...")
 
     loader = DataLoader()
     symbols = loader.get_available_symbols()
 
     # Run WITHOUT dividend collection
-    print("\n[1/2] Running strategy WITHOUT dividend collection...")
+    print("\n[1/3] Running strategy WITHOUT dividend collection...")
     strategy_no_div = DualMomentumStrategy(loader)
     strategy_no_div.COLLECT_DIVIDENDS = False
     strategy_no_div.load_data(symbols)
     results_no_div = strategy_no_div.run()
 
-    # Run WITH dividend collection
-    print("[2/2] Running strategy WITH dividend collection...")
-    strategy_with_div = DualMomentumStrategy(loader)
-    strategy_with_div.COLLECT_DIVIDENDS = True
-    strategy_with_div.load_data(symbols)
-    results_with_div = strategy_with_div.run()
+    # Run WITH dividend reinvestment
+    print("[2/3] Running strategy WITH dividend REINVESTMENT...")
+    strategy_reinvest = DualMomentumStrategy(loader)
+    strategy_reinvest.COLLECT_DIVIDENDS = True
+    strategy_reinvest.DIVIDEND_MODE = 'reinvest'
+    strategy_reinvest.load_data(symbols)
+    results_reinvest = strategy_reinvest.run()
 
-    if not results_no_div or not results_with_div:
+    # Run WITH dividends as cash earning risk-free rate
+    print("[3/3] Running strategy WITH dividends as CASH (earning risk-free)...")
+    strategy_cash = DualMomentumStrategy(loader)
+    strategy_cash.COLLECT_DIVIDENDS = True
+    strategy_cash.DIVIDEND_MODE = 'cash'
+    strategy_cash.load_data(symbols)
+    results_cash = strategy_cash.run()
+
+    if not results_no_div or not results_reinvest or not results_cash:
         print("Error: Could not run backtests")
         return
 
     m_no_div = results_no_div['metrics']
-    m_with_div = results_with_div['metrics']
+    m_reinvest = results_reinvest['metrics']
+    m_cash = results_cash['metrics']
 
-    # Calculate differences
-    return_diff = (m_with_div['total_return'] - m_no_div['total_return']) * 100
-    annual_return_diff = (m_with_div['annual_return'] - m_no_div['annual_return']) * 100
-    sharpe_diff = m_with_div['sharpe'] - m_no_div['sharpe']
-
-    print("\n" + "=" * 70)
+    print("\n" + "=" * 80)
     print("COMPARISON RESULTS")
-    print("=" * 70)
+    print("=" * 80)
 
-    print("\n{:<30} {:>18} {:>18}".format("Metric", "Without Dividends", "With Dividends"))
-    print("-" * 70)
+    print("\n{:<25} {:>18} {:>18} {:>18}".format(
+        "Metric", "No Dividends", "Reinvested", "Cash @ Rf"))
+    print("-" * 80)
 
-    print("{:<30} {:>17.2f}% {:>17.2f}%".format(
+    print("{:<25} {:>17.2f}% {:>17.2f}% {:>17.2f}%".format(
         "Total Return",
         m_no_div['total_return'] * 100,
-        m_with_div['total_return'] * 100
+        m_reinvest['total_return'] * 100,
+        m_cash['total_return'] * 100
     ))
-    print("{:<30} {:>17.2f}% {:>17.2f}%".format(
+    print("{:<25} {:>17.2f}% {:>17.2f}% {:>17.2f}%".format(
         "Annual Return",
         m_no_div['annual_return'] * 100,
-        m_with_div['annual_return'] * 100
+        m_reinvest['annual_return'] * 100,
+        m_cash['annual_return'] * 100
     ))
-    print("{:<30} {:>17.2f}% {:>17.2f}%".format(
+    print("{:<25} {:>17.2f}% {:>17.2f}% {:>17.2f}%".format(
         "Annual Volatility",
         m_no_div['annual_vol'] * 100,
-        m_with_div['annual_vol'] * 100
+        m_reinvest['annual_vol'] * 100,
+        m_cash['annual_vol'] * 100
     ))
-    print("{:<30} {:>18.2f} {:>18.2f}".format(
+    print("{:<25} {:>18.2f} {:>18.2f} {:>18.2f}".format(
         "Sharpe Ratio",
         m_no_div['sharpe'],
-        m_with_div['sharpe']
+        m_reinvest['sharpe'],
+        m_cash['sharpe']
     ))
-    print("{:<30} {:>18.2f} {:>18.2f}".format(
+    print("{:<25} {:>18.2f} {:>18.2f} {:>18.2f}".format(
         "Sortino Ratio",
         m_no_div['sortino'],
-        m_with_div['sortino']
+        m_reinvest['sortino'],
+        m_cash['sortino']
     ))
-    print("{:<30} {:>17.2f}% {:>17.2f}%".format(
+    print("{:<25} {:>17.2f}% {:>17.2f}% {:>17.2f}%".format(
         "Max Drawdown",
         m_no_div['max_drawdown'] * 100,
-        m_with_div['max_drawdown'] * 100
+        m_reinvest['max_drawdown'] * 100,
+        m_cash['max_drawdown'] * 100
     ))
 
-    print("\n" + "-" * 70)
-    print("DIVIDEND CONTRIBUTION")
-    print("-" * 70)
-    print(f"  Total Dividends Collected:   ${m_with_div['total_dividends']:>15,.0f}")
-    print(f"  Annual Dividend Income:      ${m_with_div['annual_dividends']:>15,.0f}")
-    print(f"  Dividend % of Initial Cap:   {m_with_div['dividend_contribution']*100:>15.2f}%")
+    print("\n" + "-" * 80)
+    print("DIVIDEND & COST DETAILS")
+    print("-" * 80)
+    print(f"  Total Dividends Collected (Reinvest):  ${m_reinvest['total_dividends']:>15,.0f}")
+    print(f"  Total Dividends Collected (Cash):      ${m_cash['total_dividends']:>15,.0f}")
+    print(f"  Dividend Cash Account (with interest): ${m_cash['dividend_cash_account']:>15,.0f}")
+    print(f"  Interest Earned on Div Cash:           ${m_cash['dividend_cash_account'] - m_cash['total_dividends']:>15,.0f}")
+    print(f"  Total Borrowing Cost (all scenarios):  ${m_reinvest['total_borrowing_cost']:>15,.0f}")
 
-    print("\n" + "-" * 70)
-    print("IMPACT SUMMARY")
-    print("-" * 70)
-    print(f"  Additional Total Return:     {return_diff:>+15.2f}%")
-    print(f"  Additional Annual Return:    {annual_return_diff:>+15.2f}%")
-    print(f"  Sharpe Improvement:          {sharpe_diff:>+15.2f}")
+    print("\n" + "-" * 80)
+    print("IMPACT SUMMARY (vs No Dividends)")
+    print("-" * 80)
+
+    # Calculate differences
+    reinvest_return_diff = (m_reinvest['total_return'] - m_no_div['total_return']) * 100
+    cash_return_diff = (m_cash['total_return'] - m_no_div['total_return']) * 100
+    reinvest_sharpe_diff = m_reinvest['sharpe'] - m_no_div['sharpe']
+    cash_sharpe_diff = m_cash['sharpe'] - m_no_div['sharpe']
+
+    print(f"  Reinvest - Additional Total Return:   {reinvest_return_diff:>+15.2f}%")
+    print(f"  Cash@Rf  - Additional Total Return:   {cash_return_diff:>+15.2f}%")
+    print(f"  Reinvest - Sharpe Improvement:        {reinvest_sharpe_diff:>+15.2f}")
+    print(f"  Cash@Rf  - Sharpe Improvement:        {cash_sharpe_diff:>+15.2f}")
+
+    print("\n" + "-" * 80)
+    print("REINVEST vs CASH COMPARISON")
+    print("-" * 80)
+
+    reinvest_vs_cash = (m_reinvest['total_return'] - m_cash['total_return']) * 100
+    print(f"  Reinvest outperforms Cash@Rf by:      {reinvest_vs_cash:>+15.2f}%")
 
     # Final portfolio values
     final_no_div = results_no_div['equity_curve']['equity'].iloc[-1]
-    final_with_div = results_with_div['equity_curve']['equity'].iloc[-1]
-    additional_value = final_with_div - final_no_div
+    final_reinvest = results_reinvest['equity_curve']['equity'].iloc[-1]
+    final_cash = results_cash['equity_curve']['equity'].iloc[-1]
 
-    print("\n" + "-" * 70)
+    print("\n" + "-" * 80)
     print("FINAL PORTFOLIO VALUE")
-    print("-" * 70)
-    print(f"  Without Dividends:           ${final_no_div:>15,.0f}")
-    print(f"  With Dividends:              ${final_with_div:>15,.0f}")
-    print(f"  Additional Value:            ${additional_value:>+15,.0f}")
+    print("-" * 80)
+    print(f"  Without Dividends:                    ${final_no_div:>15,.0f}")
+    print(f"  With Reinvestment:                    ${final_reinvest:>15,.0f}")
+    print(f"  With Cash @ Risk-Free:                ${final_cash:>15,.0f}")
+    print(f"  Reinvest Advantage over No Div:       ${final_reinvest - final_no_div:>+15,.0f}")
+    print(f"  Reinvest Advantage over Cash@Rf:      ${final_reinvest - final_cash:>+15,.0f}")
 
-    print("\n" + "=" * 70)
+    print("\n" + "=" * 80)
+    print("INTERPRETATION")
+    print("=" * 80)
+    print("""
+  - 'No Dividends': Baseline - dividends are ignored entirely
+  - 'Reinvested': Dividends add to trading cash, get deployed in leveraged strategy
+  - 'Cash @ Rf': Dividends held in separate account earning risk-free rate
+
+  The difference between Reinvest and Cash@Rf shows the value of reinvesting
+  dividends into the leveraged momentum strategy vs. just holding them safely.
+""")
+
+    print("=" * 80)
 
     return {
-        'without_dividends': results_no_div,
-        'with_dividends': results_with_div,
-        'impact': {
-            'return_diff_pct': return_diff,
-            'annual_return_diff_pct': annual_return_diff,
-            'sharpe_diff': sharpe_diff,
-            'additional_value': additional_value,
-            'total_dividends': m_with_div['total_dividends']
-        }
+        'no_dividends': results_no_div,
+        'reinvested': results_reinvest,
+        'cash_rf': results_cash,
     }
 
 
