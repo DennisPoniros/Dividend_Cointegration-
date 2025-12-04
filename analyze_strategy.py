@@ -5,6 +5,11 @@ Generates: Trade CSV, Plots, Metrics, Cost/Profit Attribution
 
 Enhancement: Inverse yield weighting - lower dividend yield stocks get higher weight.
 This confirms momentum: low yield = price appreciated = momentum confirmation.
+
+Dividend Modes:
+- 'none': No dividend collection (baseline)
+- 'reinvest': Dividends added to trading cash (reinvested in strategy)
+- 'cash': Dividends held in separate account earning risk-free rate
 """
 
 import sys
@@ -20,7 +25,7 @@ warnings.filterwarnings('ignore')
 sys.path.insert(0, str(Path(__file__).parent))
 from src.data.loader import DataLoader
 
-# Output directory
+# Default output directory
 OUTPUT_DIR = Path('/home/user/Dividend_Cointegration-/analysis_output')
 OUTPUT_DIR.mkdir(exist_ok=True)
 
@@ -28,7 +33,7 @@ OUTPUT_DIR.mkdir(exist_ok=True)
 class DetailedDualMomentum:
     """Dual Momentum with detailed trade tracking."""
 
-    def __init__(self, loader, initial_capital=1_000_000):
+    def __init__(self, loader, initial_capital=1_000_000, dividend_mode='none'):
         self.loader = loader
         self.initial_capital = initial_capital
 
@@ -44,13 +49,19 @@ class DetailedDualMomentum:
         self.USE_INVERSE_YIELD_WEIGHT = True  # Weight inversely to dividend yield
         self.DEFAULT_RISK_FREE_RATE = 0.02  # Default 2% annual rate for borrowing costs
 
+        # Dividend handling
+        self.DIVIDEND_MODE = dividend_mode  # 'none', 'reinvest', or 'cash'
+
         self.price_data = {}
         self.dividend_data = {}
+        self.dividend_events = {}  # Track dividend amounts by symbol and date
         self.risk_free_rates = {}  # Daily risk-free rates from TNX
         self.all_trades = []
         self.daily_data = []
         self.rebalance_events = []
         self.total_borrowing_cost = 0  # Track total borrowing costs
+        self.total_dividends_collected = 0  # Track total dividends
+        self.dividend_cash_account = 0  # Separate account for 'cash' mode
 
     def load_data(self, symbols):
         for symbol in symbols:
@@ -59,8 +70,16 @@ class DetailedDualMomentum:
                 self.price_data[symbol] = df['close']
                 if 'dividends' in df.columns:
                     self.dividend_data[symbol] = df['dividends']
+                    # Build dividend events lookup: {date: amount} for non-zero dividends
+                    div_series = df['dividends']
+                    div_events = div_series[div_series > 0]
+                    if len(div_events) > 0:
+                        self.dividend_events[symbol] = div_events.to_dict()
         print(f"Loaded {len(self.price_data)} symbols with price data")
         print(f"Loaded {len(self.dividend_data)} symbols with dividend data")
+        total_div_events = sum(len(v) for v in self.dividend_events.values())
+        print(f"Loaded {total_div_events} dividend events across {len(self.dividend_events)} symbols")
+        print(f"Dividend mode: {self.DIVIDEND_MODE}")
 
         # Load risk-free rate data (TNX - 10Y Treasury)
         self._load_risk_free_rates()
@@ -150,12 +169,45 @@ class DetailedDualMomentum:
         total = sum(inverse_yields.values())
         return {s: inverse_yields[s] / total for s in symbols}
 
+    def collect_dividends(self, positions, date):
+        """
+        Collect dividends for positions held on ex-dividend date.
+
+        Args:
+            positions: Dict of {symbol: {shares, entry_price, entry_date}}
+            date: Current date
+
+        Returns:
+            Tuple of (dividend to add to trading cash, dividend to add to separate account)
+        """
+        if self.DIVIDEND_MODE == 'none':
+            return 0.0, 0.0
+
+        dividend_income = 0.0
+        for symbol, pos in positions.items():
+            if symbol in self.dividend_events:
+                if date in self.dividend_events[symbol]:
+                    div_per_share = self.dividend_events[symbol][date]
+                    div_amount = pos['shares'] * div_per_share
+                    dividend_income += div_amount
+                    self.total_dividends_collected += div_amount
+
+        if self.DIVIDEND_MODE == 'reinvest':
+            return dividend_income, 0.0
+        else:  # 'cash' mode
+            return 0.0, dividend_income
+
     def run(self):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
         trading_dates = all_dates[start_idx:]
 
         print(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()} ({len(trading_dates)} days)")
+
+        # Reset tracking
+        self.total_dividends_collected = 0
+        self.dividend_cash_account = 0
+        self.total_borrowing_cost = 0
 
         cash = self.initial_capital
         margin_debt = 0  # Track borrowed amount for leverage
@@ -166,13 +218,26 @@ class DetailedDualMomentum:
         total_turnover = 0
 
         for i, date in enumerate(trading_dates):
+            # Collect dividends for held positions BEFORE calculating equity
+            div_to_cash, div_to_account = self.collect_dividends(positions, date)
+            cash += div_to_cash
+            self.dividend_cash_account += div_to_account
+
+            # Accrue interest on dividend cash account (if using 'cash' mode)
+            if self.dividend_cash_account > 0:
+                rf_rate = self.get_risk_free_rate(date)
+                daily_rate = rf_rate / 252
+                interest = self.dividend_cash_account * daily_rate
+                self.dividend_cash_account += interest
+
             # Calculate position values
             pos_val = 0
             for sym, pos in positions.items():
                 if sym in self.price_data and date in self.price_data[sym].index:
                     pos_val += pos['shares'] * self.price_data[sym].loc[date]
 
-            total_equity = cash + pos_val - margin_debt
+            # Total equity includes dividend cash account
+            total_equity = cash + pos_val - margin_debt + self.dividend_cash_account
 
             should_rebalance = last_rebalance is None or (date - last_rebalance).days >= self.REBALANCE_FREQ
 
@@ -338,7 +403,8 @@ class DetailedDualMomentum:
                 cash -= daily_borrowing_cost  # Deduct borrowing cost from cash
                 self.total_borrowing_cost += daily_borrowing_cost
 
-            total_equity = cash + pos_val - margin_debt
+            # Total equity includes dividend cash account
+            total_equity = cash + pos_val - margin_debt + self.dividend_cash_account
 
             self.daily_data.append({
                 'date': date,
@@ -347,6 +413,7 @@ class DetailedDualMomentum:
                 'invested': pos_val,
                 'margin_debt': margin_debt,
                 'borrowing_cost': daily_borrowing_cost,
+                'dividend_cash_account': self.dividend_cash_account,
                 'num_positions': len(positions),
                 'pct_invested': pos_val / total_equity * 100 if total_equity > 0 else 0
             })
@@ -407,6 +474,12 @@ class DetailedDualMomentum:
                                trades_df[trades_df['pnl_net'] < 0]['pnl_net'].sum())
                             if len(trades_df[trades_df['pnl_net'] < 0]) > 0 and
                                trades_df[trades_df['pnl_net'] < 0]['pnl_net'].sum() != 0 else 0,
+            # Dividend metrics
+            'dividend_mode': self.DIVIDEND_MODE,
+            'total_dividends': self.total_dividends_collected,
+            'annual_dividends': self.total_dividends_collected / years if years > 0 else 0,
+            'dividend_cash_account': self.dividend_cash_account,
+            'dividend_interest_earned': self.dividend_cash_account - self.total_dividends_collected if self.DIVIDEND_MODE == 'cash' else 0,
         }
 
         # Monthly returns
@@ -974,7 +1047,7 @@ def create_benchmark_comparison_plot(results, benchmark_returns, output_dir):
     }
 
 
-def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=None):
+def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=None, dividend_mode='none'):
     """
     Run backtest with different slippage values to analyze sensitivity.
     Returns dict with slippage -> metrics mapping.
@@ -985,7 +1058,7 @@ def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=
         print(f"  Running backtest with {slippage_bps} bps slippage...", end=" ")
 
         # Create strategy with specific slippage
-        strategy = DetailedDualMomentum(loader)
+        strategy = DetailedDualMomentum(loader, dividend_mode=dividend_mode)
         strategy.SLIPPAGE_BPS = slippage_bps
         strategy.load_data(symbols)
         results = strategy.run()
@@ -1006,13 +1079,13 @@ def run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns=
     return results_by_slippage
 
 
-def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir, strategy_returns=None):
+def create_slippage_sensitivity_plot(loader, symbols, benchmark_returns, output_dir, strategy_returns=None, dividend_mode='none'):
     """Create slippage sensitivity analysis plot."""
 
     slippage_range = list(range(1, 11))  # 1 to 10 bps
 
     print("\nRunning slippage sensitivity analysis...")
-    sensitivity_results = run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns)
+    sensitivity_results = run_slippage_sensitivity(loader, symbols, slippage_range, benchmark_returns, dividend_mode=dividend_mode)
 
     # Calculate S&P 500 Sharpe ratio over ALIGNED period with strategy
     spy_sharpe = None
@@ -1529,6 +1602,22 @@ def generate_report(results, output_dir, benchmark_metrics=None):
     if gross_pnl > 0:
         report.append(f"  Cost Impact on Return: {total_costs / gross_pnl * 100:>12.2f}% of gross")
 
+    # Dividend section
+    report.append("\n" + "=" * 80)
+    report.append("4b. DIVIDEND INCOME")
+    report.append("=" * 80)
+    div_mode_desc = {
+        'none': 'Not collected',
+        'reinvest': 'Reinvested into strategy',
+        'cash': 'Held as cash @ risk-free rate'
+    }
+    report.append(f"  Dividend Mode:         {m['dividend_mode']:>12} ({div_mode_desc.get(m['dividend_mode'], '')})")
+    report.append(f"  Total Dividends:       ${m['total_dividends']:>11,.0f}")
+    report.append(f"  Annual Dividends:      ${m['annual_dividends']:>11,.0f}")
+    if m['dividend_mode'] == 'cash':
+        report.append(f"  Dividend Cash Account: ${m['dividend_cash_account']:>11,.0f}")
+        report.append(f"  Interest Earned:       ${m['dividend_interest_earned']:>11,.0f}")
+
     report.append("\n" + "=" * 80)
     report.append("5. PROFIT ATTRIBUTION BY SYMBOL")
     report.append("=" * 80)
@@ -1619,15 +1708,35 @@ def generate_report(results, output_dir, benchmark_metrics=None):
     return report_text
 
 
-def main():
+def run_analysis(dividend_mode='none', output_dir=None):
+    """
+    Run the full analysis with specified dividend mode.
+
+    Args:
+        dividend_mode: 'none', 'reinvest', or 'cash'
+        output_dir: Output directory path (default: analysis_output)
+    """
+    if output_dir is None:
+        output_dir = OUTPUT_DIR
+    else:
+        output_dir = Path(output_dir)
+    output_dir.mkdir(exist_ok=True, parents=True)
+
+    mode_names = {
+        'none': 'No Dividends',
+        'reinvest': 'Dividends Reinvested',
+        'cash': 'Dividends as Cash @ Rf'
+    }
+
     print("=" * 80)
-    print("DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS")
+    print(f"DUAL MOMENTUM STRATEGY - COMPREHENSIVE ANALYSIS")
+    print(f"Dividend Mode: {mode_names.get(dividend_mode, dividend_mode)}")
     print("=" * 80)
 
     loader = DataLoader()
     symbols = loader.get_available_symbols()
 
-    strategy = DetailedDualMomentum(loader)
+    strategy = DetailedDualMomentum(loader, dividend_mode=dividend_mode)
     strategy.load_data(symbols)
 
     print("\nRunning backtest with detailed tracking...")
@@ -1635,30 +1744,30 @@ def main():
 
     # Save trade CSV
     trades_df = results['trades_df']
-    trades_df.to_csv(OUTPUT_DIR / 'trades.csv', index=False)
+    trades_df.to_csv(output_dir / 'trades.csv', index=False)
     print(f"\nSaved: trades.csv ({len(trades_df)} trades)")
 
     # Save daily equity CSV
     equity_df = results['equity_df']
-    equity_df.to_csv(OUTPUT_DIR / 'daily_equity.csv')
+    equity_df.to_csv(output_dir / 'daily_equity.csv')
     print(f"Saved: daily_equity.csv ({len(equity_df)} days)")
 
     # Save rebalance events
     rebal_df = results['rebalance_df']
-    rebal_df.to_csv(OUTPUT_DIR / 'rebalance_events.csv', index=False)
+    rebal_df.to_csv(output_dir / 'rebalance_events.csv', index=False)
     print(f"Saved: rebalance_events.csv ({len(rebal_df)} rebalances)")
 
     # Generate plots
     print("\nGenerating plots...")
-    create_plots(results, OUTPUT_DIR)
+    create_plots(results, output_dir)
 
     # Generate rolling metrics plot
     print("\nGenerating rolling metrics plot...")
-    create_rolling_metrics_plot(results, OUTPUT_DIR)
+    create_rolling_metrics_plot(results, output_dir)
 
     # Generate drawdown analysis plot with bootstrap
     print("\nGenerating drawdown analysis plot...")
-    drawdown_analysis = create_drawdown_analysis_plot(results, OUTPUT_DIR, n_bootstrap=1000)
+    drawdown_analysis = create_drawdown_analysis_plot(results, output_dir, n_bootstrap=1000)
 
     if drawdown_analysis:
         bs = drawdown_analysis['bootstrap_results']
@@ -1695,7 +1804,8 @@ def main():
         print("SLIPPAGE SENSITIVITY ANALYSIS")
         print("=" * 50)
         sensitivity_results, spy_sharpe = create_slippage_sensitivity_plot(
-            loader, symbols, benchmark_returns, OUTPUT_DIR, strategy_returns=results['returns']
+            loader, symbols, benchmark_returns, output_dir, strategy_returns=results['returns'],
+            dividend_mode=dividend_mode
         )
 
         # Print summary table
@@ -1714,13 +1824,28 @@ def main():
 
     # Generate report
     print("\nGenerating report...")
-    report = generate_report(results, OUTPUT_DIR, benchmark_metrics)
+    report = generate_report(results, output_dir, benchmark_metrics)
 
     # Print report to console
     print("\n" + report)
 
-    print(f"\n\nAll outputs saved to: {OUTPUT_DIR}")
+    print(f"\n\nAll outputs saved to: {output_dir}")
+
+    return results
+
+
+def main():
+    """Main entry point - runs analysis with default settings (no dividends)."""
+    run_analysis(dividend_mode='none', output_dir=OUTPUT_DIR)
 
 
 if __name__ == "__main__":
-    main()
+    import argparse
+    parser = argparse.ArgumentParser(description='Run strategy analysis with dividend handling')
+    parser.add_argument('--dividend-mode', '-d', choices=['none', 'reinvest', 'cash'],
+                       default='none', help='Dividend handling mode')
+    parser.add_argument('--output-dir', '-o', type=str, default=None,
+                       help='Output directory for results')
+    args = parser.parse_args()
+
+    run_analysis(dividend_mode=args.dividend_mode, output_dir=args.output_dir)
