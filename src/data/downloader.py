@@ -199,7 +199,7 @@ class DataDownloader:
             return df
 
         except Exception as e:
-            logger.debug(f"yfinance error for {symbol}: {e}")
+            logger.warning(f"yfinance error for {symbol}: {e}")
             return None
 
     def download_price_data(
@@ -279,7 +279,7 @@ class DataDownloader:
             return df
 
         except Exception as e:
-            logger.debug(f"Dividend error for {symbol}: {e}")
+            logger.warning(f"Dividend error for {symbol}: {e}")
             return None
 
     def download_fundamentals(self, symbol: str) -> Optional[Dict]:
@@ -343,7 +343,7 @@ class DataDownloader:
             return fundamentals
 
         except Exception as e:
-            logger.debug(f"Fundamentals error for {symbol}: {e}")
+            logger.warning(f"Fundamentals error for {symbol}: {e}")
             return None
 
     def download_single_stock(
