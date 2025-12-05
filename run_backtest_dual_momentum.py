@@ -42,9 +42,9 @@ class DualMomentumStrategy:
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
         self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
-        self.NUM_HOLDINGS = 12      # Top 12 stocks (more diversification)
+        self.NUM_HOLDINGS = 12      # Top 12 stocks
         self.SLIPPAGE_BPS = 2  # Realistic slippage only
-        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_RISK_PARITY = True  # Risk parity weighting (lower vol stocks get higher weight)
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
         self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
