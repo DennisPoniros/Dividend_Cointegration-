@@ -265,6 +265,9 @@ class DataDownloader:
                 return None
 
             # Filter to requested years
+            # Convert index to timezone-naive to avoid comparison issues
+            if dividends.index.tz is not None:
+                dividends.index = dividends.index.tz_localize(None)
             start_date = datetime.now() - timedelta(days=years * 365)
             dividends = dividends[dividends.index >= start_date]
 
