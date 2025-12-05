@@ -161,6 +161,10 @@ class DataDownloader:
         """
         try:
             ticker = yf.Ticker(symbol)
+            # auto_adjust=True adjusts BOTH prices AND dividends for stock splits.
+            # E.g., AAPL's pre-4:1-split $0.82 dividend is stored as $0.205.
+            # This ensures dividend yields are calculated correctly against
+            # split-adjusted prices without any additional adjustment.
             df = ticker.history(start=start_date, end=end_date, auto_adjust=True)
 
             if df.empty:

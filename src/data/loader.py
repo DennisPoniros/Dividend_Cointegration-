@@ -28,6 +28,13 @@ class DataLoader:
 
         Args:
             data_dir: Root directory for data storage
+
+        Note on stock splits and dividends:
+            When yfinance downloads data with auto_adjust=True (our default),
+            BOTH prices AND dividends are automatically adjusted for stock splits.
+            For example, AAPL's pre-split $0.82 dividend (Q3 2020) is stored as
+            $0.205 to match the 4:1 split-adjusted prices. No additional adjustment
+            is needed.
         """
         self.data_dir = Path(data_dir)
         self.prices_dir = self.data_dir / "prices"
