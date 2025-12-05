@@ -394,7 +394,7 @@ class DataDownloader:
         max_workers: int = 5,
         include_dividends: bool = True,
         include_fundamentals: bool = True,
-        delay: float = 0.2  # Rate limiting
+        delay: float = 0.5  # Rate limiting (increased to avoid Yahoo rate limits)
     ) -> pd.DataFrame:
         """
         Download data for all symbols in universe.
@@ -412,6 +412,8 @@ class DataDownloader:
         logger.info(f"Downloading data for {len(symbols)} symbols...")
 
         results = []
+        consecutive_failures = 0
+        max_consecutive_failures = 5  # If 5 in a row fail, likely rate limited
 
         # Use single-threaded for yfinance to avoid rate limiting
         for symbol in tqdm(symbols, desc="Downloading"):
@@ -422,6 +424,17 @@ class DataDownloader:
                     include_fundamentals=include_fundamentals
                 )
                 results.append(result)
+
+                # Track consecutive failures for rate limit detection
+                if not result['prices']:
+                    consecutive_failures += 1
+                    if consecutive_failures >= max_consecutive_failures:
+                        logger.warning(f"Detected {consecutive_failures} consecutive failures - possible rate limit. Waiting 60s...")
+                        time.sleep(60)
+                        consecutive_failures = 0
+                else:
+                    consecutive_failures = 0
+
                 time.sleep(delay)  # Rate limiting
             except Exception as e:
                 logger.error(f"Error downloading {symbol}: {e}")
@@ -431,6 +444,11 @@ class DataDownloader:
                     'dividends': False,
                     'fundamentals': False
                 })
+                consecutive_failures += 1
+                if consecutive_failures >= max_consecutive_failures:
+                    logger.warning(f"Detected {consecutive_failures} consecutive failures - possible rate limit. Waiting 60s...")
+                    time.sleep(60)
+                    consecutive_failures = 0
 
         # Create summary DataFrame
         df = pd.DataFrame(results)
