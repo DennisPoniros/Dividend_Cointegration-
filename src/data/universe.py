@@ -63,23 +63,49 @@ class UniverseScreener:
 
     def get_sp500_constituents(self) -> List[str]:
         """
-        Get S&P 500 constituents as a starting point.
+        Get S&P 500 constituents from multiple sources with fallbacks.
+
+        Sources tried in order:
+        1. Wikipedia (with proper User-Agent header)
+        2. GitHub datasets repo (datahub.io mirror)
 
         Returns:
             List of ticker symbols
         """
+        import requests
+
+        # Source 1: Wikipedia with proper headers
         try:
-            # Use Wikipedia table for S&P 500 constituents
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
             url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
-            tables = pd.read_html(url)
+            response = requests.get(url, headers=headers, timeout=15)
+            response.raise_for_status()
+
+            tables = pd.read_html(response.text)
             sp500_table = tables[0]
             symbols = sp500_table['Symbol'].tolist()
-            # Clean up symbols (remove dots for BRK.B -> BRK-B format for yfinance)
+            # Clean up symbols (BRK.B -> BRK-B format for yfinance)
             symbols = [s.replace('.', '-') for s in symbols]
+            logger.info(f"Fetched {len(symbols)} S&P 500 constituents from Wikipedia")
             return symbols
         except Exception as e:
-            logger.error(f"Error fetching S&P 500 list: {e}")
-            return []
+            logger.warning(f"Wikipedia fetch failed: {e}")
+
+        # Source 2: GitHub datasets repo (very reliable, updated regularly)
+        try:
+            url = "https://raw.githubusercontent.com/datasets/s-and-p-500-companies/main/data/constituents.csv"
+            df = pd.read_csv(url, timeout=15)
+            symbols = df['Symbol'].tolist()
+            symbols = [s.replace('.', '-') for s in symbols]
+            logger.info(f"Fetched {len(symbols)} S&P 500 constituents from GitHub datasets")
+            return symbols
+        except Exception as e:
+            logger.warning(f"GitHub datasets fetch failed: {e}")
+
+        logger.error("All S&P 500 data sources failed")
+        return []
 
     def get_dividend_aristocrats(self) -> List[str]:
         """
