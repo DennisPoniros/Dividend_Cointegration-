@@ -76,10 +76,78 @@ class UniverseScreener:
             symbols = sp500_table['Symbol'].tolist()
             # Clean up symbols (remove dots for BRK.B -> BRK-B format for yfinance)
             symbols = [s.replace('.', '-') for s in symbols]
+            logger.info(f"Fetched {len(symbols)} S&P 500 constituents from Wikipedia")
             return symbols
         except Exception as e:
             logger.error(f"Error fetching S&P 500 list: {e}")
-            return []
+            logger.info("Using hardcoded S&P 500 list as fallback")
+            return self._get_sp500_fallback()
+
+    def _get_sp500_fallback(self) -> List[str]:
+        """Hardcoded S&P 500 list as fallback when Wikipedia fetch fails."""
+        # S&P 500 constituents as of late 2024 (cleaned for yfinance format)
+        return [
+            # Technology
+            'AAPL', 'MSFT', 'NVDA', 'AVGO', 'ORCL', 'CRM', 'AMD', 'ADBE', 'CSCO', 'ACN',
+            'IBM', 'INTC', 'INTU', 'QCOM', 'TXN', 'AMAT', 'NOW', 'ADI', 'LRCX', 'MU',
+            'KLAC', 'APH', 'SNPS', 'CDNS', 'MSI', 'ROP', 'FTNT', 'NXPI', 'MCHP', 'TEL',
+            'HPQ', 'HPE', 'KEYS', 'ON', 'FSLR', 'GLW', 'TYL', 'ZBRA', 'TRMB', 'TER',
+            'SWKS', 'JBL', 'NTAP', 'WDC', 'AKAM', 'JNPR', 'GEN', 'FFIV', 'EPAM', 'QRVO',
+            # Healthcare
+            'LLY', 'UNH', 'JNJ', 'MRK', 'ABBV', 'TMO', 'ABT', 'PFE', 'DHR', 'AMGN',
+            'ISRG', 'ELV', 'BMY', 'MDT', 'GILD', 'SYK', 'VRTX', 'CVS', 'CI', 'REGN',
+            'BSX', 'ZTS', 'BDX', 'HCA', 'MCK', 'EW', 'A', 'IQV', 'GEHC', 'IDXX',
+            'HUM', 'CAH', 'BAX', 'BIIB', 'CNC', 'DXCM', 'MTD', 'RMD', 'HOLX', 'TFX',
+            'MOH', 'ALGN', 'LH', 'WAT', 'VTRS', 'CRL', 'TECH', 'XRAY', 'HSIC', 'DGX',
+            'RVTY', 'BIO', 'INCY', 'CTLT', 'DVA',
+            # Financials
+            'BRK-B', 'JPM', 'V', 'MA', 'BAC', 'WFC', 'GS', 'MS', 'SPGI', 'C',
+            'AXP', 'PGR', 'BLK', 'SCHW', 'MMC', 'CB', 'ICE', 'CME', 'USB', 'PNC',
+            'AON', 'MCO', 'TFC', 'AJG', 'MET', 'AFL', 'TRV', 'AIG', 'PRU', 'ALL',
+            'MSCI', 'MTB', 'FIS', 'COF', 'NDAQ', 'FITB', 'BK', 'STT', 'TROW', 'DFS',
+            'HBAN', 'RF', 'WTW', 'KEY', 'CINF', 'NTRS', 'CFG', 'L', 'BRO', 'RJF',
+            'CBOE', 'GL', 'EG', 'FDS', 'AIZ', 'RE', 'JKHY', 'BEN', 'LNC', 'ZION',
+            'IVZ', 'MKTX',
+            # Consumer Discretionary
+            'AMZN', 'TSLA', 'HD', 'MCD', 'NKE', 'LOW', 'BKNG', 'SBUX', 'TJX', 'CMG',
+            'ORLY', 'MAR', 'AZO', 'DHI', 'GM', 'ROST', 'YUM', 'F', 'LEN', 'HLT',
+            'GRMN', 'EBAY', 'APTV', 'GPC', 'ULTA', 'TSCO', 'DRI', 'PHM', 'KMX', 'POOL',
+            'BBY', 'DECK', 'NVR', 'RCL', 'CCL', 'LKQ', 'BWA', 'TPR', 'WYNN', 'LVS',
+            'MGM', 'EXPE', 'HAS', 'CZR', 'NCLH', 'MHK', 'ETSY', 'RL', 'WHR', 'BBWI',
+            # Consumer Staples
+            'PG', 'COST', 'KO', 'PEP', 'WMT', 'PM', 'MO', 'MDLZ', 'CL', 'KMB',
+            'GIS', 'EL', 'STZ', 'SYY', 'ADM', 'KHC', 'MNST', 'HSY', 'KDP', 'TGT',
+            'DG', 'DLTR', 'KR', 'CAG', 'CLX', 'MKC', 'TSN', 'SJM', 'HRL', 'CPB',
+            'K', 'CHD', 'KVUE', 'TAP', 'BG', 'LW', 'BF-B',
+            # Industrials
+            'CAT', 'GE', 'HON', 'UNP', 'RTX', 'DE', 'UPS', 'ETN', 'BA', 'LMT',
+            'ADP', 'GD', 'ITW', 'NOC', 'WM', 'MMM', 'EMR', 'CSX', 'NSC', 'JCI',
+            'PH', 'TT', 'CTAS', 'CMI', 'FDX', 'CARR', 'PCAR', 'RSG', 'FAST', 'CPRT',
+            'ODFL', 'AME', 'GWW', 'ROK', 'VRSK', 'DAL', 'OTIS', 'PWR', 'XYL', 'URI',
+            'TDG', 'HWM', 'IR', 'PAYX', 'WAB', 'EFX', 'DOV', 'HUBB', 'UAL', 'IEX',
+            'GPN', 'PNR', 'EXPD', 'SWK', 'MAS', 'JBHT', 'LUV', 'BR', 'J', 'TXT',
+            'LDOS', 'SNA', 'NDSN', 'BALL', 'AAL', 'AOS', 'CHRW', 'ALLE', 'GNRC', 'PAYC',
+            # Energy
+            'XOM', 'CVX', 'COP', 'EOG', 'SLB', 'MPC', 'PSX', 'VLO', 'OXY', 'WMB',
+            'KMI', 'HES', 'DVN', 'BKR', 'HAL', 'FANG', 'CTRA', 'OKE', 'TRGP', 'EQT',
+            'APA', 'MRO',
+            # Utilities
+            'NEE', 'SO', 'DUK', 'SRE', 'AEP', 'D', 'PCG', 'EXC', 'XEL', 'ED',
+            'WEC', 'EIX', 'AWK', 'PPL', 'DTE', 'ES', 'ETR', 'AEE', 'FE', 'CMS',
+            'CEG', 'ATO', 'EVRG', 'CNP', 'NRG', 'NI', 'LNT', 'PNW',
+            # Materials
+            'LIN', 'APD', 'SHW', 'ECL', 'FCX', 'NEM', 'NUE', 'VMC', 'MLM', 'DOW',
+            'DD', 'PPG', 'CTVA', 'IFF', 'ALB', 'CE', 'FMC', 'PKG', 'CF', 'IP',
+            'LYB', 'MOS', 'EMN', 'AVY', 'BALL', 'SEE', 'AMCR', 'WRK',
+            # Communication Services
+            'GOOGL', 'GOOG', 'META', 'NFLX', 'DIS', 'CMCSA', 'VZ', 'T', 'TMUS', 'CHTR',
+            'EA', 'WBD', 'OMC', 'TTWO', 'LYV', 'MTCH', 'IPG', 'NWSA', 'NWS', 'FOXA',
+            'FOX', 'PARA',
+            # Real Estate (excluding most REITs, keeping some diversified)
+            'AMT', 'PLD', 'EQIX', 'CCI', 'PSA', 'WELL', 'SBAC', 'DLR', 'SPG', 'CBRE',
+            'CSGP', 'EXR', 'AVB', 'WY', 'ARE', 'MAA', 'EQR', 'VTR', 'UDR', 'IRM',
+            'ESS', 'INVH', 'HST', 'KIM', 'REG', 'BXP', 'CPT', 'DOC', 'FRT',
+        ]
 
     def get_dividend_aristocrats(self) -> List[str]:
         """
