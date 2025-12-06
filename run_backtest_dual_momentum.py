@@ -424,8 +424,8 @@ def main():
     strategy = DualMomentumStrategy(loader)
     strategy.load_data(symbols)
 
-    # Start from March 2020 to match original backtest period
-    results = strategy.run(start_date='2020-03-01')
+    # Run full period (no start date filter)
+    results = strategy.run()
     if results:
         print_results(results)
 
