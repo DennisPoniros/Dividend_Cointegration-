@@ -1,261 +1,133 @@
 symbol,name,market_cap,avg_dollar_volume,avg_volume,current_price,dividend_yield,trailing_annual_dividend,consecutive_dividend_years,sector,industry,exchange,currency
-NVDA,NVIDIA Corporation,4464753246208,35066576799.56,191223562,183.38,0.02,0.04,9,Technology,Semiconductors,NMS,USD
-AAPL,Apple Inc.,4165697536000,14357033075.0,51147250,280.7,0.37,1.02,9,Technology,Consumer Electronics,NMS,USD
-MSFT,Microsoft Corporation,3574163570688,10610413546.08,22066412,480.84,0.76,3.4,9,Technology,Software - Infrastructure,NMS,USD
-AVGO,Broadcom Inc.,1799362707456,9004158033.0,23631100,381.03,0.62,2.36,9,Technology,Semiconductors,NMS,USD
-LLY,Eli Lilly and Company,909446414336,3873096588.73,3817777,1014.49,0.59,5.8,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-JPM,JPMorgan Chase & Co.,869197217792,2629442446.8,8318388,316.1,1.9,5.55,9,Financial Services,Banks - Diversified,NYQ,USD
-ORCL,Oracle Corporation,611010412544,5909240776.47,27570759,214.33,0.93,1.9,9,Technology,Software - Infrastructure,NYQ,USD
-MA,Mastercard Incorporated,490254663680,1497820631.37,2761927,542.31,0.56,3.04,9,Financial Services,Credit Services,NYQ,USD
-JNJ,Johnson & Johnson,487834058752,1768766267.28,8735511,202.48,2.57,5.08,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-ABBV,AbbVie Inc.,404218544128,1371477811.8,5996580,228.71,3.03,6.56,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-BAC,Bank of America Corporation,401160273920,1901852392.8799999,35115443,54.16,2.07,1.06,9,Financial Services,Banks - Diversified,NYQ,USD
-COST,Costco Wholesale Corporation,397291159552,2196075654.77,2451374,895.855,0.58,4.92,9,Consumer Defensive,Discount Stores,NMS,USD
-HD,"The Home Depot, Inc.",349593796608,1309644618.75,3729375,351.17,2.62,9.2,9,Consumer Cyclical,Home Improvement Retail,NYQ,USD
-PG,The Procter & Gamble Company,340212940800,1188830975.44,8178529,145.36,2.91,4.127,9,Consumer Defensive,Household & Personal Products,NYQ,USD
-GE,GE Aerospace,309499822080,1166691962.8200002,3997437,291.86,0.49,1.36,9,Industrials,Aerospace & Defense,NYQ,USD
-CSCO,"Cisco Systems, Inc.",307237126144,1589384540.16,20439616,77.76,2.11,1.63,9,Technology,Communication Equipment,NMS,USD
-CVX,Chevron Corporation,306776834048,1145803396.08,7525308,152.26,4.49,6.76,9,Energy,Oil & Gas Integrated,NYQ,USD
-KO,The Coca-Cola Company,303193325568,1153011964.15,16366387,70.45,2.9,2.015,9,Consumer Defensive,Beverages - Non-Alcoholic,NYQ,USD
-IBM,International Business Machines Corporation,287889096704,1656913514.3600001,5379764,307.99,2.18,6.7,9,Technology,Information Technology Services,NYQ,USD
-CAT,Caterpillar Inc.,280689147904,1723067924.1,2875854,599.15,1.01,5.84,9,Industrials,Farm & Heavy Construction Machinery,NYQ,USD
-MS,Morgan Stanley,279183163392,998158091.7199999,5707348,174.89,2.29,3.85,9,Financial Services,Capital Markets,NYQ,USD
-AXP,American Express Company,258276687872,956949777.55,2578337,371.15,0.85,3.16,9,Financial Services,Credit Services,NYQ,USD
-MU,"Micron Technology, Inc.",255060508672,6014191294.2,26535148,226.65,0.2,0.46,4,Technology,Semiconductors,NMS,USD
-GS,"The Goldman Sachs Group, Inc.",253628809216,1664929911.19,1987193,837.83,1.91,13.0,9,Financial Services,Capital Markets,NYQ,USD
-MRK,"Merck & Co., Inc.",252001353728,1325866213.89,13141701,100.89,3.37,3.2,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-MCD,McDonald's Corporation,220175515648,950298571.9000001,3079985,308.54,2.41,7.08,9,Consumer Cyclical,Restaurants,NYQ,USD
-ABT,Abbott Laboratories,218253557760,784665169.2,6257298,125.4,1.88,2.36,9,Healthcare,Medical Devices,NYQ,USD
-AMAT,"Applied Materials, Inc.",214647341056,2282933326.08,8472882,269.44,0.68,1.78,9,Technology,Semiconductor Equipment & Materials,NMS,USD
-PEP,"PepsiCo, Inc.",201131147264,1057605236.91,7199001,146.91,3.87,5.555,9,Consumer Defensive,Beverages - Non-Alcoholic,NMS,USD
-C,Citigroup Inc.,198430392320,1374248771.64,12749316,107.79,2.23,2.28,9,Financial Services,Banks - Diversified,NYQ,USD
-LRCX,Lam Research Corporation,198095568896,1822466910.71,11601419,157.09,0.66,0.95,9,Technology,Semiconductor Equipment & Materials,NMS,USD
-INTC,Intel Corporation,193184989184,4626975636.0,114246312,40.5,0.0,0.0,9,Technology,Semiconductors,NMS,USD
-LIN,Linde plc,189312860160,916334676.5600001,2269672,403.73,1.49,5.89,9,Basic Materials,Specialty Chemicals,NMS,USD
-BX,Blackstone Inc.,185764429824,626902508.03,4140977,151.39,3.1,4.69,9,Financial Services,Asset Management,NYQ,USD
-INTU,Intuit Inc.,184601477120,1220846319.0,1841175,663.08,0.68,4.32,9,Technology,Software - Application,NMS,USD
-AMGN,Amgen Inc.,183169581056,889699365.1200001,2615532,340.16,2.8,9.39,9,Healthcare,Drug Manufacturers - General,NMS,USD
-NEE,"NextEra Energy, Inc.",173668810752,822316712.05,9861095,83.39,2.72,2.215,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-APH,Amphenol Corporation,170706796544,1208976927.02,8668987,139.46,0.72,0.66,9,Technology,Electronic Components,NYQ,USD
-ACN,Accenture plc,167759134720,1273033085.9399998,4726491,269.34,2.42,6.07,9,Technology,Information Technology Services,NYQ,USD
-BLK,"BlackRock, Inc.",166877216768,692256194.9599999,643612,1075.58,1.94,20.73,9,Financial Services,Asset Management,NYQ,USD
-DHR,Danaher Corporation,162636791808,958641685.62,4220674,227.13,0.56,1.23,9,Healthcare,Diagnostics & Research,NYQ,USD
-KLAC,KLA Corporation,159085445120,1247616834.1599998,1032727,1208.08,0.63,7.2,9,Technology,Semiconductor Equipment & Materials,NMS,USD
-GILD,"Gilead Sciences, Inc.",152147755008,907356241.4200001,7399741,122.62,2.58,3.14,9,Healthcare,Drug Manufacturers - General,NMS,USD
-COF,Capital One Financial Corporation,146903531520,848030284.53,3691743,229.71,1.39,2.4,9,Financial Services,Credit Services,NYQ,USD
-PFE,Pfizer Inc.,146122686464,1771063303.3,68912969,25.7,6.69,1.7,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-LOW,"Lowe's Companies, Inc.",138089431040,725614630.7199999,2947616,246.17,1.95,4.7,9,Consumer Cyclical,Home Improvement Retail,NYQ,USD
-ADI,"Analog Devices, Inc.",135761502208,973567436.88,3511388,277.26,1.43,3.96,9,Technology,Semiconductors,NMS,USD
-PGR,The Progressive Corporation,133165572096,786054776.16,3461424,227.09,2.16,4.9,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-ETN,Eaton Corporation plc,131945447424,853700951.16,2518812,338.93,1.23,4.06,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-MDT,Medtronic plc,130814009344,738809440.5999999,7243940,101.99,2.78,2.82,9,Healthcare,Medical Devices,NYQ,USD
-DE,Deere & Company,130577211392,690762364.8299999,1430061,483.03,1.34,6.48,9,Industrials,Farm & Heavy Construction Machinery,NYQ,USD
-HON,Honeywell International Inc.,129537966080,896990738.51,4666237,192.23,2.38,4.52,9,Industrials,Conglomerates,NMS,USD
-KKR,KKR & Co. Inc.,118916153344,578993263.2,4508240,128.43,0.58,0.73,9,Financial Services,Asset Management,NYQ,USD
-CB,Chubb Limited,117470117888,522765314.64,1774251,294.64,1.32,3.76,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-COP,ConocoPhillips,116301512704,610637845.44,6557537,93.12,3.61,3.12,9,Energy,Oil & Gas E&P,NYQ,USD
-CEG,Constellation Energy Corporation,115158941696,973565230.96,2641108,368.62,0.42,1.516,3,Utilities,Utilities - Independent Power Producers,NMS,USD
-HCA,"HCA Healthcare, Inc.",114109276160,663111290.12,1359782,487.66,0.59,2.82,7,Healthcare,Medical Care Facilities,NYQ,USD
-IBKR,"Interactive Brokers Group, Inc.",112110878720,306447688.65000004,4646667,65.95,0.49,0.285,9,Financial Services,Capital Markets,NMS,USD
-BMY,Bristol-Myers Squibb Company,105757376512,839833830.25,16166195,51.95,4.77,2.48,9,Healthcare,Drug Manufacturers - General,NYQ,USD
-ADP,"Automatic Data Processing, Inc.",105080217600,532760907.99999994,2053820,259.4,2.62,6.16,9,Technology,Software - Application,NMS,USD
-LMT,Lockheed Martin Corporation,104674058240,594532724.1,1326046,448.35,3.08,13.2,9,Industrials,Aerospace & Defense,NYQ,USD
-MCK,McKesson Corporation,101271281664,603209678.4,740880,814.18,0.4,2.95,9,Healthcare,Medical Distribution,NYQ,USD
-CMCSA,Comcast Corporation,100428021760,806749144.0,29659895,27.2,4.85,1.3,9,Communication Services,Telecom Services,NMS,USD
-NEM,Newmont Corporation,99651354624,1043399024.64,11501312,90.72,1.1,1.0,9,Basic Materials,Gold,NYQ,USD
-CME,CME Group Inc.,98512257024,518816768.14,1899106,273.19,1.83,4.9,9,Financial Services,Financial Data & Stock Exchanges,NMS,USD
-MO,"Altria Group, Inc.",98004836352,499731455.64000005,8565846,58.34,7.27,4.08,9,Consumer Defensive,Tobacco,NYQ,USD
-CVS,CVS Health Corporation,97428938752,578341182.5,7535390,76.75,3.47,2.66,9,Healthcare,Healthcare Plans,NYQ,USD
-NKE,"NIKE, Inc.",97103052800,985375159.27,15000383,65.69,2.5,1.6,9,Consumer Cyclical,Footwear & Accessories,NYQ,USD
-DELL,Dell Technologies Inc.,93453139968,1050768569.7,7560030,138.99,1.51,2.02,3,Technology,Computer Hardware,NYQ,USD
-GD,General Dynamics Corporation,92300156928,376111240.2,1100706,341.7,1.76,5.92,9,Industrials,Aerospace & Defense,NYQ,USD
-DUK,Duke Energy Corporation,91740700672,358999225.8,3043140,117.97,3.61,4.2,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-ICE,"Intercontinental Exchange, Inc.",91078238208,596654703.61,3749951,159.11,1.21,1.89,9,Financial Services,Financial Data & Stock Exchanges,NYQ,USD
-MMM,3M Company,90158227456,508759266.16,3005608,169.27,1.73,2.89,9,Industrials,Conglomerates,NYQ,USD
-MMC,"Marsh & McLennan Companies, Inc.",90065518592,511503743.2,2792051,183.2,1.97,3.43,9,Financial Services,Insurance Brokers,NYQ,USD
-MCO,Moody's Corporation,87792467968,414624802.56,847072,489.48,0.77,3.67,9,Financial Services,Financial Data & Stock Exchanges,NYQ,USD
-BK,The Bank of New York Mellon Corporation,80362192896,382654697.35,3358093,113.95,1.86,1.94,9,Financial Services,Banks - Diversified,NYQ,USD
-MAR,"Marriott International, Inc.",80351518720,446372736.0,1508016,296.0,0.91,2.6,3,Consumer Cyclical,Lodging,NMS,USD
-APO,"Apollo Global Management, Inc.",79372787712,485838562.5,3552750,136.75,1.49,2.0,9,Financial Services,Asset Management,NYQ,USD
-NOC,Northrop Grumman Corporation,79180185600,423769983.0,766311,553.0,1.67,8.74,9,Industrials,Aerospace & Defense,NYQ,USD
-HWM,Howmet Aerospace Inc.,78998675456,408326977.45000005,2080435,196.27,0.22,0.52,9,Industrials,Aerospace & Defense,NYQ,USD
-EMR,Emerson Electric Co.,76900990976,372681364.15999997,2727469,136.64,1.62,2.11,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-ELV,"Elevance Health, Inc.",75094712320,590744186.0,1771400,333.49,2.05,6.76,9,Healthcare,Healthcare Plans,NYQ,USD
-ECL,Ecolab Inc.,74996097024,390264088.5,1475925,264.42,0.98,2.6,9,Basic Materials,Specialty Chemicals,NYQ,USD
-AON,Aon plc,74975518720,422982260.79999995,1216480,347.71,0.86,2.91,9,Financial Services,Insurance Brokers,NYQ,USD
-JCI,Johnson Controls International plc,74730815488,487418618.8,4268114,114.2,1.4,1.51,9,Industrials,Building Products & Equipment,NYQ,USD
-CTAS,Cintas Corporation,74154983424,405172593.98,2201666,184.03,0.98,1.62,9,Industrials,Specialty Business Services,NMS,USD
-GLW,Corning Incorporated,73261441024,668178582.15,7819527,85.45,1.31,1.12,9,Technology,Electronic Components,NYQ,USD
-ITW,Illinois Tool Works Inc.,72694267904,276953946.6,1110570,249.38,2.58,6.11,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-MDLZ,"Mondelez International, Inc.",72202158080,465625053.0,8344535,55.8,3.58,1.91,9,Consumer Defensive,Confectioners,NMS,USD
-CI,The Cigna Group,71701913600,521319150.34000003,1942177,268.42,2.25,5.93,9,Healthcare,Healthcare Plans,NYQ,USD
-GM,General Motors Company,71681941504,690254428.47,9167943,75.29,0.8,0.54,3,Consumer Cyclical,Auto Manufacturers,NYQ,USD
-CMI,Cummins Inc.,70500638720,472781292.46000004,925679,510.74,1.57,7.46,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-CSX,CSX Corporation,67449540608,518882561.28,14341696,36.18,1.44,0.51,9,Industrials,Railroads,NMS,USD
-NSC,Norfolk Southern Corporation,66223226880,427777949.28,1449456,295.13,1.83,5.4,9,Industrials,Railroads,NYQ,USD
-COR,"Cencora, Inc.",65498005504,529998406.43,1569761,337.63,0.71,2.2,9,Healthcare,Medical Distribution,NYQ,USD
-FDX,FedEx Corporation,64663588864,512027346.6,1868372,274.05,2.12,5.66,9,Industrials,Integrated Freight & Logistics,NYQ,USD
-HLT,Hilton Worldwide Holdings Inc.,64313737216,476967623.54999995,1744259,273.45,0.22,0.6,3,Consumer Cyclical,Lodging,NYQ,USD
-FCX,Freeport-McMoRan Inc.,64056864768,869302400.76,19486716,44.61,1.34,0.6,7,Basic Materials,Copper,NYQ,USD
-AEP,"American Electric Power Company, Inc.",63182753792,411187736.44,3483461,118.04,3.22,3.72,9,Utilities,Utilities - Regulated Electric,NMS,USD
-AJG,Arthur J. Gallagher & Co.,63022514176,390936412.13,1592993,245.41,1.06,2.55,9,Financial Services,Insurance Brokers,NYQ,USD
-CL,Colgate-Palmolive Company,62717931520,498898237.59999996,6429101,77.6,2.68,2.04,9,Consumer Defensive,Household & Personal Products,NYQ,USD
-KMI,"Kinder Morgan, Inc.",61937328128,387786088.32,13929098,27.84,4.2,1.165,9,Energy,Oil & Gas Midstream,NYQ,USD
-MSI,"Motorola Solutions, Inc.",61891678208,413762961.57,1113793,371.49,1.3,4.36,9,Technology,Communication Equipment,NYQ,USD
-EOG,"EOG Resources, Inc.",61238624256,434180893.59999996,3871085,112.16,3.64,3.945,9,Energy,Oil & Gas E&P,NYQ,USD
-AFL,Aflac Incorporated,58424991744,239072176.95999998,2188504,109.24,2.23,2.24,9,Financial Services,Insurance - Life,NYQ,USD
-APD,"Air Products and Chemicals, Inc.",58234056704,319718476.64,1222072,261.62,2.74,7.14,9,Basic Materials,Specialty Chemicals,NYQ,USD
-MPC,Marathon Petroleum Corporation,57809461248,364340710.5,1916070,190.15,2.1,3.73,9,Energy,Oil & Gas Refining & Marketing,NYQ,USD
-NXPI,NXP Semiconductors N.V.,57018236928,597911178.48,2643753,226.16,1.79,4.056,7,Technology,Semiconductors,NMS,USD
-PCAR,PACCAR Inc,56984670208,334539894.5,3083317,108.5,1.22,1.29,9,Industrials,Farm & Heavy Construction Machinery,NMS,USD
-BDX,"Becton, Dickinson and Company",55536934912,387528331.68,2000043,193.76,2.17,4.16,9,Healthcare,Medical Instruments & Supplies,NYQ,USD
-ALL,The Allstate Corporation,54379593728,300330880.11,1455303,206.37,1.94,3.92,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-LHX,"L3Harris Technologies, Inc.",52481966080,311375356.83,1110033,280.51,1.71,4.76,9,Industrials,Aerospace & Defense,NYQ,USD
-F,Ford Motor Company,52356313088,1222711387.38,93052617,13.14,4.57,0.6,9,Consumer Cyclical,Auto Manufacturers,NYQ,USD
-MET,"MetLife, Inc.",51891982336,272483334.99,3492033,78.03,2.91,2.225,9,Financial Services,Insurance - Life,NYQ,USD
-NDAQ,"Nasdaq, Inc.",51807973376,300112222.3,3323870,90.29,1.2,1.02,9,Financial Services,Financial Data & Stock Exchanges,NMS,USD
-D,"Dominion Energy, Inc.",51098169344,298992474.88,4996532,59.84,4.46,2.67,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-EA,Electronic Arts Inc.,50881589248,681754294.08,3351132,203.44,0.37,0.76,5,Communication Services,Electronic Gaming & Multimedia,NMS,USD
-BKR,Baker Hughes Company,49940627456,359979415.32,7112812,50.61,1.82,0.9,9,Energy,Oil & Gas Equipment & Services,NMS,USD
-OKE,"ONEOK, Inc.",47968509952,312071993.82,4097046,76.17,5.41,4.12,9,Energy,Oil & Gas Midstream,NYQ,USD
-FAST,Fastenal Company,47930490880,274839749.0,6582988,41.75,2.11,0.85,9,Industrials,Industrial Distribution,NMS,USD
-DHI,"D.R. Horton, Inc.",47917391872,524430486.91999996,3262804,160.73,1.12,1.6,9,Consumer Cyclical,Residential Construction,NYQ,USD
-CAH,"Cardinal Health, Inc.",47326556160,497038408.62,2495298,199.19,1.03,2.033,9,Healthcare,Medical Distribution,NYQ,USD
-CARR,Carrier Global Corporation,46380744704,349626601.5,6415167,54.5,1.76,0.9,5,Industrials,Building Products & Equipment,NYQ,USD
-GWW,"W.W. Grainger, Inc.",46345138176,278687583.3,287630,968.91,0.93,8.62,9,Industrials,Industrial Distribution,NYQ,USD
-FANG,"Diamondback Energy, Inc.",46175928320,293848524.45,1842195,159.51,2.51,4.0,7,Energy,Oil & Gas E&P,NMS,USD
-AME,"AMETEK, Inc.",46010646528,264343025.8,1326890,199.22,0.62,1.21,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-MPWR,"Monolithic Power Systems, Inc.",45642915840,583679964.42,612633,952.74,0.65,5.93,9,Technology,Semiconductors,NMS,USD
-CTVA,"Corteva, Inc.",45017542656,306031894.98,4616562,66.29,1.09,0.7,6,Basic Materials,Agricultural Inputs,NYQ,USD
-AMP,"Ameriprise Financial, Inc.",44695093248,278198265.8,586780,474.11,1.35,6.16,9,Financial Services,Asset Management,NYQ,USD
-EXC,Exelon Corporation,44348538880,313471821.41999996,7138962,43.91,3.64,1.58,9,Utilities,Utilities - Regulated Electric,NMS,USD
-AIG,"American International Group, Inc.",42813415424,341683396.32,4421369,77.28,2.33,1.7,9,Financial Services,Insurance - Diversified,NYQ,USD
-ETR,Entergy Corporation,42185543680,255648149.82,2706417,94.46,2.71,2.41,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-A,"Agilent Technologies, Inc.",42048782336,265798635.83999997,1792062,148.32,0.69,0.992,9,Healthcare,Diagnostics & Research,NYQ,USD
-OXY,Occidental Petroleum Corporation,42038927360,433887889.51,10168453,42.67,2.25,0.94,9,Energy,Oil & Gas E&P,NYQ,USD
-MSCI,MSCI Inc.,41842982912,356402301.95,658967,540.85,1.33,7.0,9,Financial Services,Financial Data & Stock Exchanges,NYQ,USD
-KR,The Kroger Co.,41841500160,438036465.02,6937543,63.14,2.22,1.31,9,Consumer Defensive,Grocery Stores,NYQ,USD
-PEG,Public Service Enterprise Group Incorporated,40316665856,215502437.0,2668100,80.77,3.12,2.49,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-PAYX,"Paychex, Inc.",40223567872,348727476.525,3120185,111.765,3.87,4.12,9,Technology,Software - Application,NMS,USD
-CTSH,Cognizant Technology Solutions Corporation,39169351680,368146791.8,4590359,80.2,1.55,1.24,8,Technology,Information Technology Services,NMS,USD
-GRMN,Garmin Ltd.,38901100544,189054184.55,935495,202.09,1.78,3.6,9,Technology,Scientific & Technical Instruments,NYQ,USD
-KDP,Keurig Dr Pepper Inc.,38828306432,532736058.59999996,18640170,28.58,3.22,0.92,9,Consumer Defensive,Beverages - Non-Alcoholic,NMS,USD
-EBAY,eBay Inc.,37533409280,444469655.65999997,5411782,82.13,1.41,1.14,6,Consumer Cyclical,Internet Retail,NMS,USD
-EQT,EQT Corporation,37487706112,486478336.68,8098524,60.07,1.1,0.63,3,Energy,Oil & Gas E&P,NYQ,USD
-EL,The Estée Lauder Companies Inc.,37412601856,357365466.47999996,3442164,103.82,1.35,1.4,9,Consumer Defensive,Household & Personal Products,NYQ,USD
-MLM,"Martin Marietta Materials, Inc.",37316857856,228444294.29999998,369185,618.78,0.54,3.2,9,Basic Materials,Building Materials,NYQ,USD
-NUE,Nucor Corporation,37198684160,262169543.16,1612954,162.54,1.38,2.2,9,Basic Materials,Steel,NYQ,USD
-HIG,"The Hartford Insurance Group, Inc.",37075292160,195402674.70000002,1481895,131.86,1.82,2.08,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-HSY,The Hershey Company,37000175616,301774608.12,1653922,182.46,3.0,5.48,9,Consumer Defensive,Confectioners,NYQ,USD
-MCHP,Microchip Technology Incorporated,34977722368,517432905.12,7994946,64.72,2.81,1.82,9,Technology,Semiconductors,NMS,USD
-KMB,Kimberly-Clark Corporation,34825224192,490727983.68,4676272,104.94,4.8,5.0,9,Consumer Defensive,Household & Personal Products,NMS,USD
-ED,"Consolidated Edison, Inc.",34729226240,197015549.66,2047553,96.22,3.53,3.38,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-FIS,"Fidelity National Information Services, Inc.",34247139328,268814160.12,4100277,65.56,2.44,1.56,9,Technology,Information Technology Services,NYQ,USD
-OTIS,Otis Worldwide Corporation,34110023680,214188217.53,2464483,86.91,1.93,1.62,5,Industrials,Specialty Industrial Machinery,NYQ,USD
-NRG,"NRG Energy, Inc.",32759441408,375620156.8,2217880,169.36,1.04,1.76,9,Utilities,Utilities - Independent Power Producers,NYQ,USD
-ODFL,"Old Dominion Freight Line, Inc.",32262909952,325904646.69,2123019,153.51,0.73,1.1,8,Industrials,Trucking,NMS,USD
-IR,Ingersoll Rand Inc.,31792226304,275487079.81,3444019,79.99,0.1,0.08,4,Industrials,Specialty Industrial Machinery,NYQ,USD
-LEN,Lennar Corporation,31303567360,745964563.5,5885322,126.75,1.58,2.0,9,Consumer Cyclical,Residential Construction,NYQ,USD
-MTB,M&T Bank Corporation,30561587200,217400305.68,1111624,195.57,3.07,5.55,9,Financial Services,Banks - Regional,NYQ,USD
-HUM,Humana Inc.,30431494144,484933577.64000005,1916582,253.02,1.4,3.54,9,Healthcare,Healthcare Plans,NYQ,USD
-HPE,Hewlett Packard Enterprise Company,30215407616,698967333.9,30522591,22.9,2.27,0.52,9,Technology,Communication Equipment,NYQ,USD
-FOXA,Fox Corporation,30094876672,247600398.98000002,3652462,67.79,0.83,0.55,6,Communication Services,Entertainment,NMS,USD
-FITB,Fifth Third Bancorp,30051096576,331725938.7,7297095,45.46,3.52,1.51,9,Financial Services,Banks - Regional,NMS,USD
-KHC,The Kraft Heinz Company,29106089984,393261722.5,15992750,24.59,6.51,1.6,9,Consumer Defensive,Packaged Foods,NMS,USD
-EXE,Expand Energy Corporation,29078136832,421233086.65000004,3450185,122.09,2.61,3.19,4,Energy,Oil & Gas E&P,NMS,USD
-K,Kellanova,28930598912,228493040.3,2747962,83.15,2.79,2.29,9,Consumer Defensive,Packaged Foods,NYQ,USD
-ADM,Archer-Daniels-Midland Company,28526618624,215124557.76,3624066,59.36,3.44,2.03,9,Consumer Defensive,Farm Products,NYQ,USD
-EME,"EMCOR Group, Inc.",28442439680,408352860.96000004,642711,635.36,0.16,1.0,9,Industrials,Engineering & Construction,NYQ,USD
-FOX,Fox Corporation,28344233984,116900897.61999999,1942198,60.19,0.93,0.55,6,Communication Services,Entertainment,NMS,USD
-ATO,Atmos Energy Corporation,27641477120,160466833.14999998,938677,170.95,2.34,3.48,9,Utilities,Utilities - Regulated Gas,NYQ,USD
-DG,Dollar General Corporation,27577085952,381403307.56,3044164,125.29,1.88,2.36,9,Consumer Defensive,Discount Stores,NYQ,USD
-DTE,DTE Energy Company,27447386112,161435554.56,1221516,132.16,3.36,4.36,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-AEE,Ameren Corporation,27279411200,162711188.29999998,1613398,100.85,2.82,2.8,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-BRO,"Brown & Brown, Inc.",27190753280,224595312.48,2820132,79.64,0.83,0.6,9,Financial Services,Insurance Brokers,NYQ,USD
-BR,"Broadridge Financial Solutions, Inc.",26950060032,156092657.76,676077,230.88,1.69,3.615,9,Technology,Information Technology Services,NYQ,USD
-HBAN,Huntington Bancshares Incorporated,26929135616,538775975.7,31507367,17.1,3.63,0.62,9,Financial Services,Banks - Regional,NMS,USD
-CBOE,"Cboe Global Markets, Inc.",26675978240,196782944.79999998,771940,254.92,1.13,2.61,9,Financial Services,Financial Data & Stock Exchanges,BTS,USD
-DOV,Dover Corporation,26146889728,221411583.67999998,1161412,190.64,1.09,2.06,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-FE,FirstEnergy Corp.,26075822080,207604457.36,4599124,45.14,3.94,1.74,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-EFX,Equifax Inc.,26029142016,274784429.6,1300570,211.28,0.95,1.78,9,Industrials,Consulting Services,NYQ,USD
-CINF,Cincinnati Financial Corporation,25490919424,85681642.22,525622,163.01,2.13,3.42,9,Financial Services,Insurance - Property & Casualty,NMS,USD
-NTRS,Northern Trust Corporation,25397899264,146469456.98000002,1099538,133.21,2.4,3.05,9,Financial Services,Asset Management,NMS,USD
-CNP,"CenterPoint Energy, Inc.",25161543680,192251009.0,4988350,38.54,2.28,0.87,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-ES,Eversource Energy,25160183808,204792455.14000002,3053869,67.06,4.49,2.973,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-AWK,"American Water Works Company, Inc.",25157279744,214673349.34,1665038,128.93,2.57,3.185,9,Utilities,Utilities - Regulated Water,NYQ,USD
-LDOS,"Leidos Holdings, Inc.",24686972928,156321238.32,812396,192.42,0.89,1.6,9,Technology,Information Technology Services,NYQ,USD
-GIS,"General Mills, Inc.",24584855552,276621657.4,6016130,45.98,5.31,2.41,9,Consumer Defensive,Packaged Foods,NYQ,USD
-HPQ,HP Inc.,24327168000,310855633.2,12002148,25.9,4.63,1.576,9,Technology,Computer Hardware,NYQ,USD
-CFG,"Citizens Financial Group, Inc.",24103782400,254306415.44,4550938,55.88,3.29,1.68,9,Financial Services,Banks - Regional,NYQ,USD
-DVN,Devon Energy Corporation,23938308096,295247315.07,7829417,37.71,2.55,0.94,9,Energy,Oil & Gas E&P,NYQ,USD
-HAL,Halliburton Company,23727917056,354398463.32,12734404,27.83,2.44,0.68,9,Energy,Oil & Gas Equipment & Services,NYQ,USD
-JBL,Jabil Inc.,23472777216,292721724.8,1338340,218.72,0.15,0.32,9,Technology,Electronic Components,NYQ,USD
-HUBB,Hubbell Incorporated,23261988864,235243300.10999998,537441,437.71,1.3,5.28,9,Industrials,Electrical Equipment & Parts,NYQ,USD
-NTAP,"NetApp, Inc.",23153735680,244415171.91,2107209,115.99,1.79,2.08,9,Technology,Software - Infrastructure,NMS,USD
-OMC,Omnicom Group Inc.,22267691008,285468049.95,4068235,70.17,4.13,2.8,9,Communication Services,Advertising Agencies,NYQ,USD
-EIX,Edison International,22147196928,186711306.6,3244332,57.55,5.75,3.31,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-CMS,CMS Energy Corporation,21819727872,174549204.6,2434438,71.7,3.03,2.143,9,Utilities,Utilities - Regulated Electric,NYQ,USD
-LH,Labcorp Holdings Inc.,21728989184,201255926.4,769680,261.48,1.1,2.88,3,Healthcare,Diagnostics & Research,NYQ,USD
-L,Loews Corporation,21673984000,82626094.44,790756,104.49,0.24,0.25,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-KEY,KeyCorp,20954419200,428327374.02,22413782,19.11,4.29,0.82,9,Financial Services,Banks - Regional,NYQ,USD
-CTRA,Coterra Energy Inc.,20864247808,243924281.22,8921883,27.34,3.22,0.87,9,Energy,Oil & Gas E&P,NYQ,USD
-IP,International Paper Company,20662138880,184584153.39000002,4717203,39.13,4.73,1.85,9,Consumer Cyclical,Packaging & Containers,NYQ,USD
-DGX,Quest Diagnostics Incorporated,20595640320,189044009.62,1026409,184.18,1.74,3.15,9,Healthcare,Diagnostics & Research,NYQ,USD
-DRI,"Darden Restaurants, Inc.",20551016448,243488031.64,1381414,176.26,3.4,5.7,9,Consumer Cyclical,Restaurants,NYQ,USD
-CHD,"Church & Dwight Co., Inc.",20450949120,191575579.0,2282020,83.95,1.41,1.17,9,Consumer Defensive,Household & Personal Products,NYQ,USD
-EXPD,"Expeditors International of Washington, Inc.",20425637888,201865349.0,1341298,150.5,1.02,1.5,9,Industrials,Integrated Freight & Logistics,NYQ,USD
-NI,NiSource Inc.,19823710208,178674212.91,4265319,41.89,2.67,1.12,9,Utilities,Utilities - Regulated Gas,NYQ,USD
-GPN,Global Payments Inc.,19345489920,181693171.79999998,2278570,79.74,1.25,1.0,9,Industrials,Specialty Business Services,NYQ,USD
-AMCR,Amcor plc,19205554176,197556869.12,23744816,8.32,6.25,0.513,9,Consumer Cyclical,Packaging & Containers,NYQ,USD
-PFG,"Principal Financial Group, Inc.",19142492160,106665252.72000001,1241304,85.93,3.68,3.02,9,Financial Services,Asset Management,NMS,USD
-CDW,CDW Corporation,18943518720,213348845.16,1476054,144.54,1.74,2.5,9,Technology,Information Technology Services,NMS,USD
-BG,Bunge Global SA,18883854336,165297561.41,1751219,94.39,2.97,2.778,9,Consumer Defensive,Farm Products,NYQ,USD
-CHRW,"C.H. Robinson Worldwide, Inc.",18671581184,260001574.95000002,1645059,158.05,1.59,2.48,9,Industrials,Integrated Freight & Logistics,NMS,USD
-JBHT,"J.B. Hunt Transport Services, Inc.",18153252864,268412656.845,1431267,187.535,0.94,1.75,9,Industrials,Integrated Freight & Logistics,NMS,USD
-GPC,Genuine Parts Company,18130270208,151883193.42000002,1165374,130.33,3.16,4.09,9,Consumer Cyclical,Auto Parts,NYQ,USD
-FTV,Fortive Corporation,18060394496,170063502.14000002,3185903,53.38,0.45,0.3,9,Technology,Scientific & Technical Instruments,NYQ,USD
-LII,Lennox International Inc.,17728278528,238171992.4,471880,504.73,1.03,4.9,9,Industrials,Building Products & Equipment,NYQ,USD
-IFF,International Flavors & Fragrances Inc.,17040528384,155279549.17999998,2335382,66.49,2.41,1.6,9,Basic Materials,Specialty Chemicals,NYQ,USD
-MKC,"McCormick & Company, Incorporated",17025752064,167025593.28,2632812,63.44,3.03,1.77,9,Consumer Defensive,Packaged Foods,NYQ,USD
-EVRG,"Evergy, Inc.",16992105472,154030693.74,2086854,73.81,3.77,2.67,9,Utilities,Utilities - Regulated Electric,NMS,USD
-J,Jacobs Solutions Inc.,16909579264,150946435.07999998,1072596,140.73,0.91,1.25,8,Industrials,Engineering & Construction,NYQ,USD
-LNT,Alliant Energy Corporation,16890997760,131780025.08999999,2005479,65.71,3.09,2.003,9,Utilities,Utilities - Regulated Electric,NMS,USD
-GEN,Gen Digital Inc.,16688336896,109634455.92,4051532,27.06,1.85,0.5,9,Technology,Software - Infrastructure,NMS,USD
-DD,"DuPont de Nemours, Inc.",16683597824,301590826.46,7573853,39.82,3.59,1.61,9,Basic Materials,Specialty Chemicals,NYQ,USD
-DOW,Dow Inc.,16255250432,308808555.73,13502779,22.87,6.12,2.45,6,Basic Materials,Chemicals,NYQ,USD
-NWS,News Corporation,16254222336,38073376.08,1307016,29.13,0.69,0.2,9,Communication Services,Entertainment,NMS,USD
-ERIE,Erie Indemnity Company,15675456512,41342060.239999995,137908,299.78,1.82,5.46,9,Financial Services,Insurance Brokers,NMS,USD
-BBY,"Best Buy Co., Inc.",15652335616,262624980.66,3546111,74.06,5.13,3.79,9,Consumer Cyclical,Specialty Retail,NYQ,USD
-NWSA,News Corporation,14975523840,106882174.74,4170198,25.63,0.78,0.2,9,Communication Services,Entertainment,NMS,USD
-DPZ,"Domino's Pizza, Inc.",14498565120,264105212.84,618412,427.07,1.63,6.73,9,Consumer Cyclical,Restaurants,NMS,USD
-BF-B,Brown-Forman Corporation,14055218176,111073248.0,3739840,29.7,3.07,0.453,9,Consumer Defensive,Beverages - Wineries & Distilleries,NYQ,USD
-ALB,Albemarle Corporation,14022483968,449418478.32,3772188,119.14,1.36,1.62,9,Basic Materials,Specialty Chemicals,NYQ,USD
-LYB,LyondellBasell Industries N.V.,13892036608,220238617.55999997,5102841,43.16,12.7,5.42,9,Basic Materials,Specialty Chemicals,NYQ,USD
-ALLE,Allegion plc,13838239744,134335325.15,835159,160.85,1.27,2.1,9,Industrials,Security & Protection Services,NYQ,USD
-AVY,Avery Dennison Corporation,13523602432,126601056.0,723600,174.96,2.15,3.64,9,Consumer Cyclical,Packaging & Containers,NYQ,USD
-MAS,Masco Corporation,13483018240,151639524.4,2354651,64.4,1.93,1.22,9,Industrials,Building Products & Equipment,NYQ,USD
-IEX,IDEX Corporation,13478682624,117291504.5,655150,179.03,1.59,2.82,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-NDSN,Nordson Corporation,13472299008,69920884.8,293280,238.41,1.38,3.12,9,Industrials,Specialty Industrial Machinery,NMS,USD
-BALL,Ball Corporation,13294473216,135203610.5,2767730,48.85,1.64,0.8,9,Consumer Cyclical,Packaging & Containers,NYQ,USD
-HRL,Hormel Foods Corporation,13287962624,113013836.0,4677725,24.16,4.84,1.16,9,Consumer Defensive,Packaged Foods,NYQ,USD
-EG,"Everest Group, Ltd.",13168935936,126708410.13,403903,313.71,2.55,8.0,9,Financial Services,Insurance - Reinsurance,NYQ,USD
-JKHY,"Jack Henry & Associates, Inc.",13104442368,184889978.20000002,1025230,180.34,1.29,2.29,9,Technology,Information Technology Services,NMS,USD
-CF,"CF Industries Holdings, Inc.",12995091456,197935112.08,2467096,80.23,2.49,2.0,9,Basic Materials,Agricultural Inputs,NYQ,USD
-CLX,The Clorox Company,12820136960,207068020.0,1970200,105.1,4.72,4.92,9,Consumer Defensive,Household & Personal Products,NYQ,USD
-HII,"Huntington Ingalls Industries, Inc.",12395583488,143500177.56,454287,315.88,1.75,5.4,9,Industrials,Aerospace & Defense,NYQ,USD
-BEN,"Franklin Resources, Inc.",12055259136,102748426.3,4440295,23.14,5.53,1.28,9,Financial Services,Asset Management,NYQ,USD
-HAS,"Hasbro, Inc.",11486584832,148429491.04999998,1813433,81.85,3.42,2.8,9,Consumer Cyclical,Leisure,NMS,USD
-AIZ,"Assurant, Inc.",11316488192,67900209.47,302761,224.27,1.57,3.2,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
-IVZ,Invesco Ltd.,11242746880,124477097.68,4937608,25.21,3.33,0.835,9,Financial Services,Asset Management,NYQ,USD
-GL,Globe Life Inc.,10596883456,74047913.78,566029,130.82,0.83,1.05,9,Financial Services,Insurance - Life,NYQ,USD
-FDS,FactSet Research Systems Inc.,10545065984,241875798.04000002,867187,278.92,1.58,4.28,9,Financial Services,Financial Data & Stock Exchanges,NYQ,USD
-AES,The AES Corporation,9919845376,138845673.05,9967385,13.93,5.05,0.704,9,Utilities,Utilities - Diversified,NYQ,USD
-APA,APA Corporation,9556475904,197018515.68,7376208,26.71,3.74,1.0,9,Energy,Oil & Gas E&P,NMS,USD
-BAX,Baxter International Inc.,9499751424,134229258.24,7263488,18.48,2.81,0.68,9,Healthcare,Medical Instruments & Supplies,NYQ,USD
-AOS,A. O. Smith Corporation,9416708096,80614396.8,1199619,67.2,2.05,1.36,9,Industrials,Specialty Industrial Machinery,NYQ,USD
-CPB,The Campbell's Company,8749060096,161929619.04,5515314,29.36,5.31,1.54,9,Consumer Defensive,Packaged Foods,NMS,USD
-LW,"Lamb Weston Holdings, Inc.",8327837696,107518399.2,1799170,59.76,2.48,1.47,8,Consumer Defensive,Packaged Foods,NYQ,USD
-CAG,"Conagra Brands, Inc.",8108060672,185096186.54999998,10920129,16.95,8.26,1.4,9,Consumer Defensive,Packaged Foods,NYQ,USD
-MOS,The Mosaic Company,7649529856,139155882.3,5774103,24.1,3.65,0.87,9,Basic Materials,Agricultural Inputs,NYQ,USD
-LKQ,LKQ Corporation,7428054528,80739083.41,2796643,28.87,4.16,1.2,4,Consumer Cyclical,Auto Parts,NMS,USD
-LEG,"Leggett & Platt, Incorporated",1543973632,22127468.400000002,1941006,11.4,1.75,0.2,9,Consumer Cyclical,"Furnishings, Fixtures & Appliances",NYQ,USD
+AAPL,Apple Inc.,4138242670592,14341993615.95,51432647,278.85,0.37,1.02,9,Technology,Consumer Electronics,NMS,USD
+MSFT,Microsoft Corporation,3657192177664,10714518498.34,21777034,492.01,0.74,3.4,9,Technology,Software - Infrastructure,NMS,USD
+AVGO,Broadcom Inc.,1902924136448,9889646202.96,24542501,402.96,0.59,2.36,9,Technology,Semiconductors,NMS,USD
+LLY,Eli Lilly and Company,964112351232,4075375263.3,3789390,1075.47,0.56,5.8,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+WMT,Walmart Inc.,881915985920,1872031995.8300002,16939933,110.51,0.85,0.913,9,Consumer Defensive,Discount Stores,NYQ,USD
+JPM,JPMorgan Chase & Co.,860892889088,2595138904.7999997,8289060,313.08,1.92,5.55,9,Financial Services,Banks - Diversified,NYQ,USD
+ORCL,Oracle Corporation,575717572608,5456665775.75,27019885,201.95,0.99,1.9,9,Technology,Software - Infrastructure,NYQ,USD
+JNJ,Johnson & Johnson,498531336192,1806839717.4799998,8732069,206.92,2.51,5.08,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+XOM,Exxon Mobil Corporation,494195605504,1692875394.0,14603825,115.92,3.55,3.96,9,Energy,Oil & Gas Integrated,NYQ,USD
+COST,Costco Wholesale Corporation,405156233216,2213688866.94,2423066,913.59,0.57,4.92,9,Consumer Defensive,Discount Stores,NMS,USD
+ABBV,AbbVie Inc.,402433474560,1347825293.1,5919303,227.7,3.04,6.56,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+BAC,Bank of America Corporation,397382746112,1898475316.8999999,35386306,53.65,2.09,1.06,9,Financial Services,Banks - Diversified,NYQ,USD
+HD,"The Home Depot, Inc.",355317972992,1326068802.1200001,3715311,356.92,2.58,9.2,9,Consumer Cyclical,Home Improvement Retail,NYQ,USD
+PG,The Procter & Gamble Company,346766311424,1175220084.16,7932101,148.16,2.85,4.127,9,Consumer Defensive,Household & Personal Products,NYQ,USD
+GE,GE Aerospace,316488155136,1200976827.1499999,4024047,298.45,0.48,1.36,9,Industrials,Aerospace & Defense,NYQ,USD
+KO,The Coca-Cola Company,314684145664,1233198340.48,16865404,73.12,2.79,2.015,9,Consumer Defensive,Beverages - Non-Alcoholic,NYQ,USD
+CVX,Chevron Corporation,304500113408,1146337069.78,7585106,151.13,4.53,6.76,9,Energy,Oil & Gas Integrated,NYQ,USD
+CSCO,"Cisco Systems, Inc.",303997222912,1575080595.36,20471544,76.94,2.13,1.63,9,Technology,Communication Equipment,NMS,USD
+UNH,UnitedHealth Group Incorporated,298718396416,3297946008.4199996,10000746,329.77,2.68,8.62,9,Healthcare,Healthcare Plans,NYQ,USD
+IBM,International Business Machines Corporation,288440582144,1649235433.6799998,5344596,308.58,2.18,6.7,9,Technology,Information Technology Services,NYQ,USD
+WFC,Wells Fargo & Company,275015434240,1280471207.75,14915215,85.85,2.1,1.65,9,Financial Services,Banks - Diversified,NYQ,USD
+MS,Morgan Stanley,270834335744,964696091.3,5686055,169.66,2.36,3.85,9,Financial Services,Capital Markets,NYQ,USD
+CAT,Caterpillar Inc.,269731430400,1631752203.84,2834084,575.76,1.05,5.84,9,Industrials,Farm & Heavy Construction Machinery,NYQ,USD
+MRK,"Merck & Co., Inc.",261842632704,1375125975.08,13117676,104.83,3.24,3.2,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+GS,"The Goldman Sachs Group, Inc.",250059718656,1623937643.24,1965931,826.04,1.94,13.0,9,Financial Services,Capital Markets,NYQ,USD
+PM,Philip Morris International Inc.,245139456000,1029218256.52,6535549,157.48,3.73,5.52,9,Consumer Defensive,Tobacco,NYQ,USD
+RTX,RTX Corporation,234514432000,800552225.58,4576938,174.91,1.56,2.62,9,Industrials,Aerospace & Defense,NYQ,USD
+ABT,Abbott Laboratories,224345161728,799453139.1,6202119,128.9,1.83,2.36,9,Healthcare,Medical Devices,NYQ,USD
+MCD,McDonald's Corporation,222516133888,943046892.42,3024331,311.82,2.39,7.08,9,Consumer Cyclical,Restaurants,NYQ,USD
+PEP,"PepsiCo, Inc.",203636555776,1107077918.3400002,7443041,148.74,3.83,5.555,9,Consumer Defensive,Beverages - Non-Alcoholic,NMS,USD
+INTC,Intel Corporation,193471201280,4487410315.440001,110636349,40.56,0.0,0.0,9,Technology,Semiconductors,NMS,USD
+LIN,Linde plc,192402964480,912830287.28,2224679,410.32,1.46,5.89,9,Basic Materials,Specialty Chemicals,NMS,USD
+C,Citigroup Inc.,190717018112,1345059934.3999999,12983204,103.6,2.32,2.28,9,Financial Services,Banks - Diversified,NYQ,USD
+AMGN,Amgen Inc.,186023510016,899113196.3,2602655,345.46,2.76,9.39,9,Healthcare,Drug Manufacturers - General,NMS,USD
+T,AT&T Inc.,184467472384,1253196732.52,48162826,26.02,4.27,1.11,9,Communication Services,Telecom Services,NYQ,USD
+QCOM,QUALCOMM Incorporated,181369110528,1668033887.13,9923457,168.09,2.12,3.48,9,Technology,Semiconductors,NMS,USD
+NEE,"NextEra Energy, Inc.",179708395520,859814614.7600001,9964244,86.29,2.63,2.215,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+VZ,Verizon Communications Inc.,173337247744,1077005576.51,26198141,41.11,6.71,2.723,9,Communication Services,Telecom Services,NYQ,USD
+SCHW,The Charles Schwab Corporation,168325300224,844750363.0500001,9109785,92.73,1.16,1.06,9,Financial Services,Capital Markets,NYQ,USD
+BLK,"BlackRock, Inc.",162489565184,661486200.3,631611,1047.3,1.99,20.73,9,Financial Services,Asset Management,NYQ,USD
+GILD,"Gilead Sciences, Inc.",156143140864,925508652.64,7354646,125.84,2.51,3.14,9,Healthcare,Drug Manufacturers - General,NMS,USD
+TXN,Texas Instruments Incorporated,152980504576,1341745436.5500002,7973765,168.27,3.38,5.44,9,Technology,Semiconductors,NMS,USD
+SPGI,S&P Global Inc.,152292802560,811916160.03,1627641,498.83,0.77,3.79,9,Financial Services,Financial Data & Stock Exchanges,NYQ,USD
+PFE,Pfizer Inc.,146350112768,1745191845.54,67800771,25.74,6.68,1.7,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+UNP,Union Pacific Corporation,137512484864,882099703.86,3804942,231.83,2.38,5.4,9,Industrials,Railroads,NYQ,USD
+LOW,"Lowe's Companies, Inc.",136019517440,700653234.4,2889530,242.48,1.98,4.7,9,Consumer Cyclical,Home Improvement Retail,NYQ,USD
+MDT,Medtronic plc,135097950208,763235820.87,7246139,105.33,2.7,2.82,9,Healthcare,Medical Devices,NYQ,USD
+HON,Honeywell International Inc.,129511022592,896611706.84,4665236,192.19,2.38,4.52,9,Industrials,Conglomerates,NMS,USD
+DE,Deere & Company,125565304832,665351268.66,1432434,464.49,1.4,6.48,9,Industrials,Farm & Heavy Construction Machinery,NYQ,USD
+CB,Chubb Limited,118084091904,526082320.5,1776225,296.18,1.31,3.76,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
+COP,ConocoPhillips,110768701440,586153717.73,6609017,88.69,3.79,3.12,9,Energy,Oil & Gas E&P,NYQ,USD
+LMT,Lockheed Martin Corporation,106894303232,605903994.54,1323339,457.86,3.01,13.2,9,Industrials,Aerospace & Defense,NYQ,USD
+ADP,"Automatic Data Processing, Inc.",103419355136,508209881.40000004,1990638,255.3,2.66,6.16,9,Technology,Software - Application,NMS,USD
+SO,The Southern Company,100332683264,496388410.08000004,5447634,91.12,3.25,2.92,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+BMY,Bristol-Myers Squibb Company,100159053824,769773802.8000001,15645809,49.2,5.04,2.48,9,Healthcare,Drug Manufacturers - General,NYQ,USD
+NEM,Newmont Corporation,99662340096,1048608617.99,11557463,90.73,1.1,1.0,9,Basic Materials,Gold,NYQ,USD
+MO,"Altria Group, Inc.",99130359808,497896756.97999996,8437498,59.01,7.19,4.08,9,Consumer Defensive,Tobacco,NYQ,USD
+CMCSA,Comcast Corporation,98544992256,772922942.99,28959271,26.69,4.95,1.3,9,Communication Services,Telecom Services,NMS,USD
+DUK,Duke Energy Corporation,96383336448,368658290.59999996,2974490,123.94,3.44,4.2,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+NKE,"NIKE, Inc.",95536152576,969583719.4699999,15002069,64.63,2.54,1.6,9,Consumer Cyclical,Footwear & Accessories,NYQ,USD
+GD,General Dynamics Corporation,92281249792,371029994.54,1086058,341.63,1.76,5.92,9,Industrials,Aerospace & Defense,NYQ,USD
+MMM,3M Company,91638939648,521052736.8,3028496,172.05,1.7,2.89,9,Industrials,Conglomerates,NYQ,USD
+MMC,"Marsh & McLennan Companies, Inc.",90188423168,505517571.74999994,2755615,183.45,1.96,3.43,9,Financial Services,Insurance Brokers,NYQ,USD
+SHW,The Sherwin-Williams Company,85693366272,693453345.99,2017671,343.69,0.92,3.085,9,Basic Materials,Specialty Chemicals,NYQ,USD
+UPS,"United Parcel Service, Inc.",81266860032,753759153.09,7868871,95.79,6.85,6.55,9,Industrials,Integrated Freight & Logistics,NYQ,USD
+ECL,Ecolab Inc.,78042226688,400887483.00000006,1456925,275.16,0.94,2.6,9,Basic Materials,Specialty Chemicals,NYQ,USD
+USB,U.S. Bancorp,76331089920,442576237.04999995,9022961,49.05,4.24,2.02,9,Financial Services,Banks - Regional,NYQ,USD
+AON,Aon plc,76314566656,430325665.28000003,1215884,353.92,0.84,2.91,9,Financial Services,Insurance Brokers,NYQ,USD
+EMR,Emerson Electric Co.,75066269696,367377337.08,2754366,133.38,1.66,2.11,9,Industrials,Specialty Industrial Machinery,NYQ,USD
+CTAS,Cintas Corporation,74956857344,411412063.1,2211655,186.02,0.97,1.62,9,Industrials,Specialty Business Services,NMS,USD
+PNC,"The PNC Financial Services Group, Inc.",74940940288,363834636.8,1907690,190.72,3.57,6.5,9,Financial Services,Banks - Regional,NYQ,USD
+ITW,Illinois Tool Works Inc.,72665120768,271996387.84,1091128,249.28,2.58,6.11,9,Industrials,Specialty Industrial Machinery,NYQ,USD
+AEP,"American Electric Power Company, Inc.",66249822208,432575902.46,3494998,123.77,3.07,3.72,9,Utilities,Utilities - Regulated Electric,NMS,USD
+TRV,"The Travelers Companies, Inc.",65932693504,363781320.48,1242168,292.86,1.5,4.3,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
+CL,Colgate-Palmolive Company,64972869632,510315157.27,6347993,80.39,2.59,2.04,9,Consumer Defensive,Household & Personal Products,NYQ,USD
+AJG,Arthur J. Gallagher & Co.,63590051840,393643742.58,1589709,247.62,1.05,2.55,9,Financial Services,Insurance Brokers,NYQ,USD
+SRE,Sempra,61821997056,376599900.15999997,3975928,94.72,2.72,2.555,9,Utilities,Utilities - Diversified,NYQ,USD
+FCX,Freeport-McMoRan Inc.,61716295680,819040289.76,19056312,42.98,1.4,0.6,7,Basic Materials,Copper,NYQ,USD
+TFC,Truist Financial Corporation,59958734848,381945280.5,8213877,46.5,4.47,2.08,9,Financial Services,Banks - Regional,NYQ,USD
+AFL,Aflac Incorporated,58997260288,245104076.67000002,2221957,110.31,2.21,2.24,9,Financial Services,Insurance - Life,NYQ,USD
+MPC,Marathon Petroleum Corporation,58897854464,368863663.57,1904009,193.73,2.06,3.73,9,Energy,Oil & Gas Refining & Marketing,NYQ,USD
+EOG,"EOG Resources, Inc.",58885386240,408480149.4,3787484,107.85,3.78,3.945,9,Energy,Oil & Gas E&P,NYQ,USD
+APD,"Air Products and Chemicals, Inc.",58107179008,309004885.0,1183700,261.05,2.74,7.14,9,Basic Materials,Specialty Chemicals,NYQ,USD
+ALL,The Allstate Corporation,56121364480,302204563.32,1418934,212.98,1.88,3.92,9,Financial Services,Insurance - Property & Casualty,NYQ,USD
+BDX,"Becton, Dickinson and Company",55611461632,391576984.6,2018230,194.02,2.16,4.16,9,Healthcare,Medical Instruments & Supplies,NYQ,USD
+PSX,Phillips 66,55348858880,334413588.48,2441688,136.96,3.5,4.7,9,Energy,Oil & Gas Refining & Marketing,NYQ,USD
+VLO,Valero Energy Corporation,54910799872,476215479.35999995,2694136,176.76,2.56,4.46,9,Energy,Oil & Gas Refining & Marketing,NYQ,USD
+SLB,SLB N.V.,54139793408,601896207.6,16608615,36.24,3.15,1.13,9,Energy,Oil & Gas Equipment & Services,NYQ,USD
+D,"Dominion Energy, Inc.",53600137216,306266944.61,4879193,62.77,4.25,2.67,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+MET,"MetLife, Inc.",50914394112,268454577.6,3506460,76.56,2.96,2.225,9,Financial Services,Insurance - Life,NYQ,USD
+CAH,"Cardinal Health, Inc.",50431922176,510767605.79999995,2406330,212.26,0.96,2.033,9,Healthcare,Medical Distribution,NYQ,USD
+XEL,Xcel Energy Inc.,48571330560,407899078.65,4967715,82.11,2.78,2.26,9,Utilities,Utilities - Regulated Electric,NMS,USD
+ROP,"Roper Technologies, Inc.",48029974528,438815871.54,983407,446.22,0.82,3.3,9,Technology,Software - Application,NMS,USD
+EXC,Exelon Corporation,47590600704,322891731.91999996,6852541,47.12,3.4,1.58,9,Utilities,Utilities - Regulated Electric,NMS,USD
+FAST,Fastenal Company,46380646400,266131970.0,6587425,40.4,2.18,0.85,9,Industrials,Industrial Distribution,NMS,USD
+AIG,"American International Group, Inc.",42192932864,338256262.4,4441390,76.16,2.36,1.7,9,Financial Services,Insurance - Diversified,NYQ,USD
+OXY,Occidental Petroleum Corporation,41378836480,428253504.0,10196512,42.0,2.29,0.94,9,Energy,Oil & Gas E&P,NYQ,USD
+TGT,Target Corporation,41177649152,731894242.4000001,8076520,90.62,5.03,4.5,9,Consumer Defensive,Discount Stores,NYQ,USD
+PRU,"Prudential Financial, Inc.",38097821696,176117337.5,1626950,108.25,4.99,5.35,9,Financial Services,Insurance - Life,NYQ,USD
+NUE,Nucor Corporation,36500668416,254656566.57000002,1596693,159.49,1.38,2.2,9,Basic Materials,Steel,NYQ,USD
+SYY,Sysco Corporation,36489211904,232013455.20000002,3044796,76.2,2.83,2.1,9,Consumer Defensive,Food Distribution,NYQ,USD
+WEC,"WEC Energy Group, Inc.",36455727104,240456495.44,2145592,112.07,3.19,3.513,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+ED,"Consolidated Edison, Inc.",36223500288,208323072.88,2075758,100.36,3.39,3.38,9,Utilities,Utilities - Regulated Electric,NYQ,USD
+KMB,Kimberly-Clark Corporation,36212391936,482577307.52000004,4422446,109.12,4.62,5.0,9,Consumer Defensive,Household & Personal Products,NMS,USD
+MTB,M&T Bank Corporation,29725546496,212076848.66,1114903,190.22,3.15,5.55,9,Financial Services,Banks - Regional,NYQ,USD
+FITB,Fifth Third Bancorp,28729006080,312986533.90000004,7201715,43.46,3.68,1.51,9,Financial Services,Banks - Regional,NMS,USD
+ATO,Atmos Energy Corporation,28517855232,164761679.34,934182,176.37,2.27,3.48,9,Utilities,Utilities - Regulated Gas,NYQ,USD
+BRO,"Brown & Brown, Inc.",27460474880,224517610.38000003,2791466,80.43,0.82,0.6,9,Financial Services,Insurance Brokers,NYQ,USD
+CINF,Cincinnati Financial Corporation,26207123456,85409394.47,509633,167.59,2.08,3.42,9,Financial Services,Insurance - Property & Casualty,NMS,USD
+HBAN,Huntington Bancshares Incorporated,25548468224,516056924.20000005,31659934,16.3,3.8,0.62,9,Financial Services,Banks - Regional,NMS,USD
+DOV,Dover Corporation,25411747840,212712556.8,1148060,185.28,1.12,2.06,9,Industrials,Specialty Industrial Machinery,NYQ,USD
+CFG,"Citizens Financial Group, Inc.",23335979008,240780976.5,4450665,54.1,3.4,1.68,9,Financial Services,Banks - Regional,NYQ,USD
+RF,Regions Financial Corporation,22709248000,644801912.6,25336028,25.45,4.17,1.015,9,Financial Services,Banks - Regional,NYQ,USD
+PPG,"PPG Industries, Inc.",22579027968,196115314.76000002,1960369,100.04,2.84,2.75,9,Basic Materials,Specialty Chemicals,NYQ,USD
+TROW,"T. Rowe Price Group, Inc.",22494445568,166326343.23999998,1624598,102.38,4.96,5.05,9,Financial Services,Asset Management,NMS,USD
+KEY,KeyCorp,20153960448,424875388.4,23116180,18.38,4.46,0.82,9,Financial Services,Banks - Regional,NYQ,USD
+WST,"West Pharmaceutical Services, Inc.",19946309632,189949520.0,685120,277.25,0.32,0.84,9,Healthcare,Medical Instruments & Supplies,NYQ,USD
+EXPD,"Expeditors International of Washington, Inc.",19937050624,196525023.5,1337815,146.9,1.05,1.5,9,Industrials,Integrated Freight & Logistics,NYQ,USD
+AMCR,Amcor plc,19667228672,203034973.92,23830396,8.52,6.1,0.513,9,Consumer Cyclical,Packaging & Containers,NYQ,USD
+GPC,Genuine Parts Company,18140008448,158675023.20000002,1216833,130.4,3.16,4.09,9,Consumer Cyclical,Auto Parts,NYQ,USD
+MKC,"McCormick & Company, Incorporated",18109990912,176381788.24,2613838,67.48,2.85,1.77,9,Consumer Defensive,Packaged Foods,NYQ,USD
+PNR,Pentair plc,17252126720,124623945.11999999,1184188,105.24,0.95,0.98,9,Industrials,Specialty Industrial Machinery,NYQ,USD
+DD,"DuPont de Nemours, Inc.",16662648832,304649494.68,7660284,39.77,3.6,1.61,9,Basic Materials,Specialty Chemicals,NYQ,USD
+ALB,Albemarle Corporation,15299503104,491795846.64000005,3783336,129.99,1.25,1.62,9,Basic Materials,Specialty Chemicals,NYQ,USD
+BF-B,Brown-Forman Corporation,13714485248,103120983.0,3558350,28.98,3.14,0.897,9,Consumer Defensive,Beverages - Wineries & Distilleries,NYQ,USD
+CLX,The Clorox Company,13166562304,217971877.2,2019380,107.94,4.6,4.92,9,Consumer Defensive,Household & Personal Products,NYQ,USD
+HRL,Hormel Foods Corporation,12765463552,106787585.3,4600930,23.21,5.04,1.153,9,Consumer Defensive,Packaged Foods,NYQ,USD
+BEN,"Franklin Resources, Inc.",11768725504,100767032.28,4460692,22.59,5.67,1.28,9,Financial Services,Asset Management,NYQ,USD
+SJM,The J. M. Smucker Company,11115415552,192466924.28,1847446,104.18,4.22,4.36,9,Consumer Defensive,Packaged Foods,NYQ,USD
+SWK,"Stanley Black & Decker, Inc.",11077371904,138742148.64,1939907,71.52,4.64,3.29,9,Industrials,Tools & Accessories,NYQ,USD
+AOS,A. O. Smith Corporation,9245750272,79327490.08,1202296,65.98,2.09,1.36,9,Industrials,Specialty Industrial Machinery,NYQ,USD
+ZION,"Zions Bancorporation, National Association",7858932736,100076605.16999999,1880079,53.23,3.38,1.74,9,Financial Services,Banks - Regional,NMS,USD
