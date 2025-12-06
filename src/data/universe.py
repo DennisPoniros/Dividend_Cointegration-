@@ -2,8 +2,8 @@
 Universe Screening Module (STEP 1 of Strategy)
 
 Identifies dividend-paying US stocks meeting the strategy criteria:
-- Market cap > $1B
-- Minimum 3 consecutive years of dividend payments
+- Market cap > $5B (quality threshold)
+- Minimum 5 consecutive years of dividend payments
 - Average daily volume > $1M
 - Excludes: REITs, MLPs, special dividends only
 """
@@ -41,8 +41,8 @@ class UniverseScreener:
 
     def __init__(
         self,
-        market_cap_min: float = 1_000_000_000,  # $1B
-        min_dividend_years: int = 3,
+        market_cap_min: float = 5_000_000_000,  # $5B (quality threshold)
+        min_dividend_years: int = 5,  # 5 years of consecutive dividends
         avg_daily_volume_min: float = 1_000_000,  # $1M
         data_dir: str = "data/universe"
     ):

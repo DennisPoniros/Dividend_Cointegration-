@@ -164,14 +164,14 @@ def main():
     parser.add_argument(
         '--market-cap-min',
         type=float,
-        default=1_000_000_000,
-        help='Minimum market cap in dollars (default: 1B)'
+        default=5_000_000_000,
+        help='Minimum market cap in dollars (default: 5B)'
     )
     parser.add_argument(
         '--min-dividend-years',
         type=int,
-        default=3,
-        help='Minimum consecutive years of dividend payments (default: 3)'
+        default=5,
+        help='Minimum consecutive years of dividend payments (default: 5)'
     )
     parser.add_argument(
         '--min-dollar-volume',
