@@ -3,12 +3,12 @@
   "name": "FirstEnergy Corp.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 25960288256,
-  "enterprise_value": 53527822336,
-  "pe_ratio": 19.539131,
-  "forward_pe": 15.550172,
+  "market_cap": 25942960128,
+  "enterprise_value": 53394960384,
+  "pe_ratio": 19.526087,
+  "forward_pe": 15.539792,
   "peg_ratio": null,
-  "price_to_book": 2.028436,
+  "price_to_book": 2.027082,
   "dividend_yield": 3.94,
   "dividend_rate": 1.78,
   "payout_ratio": 0.7565,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3608000000,
   "earnings_growth": 0.045,
   "revenue_growth": 0.112,
-  "snapshot_date": "2025-12-05T10:54:15.795285"
+  "snapshot_date": "2025-12-05T19:27:26.677967"
 }

@@ -3,12 +3,12 @@
   "name": "Avery Dennison Corporation",
   "sector": "Consumer Cyclical",
   "industry": "Packaging & Containers",
-  "market_cap": 13663506432,
-  "enterprise_value": 16723002368,
-  "pe_ratio": 20.041952,
-  "forward_pe": 16.803232,
+  "market_cap": 13861383168,
+  "enterprise_value": 17060783104,
+  "pe_ratio": 20.332201,
+  "forward_pe": 17.046577,
   "peg_ratio": null,
-  "price_to_book": 6.199846,
+  "price_to_book": 6.289633,
   "dividend_yield": 2.15,
   "dividend_rate": 3.76,
   "payout_ratio": 0.4132,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 855800000,
   "earnings_growth": -0.053,
   "revenue_growth": 0.015,
-  "snapshot_date": "2025-12-05T10:55:51.642392"
+  "snapshot_date": "2025-12-05T19:28:18.605723"
 }

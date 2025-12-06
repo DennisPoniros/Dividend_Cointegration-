@@ -3,12 +3,12 @@
   "name": "Edison International",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 22343462912,
-  "enterprise_value": 65037496320,
-  "pe_ratio": 7.6094365,
-  "forward_pe": 10.185966,
+  "market_cap": 22355007488,
+  "enterprise_value": 65245278208,
+  "pe_ratio": 7.613368,
+  "forward_pe": 10.191229,
   "peg_ratio": null,
-  "price_to_book": 1.440409,
+  "price_to_book": 1.4411532,
   "dividend_yield": 5.75,
   "dividend_rate": 3.31,
   "payout_ratio": 0.4338,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5398000128,
   "earnings_growth": 0.636,
   "revenue_growth": 0.106,
-  "snapshot_date": "2025-12-05T10:54:45.423975"
+  "snapshot_date": "2025-12-05T19:27:42.920307"
 }

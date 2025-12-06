@@ -3,12 +3,12 @@
   "name": "KeyCorp",
   "sector": "Financial Services",
   "industry": "Banks - Regional",
-  "market_cap": 21365612544,
-  "enterprise_value": 33148692480,
-  "pe_ratio": 24.055555,
-  "forward_pe": 12.490385,
+  "market_cap": 21118896128,
+  "enterprise_value": 33312630784,
+  "pe_ratio": 23.777779,
+  "forward_pe": 12.346154,
   "peg_ratio": null,
-  "price_to_book": 1.2319803,
+  "price_to_book": 1.2177542,
   "dividend_yield": 4.29,
   "dividend_rate": 0.82,
   "payout_ratio": 1.0123,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3216999936,
   "earnings_growth": null,
   "revenue_growth": 2.026,
-  "snapshot_date": "2025-12-05T10:54:52.617213"
+  "snapshot_date": "2025-12-05T19:27:46.650854"
 }

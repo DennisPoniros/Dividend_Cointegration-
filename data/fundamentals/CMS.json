@@ -3,12 +3,12 @@
   "name": "CMS Energy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 21688868864,
-  "enterprise_value": 40321728512,
-  "pe_ratio": 20.538904,
-  "forward_pe": 19.907822,
+  "market_cap": 21634091008,
+  "enterprise_value": 40136093696,
+  "pe_ratio": 20.48703,
+  "forward_pe": 19.857542,
   "peg_ratio": null,
-  "price_to_book": 2.5101256,
+  "price_to_book": 2.503786,
   "dividend_yield": 3.03,
   "dividend_rate": 2.17,
   "payout_ratio": 0.6174,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2160000000,
   "earnings_growth": 0.092,
   "revenue_growth": 0.16,
-  "snapshot_date": "2025-12-05T10:54:47.272862"
+  "snapshot_date": "2025-12-05T19:27:43.878273"
 }

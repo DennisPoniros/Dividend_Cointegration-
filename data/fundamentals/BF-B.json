@@ -3,12 +3,12 @@
   "name": "Brown-Forman Corporation",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Wineries & Distilleries",
-  "market_cap": 14192456704,
-  "enterprise_value": 16342628352,
-  "pe_ratio": 17.538012,
-  "forward_pe": 15.78421,
+  "market_cap": 14386485248,
+  "enterprise_value": 16672939008,
+  "pe_ratio": 17.777777,
+  "forward_pe": 16.0,
   "peg_ratio": null,
-  "price_to_book": 3.4231253,
+  "price_to_book": 3.4699235,
   "dividend_yield": 3.07,
   "dividend_rate": 0.91,
   "payout_ratio": 0.5298,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 761000000,
   "earnings_growth": -0.139,
   "revenue_growth": -0.054,
-  "snapshot_date": "2025-12-05T10:55:44.980126"
+  "snapshot_date": "2025-12-05T19:28:15.123647"
 }

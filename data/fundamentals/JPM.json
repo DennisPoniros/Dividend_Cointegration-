@@ -3,12 +3,12 @@
   "name": "JPMorgan Chase & Co.",
   "sector": "Financial Services",
   "industry": "Banks - Diversified",
-  "market_cap": 871190822912,
-  "enterprise_value": 617601105920,
-  "pe_ratio": 15.684406,
-  "forward_pe": 18.926226,
+  "market_cap": 866282504192,
+  "enterprise_value": 614715490304,
+  "pe_ratio": 15.59604,
+  "forward_pe": 18.819595,
   "peg_ratio": null,
-  "price_to_book": 2.5354724,
+  "price_to_book": 2.5211873,
   "dividend_yield": 1.9,
   "dividend_rate": 6.0,
   "payout_ratio": 0.2749,
@@ -35,5 +35,5 @@
   "operating_cash_flow": -119748001792,
   "earnings_growth": 0.16,
   "revenue_growth": 0.088,
-  "snapshot_date": "2025-12-05T10:49:23.974071"
+  "snapshot_date": "2025-12-05T19:24:42.635710"
 }

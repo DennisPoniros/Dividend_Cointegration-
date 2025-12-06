@@ -3,12 +3,12 @@
   "name": "Aflac Incorporated",
   "sector": "Financial Services",
   "industry": "Insurance - Life",
-  "market_cap": 58165063680,
-  "enterprise_value": 62469206016,
-  "pe_ratio": 14.290933,
-  "forward_pe": 15.167921,
+  "market_cap": 58446385152,
+  "enterprise_value": 62490169344,
+  "pe_ratio": 14.360052,
+  "forward_pe": 15.241282,
   "peg_ratio": null,
-  "price_to_book": 1.9929265,
+  "price_to_book": 2.0025654,
   "dividend_yield": 2.23,
   "dividend_rate": 2.44,
   "payout_ratio": 0.2943,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2572999936,
   "earnings_growth": null,
   "revenue_growth": 0.607,
-  "snapshot_date": "2025-12-05T10:52:15.363301"
+  "snapshot_date": "2025-12-05T19:26:20.509304"
 }

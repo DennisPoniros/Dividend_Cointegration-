@@ -3,12 +3,12 @@
   "name": "NXP Semiconductors N.V.",
   "sector": "Technology",
   "industry": "Semiconductors",
-  "market_cap": 58064510976,
-  "enterprise_value": 65581699072,
-  "pe_ratio": 28.433332,
-  "forward_pe": 17.621271,
+  "market_cap": 57469521920,
+  "enterprise_value": 66032197632,
+  "pe_ratio": 28.141973,
+  "forward_pe": 17.440704,
   "peg_ratio": null,
-  "price_to_book": 5.7807283,
+  "price_to_book": 5.721493,
   "dividend_yield": 1.79,
   "dividend_rate": 4.06,
   "payout_ratio": 0.5014,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2320000000,
   "earnings_growth": -0.111,
   "revenue_growth": -0.024,
-  "snapshot_date": "2025-12-05T10:52:20.137827"
+  "snapshot_date": "2025-12-05T19:26:23.068324"
 }

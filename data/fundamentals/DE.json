@@ -3,12 +3,12 @@
   "name": "Deere & Company",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
-  "market_cap": 131007037440,
-  "enterprise_value": 187999010816,
-  "pe_ratio": 26.195675,
-  "forward_pe": 21.859268,
+  "market_cap": 128436199424,
+  "enterprise_value": 185858228224,
+  "pe_ratio": 25.681622,
+  "forward_pe": 21.430311,
   "peg_ratio": null,
-  "price_to_book": 5.0479145,
+  "price_to_book": 4.9488564,
   "dividend_yield": 1.34,
   "dividend_rate": 6.48,
   "payout_ratio": 0.35029998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7458999808,
   "earnings_growth": -0.137,
   "revenue_growth": 0.131,
-  "snapshot_date": "2025-12-05T10:50:43.067455"
+  "snapshot_date": "2025-12-05T19:25:27.782278"
 }

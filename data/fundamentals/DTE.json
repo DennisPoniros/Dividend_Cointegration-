@@ -3,12 +3,12 @@
   "name": "DTE Energy Company",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 27289546752,
-  "enterprise_value": 52714385408,
-  "pe_ratio": 19.70015,
-  "forward_pe": 18.224688,
+  "market_cap": 27254239232,
+  "enterprise_value": 52521242624,
+  "pe_ratio": 19.674662,
+  "forward_pe": 18.201109,
   "peg_ratio": null,
-  "price_to_book": 2.2445805,
+  "price_to_book": 2.2416766,
   "dividend_yield": 3.36,
   "dividend_rate": 4.44,
   "payout_ratio": 0.65370005,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3444999936,
   "earnings_growth": -0.124,
   "revenue_growth": 0.214,
-  "snapshot_date": "2025-12-05T10:54:04.223219"
+  "snapshot_date": "2025-12-05T19:27:20.512001"
 }

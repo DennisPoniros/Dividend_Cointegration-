@@ -3,12 +3,12 @@
   "name": "McKesson Corporation",
   "sector": "Healthcare",
   "industry": "Medical Distribution",
-  "market_cap": 101002616832,
-  "enterprise_value": 107603509248,
-  "pe_ratio": 25.375626,
-  "forward_pe": 22.059767,
+  "market_cap": 100579704832,
+  "enterprise_value": 106917257216,
+  "pe_ratio": 25.269375,
+  "forward_pe": 21.9674,
   "peg_ratio": null,
-  "price_to_book": -57.90217,
+  "price_to_book": -57.659725,
   "dividend_yield": 0.4,
   "dividend_rate": 3.28,
   "payout_ratio": 0.0922,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6866999808,
   "earnings_growth": 3.77,
   "revenue_growth": 0.101,
-  "snapshot_date": "2025-12-05T10:51:01.388830"
+  "snapshot_date": "2025-12-05T19:25:38.514824"
 }

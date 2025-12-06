@@ -3,12 +3,12 @@
   "name": "Globe Life Inc.",
   "sector": "Financial Services",
   "industry": "Insurance - Life",
-  "market_cap": 10612273152,
-  "enterprise_value": 13189853184,
-  "pe_ratio": 9.5072565,
-  "forward_pe": 9.668634,
+  "market_cap": 10641434624,
+  "enterprise_value": 13233636352,
+  "pe_ratio": 9.533381,
+  "forward_pe": 9.695203,
   "peg_ratio": null,
-  "price_to_book": 1.849379,
+  "price_to_book": 1.8544608,
   "dividend_yield": 0.83,
   "dividend_rate": 1.08,
   "payout_ratio": 0.0762,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1382717056,
   "earnings_growth": 0.375,
   "revenue_growth": 0.04,
-  "snapshot_date": "2025-12-05T10:56:17.865419"
+  "snapshot_date": "2025-12-05T19:28:32.753287"
 }

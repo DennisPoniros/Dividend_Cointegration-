@@ -3,12 +3,12 @@
   "name": "American International Group, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance - Diversified",
-  "market_cap": 42730315776,
-  "enterprise_value": 39970439168,
-  "pe_ratio": 13.872302,
-  "forward_pe": 11.494783,
+  "market_cap": 42674913280,
+  "enterprise_value": 39835541504,
+  "pe_ratio": 13.854317,
+  "forward_pe": 11.47988,
   "peg_ratio": null,
-  "price_to_book": 1.0221851,
+  "price_to_book": 1.0208598,
   "dividend_yield": 2.33,
   "dividend_rate": 1.8,
   "payout_ratio": 0.3058,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2803000064,
   "earnings_growth": 0.323,
   "revenue_growth": -0.041,
-  "snapshot_date": "2025-12-05T10:52:58.592520"
+  "snapshot_date": "2025-12-05T19:26:44.465261"
 }

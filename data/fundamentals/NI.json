@@ -3,12 +3,12 @@
   "name": "NiSource Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
-  "market_cap": 19911260160,
-  "enterprise_value": 37821919232,
-  "pe_ratio": 22.144737,
-  "forward_pe": 22.620968,
+  "market_cap": 19875766272,
+  "enterprise_value": 37874413568,
+  "pe_ratio": 22.105263,
+  "forward_pe": 22.580645,
   "peg_ratio": null,
-  "price_to_book": 2.201727,
+  "price_to_book": 2.197802,
   "dividend_yield": 2.67,
   "dividend_rate": 1.12,
   "payout_ratio": 0.5816,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2189499904,
   "earnings_growth": 0.057,
   "revenue_growth": 0.183,
-  "snapshot_date": "2025-12-05T10:55:04.753652"
+  "snapshot_date": "2025-12-05T19:27:53.512374"
 }

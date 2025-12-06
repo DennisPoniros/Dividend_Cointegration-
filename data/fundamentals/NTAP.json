@@ -3,12 +3,12 @@
   "name": "NetApp, Inc.",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 23441186816,
-  "enterprise_value": 22692020224,
-  "pe_ratio": 20.458189,
-  "forward_pe": 15.4920845,
+  "market_cap": 23409246208,
+  "enterprise_value": 22945536000,
+  "pe_ratio": 20.430313,
+  "forward_pe": 15.470976,
   "peg_ratio": null,
-  "price_to_book": 23.58032,
+  "price_to_book": 23.548191,
   "dividend_yield": 1.79,
   "dividend_rate": 2.08,
   "payout_ratio": 0.36240003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1860000000,
   "earnings_growth": 0.063,
   "revenue_growth": 0.028,
-  "snapshot_date": "2025-12-05T10:54:41.793254"
+  "snapshot_date": "2025-12-05T19:27:40.925924"
 }

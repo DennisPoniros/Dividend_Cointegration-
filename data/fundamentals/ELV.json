@@ -3,12 +3,12 @@
   "name": "Elevance Health, Inc.",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
-  "market_cap": 74670252032,
-  "enterprise_value": 70129401856,
-  "pe_ratio": 13.512836,
-  "forward_pe": 9.487983,
+  "market_cap": 74477723648,
+  "enterprise_value": 69520474112,
+  "pe_ratio": 13.477995,
+  "forward_pe": 9.463519,
   "peg_ratio": null,
-  "price_to_book": 1.675162,
+  "price_to_book": 1.6708428,
   "dividend_yield": 2.05,
   "dividend_rate": 6.84,
   "payout_ratio": 0.2755,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4912000000,
   "earnings_growth": 0.22,
   "revenue_growth": 0.123,
-  "snapshot_date": "2025-12-05T10:51:35.920049"
+  "snapshot_date": "2025-12-05T19:25:57.860414"
 }

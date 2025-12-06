@@ -3,12 +3,12 @@
   "name": "The Progressive Corporation",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 132206813184,
-  "enterprise_value": 138372956160,
-  "pe_ratio": 12.380836,
-  "forward_pe": 16.337318,
+  "market_cap": 130702696448,
+  "enterprise_value": 135910080512,
+  "pe_ratio": 12.239979,
+  "forward_pe": 16.15145,
   "peg_ratio": null,
-  "price_to_book": 3.7273915,
+  "price_to_book": 3.684985,
   "dividend_yield": 2.16,
   "dividend_rate": 4.9,
   "payout_ratio": 0.2689,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 17386000384,
   "earnings_growth": 0.121,
   "revenue_growth": 0.142,
-  "snapshot_date": "2025-12-05T10:50:37.473550"
+  "snapshot_date": "2025-12-05T19:25:24.510355"
 }

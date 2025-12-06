@@ -3,12 +3,12 @@
   "name": "Broadcom Inc.",
   "sector": "Technology",
   "industry": "Semiconductors",
-  "market_cap": 1837661159424,
-  "enterprise_value": 185982337024,
-  "pe_ratio": 100.03599,
-  "forward_pe": 63.069695,
+  "market_cap": 1842855673856,
+  "enterprise_value": 189767647232,
+  "pe_ratio": 100.31876,
+  "forward_pe": 63.24797,
   "peg_ratio": null,
-  "price_to_book": 6.57098,
+  "price_to_book": 6.5895543,
   "dividend_yield": 0.62,
   "dividend_rate": 2.36,
   "payout_ratio": 0.5897,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 25437999104,
   "earnings_growth": 1.881,
   "revenue_growth": 0.164,
-  "snapshot_date": "2025-12-05T10:49:20.416768"
+  "snapshot_date": "2025-12-05T19:24:40.522743"
 }

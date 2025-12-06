@@ -3,12 +3,12 @@
   "name": "Intercontinental Exchange, Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 90437132288,
-  "enterprise_value": 109445111808,
-  "pe_ratio": 28.77778,
-  "forward_pe": 23.440655,
+  "market_cap": 90339819520,
+  "enterprise_value": 108709584896,
+  "pe_ratio": 28.746815,
+  "forward_pe": 23.415432,
   "peg_ratio": null,
-  "price_to_book": 3.143892,
+  "price_to_book": 3.1405094,
   "dividend_yield": 1.21,
   "dividend_rate": 1.92,
   "payout_ratio": 0.3443,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4893000192,
   "earnings_growth": 0.246,
   "revenue_growth": 0.026,
-  "snapshot_date": "2025-12-05T10:51:18.882949"
+  "snapshot_date": "2025-12-05T19:25:48.189437"
 }

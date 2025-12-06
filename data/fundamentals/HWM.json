@@ -3,12 +3,12 @@
   "name": "Howmet Aerospace Inc.",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 77340368896,
-  "enterprise_value": 81656758272,
-  "pe_ratio": 54.12676,
-  "forward_pe": 60.61514,
+  "market_cap": 76869451776,
+  "enterprise_value": 79529852928,
+  "pe_ratio": 53.797184,
+  "forward_pe": 60.246056,
   "peg_ratio": null,
-  "price_to_book": 15.219802,
+  "price_to_book": 15.127129,
   "dividend_yield": 0.22,
   "dividend_rate": 0.44,
   "payout_ratio": 0.112399995,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1710000000,
   "earnings_growth": 0.173,
   "revenue_growth": 0.138,
-  "snapshot_date": "2025-12-05T10:51:32.573035"
+  "snapshot_date": "2025-12-05T19:25:55.945551"
 }

@@ -3,12 +3,12 @@
   "name": "The Hershey Company",
   "sector": "Consumer Defensive",
   "industry": "Confectioners",
-  "market_cap": 36825780224,
-  "enterprise_value": 41577574400,
-  "pe_ratio": 27.104479,
-  "forward_pe": 21.61905,
+  "market_cap": 36967727104,
+  "enterprise_value": 41545129984,
+  "pe_ratio": 27.208956,
+  "forward_pe": 21.702383,
   "peg_ratio": null,
-  "price_to_book": 8.067526,
+  "price_to_book": 8.098623,
   "dividend_yield": 3.0,
   "dividend_rate": 5.48,
   "payout_ratio": 0.8191,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2292416000,
   "earnings_growth": -0.382,
   "revenue_growth": 0.065,
-  "snapshot_date": "2025-12-05T10:53:26.681875"
+  "snapshot_date": "2025-12-05T19:26:59.884404"
 }

@@ -3,12 +3,12 @@
   "name": "Microsoft Corporation",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 3585425014784,
-  "enterprise_value": 3592147435520,
-  "pe_ratio": 34.35577,
-  "forward_pe": 32.26455,
+  "market_cap": 3591408713728,
+  "enterprise_value": 3609390481408,
+  "pe_ratio": 34.413105,
+  "forward_pe": 32.318394,
   "peg_ratio": null,
-  "price_to_book": 9.876228,
+  "price_to_book": 9.892711,
   "dividend_yield": 0.76,
   "dividend_rate": 3.64,
   "payout_ratio": 0.2361,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 147038994432,
   "earnings_growth": 0.127,
   "revenue_growth": 0.184,
-  "snapshot_date": "2025-12-05T10:49:17.876958"
+  "snapshot_date": "2025-12-05T19:24:39.757174"
 }

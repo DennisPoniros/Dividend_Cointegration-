@@ -3,12 +3,12 @@
   "name": "Broadridge Financial Solutions, Inc.",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 26859593728,
-  "enterprise_value": 30138558464,
-  "pe_ratio": 29.387611,
-  "forward_pe": 24.610159,
+  "market_cap": 27083128832,
+  "enterprise_value": 30271627264,
+  "pe_ratio": 29.632185,
+  "forward_pe": 24.814972,
   "peg_ratio": null,
-  "price_to_book": 10.190656,
+  "price_to_book": 10.275465,
   "dividend_yield": 1.69,
   "dividend_rate": 3.9,
   "payout_ratio": 0.4623,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1339100032,
   "earnings_growth": 1.059,
   "revenue_growth": 0.117,
-  "snapshot_date": "2025-12-05T10:54:09.173498"
+  "snapshot_date": "2025-12-05T19:27:23.098409"
 }

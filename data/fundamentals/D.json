@@ -3,12 +3,12 @@
   "name": "Dominion Energy, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 50124709888,
-  "enterprise_value": 104111169536,
-  "pe_ratio": 19.183006,
-  "forward_pe": 17.366863,
+  "market_cap": 49945391104,
+  "enterprise_value": 102958391296,
+  "pe_ratio": 19.11438,
+  "forward_pe": 17.304733,
   "peg_ratio": null,
-  "price_to_book": 1.8774989,
+  "price_to_book": 1.8707821,
   "dividend_yield": 4.46,
   "dividend_rate": 2.67,
   "payout_ratio": 0.8725,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5015000064,
   "earnings_growth": 0.062,
   "revenue_growth": 0.149,
-  "snapshot_date": "2025-12-05T10:52:33.596384"
+  "snapshot_date": "2025-12-05T19:26:30.939232"
 }

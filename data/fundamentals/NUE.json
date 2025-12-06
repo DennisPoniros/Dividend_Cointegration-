@@ -3,12 +3,12 @@
   "name": "Nucor Corporation",
   "sector": "Basic Materials",
   "industry": "Steel",
-  "market_cap": 37125451776,
-  "enterprise_value": 42467688448,
-  "pe_ratio": 22.783709,
-  "forward_pe": 17.331198,
+  "market_cap": 36491513856,
+  "enterprise_value": 41760514048,
+  "pe_ratio": 22.394663,
+  "forward_pe": 17.035257,
   "peg_ratio": null,
-  "price_to_book": 1.7874498,
+  "price_to_book": 1.756928,
   "dividend_yield": 1.38,
   "dividend_rate": 2.24,
   "payout_ratio": 0.309,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3168000000,
   "earnings_growth": 1.505,
   "revenue_growth": 0.145,
-  "snapshot_date": "2025-12-05T10:53:23.315253"
+  "snapshot_date": "2025-12-05T19:26:57.964213"
 }

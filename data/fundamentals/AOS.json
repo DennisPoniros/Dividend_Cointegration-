@@ -3,12 +3,12 @@
   "name": "A. O. Smith Corporation",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 9510595584,
-  "enterprise_value": 9406481408,
-  "pe_ratio": 18.2938,
-  "forward_pe": 16.675676,
+  "market_cap": 9533015040,
+  "enterprise_value": 9522049024,
+  "pe_ratio": 18.336927,
+  "forward_pe": 16.714987,
   "peg_ratio": null,
-  "price_to_book": 5.1234245,
+  "price_to_book": 5.1355023,
   "dividend_yield": 2.05,
   "dividend_rate": 1.38,
   "payout_ratio": 0.3666,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 655600000,
   "earnings_growth": 0.146,
   "revenue_growth": 0.044,
-  "snapshot_date": "2025-12-05T10:56:26.421764"
+  "snapshot_date": "2025-12-05T19:28:37.510483"
 }

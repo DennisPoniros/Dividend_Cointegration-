@@ -3,12 +3,12 @@
   "name": "Johnson Controls International plc",
   "sector": "Industrials",
   "industry": "Building Products & Equipment",
-  "market_cap": 74475610112,
-  "enterprise_value": 80629694464,
-  "pe_ratio": 43.27376,
-  "forward_pe": 27.16229,
+  "market_cap": 74750451712,
+  "enterprise_value": 80648028160,
+  "pe_ratio": 43.43346,
+  "forward_pe": 27.26253,
   "peg_ratio": null,
-  "price_to_book": 5.3803244,
+  "price_to_book": 5.40018,
   "dividend_yield": 1.4,
   "dividend_rate": 1.6,
   "payout_ratio": 0.5741,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1399000064,
   "earnings_growth": 1.813,
   "revenue_growth": 0.031,
-  "snapshot_date": "2025-12-05T10:51:41.152358"
+  "snapshot_date": "2025-12-05T19:26:00.876325"
 }

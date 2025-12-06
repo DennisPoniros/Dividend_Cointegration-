@@ -3,12 +3,12 @@
   "name": "Merck & Co., Inc.",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 251826503680,
-  "enterprise_value": 273628250112,
-  "pe_ratio": 13.3359785,
-  "forward_pe": 10.725533,
+  "market_cap": 249078956032,
+  "enterprise_value": 270724284416,
+  "pe_ratio": 13.190476,
+  "forward_pe": 10.608511,
   "peg_ratio": null,
-  "price_to_book": 4.836652,
+  "price_to_book": 4.783881,
   "dividend_yield": 3.37,
   "dividend_rate": 3.4,
   "payout_ratio": 0.4286,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 17064999936,
   "earnings_growth": 0.87,
   "revenue_growth": 0.037,
-  "snapshot_date": "2025-12-05T10:49:58.489097"
+  "snapshot_date": "2025-12-05T19:25:02.557601"
 }

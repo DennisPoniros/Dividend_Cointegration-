@@ -3,12 +3,12 @@
   "name": "Agilent Technologies, Inc.",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
-  "market_cap": 41419411456,
-  "enterprise_value": 43547623424,
-  "pe_ratio": 31.969366,
-  "forward_pe": 25.858408,
+  "market_cap": 41246478336,
+  "enterprise_value": 42746580992,
+  "pe_ratio": 31.835886,
+  "forward_pe": 25.750443,
   "peg_ratio": null,
-  "price_to_book": 6.134789,
+  "price_to_book": 6.109175,
   "dividend_yield": 0.69,
   "dividend_rate": 1.02,
   "payout_ratio": 0.2171,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1559000064,
   "earnings_growth": 0.249,
   "revenue_growth": 0.094,
-  "snapshot_date": "2025-12-05T10:53:01.973750"
+  "snapshot_date": "2025-12-05T19:26:46.256449"
 }

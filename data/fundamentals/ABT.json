@@ -3,12 +3,12 @@
   "name": "Abbott Laboratories",
   "sector": "Healthcare",
   "industry": "Medical Devices",
-  "market_cap": 218488520704,
-  "enterprise_value": 223606538240,
-  "pe_ratio": 15.770729,
-  "forward_pe": 24.32849,
+  "market_cap": 217696616448,
+  "enterprise_value": 223050104832,
+  "pe_ratio": 15.713568,
+  "forward_pe": 24.24031,
   "peg_ratio": null,
-  "price_to_book": 4.2840323,
+  "price_to_book": 4.268505,
   "dividend_yield": 1.88,
   "dividend_rate": 2.36,
   "payout_ratio": 0.2915,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9118999552,
   "earnings_growth": 0.0,
   "revenue_growth": 0.069,
-  "snapshot_date": "2025-12-05T10:50:02.036534"
+  "snapshot_date": "2025-12-05T19:25:04.670304"
 }

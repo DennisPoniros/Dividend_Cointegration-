@@ -3,12 +3,12 @@
   "name": "The Clorox Company",
   "sector": "Consumer Defensive",
   "industry": "Household & Personal Products",
-  "market_cap": 12899424256,
-  "enterprise_value": 15892137984,
-  "pe_ratio": 16.601255,
-  "forward_pe": 14.506173,
+  "market_cap": 12795741184,
+  "enterprise_value": 15867742208,
+  "pe_ratio": 16.46782,
+  "forward_pe": 14.389575,
   "peg_ratio": null,
-  "price_to_book": -584.25415,
+  "price_to_book": -579.55804,
   "dividend_yield": 4.72,
   "dividend_rate": 4.96,
   "payout_ratio": 0.76919997,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 853000000,
   "earnings_growth": -0.187,
   "revenue_growth": -0.189,
-  "snapshot_date": "2025-12-05T10:56:07.550388"
+  "snapshot_date": "2025-12-05T19:28:27.387993"
 }

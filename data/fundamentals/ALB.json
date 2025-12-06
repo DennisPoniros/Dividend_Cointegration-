@@ -3,12 +3,12 @@
   "name": "Albemarle Corporation",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 15218291712,
-  "enterprise_value": 18362943488,
+  "market_cap": 14734555136,
+  "enterprise_value": 19075012608,
   "pe_ratio": null,
-  "forward_pe": 70.271736,
+  "forward_pe": 68.03804,
   "peg_ratio": null,
-  "price_to_book": 1.9607843,
+  "price_to_book": 1.8984578,
   "dividend_yield": 1.36,
   "dividend_rate": 1.62,
   "payout_ratio": 0.5797,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 903595008,
   "earnings_growth": null,
   "revenue_growth": -0.035,
-  "snapshot_date": "2025-12-05T10:55:46.822938"
+  "snapshot_date": "2025-12-05T19:28:16.018477"
 }

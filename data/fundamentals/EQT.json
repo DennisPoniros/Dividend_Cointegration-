@@ -3,12 +3,12 @@
   "name": "EQT Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 38461251584,
-  "enterprise_value": 49108471808,
-  "pe_ratio": 20.074919,
-  "forward_pe": 24.45635,
+  "market_cap": 37868384256,
+  "enterprise_value": 49489154048,
+  "pe_ratio": 19.765472,
+  "forward_pe": 24.079365,
   "peg_ratio": null,
-  "price_to_book": 1.6612756,
+  "price_to_book": 1.6356677,
   "dividend_yield": 1.1,
   "dividend_rate": 0.66,
   "payout_ratio": 0.2052,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4756840960,
   "earnings_growth": null,
   "revenue_growth": 0.514,
-  "snapshot_date": "2025-12-05T10:53:18.345848"
+  "snapshot_date": "2025-12-05T19:26:55.235229"
 }

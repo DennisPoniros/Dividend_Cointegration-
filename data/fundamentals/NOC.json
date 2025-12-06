@@ -3,12 +3,12 @@
   "name": "Northrop Grumman Corporation",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 78500069376,
-  "enterprise_value": 94458200064,
-  "pe_ratio": 19.74964,
-  "forward_pe": 19.538488,
+  "market_cap": 78603157504,
+  "enterprise_value": 93883031552,
+  "pe_ratio": 19.775576,
+  "forward_pe": 19.564148,
   "peg_ratio": null,
-  "price_to_book": 4.896488,
+  "price_to_book": 4.9029183,
   "dividend_yield": 1.67,
   "dividend_rate": 9.24,
   "payout_ratio": 0.3147,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3438000128,
   "earnings_growth": 0.096,
   "revenue_growth": 0.043,
-  "snapshot_date": "2025-12-05T10:51:30.965901"
+  "snapshot_date": "2025-12-05T19:25:55.101021"
 }

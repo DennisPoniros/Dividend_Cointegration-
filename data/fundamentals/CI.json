@@ -3,12 +3,12 @@
   "name": "The Cigna Group",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
-  "market_cap": 71808770048,
-  "enterprise_value": 99042910208,
-  "pe_ratio": 11.8946905,
-  "forward_pe": 8.5830145,
+  "market_cap": 70905880576,
+  "enterprise_value": 98246877184,
+  "pe_ratio": 11.745132,
+  "forward_pe": 8.475096,
   "peg_ratio": null,
-  "price_to_book": 1.7143259,
+  "price_to_book": 1.6927708,
   "dividend_yield": 2.25,
   "dividend_rate": 6.04,
   "payout_ratio": 0.2625,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 8664000512,
   "earnings_growth": 1.654,
   "revenue_growth": 0.095,
-  "snapshot_date": "2025-12-05T10:51:49.832317"
+  "snapshot_date": "2025-12-05T19:26:05.683008"
 }

@@ -3,12 +3,12 @@
   "name": "Entergy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 42040397824,
-  "enterprise_value": 71430791168,
-  "pe_ratio": 23.18596,
-  "forward_pe": 12.162146,
+  "market_cap": 42078359552,
+  "enterprise_value": 71323607040,
+  "pe_ratio": 23.206898,
+  "forward_pe": 12.173127,
   "peg_ratio": null,
-  "price_to_book": 2.5231855,
+  "price_to_book": 2.5254638,
   "dividend_yield": 2.71,
   "dividend_rate": 2.56,
   "payout_ratio": 0.5911,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5312266752,
   "earnings_growth": 0.02,
   "revenue_growth": 0.125,
-  "snapshot_date": "2025-12-05T10:53:00.403286"
+  "snapshot_date": "2025-12-05T19:26:45.451522"
 }

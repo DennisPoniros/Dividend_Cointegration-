@@ -3,12 +3,12 @@
   "name": "Martin Marietta Materials, Inc.",
   "sector": "Basic Materials",
   "industry": "Building Materials",
-  "market_cap": 37509836800,
-  "enterprise_value": 43165855744,
-  "pe_ratio": 32.011322,
-  "forward_pe": 29.845488,
+  "market_cap": 37653970944,
+  "enterprise_value": 43502968832,
+  "pe_ratio": 32.134327,
+  "forward_pe": 29.960173,
   "peg_ratio": null,
-  "price_to_book": 3.8530827,
+  "price_to_book": 3.8678885,
   "dividend_yield": 0.54,
   "dividend_rate": 3.32,
   "payout_ratio": 0.16440001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1842000000,
   "earnings_growth": 0.157,
   "revenue_growth": 0.124,
-  "snapshot_date": "2025-12-05T10:53:21.589776"
+  "snapshot_date": "2025-12-05T19:26:56.996465"
 }

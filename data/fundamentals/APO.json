@@ -3,12 +3,12 @@
   "name": "Apollo Global Management, Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 80162160640,
+  "market_cap": 80173776896,
   "enterprise_value": 99106783232,
-  "pe_ratio": 20.132652,
-  "forward_pe": 16.286558,
+  "pe_ratio": 20.135569,
+  "forward_pe": 16.288916,
   "peg_ratio": null,
-  "price_to_book": 3.6872597,
+  "price_to_book": 3.6877937,
   "dividend_yield": 1.49,
   "dividend_rate": 2.04,
   "payout_ratio": 0.28350002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2572999936,
   "earnings_growth": 1.153,
   "revenue_growth": 0.264,
-  "snapshot_date": "2025-12-05T10:51:29.144524"
+  "snapshot_date": "2025-12-05T19:25:54.107900"
 }

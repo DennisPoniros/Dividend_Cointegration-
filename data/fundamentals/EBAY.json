@@ -3,12 +3,12 @@
   "name": "eBay Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Internet Retail",
-  "market_cap": 37412302848,
-  "enterprise_value": 40877760512,
-  "pe_ratio": 18.151884,
-  "forward_pe": 15.68295,
+  "market_cap": 37688791040,
+  "enterprise_value": 41031438336,
+  "pe_ratio": 18.28603,
+  "forward_pe": 15.798851,
   "peg_ratio": null,
-  "price_to_book": 7.8761783,
+  "price_to_book": 7.9343853,
   "dividend_yield": 1.41,
   "dividend_rate": 1.16,
   "payout_ratio": 0.25280002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2052999936,
   "earnings_growth": 0.054,
   "revenue_growth": 0.095,
-  "snapshot_date": "2025-12-05T10:53:16.700743"
+  "snapshot_date": "2025-12-05T19:26:54.227560"
 }

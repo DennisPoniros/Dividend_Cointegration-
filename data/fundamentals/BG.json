@@ -3,12 +3,12 @@
   "name": "Bunge Global SA",
   "sector": "Consumer Defensive",
   "industry": "Farm Products",
-  "market_cap": 18917664768,
-  "enterprise_value": 34389348352,
-  "pe_ratio": 10.648536,
-  "forward_pe": 10.167634,
+  "market_cap": 18731806720,
+  "enterprise_value": 34242394112,
+  "pe_ratio": 10.543919,
+  "forward_pe": 10.067741,
   "peg_ratio": null,
-  "price_to_book": 1.1598773,
+  "price_to_book": 1.148482,
   "dividend_yield": 2.97,
   "dividend_rate": 2.8,
   "payout_ratio": 0.3108,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 550000000,
   "earnings_growth": -0.46,
   "revenue_growth": 0.716,
-  "snapshot_date": "2025-12-05T10:55:13.062330"
+  "snapshot_date": "2025-12-05T19:27:57.620657"
 }

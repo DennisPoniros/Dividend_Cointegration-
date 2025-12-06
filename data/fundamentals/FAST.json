@@ -3,12 +3,12 @@
   "name": "Fastenal Company",
   "sector": "Industrials",
   "industry": "Industrial Distribution",
-  "market_cap": 47769767936,
-  "enterprise_value": 48159690752,
-  "pe_ratio": 39.25472,
-  "forward_pe": 19.0,
+  "market_cap": 47643480064,
+  "enterprise_value": 47872684032,
+  "pe_ratio": 39.150944,
+  "forward_pe": 18.949772,
   "peg_ratio": null,
-  "price_to_book": 12.267099,
+  "price_to_book": 12.23467,
   "dividend_yield": 2.11,
   "dividend_rate": 0.88,
   "payout_ratio": 0.7981,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1210599936,
   "earnings_growth": 0.115,
   "revenue_growth": 0.117,
-  "snapshot_date": "2025-12-05T10:52:40.293396"
+  "snapshot_date": "2025-12-05T19:26:34.656485"
 }

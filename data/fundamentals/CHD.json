@@ -3,12 +3,12 @@
   "name": "Church & Dwight Co., Inc.",
   "sector": "Consumer Defensive",
   "industry": "Household & Personal Products",
-  "market_cap": 20605642752,
-  "enterprise_value": 22254618624,
-  "pe_ratio": 26.682964,
-  "forward_pe": 22.676943,
+  "market_cap": 20589807616,
+  "enterprise_value": 22391492608,
+  "pe_ratio": 26.662458,
+  "forward_pe": 22.659517,
   "peg_ratio": null,
-  "price_to_book": 4.8089714,
+  "price_to_book": 4.8052754,
   "dividend_yield": 1.41,
   "dividend_rate": 1.18,
   "payout_ratio": 0.3687,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1144300032,
   "earnings_growth": null,
   "revenue_growth": 0.05,
-  "snapshot_date": "2025-12-05T10:55:01.256415"
+  "snapshot_date": "2025-12-05T19:27:51.496690"
 }

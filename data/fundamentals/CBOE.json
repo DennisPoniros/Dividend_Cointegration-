@@ -3,12 +3,12 @@
   "name": "Cboe Global Markets, Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 26466689024,
-  "enterprise_value": 26773680128,
-  "pe_ratio": 27.195698,
-  "forward_pe": 27.551197,
+  "market_cap": 26449946624,
+  "enterprise_value": 26547646464,
+  "pe_ratio": 27.178493,
+  "forward_pe": 27.533768,
   "peg_ratio": null,
-  "price_to_book": 5.417586,
+  "price_to_book": 5.4141583,
   "dividend_yield": 1.13,
   "dividend_rate": 2.88,
   "payout_ratio": 0.28059998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 690099968,
   "earnings_growth": 0.377,
   "revenue_growth": 0.081,
-  "snapshot_date": "2025-12-05T10:54:12.405133"
+  "snapshot_date": "2025-12-05T19:27:24.833705"
 }

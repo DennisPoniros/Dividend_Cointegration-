@@ -3,12 +3,12 @@
   "name": "Jack Henry & Associates, Inc.",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 13199270912,
-  "enterprise_value": 13085138944,
-  "pe_ratio": 27.605623,
-  "forward_pe": 28.741297,
+  "market_cap": 13203993600,
+  "enterprise_value": 13184295936,
+  "pe_ratio": 27.615503,
+  "forward_pe": 28.751583,
   "peg_ratio": null,
-  "price_to_book": 6.06312,
+  "price_to_book": 6.0652895,
   "dividend_yield": 1.29,
   "dividend_rate": 2.32,
   "payout_ratio": 0.348,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 645198016,
   "earnings_growth": 0.209,
   "revenue_growth": 0.073,
-  "snapshot_date": "2025-12-05T10:56:04.127214"
+  "snapshot_date": "2025-12-05T19:28:25.517514"
 }

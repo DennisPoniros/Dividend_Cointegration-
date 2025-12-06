@@ -3,12 +3,12 @@
   "name": "Huntington Bancshares Incorporated",
   "sector": "Financial Services",
   "industry": "Banks - Regional",
-  "market_cap": 26748033024,
-  "enterprise_value": 32127582208,
-  "pe_ratio": 11.877624,
-  "forward_pe": 12.675373,
+  "market_cap": 26614173696,
+  "enterprise_value": 31835703296,
+  "pe_ratio": 11.818182,
+  "forward_pe": 12.611939,
   "peg_ratio": null,
-  "price_to_book": 1.2700965,
+  "price_to_book": 1.2637403,
   "dividend_yield": 3.63,
   "dividend_rate": 0.62,
   "payout_ratio": 0.4336,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2648000000,
   "earnings_growth": 0.242,
   "revenue_growth": 0.148,
-  "snapshot_date": "2025-12-05T10:54:10.885721"
+  "snapshot_date": "2025-12-05T19:27:24.038526"
 }

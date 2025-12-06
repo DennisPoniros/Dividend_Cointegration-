@@ -3,12 +3,12 @@
   "name": "Lam Research Corporation",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
-  "market_cap": 200693284864,
-  "enterprise_value": 195100655616,
-  "pe_ratio": 35.210175,
-  "forward_pe": 37.27166,
+  "market_cap": 200125825024,
+  "enterprise_value": 197122850816,
+  "pe_ratio": 35.11062,
+  "forward_pe": 37.166275,
   "peg_ratio": null,
-  "price_to_book": 19.660282,
+  "price_to_book": 19.604692,
   "dividend_yield": 0.66,
   "dividend_rate": 1.04,
   "payout_ratio": 0.20969999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6383756800,
   "earnings_growth": 0.443,
   "revenue_growth": 0.277,
-  "snapshot_date": "2025-12-05T10:50:09.034117"
+  "snapshot_date": "2025-12-05T19:25:08.706942"
 }

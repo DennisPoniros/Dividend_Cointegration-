@@ -3,12 +3,12 @@
   "name": "GE Aerospace",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 302954774528,
+  "market_cap": 301101154304,
   "enterprise_value": 316878979072,
-  "pe_ratio": 38.244713,
-  "forward_pe": 54.52061,
+  "pe_ratio": 38.01071,
+  "forward_pe": 54.187027,
   "peg_ratio": null,
-  "price_to_book": 16.019289,
+  "price_to_book": 15.921274,
   "dividend_yield": 0.49,
   "dividend_rate": 1.44,
   "payout_ratio": 0.18180001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7552999936,
   "earnings_growth": 0.193,
   "revenue_growth": 0.238,
-  "snapshot_date": "2025-12-05T10:49:39.712207"
+  "snapshot_date": "2025-12-05T19:24:51.773442"
 }

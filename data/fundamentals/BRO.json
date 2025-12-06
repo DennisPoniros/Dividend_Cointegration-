@@ -3,12 +3,12 @@
   "name": "Brown & Brown, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance Brokers",
-  "market_cap": 26975657984,
-  "enterprise_value": 34054752256,
-  "pe_ratio": 23.942425,
-  "forward_pe": 19.317848,
+  "market_cap": 26757148672,
+  "enterprise_value": 33621147648,
+  "pe_ratio": 23.748486,
+  "forward_pe": 19.16137,
   "peg_ratio": null,
-  "price_to_book": 2.149698,
+  "price_to_book": 2.1322849,
   "dividend_yield": 0.83,
   "dividend_rate": 0.66,
   "payout_ratio": 0.18180001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1367000064,
   "earnings_growth": -0.161,
   "revenue_growth": 0.342,
-  "snapshot_date": "2025-12-05T10:54:07.657978"
+  "snapshot_date": "2025-12-05T19:27:22.333522"
 }

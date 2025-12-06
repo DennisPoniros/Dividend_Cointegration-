@@ -3,12 +3,12 @@
   "name": "Aon plc",
   "sector": "Financial Services",
   "industry": "Insurance Brokers",
-  "market_cap": 74455859200,
-  "enterprise_value": 91447140352,
-  "pe_ratio": 27.66827,
-  "forward_pe": 19.85624,
+  "market_cap": 74434306048,
+  "enterprise_value": 90907656192,
+  "pe_ratio": 27.66026,
+  "forward_pe": 19.85049,
   "peg_ratio": null,
-  "price_to_book": 9.360006,
+  "price_to_book": 9.357296,
   "dividend_yield": 0.86,
   "dividend_rate": 2.98,
   "payout_ratio": 0.22719999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3284000000,
   "earnings_growth": 0.344,
   "revenue_growth": 0.074,
-  "snapshot_date": "2025-12-05T10:51:39.391878"
+  "snapshot_date": "2025-12-05T19:25:59.917720"
 }

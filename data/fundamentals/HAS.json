@@ -3,12 +3,12 @@
   "name": "Hasbro, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Leisure",
-  "market_cap": 11541316608,
-  "enterprise_value": 14239685632,
+  "market_cap": 11381331968,
+  "enterprise_value": 14134432768,
   "pe_ratio": null,
-  "forward_pe": 18.564335,
+  "forward_pe": 18.306997,
   "peg_ratio": null,
-  "price_to_book": 28.39779,
+  "price_to_book": 28.004145,
   "dividend_yield": 3.42,
   "dividend_rate": 2.8,
   "payout_ratio": 0.92410004,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 749800000,
   "earnings_growth": 0.031,
   "revenue_growth": 0.083,
-  "snapshot_date": "2025-12-05T10:56:12.921722"
+  "snapshot_date": "2025-12-05T19:28:30.102918"
 }

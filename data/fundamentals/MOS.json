@@ -3,12 +3,12 @@
   "name": "The Mosaic Company",
   "sector": "Basic Materials",
   "industry": "Agricultural Inputs",
-  "market_cap": 7739991040,
-  "enterprise_value": 12456529920,
-  "pe_ratio": 6.3173575,
-  "forward_pe": 9.912601,
+  "market_cap": 7494000128,
+  "enterprise_value": 12300999680,
+  "pe_ratio": 6.1165805,
+  "forward_pe": 9.597561,
   "peg_ratio": null,
-  "price_to_book": 0.6055978,
+  "price_to_book": 0.5863508,
   "dividend_yield": 3.65,
   "dividend_rate": 0.88,
   "payout_ratio": 0.22540002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1100199936,
   "earnings_growth": 2.395,
   "revenue_growth": 0.228,
-  "snapshot_date": "2025-12-05T10:56:33.292216"
+  "snapshot_date": "2025-12-05T19:28:41.263356"
 }

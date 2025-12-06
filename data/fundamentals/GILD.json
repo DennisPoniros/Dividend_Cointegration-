@@ -3,12 +3,12 @@
   "name": "Gilead Sciences, Inc.",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 150658777088,
+  "market_cap": 150410608640,
   "enterprise_value": 168499134464,
-  "pe_ratio": 18.795666,
-  "forward_pe": 16.341858,
+  "pe_ratio": 18.764706,
+  "forward_pe": 16.31494,
   "peg_ratio": null,
-  "price_to_book": 7.0010953,
+  "price_to_book": 6.9895635,
   "dividend_yield": 2.58,
   "dividend_rate": 3.16,
   "payout_ratio": 0.48610002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9667000320,
   "earnings_growth": 1.43,
   "revenue_growth": 0.03,
-  "snapshot_date": "2025-12-05T10:50:28.978813"
+  "snapshot_date": "2025-12-05T19:25:19.458069"
 }

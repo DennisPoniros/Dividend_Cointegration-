@@ -3,12 +3,12 @@
   "name": "Everest Group, Ltd.",
   "sector": "Financial Services",
   "industry": "Insurance - Reinsurance",
-  "market_cap": 13167257600,
-  "enterprise_value": 11327936512,
-  "pe_ratio": 23.35592,
-  "forward_pe": 4.7189713,
+  "market_cap": 13011938304,
+  "enterprise_value": 11170938880,
+  "pe_ratio": 23.080416,
+  "forward_pe": 4.6633067,
   "peg_ratio": null,
-  "price_to_book": 0.85685563,
+  "price_to_book": 0.8467483,
   "dividend_yield": 2.55,
   "dividend_rate": 8.0,
   "payout_ratio": 0.5952,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4246000128,
   "earnings_growth": -0.484,
   "revenue_growth": -0.009,
-  "snapshot_date": "2025-12-05T10:56:02.317054"
+  "snapshot_date": "2025-12-05T19:28:24.577515"
 }

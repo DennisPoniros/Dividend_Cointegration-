@@ -3,12 +3,12 @@
   "name": "American Water Works Company, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Water",
-  "market_cap": 25192404992,
-  "enterprise_value": 40289280000,
-  "pe_ratio": 22.690685,
-  "forward_pe": 22.650879,
+  "market_cap": 25268502528,
+  "enterprise_value": 40400502784,
+  "pe_ratio": 22.759226,
+  "forward_pe": 22.7193,
   "peg_ratio": null,
-  "price_to_book": 2.3097427,
+  "price_to_book": 2.3167198,
   "dividend_yield": 2.57,
   "dividend_rate": 3.31,
   "payout_ratio": 0.55979997,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2035000064,
   "earnings_growth": 0.081,
   "revenue_growth": 0.097,
-  "snapshot_date": "2025-12-05T10:54:26.201371"
+  "snapshot_date": "2025-12-05T19:27:32.530393"
 }

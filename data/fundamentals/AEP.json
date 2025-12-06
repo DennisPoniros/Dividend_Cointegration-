@@ -3,12 +3,12 @@
   "name": "American Electric Power Company, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 62802714624,
-  "enterprise_value": 110869651456,
-  "pe_ratio": 17.178625,
-  "forward_pe": 19.920204,
+  "market_cap": 62915121152,
+  "enterprise_value": 110600413184,
+  "pe_ratio": 17.209372,
+  "forward_pe": 19.955858,
   "peg_ratio": null,
-  "price_to_book": 2.0660691,
+  "price_to_book": 2.069767,
   "dividend_yield": 3.22,
   "dividend_rate": 3.8,
   "payout_ratio": 0.5447,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6858200064,
   "earnings_growth": 0.006,
   "revenue_growth": 0.109,
-  "snapshot_date": "2025-12-05T10:52:04.965414"
+  "snapshot_date": "2025-12-05T19:26:14.312061"
 }

@@ -3,12 +3,12 @@
   "name": "EOG Resources, Inc.",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 62158618624,
-  "enterprise_value": 65454841856,
-  "pe_ratio": 11.305363,
-  "forward_pe": 10.2934,
+  "market_cap": 61244080128,
+  "enterprise_value": 65460269056,
+  "pe_ratio": 11.139027,
+  "forward_pe": 10.1419525,
   "peg_ratio": null,
-  "price_to_book": 2.0441527,
+  "price_to_book": 2.0140772,
   "dividend_yield": 3.64,
   "dividend_rate": 4.08,
   "payout_ratio": 0.3808,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 10195000320,
   "earnings_growth": -0.085,
   "revenue_growth": -0.024,
-  "snapshot_date": "2025-12-05T10:52:13.584693"
+  "snapshot_date": "2025-12-05T19:26:19.490071"
 }

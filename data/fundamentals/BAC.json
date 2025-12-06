@@ -3,12 +3,12 @@
   "name": "Bank of America Corporation",
   "sector": "Financial Services",
   "industry": "Banks - Diversified",
-  "market_cap": 401641701376,
-  "enterprise_value": 410360152064,
-  "pe_ratio": 14.815573,
-  "forward_pe": 14.815573,
+  "market_cap": 399604809728,
+  "enterprise_value": 408826642432,
+  "pe_ratio": 14.740437,
+  "forward_pe": 14.740437,
   "peg_ratio": null,
-  "price_to_book": 1.4288161,
+  "price_to_book": 1.42157,
   "dividend_yield": 2.07,
   "dividend_rate": 1.12,
   "payout_ratio": 0.28959998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 61471997952,
   "earnings_growth": 0.315,
   "revenue_growth": 0.126,
-  "snapshot_date": "2025-12-05T10:49:32.357714"
+  "snapshot_date": "2025-12-05T19:24:47.469546"
 }

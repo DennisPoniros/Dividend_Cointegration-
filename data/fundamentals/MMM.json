@@ -3,12 +3,12 @@
   "name": "3M Company",
   "sector": "Industrials",
   "industry": "Conglomerates",
-  "market_cap": 89519079424,
-  "enterprise_value": 97958461440,
-  "pe_ratio": 26.848244,
-  "forward_pe": 21.274685,
+  "market_cap": 89204817920,
+  "enterprise_value": 97007575040,
+  "pe_ratio": 26.753992,
+  "forward_pe": 21.199999,
   "peg_ratio": null,
-  "price_to_book": 19.291782,
+  "price_to_book": 19.224058,
   "dividend_yield": 1.73,
   "dividend_rate": 2.92,
   "payout_ratio": 0.4609,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2540999936,
   "earnings_growth": -0.375,
   "revenue_growth": 0.035,
-  "snapshot_date": "2025-12-05T10:51:20.864636"
+  "snapshot_date": "2025-12-05T19:25:49.301652"
 }

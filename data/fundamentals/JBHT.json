@@ -3,12 +3,12 @@
   "name": "J.B. Hunt Transport Services, Inc.",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
-  "market_cap": 18266992640,
-  "enterprise_value": 19702237184,
-  "pe_ratio": 32.64879,
-  "forward_pe": 26.282732,
+  "market_cap": 18237952000,
+  "enterprise_value": 19785551872,
+  "pe_ratio": 32.596886,
+  "forward_pe": 26.240948,
   "peg_ratio": null,
-  "price_to_book": 5.030657,
+  "price_to_book": 5.0226593,
   "dividend_yield": 0.94,
   "dividend_rate": 1.76,
   "payout_ratio": 0.3033,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1610310016,
   "earnings_growth": 0.181,
   "revenue_growth": -0.005,
-  "snapshot_date": "2025-12-05T10:55:16.434850"
+  "snapshot_date": "2025-12-05T19:27:59.463355"
 }

@@ -3,12 +3,12 @@
   "name": "Marsh & McLennan Companies, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance Brokers",
-  "market_cap": 90050772992,
+  "market_cap": 89387081728,
   "enterprise_value": 108872450048,
-  "pe_ratio": 21.96283,
-  "forward_pe": 19.424177,
+  "pe_ratio": 21.80096,
+  "forward_pe": 19.281017,
   "peg_ratio": null,
-  "price_to_book": 5.923231,
+  "price_to_book": 5.879576,
   "dividend_yield": 1.97,
   "dividend_rate": 3.6,
   "payout_ratio": 0.4113,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5087000064,
   "earnings_growth": 0.0,
   "revenue_growth": 0.115,
-  "snapshot_date": "2025-12-05T10:51:22.604933"
+  "snapshot_date": "2025-12-05T19:25:50.337161"
 }

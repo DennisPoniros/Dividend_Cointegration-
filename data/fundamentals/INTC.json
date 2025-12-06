@@ -3,12 +3,12 @@
   "name": "Intel Corporation",
   "sector": "Technology",
   "industry": "Semiconductors",
-  "market_cap": 201613574144,
-  "enterprise_value": 219157004288,
-  "pe_ratio": 704.45,
-  "forward_pe": 43.574223,
+  "market_cap": 197525700608,
+  "enterprise_value": 223497699328,
+  "pe_ratio": 690.1667,
+  "forward_pe": 42.69072,
   "peg_ratio": null,
-  "price_to_book": 1.8936827,
+  "price_to_book": 1.8552867,
   "dividend_yield": null,
   "dividend_rate": null,
   "payout_ratio": 0.0,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 8574000128,
   "earnings_growth": null,
   "revenue_growth": 0.028,
-  "snapshot_date": "2025-12-05T10:50:10.674273"
+  "snapshot_date": "2025-12-05T19:25:09.667919"
 }

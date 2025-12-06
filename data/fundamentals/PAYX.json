@@ -3,12 +3,12 @@
   "name": "Paychex, Inc.",
   "sector": "Technology",
   "industry": "Software - Application",
-  "market_cap": 40758009856,
-  "enterprise_value": 43574267904,
-  "pe_ratio": 25.392376,
-  "forward_pe": 21.408318,
+  "market_cap": 40329736192,
+  "enterprise_value": 43680436224,
+  "pe_ratio": 25.125559,
+  "forward_pe": 21.183365,
   "peg_ratio": null,
-  "price_to_book": 10.264661,
+  "price_to_book": 10.156802,
   "dividend_yield": 3.87,
   "dividend_rate": 4.32,
   "payout_ratio": 0.9238,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2073200000,
   "earnings_growth": -0.102,
   "revenue_growth": 0.168,
-  "snapshot_date": "2025-12-05T10:53:10.644762"
+  "snapshot_date": "2025-12-05T19:26:51.029777"
 }

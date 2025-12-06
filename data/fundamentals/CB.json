@@ -3,12 +3,12 @@
   "name": "Chubb Limited",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 117218942976,
-  "enterprise_value": 139379818496,
-  "pe_ratio": 12.2913885,
-  "forward_pe": 12.452774,
+  "market_cap": 117613641728,
+  "enterprise_value": 139521507328,
+  "pe_ratio": 12.332776,
+  "forward_pe": 12.494705,
   "peg_ratio": null,
-  "price_to_book": 1.6134626,
+  "price_to_book": 1.6188954,
   "dividend_yield": 1.32,
   "dividend_rate": 3.88,
   "payout_ratio": 0.1571,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 13320999936,
   "earnings_growth": 0.226,
   "revenue_growth": 0.091,
-  "snapshot_date": "2025-12-05T10:50:48.093585"
+  "snapshot_date": "2025-12-05T19:25:30.863431"
 }

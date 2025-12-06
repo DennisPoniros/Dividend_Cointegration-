@@ -3,12 +3,12 @@
   "name": "The Hartford Insurance Group, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 36614172672,
-  "enterprise_value": 37074829312,
-  "pe_ratio": 10.656301,
-  "forward_pe": 11.216193,
+  "market_cap": 36392042496,
+  "enterprise_value": 36397707264,
+  "pe_ratio": 10.591652,
+  "forward_pe": 11.148148,
   "peg_ratio": null,
-  "price_to_book": 2.0100331,
+  "price_to_book": 1.9978387,
   "dividend_yield": 1.82,
   "dividend_rate": 2.4,
   "payout_ratio": 0.1702,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5987999744,
   "earnings_growth": 0.473,
   "revenue_growth": 0.07,
-  "snapshot_date": "2025-12-05T10:53:24.970314"
+  "snapshot_date": "2025-12-05T19:26:58.879611"
 }

@@ -3,12 +3,12 @@
   "name": "LyondellBasell Industries N.V.",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 14242878464,
-  "enterprise_value": 25540036608,
+  "market_cap": 13953191936,
+  "enterprise_value": 25601193984,
   "pe_ratio": null,
-  "forward_pe": 5.139373,
+  "forward_pe": 5.0348434,
   "peg_ratio": null,
-  "price_to_book": 1.3436371,
+  "price_to_book": 1.3163089,
   "dividend_yield": 12.7,
   "dividend_rate": 5.48,
   "payout_ratio": 11.468101,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2670000128,
   "earnings_growth": null,
   "revenue_growth": -0.102,
-  "snapshot_date": "2025-12-05T10:55:48.331782"
+  "snapshot_date": "2025-12-05T19:28:16.798847"
 }

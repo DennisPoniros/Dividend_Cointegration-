@@ -3,12 +3,12 @@
   "name": "Amcor plc",
   "sector": "Consumer Cyclical",
   "industry": "Packaging & Containers",
-  "market_cap": 19147845632,
+  "market_cap": 19159388160,
   "enterprise_value": 34160603136,
-  "pe_ratio": 27.65,
-  "forward_pe": 10.5,
+  "pe_ratio": 27.666666,
+  "forward_pe": 10.50633,
   "peg_ratio": null,
-  "price_to_book": 1.6315893,
+  "price_to_book": 1.6325728,
   "dividend_yield": 6.25,
   "dividend_rate": 0.52,
   "payout_ratio": 1.6944001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1526000000,
   "earnings_growth": -0.144,
   "revenue_growth": 0.713,
-  "snapshot_date": "2025-12-05T10:55:07.854550"
+  "snapshot_date": "2025-12-05T19:27:55.170344"
 }

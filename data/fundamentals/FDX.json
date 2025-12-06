@@ -3,12 +3,12 @@
   "name": "FedEx Corporation",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
-  "market_cap": 64931401728,
+  "market_cap": 64720224256,
   "enterprise_value": null,
-  "pe_ratio": 16.120972,
-  "forward_pe": 12.096044,
+  "pe_ratio": 16.068542,
+  "forward_pe": 12.056704,
   "peg_ratio": null,
-  "price_to_book": 2.338537,
+  "price_to_book": 2.3309312,
   "dividend_yield": 2.12,
   "dividend_rate": 5.8,
   "payout_ratio": 0.32770002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7565000192,
   "earnings_growth": -0.133,
   "revenue_growth": 0.139,
-  "snapshot_date": "2025-12-05T10:52:00.001978"
+  "snapshot_date": "2025-12-05T19:26:11.455215"
 }

@@ -3,12 +3,12 @@
   "name": "Kimberly-Clark Corporation",
   "sector": "Consumer Defensive",
   "industry": "Household & Personal Products",
-  "market_cap": 34573012992,
-  "enterprise_value": 41685221376,
-  "pe_ratio": 17.62775,
-  "forward_pe": 13.653997,
+  "market_cap": 34168143872,
+  "enterprise_value": 41028141056,
+  "pe_ratio": 17.42132,
+  "forward_pe": 13.494102,
   "peg_ratio": null,
-  "price_to_book": 25.95416,
+  "price_to_book": 25.650225,
   "dividend_yield": 4.8,
   "dividend_rate": 5.04,
   "payout_ratio": 0.84599996,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2622000128,
   "earnings_growth": -0.502,
   "revenue_growth": 0.001,
-  "snapshot_date": "2025-12-05T10:53:30.174582"
+  "snapshot_date": "2025-12-05T19:27:01.729853"
 }

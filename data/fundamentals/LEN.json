@@ -3,12 +3,12 @@
   "name": "Lennar Corporation",
   "sector": "Consumer Cyclical",
   "industry": "Residential Construction",
-  "market_cap": 31469037568,
-  "enterprise_value": 30709716992,
-  "pe_ratio": 12.603363,
-  "forward_pe": 7.894672,
+  "market_cap": 30602170368,
+  "enterprise_value": 29985460224,
+  "pe_ratio": 12.256183,
+  "forward_pe": 7.6772,
   "peg_ratio": null,
-  "price_to_book": 1.439709,
+  "price_to_book": 1.4000498,
   "dividend_yield": 1.58,
   "dividend_rate": 2.0,
   "payout_ratio": 0.19780001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": -568169984,
   "earnings_growth": -0.462,
   "revenue_growth": -0.064,
-  "snapshot_date": "2025-12-05T10:53:41.177295"
+  "snapshot_date": "2025-12-05T19:27:08.028479"
 }

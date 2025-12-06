@@ -3,12 +3,12 @@
   "name": "Jabil Inc.",
   "sector": "Technology",
   "industry": "Electronic Components",
-  "market_cap": 23731415040,
-  "enterprise_value": 25143461888,
-  "pe_ratio": 37.290054,
-  "forward_pe": 22.09091,
+  "market_cap": 23616583680,
+  "enterprise_value": 25286625280,
+  "pe_ratio": 37.10961,
+  "forward_pe": 21.984015,
   "peg_ratio": null,
-  "price_to_book": 15.708604,
+  "price_to_book": 15.632592,
   "dividend_yield": 0.15,
   "dividend_rate": 0.32,
   "payout_ratio": 0.0541,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1640000000,
   "earnings_growth": 0.692,
   "revenue_growth": 0.185,
-  "snapshot_date": "2025-12-05T10:54:38.416870"
+  "snapshot_date": "2025-12-05T19:27:39.037979"
 }

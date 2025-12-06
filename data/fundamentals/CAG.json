@@ -3,12 +3,12 @@
   "name": "Conagra Brands, Inc.",
   "sector": "Consumer Defensive",
   "industry": "Packaged Foods",
-  "market_cap": 8170533376,
-  "enterprise_value": 15689760768,
-  "pe_ratio": 9.650057,
-  "forward_pe": 6.3496656,
+  "market_cap": 8155895296,
+  "enterprise_value": 15737595904,
+  "pe_ratio": 9.632768,
+  "forward_pe": 6.3382897,
   "peg_ratio": null,
-  "price_to_book": 0.9163904,
+  "price_to_book": 0.9147486,
   "dividend_yield": 8.26,
   "dividend_rate": 1.4,
   "payout_ratio": 0.791,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1543900032,
   "earnings_growth": -0.649,
   "revenue_growth": -0.058,
-  "snapshot_date": "2025-12-05T10:56:31.438219"
+  "snapshot_date": "2025-12-05T19:28:40.281123"
 }

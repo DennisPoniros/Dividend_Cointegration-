@@ -3,12 +3,12 @@
   "name": "Corteva, Inc.",
   "sector": "Basic Materials",
   "industry": "Agricultural Inputs",
-  "market_cap": 45329928192,
-  "enterprise_value": 46823272448,
-  "pe_ratio": 27.024292,
-  "forward_pe": 20.794392,
+  "market_cap": 44820602880,
+  "enterprise_value": 46627311616,
+  "pe_ratio": 26.720648,
+  "forward_pe": 20.560747,
   "peg_ratio": null,
-  "price_to_book": 1.7912251,
+  "price_to_book": 1.771099,
   "dividend_yield": 1.09,
   "dividend_rate": 0.72,
   "payout_ratio": 0.2794,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3204000000,
   "earnings_growth": null,
   "revenue_growth": 0.126,
-  "snapshot_date": "2025-12-05T10:52:53.276004"
+  "snapshot_date": "2025-12-05T19:26:41.644828"
 }

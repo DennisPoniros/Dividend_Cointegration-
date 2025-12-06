@@ -3,12 +3,12 @@
   "name": "General Dynamics Corporation",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 90826645504,
-  "enterprise_value": 99517972480,
-  "pe_ratio": 21.777527,
-  "forward_pe": 20.910759,
+  "market_cap": 91114323968,
+  "enterprise_value": 98333917184,
+  "pe_ratio": 21.846502,
+  "forward_pe": 20.97699,
   "peg_ratio": null,
-  "price_to_book": 3.711641,
+  "price_to_book": 3.723397,
   "dividend_yield": 1.76,
   "dividend_rate": 6.0,
   "payout_ratio": 0.38369998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5708000256,
   "earnings_growth": 0.158,
   "revenue_growth": 0.106,
-  "snapshot_date": "2025-12-05T10:51:15.730651"
+  "snapshot_date": "2025-12-05T19:25:46.461633"
 }

@@ -3,12 +3,12 @@
   "name": "Keurig Dr Pepper Inc.",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Non-Alcoholic",
-  "market_cap": 38930202624,
-  "enterprise_value": 56942305280,
-  "pe_ratio": 24.702587,
-  "forward_pe": 13.978049,
+  "market_cap": 38977753088,
+  "enterprise_value": 57091747840,
+  "pe_ratio": 24.73276,
+  "forward_pe": 13.995123,
   "peg_ratio": null,
-  "price_to_book": 1.5372854,
+  "price_to_book": 1.5391631,
   "dividend_yield": 3.22,
   "dividend_rate": 0.92,
   "payout_ratio": 0.7931,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2128000000,
   "earnings_growth": 0.083,
   "revenue_growth": 0.107,
-  "snapshot_date": "2025-12-05T10:53:15.248842"
+  "snapshot_date": "2025-12-05T19:26:53.442095"
 }

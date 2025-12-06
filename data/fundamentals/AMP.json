@@ -3,12 +3,12 @@
   "name": "Ameriprise Financial, Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 45238095872,
-  "enterprise_value": 37815529472,
-  "pe_ratio": 13.197744,
-  "forward_pe": 12.422211,
+  "market_cap": 44973195264,
+  "enterprise_value": 38089601024,
+  "pe_ratio": 13.120461,
+  "forward_pe": 12.349469,
   "peg_ratio": null,
-  "price_to_book": 6.923232,
+  "price_to_book": 6.8826914,
   "dividend_yield": 1.35,
   "dividend_rate": 6.4,
   "payout_ratio": 0.16950001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6037000192,
   "earnings_growth": 0.866,
   "revenue_growth": 0.073,
-  "snapshot_date": "2025-12-05T10:52:54.888277"
+  "snapshot_date": "2025-12-05T19:26:42.408452"
 }

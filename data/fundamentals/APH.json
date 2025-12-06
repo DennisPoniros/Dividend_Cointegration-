@@ -3,12 +3,12 @@
   "name": "Amphenol Corporation",
   "sector": "Technology",
   "industry": "Electronic Components",
-  "market_cap": 169311371264,
-  "enterprise_value": 174972387328,
-  "pe_ratio": 46.10667,
-  "forward_pe": 64.03704,
+  "market_cap": 170584375296,
+  "enterprise_value": 174849982464,
+  "pe_ratio": 46.453335,
+  "forward_pe": 64.51852,
   "peg_ratio": null,
-  "price_to_book": 13.518374,
+  "price_to_book": 13.620015,
   "dividend_yield": 0.72,
   "dividend_rate": 1.0,
   "payout_ratio": 0.22,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4499599872,
   "earnings_growth": 1.021,
   "revenue_growth": 0.534,
-  "snapshot_date": "2025-12-05T10:50:20.852956"
+  "snapshot_date": "2025-12-05T19:25:15.214739"
 }

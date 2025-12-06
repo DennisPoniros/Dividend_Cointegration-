@@ -3,12 +3,12 @@
   "name": "General Mills, Inc.",
   "sector": "Consumer Defensive",
   "industry": "Packaged Foods",
-  "market_cap": 24734566400,
-  "enterprise_value": 37992886272,
-  "pe_ratio": 8.7448015,
-  "forward_pe": 9.842553,
+  "market_cap": 24558120960,
+  "enterprise_value": 37966217216,
+  "pe_ratio": 8.68242,
+  "forward_pe": 9.772341,
   "peg_ratio": null,
-  "price_to_book": 2.601946,
+  "price_to_book": 2.583385,
   "dividend_yield": 5.31,
   "dividend_rate": 2.44,
   "payout_ratio": 0.45560002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2691000064,
   "earnings_growth": 1.155,
   "revenue_growth": -0.068,
-  "snapshot_date": "2025-12-05T10:54:29.629657"
+  "snapshot_date": "2025-12-05T19:27:34.250422"
 }

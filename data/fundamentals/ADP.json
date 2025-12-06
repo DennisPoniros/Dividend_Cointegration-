@@ -3,12 +3,12 @@
   "name": "Automatic Data Processing, Inc.",
   "sector": "Technology",
   "industry": "Software - Application",
-  "market_cap": 106050412544,
-  "enterprise_value": 107091402752,
-  "pe_ratio": 25.818048,
-  "forward_pe": 24.084179,
+  "market_cap": 105983565824,
+  "enterprise_value": 107993325568,
+  "pe_ratio": 25.801775,
+  "forward_pe": 24.068998,
   "peg_ratio": null,
-  "price_to_book": 16.630354,
+  "price_to_book": 16.619871,
   "dividend_yield": 2.62,
   "dividend_rate": 6.8,
   "payout_ratio": 0.6081,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4757600256,
   "earnings_growth": 0.064,
   "revenue_growth": 0.071,
-  "snapshot_date": "2025-12-05T10:50:58.012328"
+  "snapshot_date": "2025-12-05T19:25:36.413434"
 }

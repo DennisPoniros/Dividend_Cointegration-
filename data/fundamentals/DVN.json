@@ -3,12 +3,12 @@
   "name": "Devon Energy Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 24195403776,
-  "enterprise_value": 31064483840,
-  "pe_ratio": 8.9893875,
-  "forward_pe": 8.545964,
+  "market_cap": 23785957376,
+  "enterprise_value": 30913931264,
+  "pe_ratio": 8.837265,
+  "forward_pe": 8.401345,
   "peg_ratio": null,
-  "price_to_book": 1.5618342,
+  "price_to_book": 1.5354041,
   "dividend_yield": 2.55,
   "dividend_rate": 0.96,
   "payout_ratio": 0.2217,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6840999936,
   "earnings_growth": -0.162,
   "revenue_growth": 0.071,
-  "snapshot_date": "2025-12-05T10:54:35.037557"
+  "snapshot_date": "2025-12-05T19:27:37.059230"
 }

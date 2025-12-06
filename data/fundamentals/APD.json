@@ -3,12 +3,12 @@
   "name": "Air Products and Chemicals, Inc.",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 58909618176,
-  "enterprise_value": 77120159744,
+  "market_cap": 58027048960,
+  "enterprise_value": 76913147904,
   "pe_ratio": null,
-  "forward_pe": 18.677135,
+  "forward_pe": 18.397318,
   "peg_ratio": null,
-  "price_to_book": 3.9207568,
+  "price_to_book": 3.862017,
   "dividend_yield": 2.74,
   "dividend_rate": 7.16,
   "payout_ratio": 1.0099,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3256800000,
   "earnings_growth": -0.998,
   "revenue_growth": -0.006,
-  "snapshot_date": "2025-12-05T10:52:17.173015"
+  "snapshot_date": "2025-12-05T19:26:21.607883"
 }

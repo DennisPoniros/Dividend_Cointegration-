@@ -3,12 +3,12 @@
   "name": "Erie Indemnity Company",
   "sector": "Financial Services",
   "industry": "Insurance Brokers",
-  "market_cap": 15600158720,
-  "enterprise_value": 15129397248,
-  "pe_ratio": 24.098545,
-  "forward_pe": 22.26418,
+  "market_cap": 15501853696,
+  "enterprise_value": 14955795456,
+  "pe_ratio": 23.946688,
+  "forward_pe": 22.12388,
   "peg_ratio": null,
-  "price_to_book": 6.756653,
+  "price_to_book": 6.7140756,
   "dividend_yield": 1.82,
   "dividend_rate": 5.46,
   "payout_ratio": 0.4407,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 708558016,
   "earnings_growth": 0.144,
   "revenue_growth": 0.067,
-  "snapshot_date": "2025-12-05T10:55:38.496261"
+  "snapshot_date": "2025-12-05T19:28:11.700640"
 }

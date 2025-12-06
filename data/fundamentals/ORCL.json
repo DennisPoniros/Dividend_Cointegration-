@@ -3,12 +3,12 @@
   "name": "Oracle Corporation",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 621544079360,
-  "enterprise_value": 710193577984,
-  "pe_ratio": 50.352192,
-  "forward_pe": 30.450418,
+  "market_cap": 620275499008,
+  "enterprise_value": 719429107712,
+  "pe_ratio": 50.249424,
+  "forward_pe": 30.38827,
   "peg_ratio": null,
-  "price_to_book": 25.643967,
+  "price_to_book": 25.591625,
   "dividend_yield": 0.93,
   "dividend_rate": 2.0,
   "payout_ratio": 0.41669998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 21533999104,
   "earnings_growth": -0.019,
   "revenue_growth": 0.122,
-  "snapshot_date": "2025-12-05T10:49:25.599834"
+  "snapshot_date": "2025-12-05T19:24:43.503059"
 }

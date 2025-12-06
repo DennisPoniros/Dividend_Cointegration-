@@ -3,12 +3,12 @@
   "name": "News Corporation",
   "sector": "Communication Services",
   "industry": "Entertainment",
-  "market_cap": 15235536896,
-  "enterprise_value": 15720481792,
-  "pe_ratio": 31.415665,
-  "forward_pe": 24.599058,
+  "market_cap": 15215086592,
+  "enterprise_value": 15950700544,
+  "pe_ratio": 31.373495,
+  "forward_pe": 24.56604,
   "peg_ratio": null,
-  "price_to_book": 1.6892331,
+  "price_to_book": 1.6869656,
   "dividend_yield": 0.78,
   "dividend_rate": 0.2,
   "payout_ratio": 0.241,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1148999936,
   "earnings_growth": -0.052,
   "revenue_growth": 0.023,
-  "snapshot_date": "2025-12-05T10:55:41.626427"
+  "snapshot_date": "2025-12-05T19:28:13.330377"
 }

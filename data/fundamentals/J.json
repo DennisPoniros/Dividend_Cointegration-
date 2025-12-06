@@ -3,12 +3,12 @@
   "name": "Jacobs Solutions Inc.",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
-  "market_cap": 16946827264,
-  "enterprise_value": 19211769856,
-  "pe_ratio": 54.666664,
-  "forward_pe": 21.20902,
+  "market_cap": 16848300032,
+  "enterprise_value": 19151208448,
+  "pe_ratio": 54.34884,
+  "forward_pe": 21.085714,
   "peg_ratio": null,
-  "price_to_book": 4.61307,
+  "price_to_book": 4.58625,
   "dividend_yield": 0.91,
   "dividend_rate": 1.28,
   "payout_ratio": 0.48450002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 686704000,
   "earnings_growth": -0.634,
   "revenue_growth": null,
-  "snapshot_date": "2025-12-05T10:55:28.485339"
+  "snapshot_date": "2025-12-05T19:28:06.130783"
 }

@@ -3,12 +3,12 @@
   "name": "Freeport-McMoRan Inc.",
   "sector": "Basic Materials",
   "industry": "Copper",
-  "market_cap": 65787158528,
+  "market_cap": 64904065024,
   "enterprise_value": 80748863488,
-  "pe_ratio": 32.038464,
-  "forward_pe": 21.210648,
+  "pe_ratio": 31.608393,
+  "forward_pe": 20.925926,
   "peg_ratio": null,
-  "price_to_book": 3.5185468,
+  "price_to_book": 3.4713156,
   "dividend_yield": 1.34,
   "dividend_rate": 0.6,
   "payout_ratio": 0.41959998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6352999936,
   "earnings_growth": 0.278,
   "revenue_growth": 0.027,
-  "snapshot_date": "2025-12-05T10:52:03.164117"
+  "snapshot_date": "2025-12-05T19:26:13.125426"
 }

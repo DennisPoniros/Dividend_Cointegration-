@@ -3,12 +3,12 @@
   "name": "Dell Technologies Inc.",
   "sector": "Technology",
   "industry": "Computer Hardware",
-  "market_cap": 92646285312,
-  "enterprise_value": 115127140352,
-  "pe_ratio": 18.03534,
-  "forward_pe": 14.65851,
+  "market_cap": 93399351296,
+  "enterprise_value": 115073351680,
+  "pe_ratio": 18.181938,
+  "forward_pe": 14.77766,
   "peg_ratio": null,
-  "price_to_book": -35.503735,
+  "price_to_book": -35.79232,
   "dividend_yield": 1.51,
   "dividend_rate": 2.1,
   "payout_ratio": 0.2641,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7096000000,
   "earnings_growth": 0.443,
   "revenue_growth": 0.108,
-  "snapshot_date": "2025-12-05T10:51:13.772236"
+  "snapshot_date": "2025-12-05T19:25:45.207836"
 }

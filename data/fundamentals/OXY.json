@@ -3,12 +3,12 @@
   "name": "Occidental Petroleum Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 42487201792,
-  "enterprise_value": 71547928576,
-  "pe_ratio": 31.709558,
-  "forward_pe": 13.647152,
+  "market_cap": 41802477568,
+  "enterprise_value": 71311474688,
+  "pe_ratio": 31.19853,
+  "forward_pe": 13.427215,
   "peg_ratio": null,
-  "price_to_book": 1.5187533,
+  "price_to_book": 1.4942771,
   "dividend_yield": 2.25,
   "dividend_rate": 0.96,
   "payout_ratio": 0.6912,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 11253999616,
   "earnings_growth": -0.334,
   "revenue_growth": -0.077,
-  "snapshot_date": "2025-12-05T10:53:03.686688"
+  "snapshot_date": "2025-12-05T19:26:47.240103"
 }

@@ -3,12 +3,12 @@
   "name": "International Flavors & Fragrances Inc.",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 17343025152,
+  "market_cap": 17217366016,
   "enterprise_value": 23128848384,
   "pe_ratio": null,
-  "forward_pe": 14.679024,
+  "forward_pe": 14.572668,
   "peg_ratio": null,
-  "price_to_book": 1.2178804,
+  "price_to_book": 1.2090563,
   "dividend_yield": 2.41,
   "dividend_rate": 1.6,
   "payout_ratio": 1.6841999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 921000000,
   "earnings_growth": -0.31,
   "revenue_growth": -0.079,
-  "snapshot_date": "2025-12-05T10:55:23.287022"
+  "snapshot_date": "2025-12-05T19:28:03.001594"
 }

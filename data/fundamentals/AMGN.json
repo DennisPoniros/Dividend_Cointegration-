@@ -3,12 +3,12 @@
   "name": "Amgen Inc.",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 179677528064,
-  "enterprise_value": 228311580672,
-  "pe_ratio": 25.806263,
-  "forward_pe": 16.14296,
+  "market_cap": 177639391232,
+  "enterprise_value": 222781390848,
+  "pe_ratio": 25.513535,
+  "forward_pe": 15.959846,
   "peg_ratio": null,
-  "price_to_book": 18.679672,
+  "price_to_book": 18.467783,
   "dividend_yield": 2.8,
   "dividend_rate": 9.52,
   "payout_ratio": 0.72620004,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 13125999616,
   "earnings_growth": 0.136,
   "revenue_growth": 0.124,
-  "snapshot_date": "2025-12-05T10:50:17.237114"
+  "snapshot_date": "2025-12-05T19:25:13.255479"
 }

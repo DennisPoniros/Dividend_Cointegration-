@@ -3,12 +3,12 @@
   "name": "Marriott International, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Lodging",
-  "market_cap": 80291790848,
-  "enterprise_value": 95640133632,
-  "pe_ratio": 31.233368,
-  "forward_pe": 27.903772,
+  "market_cap": 79425847296,
+  "enterprise_value": 94725054464,
+  "pe_ratio": 30.896515,
+  "forward_pe": 27.602829,
   "peg_ratio": null,
-  "price_to_book": -25.546726,
+  "price_to_book": -25.271204,
   "dividend_yield": 0.91,
   "dividend_rate": 2.68,
   "payout_ratio": 0.2743,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2700999936,
   "earnings_growth": 0.29,
   "revenue_growth": 0.056,
-  "snapshot_date": "2025-12-05T10:51:27.659603"
+  "snapshot_date": "2025-12-05T19:25:53.362401"
 }

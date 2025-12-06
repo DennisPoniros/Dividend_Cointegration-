@@ -3,12 +3,12 @@
   "name": "Becton, Dickinson and Company",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
-  "market_cap": 56061464576,
-  "enterprise_value": 74673700864,
-  "pe_ratio": 33.66437,
-  "forward_pe": 12.434202,
+  "market_cap": 55594262528,
+  "enterprise_value": 74730782720,
+  "pe_ratio": 33.383823,
+  "forward_pe": 12.33058,
   "peg_ratio": null,
-  "price_to_book": 2.198579,
+  "price_to_book": 2.1802568,
   "dividend_yield": 2.17,
   "dividend_rate": 4.2,
   "payout_ratio": 0.71480006,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3430000128,
   "earnings_growth": 0.252,
   "revenue_growth": 0.083,
-  "snapshot_date": "2025-12-05T10:52:23.673124"
+  "snapshot_date": "2025-12-05T19:26:25.155838"
 }

@@ -3,12 +3,12 @@
   "name": "Labcorp Holdings Inc.",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
-  "market_cap": 21497554944,
-  "enterprise_value": 27677992960,
-  "pe_ratio": 25.362257,
-  "forward_pe": 16.148252,
+  "market_cap": 21472210944,
+  "enterprise_value": 27421831168,
+  "pe_ratio": 25.332355,
+  "forward_pe": 16.129213,
   "peg_ratio": null,
-  "price_to_book": 2.4688878,
+  "price_to_book": 2.4659772,
   "dividend_yield": 1.1,
   "dividend_rate": 2.88,
   "payout_ratio": 0.28260002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1803500032,
   "earnings_growth": 0.56,
   "revenue_growth": 0.086,
-  "snapshot_date": "2025-12-05T10:54:48.909540"
+  "snapshot_date": "2025-12-05T19:27:44.758246"
 }

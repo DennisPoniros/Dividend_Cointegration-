@@ -3,12 +3,12 @@
   "name": "Hormel Foods Corporation",
   "sector": "Consumer Defensive",
   "industry": "Packaged Foods",
-  "market_cap": 13450212352,
+  "market_cap": 13386962944,
   "enterprise_value": null,
-  "pe_ratio": 28.109196,
-  "forward_pe": 14.470413,
+  "pe_ratio": 27.97701,
+  "forward_pe": 14.402367,
   "peg_ratio": null,
-  "price_to_book": 1.6992079,
+  "price_to_book": 1.6912173,
   "dividend_yield": 4.84,
   "dividend_rate": 1.17,
   "payout_ratio": 1.3333,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 845251008,
   "earnings_growth": null,
   "revenue_growth": 0.015,
-  "snapshot_date": "2025-12-05T10:56:00.686723"
+  "snapshot_date": "2025-12-05T19:28:23.632267"
 }

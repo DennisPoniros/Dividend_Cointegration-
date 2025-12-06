@@ -3,12 +3,12 @@
   "name": "Fidelity National Information Services, Inc.",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 34910560256,
-  "enterprise_value": 46450294784,
-  "pe_ratio": 208.84377,
-  "forward_pe": 11.704028,
+  "market_cap": 34821758976,
+  "enterprise_value": 47019933696,
+  "pe_ratio": 208.31252,
+  "forward_pe": 11.674256,
   "peg_ratio": null,
-  "price_to_book": 2.502715,
+  "price_to_book": 2.4963489,
   "dividend_yield": 2.44,
   "dividend_rate": 1.6,
   "payout_ratio": 4.875,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2740999936,
   "earnings_growth": 0.22,
   "revenue_growth": 0.057,
-  "snapshot_date": "2025-12-05T10:53:33.551980"
+  "snapshot_date": "2025-12-05T19:27:03.930840"
 }

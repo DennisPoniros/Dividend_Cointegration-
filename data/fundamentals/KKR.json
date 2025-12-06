@@ -3,12 +3,12 @@
   "name": "KKR & Co. Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 120990220288,
-  "enterprise_value": 172623675392,
-  "pe_ratio": 54.90336,
-  "forward_pe": 21.527182,
+  "market_cap": 119832821760,
+  "enterprise_value": 173506117632,
+  "pe_ratio": 54.378147,
+  "forward_pe": 21.32125,
   "peg_ratio": null,
-  "price_to_book": 4.2793517,
+  "price_to_book": 4.238415,
   "dividend_yield": 0.58,
   "dividend_rate": 0.74,
   "payout_ratio": 0.3025,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5266436096,
   "earnings_growth": 0.406,
   "revenue_growth": 0.132,
-  "snapshot_date": "2025-12-05T10:50:46.402801"
+  "snapshot_date": "2025-12-05T19:25:29.879943"
 }

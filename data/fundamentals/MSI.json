@@ -3,12 +3,12 @@
   "name": "Motorola Solutions, Inc.",
   "sector": "Technology",
   "industry": "Communication Equipment",
-  "market_cap": 61917499392,
-  "enterprise_value": 70932512768,
-  "pe_ratio": 29.875,
-  "forward_pe": 25.299183,
+  "market_cap": 62374830080,
+  "enterprise_value": 71415529472,
+  "pe_ratio": 30.095661,
+  "forward_pe": 25.486046,
   "peg_ratio": null,
-  "price_to_book": 26.624043,
+  "price_to_book": 26.82069,
   "dividend_yield": 1.3,
   "dividend_rate": 4.84,
   "payout_ratio": 0.3499,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2651000064,
   "earnings_growth": 0.012,
   "revenue_growth": 0.078,
-  "snapshot_date": "2025-12-05T10:52:11.856638"
+  "snapshot_date": "2025-12-05T19:26:18.531886"
 }

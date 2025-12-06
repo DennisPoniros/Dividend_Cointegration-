@@ -3,12 +3,12 @@
   "name": "Cintas Corporation",
   "sector": "Industrials",
   "industry": "Specialty Business Services",
-  "market_cap": 75114012672,
-  "enterprise_value": 76492644352,
-  "pe_ratio": 41.332592,
-  "forward_pe": 39.8312,
+  "market_cap": 75251007488,
+  "enterprise_value": 77585727488,
+  "pe_ratio": 41.40798,
+  "forward_pe": 39.903847,
   "peg_ratio": null,
-  "price_to_book": 15.794781,
+  "price_to_book": 15.823589,
   "dividend_yield": 0.98,
   "dividend_rate": 1.8,
   "payout_ratio": 0.36,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2120029056,
   "earnings_growth": 0.091,
   "revenue_growth": 0.087,
-  "snapshot_date": "2025-12-05T10:51:42.876272"
+  "snapshot_date": "2025-12-05T19:26:01.790465"
 }

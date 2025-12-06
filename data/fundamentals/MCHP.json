@@ -3,12 +3,12 @@
   "name": "Microchip Technology Incorporated",
   "sector": "Technology",
   "industry": "Semiconductors",
-  "market_cap": 35977547776,
-  "enterprise_value": 40153620480,
+  "market_cap": 35566804992,
+  "enterprise_value": 40742707200,
   "pe_ratio": null,
-  "forward_pe": 25.603848,
+  "forward_pe": 25.311539,
   "peg_ratio": null,
-  "price_to_book": 5.373315,
+  "price_to_book": 5.31197,
   "dividend_yield": 2.81,
   "dividend_rate": 1.82,
   "payout_ratio": 3.1772,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 841100032,
   "earnings_growth": -0.816,
   "revenue_growth": -0.02,
-  "snapshot_date": "2025-12-05T10:53:28.318102"
+  "snapshot_date": "2025-12-05T19:27:00.769691"
 }

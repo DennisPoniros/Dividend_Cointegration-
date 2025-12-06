@@ -3,12 +3,12 @@
   "name": "Mondelez International, Inc.",
   "sector": "Consumer Defensive",
   "industry": "Confectioners",
-  "market_cap": 72765022208,
-  "enterprise_value": 92620005376,
-  "pe_ratio": 21.061798,
-  "forward_pe": 16.395044,
+  "market_cap": 71044071424,
+  "enterprise_value": 91465129984,
+  "pe_ratio": 20.56367,
+  "forward_pe": 16.007288,
   "peg_ratio": null,
-  "price_to_book": 2.7718356,
+  "price_to_book": 2.7062795,
   "dividend_yield": 3.58,
   "dividend_rate": 2.0,
   "payout_ratio": 0.7154,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3576000000,
   "earnings_growth": -0.095,
   "revenue_growth": 0.059,
-  "snapshot_date": "2025-12-05T10:51:48.140375"
+  "snapshot_date": "2025-12-05T19:26:04.700239"
 }

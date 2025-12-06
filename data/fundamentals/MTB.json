@@ -3,12 +3,12 @@
   "name": "M&T Bank Corporation",
   "sector": "Financial Services",
   "industry": "Banks - Regional",
-  "market_cap": 30629564416,
-  "enterprise_value": 28869306368,
-  "pe_ratio": 12.106547,
-  "forward_pe": 12.0396185,
+  "market_cap": 30489702400,
+  "enterprise_value": 28798607360,
+  "pe_ratio": 12.051266,
+  "forward_pe": 11.984643,
   "peg_ratio": null,
-  "price_to_book": 1.1500279,
+  "price_to_book": 1.1447766,
   "dividend_yield": 3.07,
   "dividend_rate": 6.0,
   "payout_ratio": 0.3426,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4156000000,
   "earnings_growth": 0.199,
   "revenue_growth": 0.08,
-  "snapshot_date": "2025-12-05T10:53:42.948628"
+  "snapshot_date": "2025-12-05T19:27:09.062533"
 }

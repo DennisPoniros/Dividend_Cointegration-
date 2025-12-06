@@ -3,12 +3,12 @@
   "name": "Costco Wholesale Corporation",
   "sector": "Consumer Defensive",
   "industry": "Discount Stores",
-  "market_cap": 399679291392,
-  "enterprise_value": 391675281408,
-  "pe_ratio": 49.545902,
-  "forward_pe": 45.794716,
+  "market_cap": 396770082816,
+  "enterprise_value": 391154532352,
+  "pe_ratio": 49.185265,
+  "forward_pe": 45.46138,
   "peg_ratio": null,
-  "price_to_book": 13.697073,
+  "price_to_book": 13.597374,
   "dividend_yield": 0.58,
   "dividend_rate": 5.2,
   "payout_ratio": 0.2702,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 13335000064,
   "earnings_growth": 0.11,
   "revenue_growth": 0.081,
-  "snapshot_date": "2025-12-05T10:49:34.064900"
+  "snapshot_date": "2025-12-05T19:24:48.346709"
 }

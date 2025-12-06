@@ -3,12 +3,12 @@
   "name": "Omnicom Group Inc.",
   "sector": "Communication Services",
   "industry": "Advertising Agencies",
-  "market_cap": 23338711040,
-  "enterprise_value": 18106656768,
-  "pe_ratio": 10.847344,
-  "forward_pe": 8.512153,
+  "market_cap": 23305392128,
+  "enterprise_value": 18737713152,
+  "pe_ratio": 10.831859,
+  "forward_pe": 8.5,
   "peg_ratio": null,
-  "price_to_book": 3.0765529,
+  "price_to_book": 3.0721607,
   "dividend_yield": 4.13,
   "dividend_rate": 2.9,
   "payout_ratio": 0.413,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1825799936,
   "earnings_growth": -0.103,
   "revenue_growth": 0.04,
-  "snapshot_date": "2025-12-05T10:54:43.624322"
+  "snapshot_date": "2025-12-05T19:27:41.935554"
 }

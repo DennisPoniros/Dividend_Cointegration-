@@ -3,12 +3,12 @@
   "name": "Intuit Inc.",
   "sector": "Technology",
   "industry": "Software - Application",
-  "market_cap": 186692255744,
+  "market_cap": 187538587648,
   "enterprise_value": null,
-  "pe_ratio": 45.962303,
-  "forward_pe": 30.165995,
+  "pe_ratio": 46.170666,
+  "forward_pe": 30.302746,
   "peg_ratio": null,
-  "price_to_book": 9.665884,
+  "price_to_book": 9.7097025,
   "dividend_yield": 0.68,
   "dividend_rate": 4.48,
   "payout_ratio": 0.2967,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6481999872,
   "earnings_growth": -0.185,
   "revenue_growth": 0.41,
-  "snapshot_date": "2025-12-05T10:50:15.605158"
+  "snapshot_date": "2025-12-05T19:25:12.355851"
 }

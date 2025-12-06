@@ -3,12 +3,12 @@
   "name": "Eaton Corporation plc",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 131962970112,
-  "enterprise_value": 142384414720,
-  "pe_ratio": 33.8975,
-  "forward_pe": 28.130705,
+  "market_cap": 131451035648,
+  "enterprise_value": 141891141632,
+  "pe_ratio": 33.766,
+  "forward_pe": 28.021576,
   "peg_ratio": null,
-  "price_to_book": 6.9871583,
+  "price_to_book": 6.960053,
   "dividend_yield": 1.23,
   "dividend_rate": 4.16,
   "payout_ratio": 0.4064,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4104000000,
   "earnings_growth": 0.024,
   "revenue_growth": 0.101,
-  "snapshot_date": "2025-12-05T10:50:39.369231"
+  "snapshot_date": "2025-12-05T19:25:25.615955"
 }

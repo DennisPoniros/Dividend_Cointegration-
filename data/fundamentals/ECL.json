@@ -3,12 +3,12 @@
   "name": "Ecolab Inc.",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 74406150144,
-  "enterprise_value": 81248919552,
-  "pe_ratio": 37.74676,
-  "forward_pe": 34.978664,
+  "market_cap": 73654550528,
+  "enterprise_value": 79896141824,
+  "pe_ratio": 37.36547,
+  "forward_pe": 34.62533,
   "peg_ratio": null,
-  "price_to_book": 11.183392,
+  "price_to_book": 11.070424,
   "dividend_yield": 0.98,
   "dividend_rate": 2.6,
   "payout_ratio": 0.3741,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2629199872,
   "earnings_growth": null,
   "revenue_growth": 0.178,
-  "snapshot_date": "2025-12-05T10:51:37.715307"
+  "snapshot_date": "2025-12-05T19:25:58.849799"
 }

@@ -3,12 +3,12 @@
   "name": "Lennox International Inc.",
   "sector": "Industrials",
   "industry": "Building Products & Equipment",
-  "market_cap": 17923217408,
+  "market_cap": 17970634752,
   "enterprise_value": 19013185536,
-  "pe_ratio": 21.55809,
-  "forward_pe": 21.844177,
+  "pe_ratio": 21.615126,
+  "forward_pe": 21.901968,
   "peg_ratio": null,
-  "price_to_book": 16.725008,
+  "price_to_book": 16.769257,
   "dividend_yield": 1.03,
   "dividend_rate": 5.2,
   "payout_ratio": 0.207,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 684099968,
   "earnings_growth": 0.045,
   "revenue_growth": -0.048,
-  "snapshot_date": "2025-12-05T10:55:21.414340"
+  "snapshot_date": "2025-12-05T19:28:01.967556"
 }

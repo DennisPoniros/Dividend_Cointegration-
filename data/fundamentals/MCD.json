@@ -3,12 +3,12 @@
   "name": "McDonald's Corporation",
   "sector": "Consumer Cyclical",
   "industry": "Restaurants",
-  "market_cap": 221295853568,
-  "enterprise_value": 273153097728,
-  "pe_ratio": 26.459896,
-  "forward_pe": 24.592386,
+  "market_cap": 222095114240,
+  "enterprise_value": 275068813312,
+  "pe_ratio": 26.555462,
+  "forward_pe": 24.681208,
   "peg_ratio": null,
-  "price_to_book": -102.110634,
+  "price_to_book": -102.47942,
   "dividend_yield": 2.41,
   "dividend_rate": 7.44,
   "payout_ratio": 0.6041,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 10485000192,
   "earnings_growth": 0.016,
   "revenue_growth": 0.03,
-  "snapshot_date": "2025-12-05T10:50:00.338771"
+  "snapshot_date": "2025-12-05T19:25:03.648834"
 }

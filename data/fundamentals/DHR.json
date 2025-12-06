@@ -3,12 +3,12 @@
   "name": "Danaher Corporation",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
-  "market_cap": 162722725888,
-  "enterprise_value": 177070178304,
-  "pe_ratio": 46.75926,
-  "forward_pe": 27.118137,
+  "market_cap": 162006663168,
+  "enterprise_value": 176448585728,
+  "pe_ratio": 46.553497,
+  "forward_pe": 26.998806,
   "peg_ratio": null,
-  "price_to_book": 3.1428058,
+  "price_to_book": 3.128976,
   "dividend_yield": 0.56,
   "dividend_rate": 1.28,
   "payout_ratio": 0.2531,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6318000128,
   "earnings_growth": 0.134,
   "revenue_growth": 0.044,
-  "snapshot_date": "2025-12-05T10:50:25.712650"
+  "snapshot_date": "2025-12-05T19:25:17.775334"
 }

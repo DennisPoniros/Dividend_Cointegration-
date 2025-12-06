@@ -3,12 +3,12 @@
   "name": "Linde plc",
   "sector": "Basic Materials",
   "industry": "Specialty Chemicals",
-  "market_cap": 189308157952,
-  "enterprise_value": 211407290368,
-  "pe_ratio": 27.022758,
-  "forward_pe": 23.818289,
+  "market_cap": 187362181120,
+  "enterprise_value": 209464786944,
+  "pe_ratio": 26.744982,
+  "forward_pe": 23.57345,
   "peg_ratio": null,
-  "price_to_book": 4.8818007,
+  "price_to_book": 4.8316183,
   "dividend_yield": 1.49,
   "dividend_rate": 6.0,
   "payout_ratio": 0.39419997,
@@ -16,7 +16,7 @@
   "five_year_avg_dividend_yield": 1.32,
   "beta": 0.858,
   "fifty_two_week_high": 486.38,
-  "fifty_two_week_low": 401.93,
+  "fifty_two_week_low": 398.93,
   "fifty_day_average": 436.8266,
   "two_hundred_day_average": 457.2111,
   "average_volume": 2279039,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 10129000448,
   "earnings_growth": 0.27,
   "revenue_growth": 0.031,
-  "snapshot_date": "2025-12-05T10:50:12.388556"
+  "snapshot_date": "2025-12-05T19:25:10.625752"
 }

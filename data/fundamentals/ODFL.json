@@ -3,12 +3,12 @@
   "name": "Old Dominion Freight Line, Inc.",
   "sector": "Industrials",
   "industry": "Trucking",
-  "market_cap": 32557148160,
-  "enterprise_value": 32137103360,
-  "pe_ratio": 31.169016,
-  "forward_pe": 26.255932,
+  "market_cap": 32607586304,
+  "enterprise_value": 32480024576,
+  "pe_ratio": 31.217304,
+  "forward_pe": 26.296608,
   "peg_ratio": null,
-  "price_to_book": 7.6096673,
+  "price_to_book": 7.6214566,
   "dividend_yield": 0.73,
   "dividend_rate": 1.12,
   "payout_ratio": 0.22129999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1460898944,
   "earnings_growth": -0.105,
   "revenue_growth": -0.043,
-  "snapshot_date": "2025-12-05T10:53:38.056196"
+  "snapshot_date": "2025-12-05T19:27:06.321048"
 }

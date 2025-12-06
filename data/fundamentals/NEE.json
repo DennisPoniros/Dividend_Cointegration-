@@ -3,12 +3,12 @@
   "name": "NextEra Energy, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 174564343808,
-  "enterprise_value": 274814828544,
-  "pe_ratio": 26.609524,
-  "forward_pe": 22.777174,
+  "market_cap": 173127335936,
+  "enterprise_value": 274273337344,
+  "pe_ratio": 26.390474,
+  "forward_pe": 22.589672,
   "peg_ratio": null,
-  "price_to_book": 3.2218633,
+  "price_to_book": 3.195341,
   "dividend_yield": 2.72,
   "dividend_rate": 2.27,
   "payout_ratio": 0.703,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 11966999552,
   "earnings_growth": 0.311,
   "revenue_growth": 0.053,
-  "snapshot_date": "2025-12-05T10:50:19.063529"
+  "snapshot_date": "2025-12-05T19:25:14.276848"
 }

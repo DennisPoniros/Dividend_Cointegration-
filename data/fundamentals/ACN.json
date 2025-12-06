@@ -3,12 +3,12 @@
   "name": "Accenture plc",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 167376093184,
-  "enterprise_value": 164771921920,
-  "pe_ratio": 22.117285,
-  "forward_pe": 19.099148,
+  "market_cap": 166046285824,
+  "enterprise_value": 163066544128,
+  "pe_ratio": 21.941565,
+  "forward_pe": 18.947407,
   "peg_ratio": null,
-  "price_to_book": 5.3568225,
+  "price_to_book": 5.314263,
   "dividend_yield": 2.42,
   "dividend_rate": 6.52,
   "payout_ratio": 0.48720002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 11474399232,
   "earnings_growth": -0.155,
   "revenue_growth": 0.073,
-  "snapshot_date": "2025-12-05T10:50:22.383743"
+  "snapshot_date": "2025-12-05T19:25:16.026876"
 }

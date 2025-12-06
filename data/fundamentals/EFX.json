@@ -3,12 +3,12 @@
   "name": "Equifax Inc.",
   "sector": "Industrials",
   "industry": "Consulting Services",
-  "market_cap": 26154803200,
-  "enterprise_value": 30620811264,
-  "pe_ratio": 40.208332,
-  "forward_pe": 22.561106,
+  "market_cap": 26057476096,
+  "enterprise_value": 30648963072,
+  "pe_ratio": 40.05871,
+  "forward_pe": 22.477152,
   "peg_ratio": null,
-  "price_to_book": 5.2704754,
+  "price_to_book": 5.2508626,
   "dividend_yield": 0.95,
   "dividend_rate": 2.0,
   "payout_ratio": 0.33650002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1469699968,
   "earnings_growth": 0.142,
   "revenue_growth": 0.072,
-  "snapshot_date": "2025-12-05T10:54:17.566832"
+  "snapshot_date": "2025-12-05T19:27:27.615979"
 }

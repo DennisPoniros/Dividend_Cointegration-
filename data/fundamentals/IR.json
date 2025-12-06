@@ -3,12 +3,12 @@
   "name": "Ingersoll Rand Inc.",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 31782289408,
+  "market_cap": 31740557312,
   "enterprise_value": 35331579904,
-  "pe_ratio": 59.23333,
-  "forward_pe": 22.588982,
+  "pe_ratio": 59.155556,
+  "forward_pe": 22.559322,
   "peg_ratio": null,
-  "price_to_book": 3.1211941,
+  "price_to_book": 3.117096,
   "dividend_yield": 0.1,
   "dividend_rate": 0.08,
   "payout_ratio": 0.059299998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1382899968,
   "earnings_growth": 0.13,
   "revenue_growth": 0.051,
-  "snapshot_date": "2025-12-05T10:53:39.480022"
+  "snapshot_date": "2025-12-05T19:27:07.013308"
 }

@@ -3,12 +3,12 @@
   "name": "PepsiCo, Inc.",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Non-Alcoholic",
-  "market_cap": 198831079424,
-  "enterprise_value": 243218939904,
-  "pe_ratio": 27.610264,
-  "forward_pe": 16.828505,
+  "market_cap": 198543589376,
+  "enterprise_value": 240634658816,
+  "pe_ratio": 27.570341,
+  "forward_pe": 16.804173,
   "peg_ratio": null,
-  "price_to_book": 10.254908,
+  "price_to_book": 10.24008,
   "dividend_yield": 3.87,
   "dividend_rate": 5.69,
   "payout_ratio": 1.0561,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 11754999808,
   "earnings_growth": -0.108,
   "revenue_growth": 0.027,
-  "snapshot_date": "2025-12-05T10:50:05.486740"
+  "snapshot_date": "2025-12-05T19:25:06.803527"
 }

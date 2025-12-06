@@ -3,12 +3,12 @@
   "name": "Consolidated Edison, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 34725613568,
-  "enterprise_value": 61223223296,
-  "pe_ratio": 16.819931,
-  "forward_pe": 17.119217,
+  "market_cap": 34866380800,
+  "enterprise_value": 61360377856,
+  "pe_ratio": 16.888113,
+  "forward_pe": 17.188612,
   "peg_ratio": null,
-  "price_to_book": 1.437107,
+  "price_to_book": 1.4429325,
   "dividend_yield": 3.53,
   "dividend_rate": 3.4,
   "payout_ratio": 0.5909,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4630000128,
   "earnings_growth": 0.124,
   "revenue_growth": 0.107,
-  "snapshot_date": "2025-12-05T10:53:31.996519"
+  "snapshot_date": "2025-12-05T19:27:03.069143"
 }

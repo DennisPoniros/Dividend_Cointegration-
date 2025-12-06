@@ -3,12 +3,12 @@
   "name": "Chevron Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas Integrated",
-  "market_cap": 306776834048,
-  "enterprise_value": 346152796160,
-  "pe_ratio": 21.414907,
-  "forward_pe": 13.791666,
+  "market_cap": 302223360000,
+  "enterprise_value": 341602238464,
+  "pe_ratio": 21.097046,
+  "forward_pe": 13.586957,
   "peg_ratio": null,
-  "price_to_book": 1.6149081,
+  "price_to_book": 1.5909381,
   "dividend_yield": 4.49,
   "dividend_rate": 6.84,
   "payout_ratio": 0.9508,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 31844999168,
   "earnings_growth": -0.266,
   "revenue_growth": -0.014,
-  "snapshot_date": "2025-12-05T10:49:43.305206"
+  "snapshot_date": "2025-12-05T19:24:53.835028"
 }

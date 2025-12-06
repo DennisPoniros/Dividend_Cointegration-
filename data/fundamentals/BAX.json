@@ -3,12 +3,12 @@
   "name": "Baxter International Inc.",
   "sector": "Healthcare",
   "industry": "Medical Instruments & Supplies",
-  "market_cap": 9630835712,
-  "enterprise_value": 17458751488,
+  "market_cap": 9530595328,
+  "enterprise_value": 17489594368,
   "pe_ratio": null,
-  "forward_pe": 6.5052085,
+  "forward_pe": 6.4375,
   "peg_ratio": null,
-  "price_to_book": 1.3297609,
+  "price_to_book": 1.3159204,
   "dividend_yield": 2.81,
   "dividend_rate": 0.52,
   "payout_ratio": 3.0769,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 749000000,
   "earnings_growth": null,
   "revenue_growth": 0.05,
-  "snapshot_date": "2025-12-05T10:56:24.650600"
+  "snapshot_date": "2025-12-05T19:28:36.446993"
 }

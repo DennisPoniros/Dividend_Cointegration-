@@ -3,12 +3,12 @@
   "name": "Citizens Financial Group, Inc.",
   "sector": "Financial Services",
   "industry": "Banks - Regional",
-  "market_cap": 24157700096,
-  "enterprise_value": 24438687744,
-  "pe_ratio": 15.687675,
-  "forward_pe": 14.471577,
+  "market_cap": 23922614272,
+  "enterprise_value": 24258304000,
+  "pe_ratio": 15.535014,
+  "forward_pe": 14.3307495,
   "peg_ratio": null,
-  "price_to_book": 1.0187914,
+  "price_to_book": 1.0088773,
   "dividend_yield": 3.29,
   "dividend_rate": 1.84,
   "payout_ratio": 0.4706,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2852000000,
   "earnings_growth": 0.364,
   "revenue_growth": 0.136,
-  "snapshot_date": "2025-12-05T10:54:33.401183"
+  "snapshot_date": "2025-12-05T19:27:36.108940"
 }

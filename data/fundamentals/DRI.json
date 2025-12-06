@@ -3,12 +3,12 @@
   "name": "Darden Restaurants, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Restaurants",
-  "market_cap": 20725909504,
-  "enterprise_value": 28341063680,
-  "pe_ratio": 19.072962,
-  "forward_pe": 16.833332,
+  "market_cap": 20721246208,
+  "enterprise_value": 28510881792,
+  "pe_ratio": 19.06867,
+  "forward_pe": 16.829544,
   "peg_ratio": null,
-  "price_to_book": 9.2970705,
+  "price_to_book": 9.294979,
   "dividend_yield": 3.4,
   "dividend_rate": 6.0,
   "payout_ratio": 0.6109,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1767800064,
   "earnings_growth": 0.261,
   "revenue_growth": 0.104,
-  "snapshot_date": "2025-12-05T10:54:59.531781"
+  "snapshot_date": "2025-12-05T19:27:50.529487"
 }

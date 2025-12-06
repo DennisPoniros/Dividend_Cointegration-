@@ -3,12 +3,12 @@
   "name": "Cencora, Inc.",
   "sector": "Healthcare",
   "industry": "Medical Distribution",
-  "market_cap": 65479012352,
-  "enterprise_value": 70712107008,
-  "pe_ratio": 42.350327,
-  "forward_pe": 20.631546,
+  "market_cap": 65891811328,
+  "enterprise_value": 71105921024,
+  "pe_ratio": 42.617317,
+  "forward_pe": 20.761614,
   "peg_ratio": null,
-  "price_to_book": 43.406906,
+  "price_to_book": 43.680557,
   "dividend_yield": 0.71,
   "dividend_rate": 2.4,
   "payout_ratio": 0.2764,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3875120128,
   "earnings_growth": null,
   "revenue_growth": 0.059,
-  "snapshot_date": "2025-12-05T10:51:58.243186"
+  "snapshot_date": "2025-12-05T19:26:10.523585"
 }

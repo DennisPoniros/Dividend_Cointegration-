@@ -3,12 +3,12 @@
   "name": "Evergy, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 16929948672,
+  "market_cap": 16870091776,
   "enterprise_value": 31726606336,
-  "pe_ratio": 20.147945,
-  "forward_pe": 18.20297,
+  "pe_ratio": 20.076712,
+  "forward_pe": 18.138615,
   "peg_ratio": null,
-  "price_to_book": 1.6453375,
+  "price_to_book": 1.6395203,
   "dividend_yield": 3.77,
   "dividend_rate": 2.78,
   "payout_ratio": 0.7315,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2106800000,
   "earnings_growth": 0.005,
   "revenue_growth": -0.001,
-  "snapshot_date": "2025-12-05T10:55:26.847022"
+  "snapshot_date": "2025-12-05T19:28:05.200538"
 }

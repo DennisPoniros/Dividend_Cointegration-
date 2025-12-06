@@ -3,12 +3,12 @@
   "name": "Mastercard Incorporated",
   "sector": "Financial Services",
   "industry": "Credit Services",
-  "market_cap": 496356753408,
-  "enterprise_value": 495342125056,
-  "pe_ratio": 35.15109,
-  "forward_pe": 33.52015,
+  "market_cap": 493156564992,
+  "enterprise_value": 498224693248,
+  "pe_ratio": 34.924458,
+  "forward_pe": 33.30403,
   "peg_ratio": null,
-  "price_to_book": 62.528183,
+  "price_to_book": 62.125046,
   "dividend_yield": 0.56,
   "dividend_rate": 3.04,
   "payout_ratio": 0.188,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 17479999488,
   "earnings_growth": 0.229,
   "revenue_growth": 0.167,
-  "snapshot_date": "2025-12-05T10:49:27.275191"
+  "snapshot_date": "2025-12-05T19:24:44.365460"
 }

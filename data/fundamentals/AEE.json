@@ -3,12 +3,12 @@
   "name": "Ameren Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 27003506688,
-  "enterprise_value": 47503413248,
-  "pe_ratio": 19.198078,
-  "forward_pe": 20.290651,
+  "market_cap": 27011622912,
+  "enterprise_value": 47235620864,
+  "pe_ratio": 19.203848,
+  "forward_pe": 20.296747,
   "peg_ratio": null,
-  "price_to_book": 2.1129832,
+  "price_to_book": 2.1136181,
   "dividend_yield": 2.82,
   "dividend_rate": 2.84,
   "payout_ratio": 0.5385,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3214000128,
   "earnings_growth": 0.382,
   "revenue_growth": 0.248,
-  "snapshot_date": "2025-12-05T10:54:05.871884"
+  "snapshot_date": "2025-12-05T19:27:21.425821"
 }

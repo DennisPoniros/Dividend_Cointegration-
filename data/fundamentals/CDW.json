@@ -3,12 +3,12 @@
   "name": "CDW Corporation",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 19212193792,
+  "market_cap": 19167633408,
   "enterprise_value": 24453892096,
-  "pe_ratio": 18.532238,
-  "forward_pe": 14.485178,
+  "pe_ratio": 18.489254,
+  "forward_pe": 14.451581,
   "peg_ratio": null,
-  "price_to_book": 7.5209074,
+  "price_to_book": 7.5034633,
   "dividend_yield": 1.74,
   "dividend_rate": 2.52,
   "payout_ratio": 0.3161,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1116700032,
   "earnings_growth": -0.056,
   "revenue_growth": 0.04,
-  "snapshot_date": "2025-12-05T10:55:11.075065"
+  "snapshot_date": "2025-12-05T19:27:56.765608"
 }

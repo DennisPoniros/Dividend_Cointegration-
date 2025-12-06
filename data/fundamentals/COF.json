@@ -3,12 +3,12 @@
   "name": "Capital One Financial Corporation",
   "sector": "Financial Services",
   "industry": "Credit Services",
-  "market_cap": 148262502400,
-  "enterprise_value": 149022359552,
-  "pe_ratio": 79.395546,
-  "forward_pe": 14.804279,
+  "market_cap": 147523846144,
+  "enterprise_value": 149639020544,
+  "pe_ratio": 78.99999,
+  "forward_pe": 14.730523,
   "peg_ratio": null,
-  "price_to_book": 1.3595687,
+  "price_to_book": 1.3527952,
   "dividend_yield": 1.39,
   "dividend_rate": 3.2,
   "payout_ratio": 0.8219,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 22335000576,
   "earnings_growth": 0.095,
   "revenue_growth": 0.679,
-  "snapshot_date": "2025-12-05T10:50:30.603756"
+  "snapshot_date": "2025-12-05T19:25:20.339667"
 }

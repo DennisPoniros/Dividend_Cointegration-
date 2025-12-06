@@ -3,12 +3,12 @@
   "name": "Cardinal Health, Inc.",
   "sector": "Healthcare",
   "industry": "Medical Distribution",
-  "market_cap": 47150735360,
-  "enterprise_value": 51913555968,
-  "pe_ratio": 29.932125,
-  "forward_pe": 22.968748,
+  "market_cap": 47241023488,
+  "enterprise_value": 51828023296,
+  "pe_ratio": 29.98944,
+  "forward_pe": 23.012732,
   "peg_ratio": null,
-  "price_to_book": -16.404894,
+  "price_to_book": -16.436306,
   "dividend_yield": 1.03,
   "dividend_rate": 2.04,
   "payout_ratio": 0.3066,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5016999936,
   "earnings_growth": 0.106,
   "revenue_growth": 0.224,
-  "snapshot_date": "2025-12-05T10:52:43.655544"
+  "snapshot_date": "2025-12-05T19:26:36.642515"
 }

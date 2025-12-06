@@ -3,12 +3,12 @@
   "name": "Constellation Energy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Independent Power Producers",
-  "market_cap": 113796857856,
+  "market_cap": 112409772032,
   "enterprise_value": 120536367104,
-  "pe_ratio": 41.67735,
-  "forward_pe": 40.699444,
+  "pe_ratio": 41.16934,
+  "forward_pe": 40.203354,
   "peg_ratio": null,
-  "price_to_book": 7.926795,
+  "price_to_book": 7.8301744,
   "dividend_yield": 0.42,
   "dividend_rate": 1.55,
   "payout_ratio": 0.1736,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2416000000,
   "earnings_growth": -0.223,
   "revenue_growth": 0.003,
-  "snapshot_date": "2025-12-05T10:50:51.299871"
+  "snapshot_date": "2025-12-05T19:25:32.534908"
 }

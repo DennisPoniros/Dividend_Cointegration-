@@ -3,12 +3,12 @@
   "name": "Quest Diagnostics Incorporated",
   "sector": "Healthcare",
   "industry": "Diagnostics & Research",
-  "market_cap": 20515686400,
-  "enterprise_value": 26553618432,
-  "pe_ratio": 21.508207,
-  "forward_pe": 18.797642,
+  "market_cap": 20408895488,
+  "enterprise_value": 26367844352,
+  "pe_ratio": 21.396248,
+  "forward_pe": 18.699795,
   "peg_ratio": null,
-  "price_to_book": 2.8058329,
+  "price_to_book": 2.7912276,
   "dividend_yield": 1.74,
   "dividend_rate": 3.2,
   "payout_ratio": 0.3697,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1884999936,
   "earnings_growth": 0.085,
   "revenue_growth": 0.132,
-  "snapshot_date": "2025-12-05T10:54:57.975601"
+  "snapshot_date": "2025-12-05T19:27:49.602103"
 }

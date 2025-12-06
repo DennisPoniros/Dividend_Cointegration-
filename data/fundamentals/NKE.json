@@ -3,12 +3,12 @@
   "name": "NIKE, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Footwear & Accessories",
-  "market_cap": 97317380096,
-  "enterprise_value": 99589046272,
-  "pe_ratio": 33.761536,
-  "forward_pe": 20.382353,
+  "market_cap": 97354342400,
+  "enterprise_value": 99840344064,
+  "pe_ratio": 33.774357,
+  "forward_pe": 20.390093,
   "peg_ratio": null,
-  "price_to_book": 7.220333,
+  "price_to_book": 7.2230754,
   "dividend_yield": 2.5,
   "dividend_rate": 1.64,
   "payout_ratio": 0.8205,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3526000128,
   "earnings_growth": -0.3,
   "revenue_growth": 0.011,
-  "snapshot_date": "2025-12-05T10:51:12.371800"
+  "snapshot_date": "2025-12-05T19:25:44.484996"
 }

@@ -3,12 +3,12 @@
   "name": "D.R. Horton, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Residential Construction",
-  "market_cap": 48273653760,
-  "enterprise_value": 50574491648,
-  "pe_ratio": 13.995247,
-  "forward_pe": 10.1647835,
+  "market_cap": 47288352768,
+  "enterprise_value": 49958244352,
+  "pe_ratio": 13.709594,
+  "forward_pe": 9.957313,
   "peg_ratio": null,
-  "price_to_book": 1.9711374,
+  "price_to_book": 1.9309051,
   "dividend_yield": 1.12,
   "dividend_rate": 1.8,
   "payout_ratio": 0.1383,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3420900096,
   "earnings_growth": -0.222,
   "revenue_growth": -0.032,
-  "snapshot_date": "2025-12-05T10:52:41.930264"
+  "snapshot_date": "2025-12-05T19:26:35.642772"
 }

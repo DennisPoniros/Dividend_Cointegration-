@@ -3,12 +3,12 @@
   "name": "Newmont Corporation",
   "sector": "Basic Materials",
   "industry": "Gold",
-  "market_cap": 101474779136,
+  "market_cap": 98596847616,
   "enterprise_value": 98868379648,
-  "pe_ratio": 14.367029,
-  "forward_pe": 24.120104,
+  "pe_ratio": 13.959565,
+  "forward_pe": 23.436033,
   "peg_ratio": null,
-  "price_to_book": 3.0389156,
+  "price_to_book": 2.9527287,
   "dividend_yield": 1.1,
   "dividend_rate": 1.0,
   "payout_ratio": 0.1555,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9223999488,
   "earnings_growth": 1.081,
   "revenue_growth": 0.2,
-  "snapshot_date": "2025-12-05T10:51:05.052697"
+  "snapshot_date": "2025-12-05T19:25:40.488618"
 }

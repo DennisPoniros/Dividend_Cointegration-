@@ -3,12 +3,12 @@
   "name": "Leidos Holdings, Inc.",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 23844061184,
+  "market_cap": 23968509952,
   "enterprise_value": 28901892096,
-  "pe_ratio": 17.336754,
-  "forward_pe": 17.78469,
+  "pe_ratio": 17.427238,
+  "forward_pe": 17.877514,
   "peg_ratio": null,
-  "price_to_book": 4.840474,
+  "price_to_book": 4.865738,
   "dividend_yield": 0.89,
   "dividend_rate": 1.72,
   "payout_ratio": 0.1494,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1506000000,
   "earnings_growth": 0.052,
   "revenue_growth": 0.067,
-  "snapshot_date": "2025-12-05T10:54:27.874099"
+  "snapshot_date": "2025-12-05T19:27:33.310344"
 }

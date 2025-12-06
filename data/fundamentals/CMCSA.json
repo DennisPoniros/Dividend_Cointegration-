@@ -3,12 +3,12 @@
   "name": "Comcast Corporation",
   "sector": "Communication Services",
   "industry": "Telecom Services",
-  "market_cap": 102496018432,
-  "enterprise_value": 189406937088,
-  "pe_ratio": 4.6113124,
-  "forward_pe": 6.337922,
+  "market_cap": 100834156544,
+  "enterprise_value": 189807755264,
+  "pe_ratio": 4.536545,
+  "forward_pe": 6.2351594,
   "peg_ratio": null,
-  "price_to_book": 1.0449877,
+  "price_to_book": 1.0280443,
   "dividend_yield": 4.85,
   "dividend_rate": 1.32,
   "payout_ratio": 0.2159,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 32881999872,
   "earnings_growth": -0.042,
   "revenue_growth": -0.027,
-  "snapshot_date": "2025-12-05T10:51:03.164449"
+  "snapshot_date": "2025-12-05T19:25:39.465379"
 }

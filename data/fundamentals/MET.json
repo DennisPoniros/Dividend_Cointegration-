@@ -3,12 +3,12 @@
   "name": "MetLife, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance - Life",
-  "market_cap": 52184596480,
-  "enterprise_value": 70353313792,
-  "pe_ratio": 14.777779,
-  "forward_pe": 8.09804,
+  "market_cap": 52310949888,
+  "enterprise_value": 70768418816,
+  "pe_ratio": 14.8135605,
+  "forward_pe": 8.117648,
   "peg_ratio": null,
-  "price_to_book": 1.7913072,
+  "price_to_book": 1.7956445,
   "dividend_yield": 2.91,
   "dividend_rate": 2.27,
   "payout_ratio": 0.41900003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 14627000320,
   "earnings_growth": -0.326,
   "revenue_growth": -0.059,
-  "snapshot_date": "2025-12-05T10:52:30.338952"
+  "snapshot_date": "2025-12-05T19:26:29.115301"
 }

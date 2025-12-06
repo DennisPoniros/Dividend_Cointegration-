@@ -3,12 +3,12 @@
   "name": "The Home Depot, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Home Improvement Retail",
-  "market_cap": 351793840128,
-  "enterprise_value": 413891756032,
-  "pe_ratio": 24.137978,
-  "forward_pe": 22.652563,
+  "market_cap": 353018314752,
+  "enterprise_value": 417316339712,
+  "pe_ratio": 24.221992,
+  "forward_pe": 22.73141,
   "peg_ratio": null,
-  "price_to_book": 29.020285,
+  "price_to_book": 29.121292,
   "dividend_yield": 2.62,
   "dividend_rate": 9.2,
   "payout_ratio": 0.62409997,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 17649000448,
   "earnings_growth": -0.014,
   "revenue_growth": 0.028,
-  "snapshot_date": "2025-12-05T10:49:35.821812"
+  "snapshot_date": "2025-12-05T19:24:49.306860"
 }

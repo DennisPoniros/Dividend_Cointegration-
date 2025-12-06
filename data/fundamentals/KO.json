@@ -3,12 +3,12 @@
   "name": "The Coca-Cola Company",
   "sector": "Consumer Defensive",
   "industry": "Beverages - Non-Alcoholic",
-  "market_cap": 303537651712,
-  "enterprise_value": 337448337408,
-  "pe_ratio": 23.354305,
-  "forward_pe": 23.747475,
+  "market_cap": 301256704000,
+  "enterprise_value": 335512633344,
+  "pe_ratio": 23.178808,
+  "forward_pe": 23.569023,
   "peg_ratio": null,
-  "price_to_book": 9.710863,
+  "price_to_book": 9.637891,
   "dividend_yield": 2.9,
   "dividend_rate": 2.04,
   "payout_ratio": 0.6672,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7602999808,
   "earnings_growth": 0.301,
   "revenue_growth": 0.051,
-  "snapshot_date": "2025-12-05T10:49:45.896287"
+  "snapshot_date": "2025-12-05T19:24:55.137659"
 }

@@ -3,12 +3,12 @@
   "name": "Huntington Ingalls Industries, Inc.",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 11992181760,
-  "enterprise_value": 15009584128,
-  "pe_ratio": 21.075863,
-  "forward_pe": 19.489796,
+  "market_cap": 11952154624,
+  "enterprise_value": 14566156288,
+  "pe_ratio": 21.005516,
+  "forward_pe": 19.424744,
   "peg_ratio": null,
-  "price_to_book": 2.4061098,
+  "price_to_book": 2.3980787,
   "dividend_yield": 1.75,
   "dividend_rate": 5.52,
   "payout_ratio": 0.37240002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 937000000,
   "earnings_growth": 0.439,
   "revenue_growth": 0.161,
-  "snapshot_date": "2025-12-05T10:56:09.051019"
+  "snapshot_date": "2025-12-05T19:28:28.111731"
 }

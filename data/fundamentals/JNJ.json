@@ -3,12 +3,12 @@
   "name": "Johnson & Johnson",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 485906612224,
-  "enterprise_value": 515067084800,
-  "pe_ratio": 19.485989,
-  "forward_pe": 19.026413,
+  "market_cap": 486508953600,
+  "enterprise_value": 513741946880,
+  "pe_ratio": 19.510143,
+  "forward_pe": 19.05,
   "peg_ratio": null,
-  "price_to_book": 6.1213465,
+  "price_to_book": 6.1289344,
   "dividend_yield": 2.57,
   "dividend_rate": 5.2,
   "payout_ratio": 0.49080002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 24203999232,
   "earnings_growth": 0.91,
   "revenue_growth": 0.068,
-  "snapshot_date": "2025-12-05T10:49:29.050695"
+  "snapshot_date": "2025-12-05T19:24:45.525256"
 }

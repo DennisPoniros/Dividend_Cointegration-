@@ -3,12 +3,12 @@
   "name": "Carrier Global Corporation",
   "sector": "Industrials",
   "industry": "Building Products & Equipment",
-  "market_cap": 46542438400,
-  "enterprise_value": 57147432960,
-  "pe_ratio": 34.181248,
-  "forward_pe": 17.990131,
+  "market_cap": 46202032128,
+  "enterprise_value": 56970567680,
+  "pe_ratio": 33.93125,
+  "forward_pe": 17.858553,
   "peg_ratio": null,
-  "price_to_book": 3.181131,
+  "price_to_book": 3.1578643,
   "dividend_yield": 1.76,
   "dividend_rate": 0.96,
   "payout_ratio": 0.5406,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1604999936,
   "earnings_growth": 0.005,
   "revenue_growth": -0.068,
-  "snapshot_date": "2025-12-05T10:52:45.052195"
+  "snapshot_date": "2025-12-05T19:26:37.294239"
 }

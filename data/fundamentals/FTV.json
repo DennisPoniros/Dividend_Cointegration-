@@ -3,12 +3,12 @@
   "name": "Fortive Corporation",
   "sector": "Technology",
   "industry": "Scientific & Technical Instruments",
-  "market_cap": 18246479872,
-  "enterprise_value": 19932809216,
-  "pe_ratio": 21.232285,
-  "forward_pe": 12.932854,
+  "market_cap": 18185578496,
+  "enterprise_value": 20050325504,
+  "pe_ratio": 21.161417,
+  "forward_pe": 12.889688,
   "peg_ratio": null,
-  "price_to_book": 2.6335578,
+  "price_to_book": 2.624768,
   "dividend_yield": 0.45,
   "dividend_rate": 0.24,
   "payout_ratio": 0.1181,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1219500032,
   "earnings_growth": -0.742,
   "revenue_growth": 0.023,
-  "snapshot_date": "2025-12-05T10:55:19.809387"
+  "snapshot_date": "2025-12-05T19:28:01.126826"
 }

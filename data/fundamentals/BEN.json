@@ -3,12 +3,12 @@
   "name": "Franklin Resources, Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 12198526976,
-  "enterprise_value": 14440759296,
-  "pe_ratio": 25.73077,
-  "forward_pe": 9.00577,
+  "market_cap": 12190711808,
+  "enterprise_value": 14576211968,
+  "pe_ratio": 25.714285,
+  "forward_pe": 9.0,
   "peg_ratio": null,
-  "price_to_book": 1.0099638,
+  "price_to_book": 1.0093168,
   "dividend_yield": 5.53,
   "dividend_rate": 1.28,
   "payout_ratio": 1.4066,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1066099968,
   "earnings_growth": null,
   "revenue_growth": 0.06,
-  "snapshot_date": "2025-12-05T10:56:11.179535"
+  "snapshot_date": "2025-12-05T19:28:29.059416"
 }

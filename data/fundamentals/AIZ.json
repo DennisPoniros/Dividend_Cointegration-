@@ -3,12 +3,12 @@
   "name": "Assurant, Inc.",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 11274353664,
-  "enterprise_value": 11379790848,
-  "pe_ratio": 13.607491,
-  "forward_pe": 12.468471,
+  "market_cap": 11245844480,
+  "enterprise_value": 11309676544,
+  "pe_ratio": 13.573081,
+  "forward_pe": 12.436942,
   "peg_ratio": null,
-  "price_to_book": 1.947706,
+  "price_to_book": 1.9427809,
   "dividend_yield": 1.57,
   "dividend_rate": 3.52,
   "payout_ratio": 0.195,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1265699968,
   "earnings_growth": 1.027,
   "revenue_growth": 0.089,
-  "snapshot_date": "2025-12-05T10:56:14.503702"
+  "snapshot_date": "2025-12-05T19:28:30.910783"
 }

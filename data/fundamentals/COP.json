@@ -3,12 +3,12 @@
   "name": "ConocoPhillips",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 118174924800,
-  "enterprise_value": 132296081408,
-  "pe_ratio": 13.364408,
-  "forward_pe": 11.783314,
+  "market_cap": 117013413888,
+  "enterprise_value": 133000445952,
+  "pe_ratio": 13.233051,
+  "forward_pe": 11.667498,
   "peg_ratio": null,
-  "price_to_book": 1.8009479,
+  "price_to_book": 1.7832468,
   "dividend_yield": 3.61,
   "dividend_rate": 3.36,
   "payout_ratio": 0.4407,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 19935000576,
   "earnings_growth": -0.216,
   "revenue_growth": 0.14,
-  "snapshot_date": "2025-12-05T10:50:49.891793"
+  "snapshot_date": "2025-12-05T19:25:31.864955"
 }

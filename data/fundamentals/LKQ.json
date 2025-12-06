@@ -3,12 +3,12 @@
   "name": "LKQ Corporation",
   "sector": "Consumer Cyclical",
   "industry": "Auto Parts",
-  "market_cap": 7554127872,
-  "enterprise_value": 12630738944,
-  "pe_ratio": 10.874074,
-  "forward_pe": 8.110497,
+  "market_cap": 7577284608,
+  "enterprise_value": 12779198464,
+  "pe_ratio": 10.907408,
+  "forward_pe": 8.13536,
   "peg_ratio": null,
-  "price_to_book": 1.1481308,
+  "price_to_book": 1.1516502,
   "dividend_yield": 4.16,
   "dividend_rate": 1.2,
   "payout_ratio": 0.44439998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 968000000,
   "earnings_growth": -0.038,
   "revenue_growth": 0.013,
-  "snapshot_date": "2025-12-05T10:56:34.813996"
+  "snapshot_date": "2025-12-05T19:28:42.012211"
 }

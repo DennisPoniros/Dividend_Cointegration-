@@ -3,12 +3,12 @@
   "name": "Eversource Energy",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 24993224704,
-  "enterprise_value": 54892417024,
-  "pe_ratio": 18.401934,
-  "forward_pe": 13.936192,
+  "market_cap": 25040123904,
+  "enterprise_value": 54772355072,
+  "pe_ratio": 18.436464,
+  "forward_pe": 13.962342,
   "peg_ratio": null,
-  "price_to_book": 1.5589385,
+  "price_to_book": 1.5618638,
   "dividend_yield": 4.49,
   "dividend_rate": 3.01,
   "payout_ratio": 0.8211,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3839645952,
   "earnings_growth": null,
   "revenue_growth": 0.051,
-  "snapshot_date": "2025-12-05T10:54:24.731088"
+  "snapshot_date": "2025-12-05T19:27:31.776096"
 }

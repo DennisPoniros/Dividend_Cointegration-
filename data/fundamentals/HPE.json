@@ -3,12 +3,12 @@
   "name": "Hewlett Packard Enterprise Company",
   "sector": "Technology",
   "industry": "Communication Equipment",
-  "market_cap": 30327562240,
+  "market_cap": 30782771200,
   "enterprise_value": 50100408320,
-  "pe_ratio": 27.041176,
-  "forward_pe": 10.945239,
+  "pe_ratio": 27.447058,
+  "forward_pe": 11.109525,
   "peg_ratio": null,
-  "price_to_book": 1.242231,
+  "price_to_book": 1.2608765,
   "dividend_yield": 2.27,
   "dividend_rate": 0.52,
   "payout_ratio": 0.6118,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2484000000,
   "earnings_growth": -0.452,
   "revenue_growth": 0.185,
-  "snapshot_date": "2025-12-05T10:53:46.239000"
+  "snapshot_date": "2025-12-05T19:27:10.788852"
 }

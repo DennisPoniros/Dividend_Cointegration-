@@ -3,12 +3,12 @@
   "name": "Coterra Energy Inc.",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 21303052288,
-  "enterprise_value": 24843061248,
-  "pe_ratio": 12.923611,
-  "forward_pe": 11.980687,
+  "market_cap": 20902404096,
+  "enterprise_value": 24881131520,
+  "pe_ratio": 12.680554,
+  "forward_pe": 11.755365,
   "peg_ratio": null,
-  "price_to_book": 1.449076,
+  "price_to_book": 1.421823,
   "dividend_yield": 3.22,
   "dividend_rate": 0.88,
   "payout_ratio": 0.4028,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3676999936,
   "earnings_growth": 0.235,
   "revenue_growth": 0.349,
-  "snapshot_date": "2025-12-05T10:54:54.266733"
+  "snapshot_date": "2025-12-05T19:27:47.597186"
 }

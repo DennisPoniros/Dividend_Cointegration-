@@ -3,12 +3,12 @@
   "name": "Nordson Corporation",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 13563283456,
-  "enterprise_value": 15468483584,
-  "pe_ratio": 30.22923,
-  "forward_pe": 23.056686,
+  "market_cap": 13501682688,
+  "enterprise_value": 15497700352,
+  "pe_ratio": 30.091938,
+  "forward_pe": 22.95197,
   "peg_ratio": null,
-  "price_to_book": 4.5227075,
+  "price_to_book": 4.5021667,
   "dividend_yield": 1.38,
   "dividend_rate": 3.28,
   "payout_ratio": 0.3925,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 612644992,
   "earnings_growth": 0.088,
   "revenue_growth": 0.121,
-  "snapshot_date": "2025-12-05T10:55:57.055890"
+  "snapshot_date": "2025-12-05T19:28:21.558701"
 }

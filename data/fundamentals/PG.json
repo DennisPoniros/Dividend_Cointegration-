@@ -3,12 +3,12 @@
   "name": "The Procter & Gamble Company",
   "sector": "Consumer Defensive",
   "industry": "Household & Personal Products",
-  "market_cap": 339894173696,
-  "enterprise_value": 365493583872,
-  "pe_ratio": 21.200556,
-  "forward_pe": 19.571941,
+  "market_cap": 335742631936,
+  "enterprise_value": 361030418432,
+  "pe_ratio": 20.941607,
+  "forward_pe": 19.332884,
   "peg_ratio": null,
-  "price_to_book": 6.463872,
+  "price_to_book": 6.38492,
   "dividend_yield": 2.91,
   "dividend_rate": 4.23,
   "payout_ratio": 0.6024,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 18922999808,
   "earnings_growth": 0.214,
   "revenue_growth": 0.03,
-  "snapshot_date": "2025-12-05T10:49:37.743683"
+  "snapshot_date": "2025-12-05T19:24:50.562086"
 }

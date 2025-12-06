@@ -3,12 +3,12 @@
   "name": "Lowe's Companies, Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Home Improvement Retail",
-  "market_cap": 138700865536,
-  "enterprise_value": 181777416192,
-  "pe_ratio": 20.451612,
-  "forward_pe": 19.577196,
+  "market_cap": 139379621888,
+  "enterprise_value": 183067607040,
+  "pe_ratio": 20.551695,
+  "forward_pe": 19.673,
   "peg_ratio": null,
-  "price_to_book": -13.361072,
+  "price_to_book": -13.4264555,
   "dividend_yield": 1.95,
   "dividend_rate": 4.8,
   "payout_ratio": 0.3891,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9208000512,
   "earnings_growth": -0.037,
   "revenue_growth": 0.032,
-  "snapshot_date": "2025-12-05T10:50:34.180942"
+  "snapshot_date": "2025-12-05T19:25:22.591995"
 }

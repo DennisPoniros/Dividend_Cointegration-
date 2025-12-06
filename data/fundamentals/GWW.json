@@ -3,12 +3,12 @@
   "name": "W.W. Grainger, Inc.",
   "sector": "Industrials",
   "industry": "Industrial Distribution",
-  "market_cap": 46446546944,
-  "enterprise_value": 48656027648,
-  "pe_ratio": 27.23023,
-  "forward_pe": 23.059368,
+  "market_cap": 46662266880,
+  "enterprise_value": 48971280384,
+  "pe_ratio": 27.3567,
+  "forward_pe": 23.166468,
   "peg_ratio": null,
-  "price_to_book": 12.986546,
+  "price_to_book": 13.046862,
   "dividend_yield": 0.93,
   "dividend_rate": 9.04,
   "payout_ratio": 0.24159999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2048000000,
   "earnings_growth": -0.38,
   "revenue_growth": 0.061,
-  "snapshot_date": "2025-12-05T10:52:46.871830"
+  "snapshot_date": "2025-12-05T19:26:38.438711"
 }

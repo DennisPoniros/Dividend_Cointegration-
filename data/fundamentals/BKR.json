@@ -3,12 +3,12 @@
   "name": "Baker Hughes Company",
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
-  "market_cap": 49674199040,
-  "enterprise_value": 53474627584,
-  "pe_ratio": 17.35862,
-  "forward_pe": 19.58755,
+  "market_cap": 48549277696,
+  "enterprise_value": 52083273728,
+  "pe_ratio": 16.965517,
+  "forward_pe": 19.14397,
   "peg_ratio": null,
-  "price_to_book": 2.7348292,
+  "price_to_book": 2.6728964,
   "dividend_yield": 1.82,
   "dividend_rate": 0.92,
   "payout_ratio": 0.3103,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3337999872,
   "earnings_growth": -0.208,
   "revenue_growth": 0.015,
-  "snapshot_date": "2025-12-05T10:52:36.858893"
+  "snapshot_date": "2025-12-05T19:26:32.705912"
 }

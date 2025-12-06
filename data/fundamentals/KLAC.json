@@ -3,12 +3,12 @@
   "name": "KLA Corporation",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
-  "market_cap": 160967868416,
-  "enterprise_value": 160136986624,
-  "pe_ratio": 38.47576,
-  "forward_pe": 37.24482,
+  "market_cap": 159925583872,
+  "enterprise_value": 160975273984,
+  "pe_ratio": 38.226627,
+  "forward_pe": 37.003654,
   "peg_ratio": null,
-  "price_to_book": 32.248386,
+  "price_to_book": 32.039574,
   "dividend_yield": 0.63,
   "dividend_rate": 7.6,
   "payout_ratio": 0.22620001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4248256000,
   "earnings_growth": 0.208,
   "revenue_growth": 0.13,
-  "snapshot_date": "2025-12-05T10:50:27.314204"
+  "snapshot_date": "2025-12-05T19:25:18.617036"
 }

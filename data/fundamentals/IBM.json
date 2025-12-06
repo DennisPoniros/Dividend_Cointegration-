@@ -3,12 +3,12 @@
   "name": "International Business Machines Corporation",
   "sector": "Technology",
   "industry": "Information Technology Services",
-  "market_cap": 289253818368,
+  "market_cap": 287842369536,
   "enterprise_value": 339688095744,
-  "pe_ratio": 36.927208,
-  "forward_pe": 29.165884,
+  "pe_ratio": 36.747017,
+  "forward_pe": 29.023563,
   "peg_ratio": null,
-  "price_to_book": 10.365792,
+  "price_to_book": 10.315211,
   "dividend_yield": 2.18,
   "dividend_rate": 6.72,
   "payout_ratio": 0.7986,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 13482999808,
   "earnings_growth": null,
   "revenue_growth": 0.091,
-  "snapshot_date": "2025-12-05T10:49:47.861253"
+  "snapshot_date": "2025-12-05T19:24:56.354926"
 }

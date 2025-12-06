@@ -3,12 +3,12 @@
   "name": "Ball Corporation",
   "sector": "Consumer Cyclical",
   "industry": "Packaging & Containers",
-  "market_cap": 13430547456,
-  "enterprise_value": 20074174464,
-  "pe_ratio": 19.202335,
-  "forward_pe": 13.980169,
+  "market_cap": 13343460352,
+  "enterprise_value": 20122413056,
+  "pe_ratio": 19.077822,
+  "forward_pe": 13.889518,
   "peg_ratio": null,
-  "price_to_book": 2.443795,
+  "price_to_book": 2.4279487,
   "dividend_yield": 1.64,
   "dividend_rate": 0.8,
   "payout_ratio": 0.31129998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 551000000,
   "earnings_growth": 0.811,
   "revenue_growth": 0.096,
-  "snapshot_date": "2025-12-05T10:55:58.851493"
+  "snapshot_date": "2025-12-05T19:28:22.559378"
 }

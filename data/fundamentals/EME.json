@@ -3,12 +3,12 @@
   "name": "EMCOR Group, Inc.",
   "sector": "Industrials",
   "industry": "Engineering & Construction",
-  "market_cap": 28045406208,
+  "market_cap": 27916888064,
   "enterprise_value": 28219369472,
-  "pe_ratio": 25.22105,
-  "forward_pe": 28.081171,
+  "pe_ratio": 25.105474,
+  "forward_pe": 27.952488,
   "peg_ratio": null,
-  "price_to_book": 8.4082575,
+  "price_to_book": 8.369727,
   "dividend_yield": 0.16,
   "dividend_rate": 1.0,
   "payout_ratio": 0.0403,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1247150976,
   "earnings_growth": 0.133,
   "revenue_growth": 0.164,
-  "snapshot_date": "2025-12-05T10:53:57.499815"
+  "snapshot_date": "2025-12-05T19:27:16.775683"
 }

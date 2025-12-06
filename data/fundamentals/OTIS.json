@@ -3,12 +3,12 @@
   "name": "Otis Worldwide Corporation",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 34007980032,
-  "enterprise_value": 41654206464,
-  "pe_ratio": 25.560472,
-  "forward_pe": 20.680191,
+  "market_cap": 33929482240,
+  "enterprise_value": 41474936832,
+  "pe_ratio": 25.501472,
+  "forward_pe": 20.632458,
   "peg_ratio": null,
-  "price_to_book": -6.2279882,
+  "price_to_book": -6.213613,
   "dividend_yield": 1.93,
   "dividend_rate": 1.68,
   "payout_ratio": 0.4779,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1468999936,
   "earnings_growth": -0.291,
   "revenue_growth": 0.04,
-  "snapshot_date": "2025-12-05T10:53:34.976592"
+  "snapshot_date": "2025-12-05T19:27:04.649151"
 }

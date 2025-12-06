@@ -3,12 +3,12 @@
   "name": "Allegion plc",
   "sector": "Industrials",
   "industry": "Security & Protection Services",
-  "market_cap": 13847703552,
-  "enterprise_value": 15795239936,
-  "pe_ratio": 21.810299,
-  "forward_pe": 20.662388,
+  "market_cap": 13685962752,
+  "enterprise_value": 15642962944,
+  "pe_ratio": 21.555555,
+  "forward_pe": 20.421053,
   "peg_ratio": null,
-  "price_to_book": 7.1136255,
+  "price_to_book": 7.0305386,
   "dividend_yield": 1.27,
   "dividend_rate": 2.04,
   "payout_ratio": 0.272,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 762700032,
   "earnings_growth": 0.095,
   "revenue_growth": 0.107,
-  "snapshot_date": "2025-12-05T10:55:49.822274"
+  "snapshot_date": "2025-12-05T19:28:17.498103"
 }

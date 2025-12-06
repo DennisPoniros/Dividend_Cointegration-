@@ -3,12 +3,12 @@
   "name": "Genuine Parts Company",
   "sector": "Consumer Cyclical",
   "industry": "Auto Parts",
-  "market_cap": 18037067776,
-  "enterprise_value": 24115851264,
-  "pe_ratio": 22.316696,
-  "forward_pe": 15.308146,
+  "market_cap": 18117750784,
+  "enterprise_value": 24103329792,
+  "pe_ratio": 22.416525,
+  "forward_pe": 15.376623,
   "peg_ratio": null,
-  "price_to_book": 3.7682002,
+  "price_to_book": 3.7850564,
   "dividend_yield": 3.16,
   "dividend_rate": 4.12,
   "payout_ratio": 0.704,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 665715008,
   "earnings_growth": 0.0,
   "revenue_growth": 0.049,
-  "snapshot_date": "2025-12-05T10:55:18.372115"
+  "snapshot_date": "2025-12-05T19:28:00.413832"
 }

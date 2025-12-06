@@ -3,12 +3,12 @@
   "name": "Northern Trust Corporation",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 25436030976,
+  "market_cap": 25397899264,
   "enterprise_value": 33673324544,
-  "pe_ratio": 15.548951,
-  "forward_pe": 17.462042,
+  "pe_ratio": 15.525642,
+  "forward_pe": 17.435865,
   "peg_ratio": null,
-  "price_to_book": 2.0901158,
+  "price_to_book": 2.0869825,
   "dividend_yield": 2.4,
   "dividend_rate": 3.2,
   "payout_ratio": 0.35549998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2510299904,
   "earnings_growth": 0.032,
   "revenue_growth": 0.042,
-  "snapshot_date": "2025-12-05T10:54:21.051799"
+  "snapshot_date": "2025-12-05T19:27:29.547802"
 }

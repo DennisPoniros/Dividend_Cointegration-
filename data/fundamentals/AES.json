@@ -3,12 +3,12 @@
   "name": "The AES Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Diversified",
-  "market_cap": 9983936512,
-  "enterprise_value": 46721843200,
-  "pe_ratio": 9.223684,
-  "forward_pe": 6.9064045,
+  "market_cap": 9912723456,
+  "enterprise_value": 46714724352,
+  "pe_ratio": 9.157895,
+  "forward_pe": 6.857143,
   "peg_ratio": null,
-  "price_to_book": 2.5833795,
+  "price_to_book": 2.564953,
   "dividend_yield": 5.05,
   "dividend_rate": 0.7,
   "payout_ratio": 0.46080002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3905999872,
   "earnings_growth": 0.253,
   "revenue_growth": 0.019,
-  "snapshot_date": "2025-12-05T10:56:21.095506"
+  "snapshot_date": "2025-12-05T19:28:34.473140"
 }

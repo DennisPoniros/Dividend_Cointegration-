@@ -3,12 +3,12 @@
   "name": "Applied Materials, Inc.",
   "sector": "Technology",
   "industry": "Semiconductor Equipment & Materials",
-  "market_cap": 215563468800,
+  "market_cap": 213500166144,
   "enterprise_value": 211917357056,
-  "pe_ratio": 31.282082,
-  "forward_pe": 27.924665,
+  "pe_ratio": 30.98266,
+  "forward_pe": 27.65738,
   "peg_ratio": null,
-  "price_to_book": 10.52388,
+  "price_to_book": 10.423149,
   "dividend_yield": 0.68,
   "dividend_rate": 1.84,
   "payout_ratio": 0.19860001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7958000128,
   "earnings_growth": 0.135,
   "revenue_growth": -0.035,
-  "snapshot_date": "2025-12-05T10:50:03.647739"
+  "snapshot_date": "2025-12-05T19:25:05.611174"
 }

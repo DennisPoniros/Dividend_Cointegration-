@@ -3,12 +3,12 @@
   "name": "Cincinnati Financial Corporation",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 25433059328,
-  "enterprise_value": 24706578432,
-  "pe_ratio": 12.110201,
-  "forward_pe": 22.188267,
+  "market_cap": 25379893248,
+  "enterprise_value": 24595804160,
+  "pe_ratio": 12.084885,
+  "forward_pe": 22.141884,
   "peg_ratio": null,
-  "price_to_book": 1.6468873,
+  "price_to_book": 1.6434445,
   "dividend_yield": 2.13,
   "dividend_rate": 3.48,
   "payout_ratio": 0.2545,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2807000064,
   "earnings_growth": 0.367,
   "revenue_growth": 0.122,
-  "snapshot_date": "2025-12-05T10:54:19.316712"
+  "snapshot_date": "2025-12-05T19:27:28.549609"
 }

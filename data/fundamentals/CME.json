@@ -3,12 +3,12 @@
   "name": "CME Group Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 97868578816,
-  "enterprise_value": 99711754240,
-  "pe_ratio": 26.273476,
-  "forward_pe": 26.17213,
+  "market_cap": 97675657216,
+  "enterprise_value": 98875162624,
+  "pe_ratio": 26.221684,
+  "forward_pe": 26.12054,
   "peg_ratio": null,
-  "price_to_book": 3.4644942,
+  "price_to_book": 3.4576647,
   "dividend_yield": 1.83,
   "dividend_rate": 5.0,
   "payout_ratio": 1.0368,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4161100032,
   "earnings_growth": -0.004,
   "revenue_growth": -0.03,
-  "snapshot_date": "2025-12-05T10:51:06.609280"
+  "snapshot_date": "2025-12-05T19:25:41.280836"
 }

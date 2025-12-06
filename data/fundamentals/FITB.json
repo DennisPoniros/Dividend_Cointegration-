@@ -3,12 +3,12 @@
   "name": "Fifth Third Bancorp",
   "sector": "Financial Services",
   "industry": "Banks - Regional",
-  "market_cap": 30193221632,
-  "enterprise_value": 46807597056,
-  "pe_ratio": 13.634329,
-  "forward_pe": 12.513698,
+  "market_cap": 30024652800,
+  "enterprise_value": 46781153280,
+  "pe_ratio": 13.558208,
+  "forward_pe": 12.443835,
   "peg_ratio": null,
-  "price_to_book": 1.5612715,
+  "price_to_book": 1.5525551,
   "dividend_yield": 3.52,
   "dividend_rate": 1.6,
   "payout_ratio": 0.45069999,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3484000000,
   "earnings_growth": 0.167,
   "revenue_growth": 0.067,
-  "snapshot_date": "2025-12-05T10:53:49.353326"
+  "snapshot_date": "2025-12-05T19:27:12.486159"
 }

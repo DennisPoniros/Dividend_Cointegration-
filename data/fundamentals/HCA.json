@@ -3,12 +3,12 @@
   "name": "HCA Healthcare, Inc.",
   "sector": "Healthcare",
   "industry": "Medical Care Facilities",
-  "market_cap": 114078851072,
-  "enterprise_value": 159715033088,
-  "pe_ratio": 18.85996,
-  "forward_pe": 19.858656,
+  "market_cap": 113884643328,
+  "enterprise_value": 159495979008,
+  "pe_ratio": 18.827852,
+  "forward_pe": 19.824848,
   "peg_ratio": null,
-  "price_to_book": -21.004265,
+  "price_to_book": -20.968506,
   "dividend_yield": 0.59,
   "dividend_rate": 2.88,
   "payout_ratio": 0.109,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 12835999744,
   "earnings_growth": 0.426,
   "revenue_growth": 0.096,
-  "snapshot_date": "2025-12-05T10:50:52.762311"
+  "snapshot_date": "2025-12-05T19:25:33.256014"
 }

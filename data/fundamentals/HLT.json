@@ -3,12 +3,12 @@
   "name": "Hilton Worldwide Holdings Inc.",
   "sector": "Consumer Cyclical",
   "industry": "Lodging",
-  "market_cap": 64525410304,
-  "enterprise_value": 74894393344,
-  "pe_ratio": 39.81858,
-  "forward_pe": 34.336674,
+  "market_cap": 64031502336,
+  "enterprise_value": 74615472128,
+  "pe_ratio": 39.51379,
+  "forward_pe": 34.073845,
   "peg_ratio": null,
-  "price_to_book": -12.963663,
+  "price_to_book": -12.864433,
   "dividend_yield": 0.22,
   "dividend_rate": 0.6,
   "payout_ratio": 0.0871,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2508000000,
   "earnings_growth": 0.29,
   "revenue_growth": 0.035,
-  "snapshot_date": "2025-12-05T10:52:01.511154"
+  "snapshot_date": "2025-12-05T19:26:12.228570"
 }

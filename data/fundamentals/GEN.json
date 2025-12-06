@@ -3,12 +3,12 @@
   "name": "Gen Digital Inc.",
   "sector": "Technology",
   "industry": "Software - Infrastructure",
-  "market_cap": 16830182400,
-  "enterprise_value": 24768337920,
-  "pe_ratio": 29.989012,
-  "forward_pe": 11.138776,
+  "market_cap": 16706839552,
+  "enterprise_value": 24786839552,
+  "pe_ratio": 29.76923,
+  "forward_pe": 11.057142,
   "peg_ratio": null,
-  "price_to_book": 6.85334,
+  "price_to_book": 6.803114,
   "dividend_yield": 1.85,
   "dividend_rate": 0.5,
   "payout_ratio": 0.5495,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1324000000,
   "earnings_growth": -0.192,
   "revenue_growth": 0.253,
-  "snapshot_date": "2025-12-05T10:55:32.053357"
+  "snapshot_date": "2025-12-05T19:28:08.156809"
 }

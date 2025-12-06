@@ -3,12 +3,12 @@
   "name": "MSCI Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 41481691136,
-  "enterprise_value": 45889978368,
-  "pe_ratio": 33.956936,
-  "forward_pe": 31.46596,
+  "market_cap": 41642610688,
+  "enterprise_value": 45695369216,
+  "pe_ratio": 34.088665,
+  "forward_pe": 31.588028,
   "peg_ratio": null,
-  "price_to_book": -21.039042,
+  "price_to_book": -21.120659,
   "dividend_yield": 1.33,
   "dividend_rate": 7.2,
   "payout_ratio": 0.4439,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1517949056,
   "earnings_growth": 0.19,
   "revenue_growth": 0.095,
-  "snapshot_date": "2025-12-05T10:53:05.296528"
+  "snapshot_date": "2025-12-05T19:26:47.970592"
 }

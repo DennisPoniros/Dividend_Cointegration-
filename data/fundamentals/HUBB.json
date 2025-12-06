@@ -3,12 +3,12 @@
   "name": "Hubbell Incorporated",
   "sector": "Industrials",
   "industry": "Electrical Equipment & Parts",
-  "market_cap": 23467925504,
-  "enterprise_value": 24742490112,
-  "pe_ratio": 27.633604,
-  "forward_pe": 24.920147,
+  "market_cap": 23411857408,
+  "enterprise_value": 24892356608,
+  "pe_ratio": 27.567585,
+  "forward_pe": 24.860611,
   "peg_ratio": null,
-  "price_to_book": 6.37493,
+  "price_to_book": 6.3596992,
   "dividend_yield": 1.3,
   "dividend_rate": 5.68,
   "payout_ratio": 0.33020002,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1014700032,
   "earnings_growth": 0.141,
   "revenue_growth": 0.041,
-  "snapshot_date": "2025-12-05T10:54:40.190575"
+  "snapshot_date": "2025-12-05T19:27:40.083361"
 }

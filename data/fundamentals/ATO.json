@@ -3,12 +3,12 @@
   "name": "Atmos Energy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Gas",
-  "market_cap": 27612372992,
+  "market_cap": 27696451584,
   "enterprise_value": 36742295552,
-  "pe_ratio": 22.92215,
-  "forward_pe": 23.917368,
+  "pe_ratio": 22.991945,
+  "forward_pe": 23.990196,
   "peg_ratio": null,
-  "price_to_book": 2.0349143,
+  "price_to_book": 2.0411105,
   "dividend_yield": 2.34,
   "dividend_rate": 4.0,
   "payout_ratio": 0.4665,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2049456000,
   "earnings_growth": 0.256,
   "revenue_growth": 0.121,
-  "snapshot_date": "2025-12-05T10:54:00.620931"
+  "snapshot_date": "2025-12-05T19:27:18.523430"
 }

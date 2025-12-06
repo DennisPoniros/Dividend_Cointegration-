@@ -3,12 +3,12 @@
   "name": "Alliant Energy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 16813883392,
-  "enterprise_value": 28058998784,
-  "pe_ratio": 20.569183,
-  "forward_pe": 20.250774,
+  "market_cap": 16837017600,
+  "enterprise_value": 28005017600,
+  "pe_ratio": 20.597485,
+  "forward_pe": 20.278637,
   "peg_ratio": null,
-  "price_to_book": 2.3010626,
+  "price_to_book": 2.3042285,
   "dividend_yield": 3.09,
   "dividend_rate": 2.03,
   "payout_ratio": 0.6297,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1154000000,
   "earnings_growth": -0.052,
   "revenue_growth": 0.119,
-  "snapshot_date": "2025-12-05T10:55:30.452942"
+  "snapshot_date": "2025-12-05T19:28:07.345971"
 }

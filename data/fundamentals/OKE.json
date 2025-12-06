@@ -3,12 +3,12 @@
   "name": "ONEOK, Inc.",
   "sector": "Energy",
   "industry": "Oil & Gas Midstream",
-  "market_cap": 48333709312,
-  "enterprise_value": 80532570112,
-  "pe_ratio": 14.108438,
-  "forward_pe": 12.85593,
+  "market_cap": 48075567104,
+  "enterprise_value": 80639533056,
+  "pe_ratio": 14.033088,
+  "forward_pe": 12.78727,
   "peg_ratio": null,
-  "price_to_book": 2.1892266,
+  "price_to_book": 2.1775343,
   "dividend_yield": 5.41,
   "dividend_rate": 4.12,
   "payout_ratio": 0.75,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 5664000000,
   "earnings_growth": 0.262,
   "revenue_growth": 0.719,
-  "snapshot_date": "2025-12-05T10:52:38.622701"
+  "snapshot_date": "2025-12-05T19:26:33.685080"
 }

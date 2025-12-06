@@ -3,12 +3,12 @@
   "name": "Marathon Petroleum Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas Refining & Marketing",
-  "market_cap": 58730643456,
-  "enterprise_value": 95500558336,
-  "pe_ratio": 20.572948,
-  "forward_pe": 18.939215,
+  "market_cap": 57924993024,
+  "enterprise_value": 95614787584,
+  "pe_ratio": 20.290733,
+  "forward_pe": 18.679413,
   "peg_ratio": null,
-  "price_to_book": 3.4009964,
+  "price_to_book": 3.3543425,
   "dividend_yield": 2.1,
   "dividend_rate": 4.0,
   "payout_ratio": 0.3872,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7391000064,
   "earnings_growth": 1.412,
   "revenue_growth": -0.008,
-  "snapshot_date": "2025-12-05T10:52:18.628685"
+  "snapshot_date": "2025-12-05T19:26:22.370122"
 }

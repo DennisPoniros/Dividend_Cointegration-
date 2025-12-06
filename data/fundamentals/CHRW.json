@@ -3,12 +3,12 @@
   "name": "C.H. Robinson Worldwide, Inc.",
   "sector": "Industrials",
   "industry": "Integrated Freight & Logistics",
-  "market_cap": 18349066240,
-  "enterprise_value": 20037160960,
-  "pe_ratio": 31.37778,
-  "forward_pe": 32.630253,
+  "market_cap": 18573527040,
+  "enterprise_value": 19939108864,
+  "pe_ratio": 31.761618,
+  "forward_pe": 33.02941,
   "peg_ratio": null,
-  "price_to_book": 9.904349,
+  "price_to_book": 10.025507,
   "dividend_yield": 1.59,
   "dividend_rate": 2.52,
   "payout_ratio": 0.50200003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 877035008,
   "earnings_growth": 0.675,
   "revenue_growth": -0.109,
-  "snapshot_date": "2025-12-05T10:55:14.716050"
+  "snapshot_date": "2025-12-05T19:27:58.484149"
 }

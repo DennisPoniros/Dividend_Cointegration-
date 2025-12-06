@@ -3,12 +3,12 @@
   "name": "FactSet Research Systems Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 10762841088,
-  "enterprise_value": 11650731008,
-  "pe_ratio": 18.295643,
-  "forward_pe": 15.23984,
+  "market_cap": 10987783168,
+  "enterprise_value": 12089345024,
+  "pe_ratio": 18.67802,
+  "forward_pe": 15.5583515,
   "peg_ratio": null,
-  "price_to_book": 4.9016876,
+  "price_to_book": 5.0041327,
   "dividend_yield": 1.58,
   "dividend_rate": 4.4,
   "payout_ratio": 0.2752,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 726259968,
   "earnings_growth": 0.728,
   "revenue_growth": 0.062,
-  "snapshot_date": "2025-12-05T10:56:19.521883"
+  "snapshot_date": "2025-12-05T19:28:33.551357"
 }

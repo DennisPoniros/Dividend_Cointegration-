@@ -3,12 +3,12 @@
   "name": "Nasdaq, Inc.",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 51813715968,
-  "enterprise_value": 60690178048,
-  "pe_ratio": 32.25,
-  "forward_pe": 28.757961,
+  "market_cap": 51767808000,
+  "enterprise_value": 60650209280,
+  "pe_ratio": 32.221428,
+  "forward_pe": 28.732483,
   "peg_ratio": null,
-  "price_to_book": 4.3016386,
+  "price_to_book": 4.2978277,
   "dividend_yield": 1.2,
   "dividend_rate": 1.08,
   "payout_ratio": 0.3643,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2335000064,
   "earnings_growth": 0.377,
   "revenue_growth": 0.029,
-  "snapshot_date": "2025-12-05T10:52:31.839681"
+  "snapshot_date": "2025-12-05T19:26:29.911559"
 }

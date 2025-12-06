@@ -3,12 +3,12 @@
   "name": "Expand Energy Corporation",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 29737869312,
+  "market_cap": 29261529088,
   "enterprise_value": 33538138112,
-  "pe_ratio": 40.14791,
-  "forward_pe": 29.448114,
+  "pe_ratio": 39.504826,
+  "forward_pe": 28.976418,
   "peg_ratio": null,
-  "price_to_book": 1.6383247,
+  "price_to_book": 1.6120821,
   "dividend_yield": 2.61,
   "dividend_rate": 3.19,
   "payout_ratio": 1.0257,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4000999936,
   "earnings_growth": null,
   "revenue_growth": 3.193,
-  "snapshot_date": "2025-12-05T10:53:52.224633"
+  "snapshot_date": "2025-12-05T19:27:13.868508"
 }

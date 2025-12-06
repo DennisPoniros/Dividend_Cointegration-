@@ -3,12 +3,12 @@
   "name": "L3Harris Technologies, Inc.",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 52278030336,
-  "enterprise_value": 63973195776,
-  "pe_ratio": 30.109917,
-  "forward_pe": 19.417652,
+  "market_cap": 52105900032,
+  "enterprise_value": 63597219840,
+  "pe_ratio": 30.010777,
+  "forward_pe": 19.353718,
   "peg_ratio": null,
-  "price_to_book": 2.6775653,
+  "price_to_book": 2.668749,
   "dividend_yield": 1.71,
   "dividend_rate": 4.8,
   "payout_ratio": 0.51240003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2272999936,
   "earnings_growth": 0.171,
   "revenue_growth": 0.069,
-  "snapshot_date": "2025-12-05T10:52:27.106020"
+  "snapshot_date": "2025-12-05T19:26:27.089073"
 }

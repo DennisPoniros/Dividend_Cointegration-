@@ -3,12 +3,12 @@
   "name": "Loews Corporation",
   "sector": "Financial Services",
   "industry": "Insurance - Property & Casualty",
-  "market_cap": 21483151360,
-  "enterprise_value": 25537857536,
-  "pe_ratio": 15.010144,
-  "forward_pe": 35.71379,
+  "market_cap": 21327583232,
+  "enterprise_value": 25192736768,
+  "pe_ratio": 14.901449,
+  "forward_pe": 35.45517,
   "peg_ratio": null,
-  "price_to_book": 1.1717521,
+  "price_to_book": 1.1632669,
   "dividend_yield": 0.24,
   "dividend_rate": 0.25,
   "payout_ratio": 0.036199998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3603000064,
   "earnings_growth": 0.334,
   "revenue_growth": 0.046,
-  "snapshot_date": "2025-12-05T10:54:50.734268"
+  "snapshot_date": "2025-12-05T19:27:45.727393"
 }

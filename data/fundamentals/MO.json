@@ -3,12 +3,12 @@
   "name": "Altria Group, Inc.",
   "sector": "Consumer Defensive",
   "industry": "Tobacco",
-  "market_cap": 97836851200,
+  "market_cap": 97416880128,
   "enterprise_value": 120212701184,
-  "pe_ratio": 11.114505,
-  "forward_pe": 10.885982,
+  "pe_ratio": 11.066794,
+  "forward_pe": 10.839252,
   "peg_ratio": null,
-  "price_to_book": -36.954315,
+  "price_to_book": -36.79569,
   "dividend_yield": 7.27,
   "dividend_rate": 4.24,
   "payout_ratio": 0.78629994,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9358999552,
   "earnings_growth": 0.052,
   "revenue_growth": -0.017,
-  "snapshot_date": "2025-12-05T10:51:08.529846"
+  "snapshot_date": "2025-12-05T19:25:42.503973"
 }

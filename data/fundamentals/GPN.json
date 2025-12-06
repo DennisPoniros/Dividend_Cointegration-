@@ -3,12 +3,12 @@
   "name": "Global Payments Inc.",
   "sector": "Industrials",
   "industry": "Specialty Business Services",
-  "market_cap": 19656026112,
-  "enterprise_value": 33364754432,
-  "pe_ratio": 12.294385,
-  "forward_pe": 6.329687,
+  "market_cap": 19129569280,
+  "enterprise_value": 33154052096,
+  "pe_ratio": 11.965098,
+  "forward_pe": 6.1601562,
   "peg_ratio": null,
-  "price_to_book": 0.8457025,
+  "price_to_book": 0.8230517,
   "dividend_yield": 1.25,
   "dividend_rate": 1.0,
   "payout_ratio": 0.1517,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3499917056,
   "earnings_growth": 1.131,
   "revenue_growth": 0.005,
-  "snapshot_date": "2025-12-05T10:55:06.375443"
+  "snapshot_date": "2025-12-05T19:27:54.467260"
 }

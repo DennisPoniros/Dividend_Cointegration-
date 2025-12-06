@@ -3,12 +3,12 @@
   "name": "Halliburton Company",
   "sector": "Energy",
   "industry": "Oil & Gas Equipment & Services",
-  "market_cap": 24115851264,
-  "enterprise_value": 30006468608,
-  "pe_ratio": 18.731789,
-  "forward_pe": 8.703077,
+  "market_cap": 24256530432,
+  "enterprise_value": 30528276480,
+  "pe_ratio": 18.84106,
+  "forward_pe": 8.753846,
   "peg_ratio": null,
-  "price_to_book": 2.337024,
+  "price_to_book": 2.350657,
   "dividend_yield": 2.44,
   "dividend_rate": 0.68,
   "payout_ratio": 0.45029998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3216999936,
   "earnings_growth": -0.969,
   "revenue_growth": -0.017,
-  "snapshot_date": "2025-12-05T10:54:36.773262"
+  "snapshot_date": "2025-12-05T19:27:38.152768"
 }

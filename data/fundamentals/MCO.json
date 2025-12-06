@@ -3,12 +3,12 @@
   "name": "Moody's Corporation",
   "sector": "Financial Services",
   "industry": "Financial Data & Stock Exchanges",
-  "market_cap": 88741273600,
-  "enterprise_value": 92673892352,
-  "pe_ratio": 39.804504,
-  "forward_pe": 37.144894,
+  "market_cap": 89051561984,
+  "enterprise_value": 93926227968,
+  "pe_ratio": 39.943684,
+  "forward_pe": 37.274776,
   "peg_ratio": null,
-  "price_to_book": 22.306028,
+  "price_to_book": 22.384022,
   "dividend_yield": 0.77,
   "dividend_rate": 3.76,
   "payout_ratio": 0.2953,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2716999936,
   "earnings_growth": 0.229,
   "revenue_growth": 0.107,
-  "snapshot_date": "2025-12-05T10:51:24.193431"
+  "snapshot_date": "2025-12-05T19:25:51.358247"
 }

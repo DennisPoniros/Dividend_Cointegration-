@@ -3,12 +3,12 @@
   "name": "Interactive Brokers Group, Inc.",
   "sector": "Financial Services",
   "industry": "Capital Markets",
-  "market_cap": 111464906752,
+  "market_cap": 109645971456,
   "enterprise_value": -43756236800,
-  "pe_ratio": 31.676329,
-  "forward_pe": 9.489146,
+  "pe_ratio": 31.159422,
+  "forward_pe": 9.334298,
   "peg_ratio": null,
-  "price_to_book": 5.7186465,
+  "price_to_book": 5.625327,
   "dividend_yield": 0.49,
   "dividend_rate": 0.32,
   "payout_ratio": 0.1375,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 16039999488,
   "earnings_growth": 0.405,
   "revenue_growth": 0.232,
-  "snapshot_date": "2025-12-05T10:50:54.486605"
+  "snapshot_date": "2025-12-05T19:25:34.001665"
 }

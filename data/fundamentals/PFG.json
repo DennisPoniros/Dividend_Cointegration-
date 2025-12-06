@@ -3,12 +3,12 @@
   "name": "Principal Financial Group, Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 19458824192,
-  "enterprise_value": 16964192256,
-  "pe_ratio": 12.807918,
-  "forward_pe": 10.349526,
+  "market_cap": 19496693760,
+  "enterprise_value": 17313505280,
+  "pe_ratio": 12.832844,
+  "forward_pe": 10.369668,
   "peg_ratio": null,
-  "price_to_book": 1.6511974,
+  "price_to_book": 1.654411,
   "dividend_yield": 3.68,
   "dividend_rate": 3.16,
   "payout_ratio": 0.4428,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4252000000,
   "earnings_growth": null,
   "revenue_growth": 0.222,
-  "snapshot_date": "2025-12-05T10:55:09.419580"
+  "snapshot_date": "2025-12-05T19:27:56.006944"
 }

@@ -3,12 +3,12 @@
   "name": "PACCAR Inc",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
-  "market_cap": 57546641408,
-  "enterprise_value": 63885971456,
-  "pe_ratio": 21.484314,
-  "forward_pe": 14.119844,
+  "market_cap": 57945796608,
+  "enterprise_value": 64847097856,
+  "pe_ratio": 21.633333,
+  "forward_pe": 14.217783,
   "peg_ratio": null,
-  "price_to_book": 2.9711483,
+  "price_to_book": 2.9917567,
   "dividend_yield": 1.22,
   "dividend_rate": 1.32,
   "payout_ratio": 0.2529,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4717199872,
   "earnings_growth": -0.395,
   "revenue_growth": -0.19,
-  "snapshot_date": "2025-12-05T10:52:21.824018"
+  "snapshot_date": "2025-12-05T19:26:24.174221"
 }

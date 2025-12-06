@@ -3,12 +3,12 @@
   "name": "Bristol-Myers Squibb Company",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 106826137600,
+  "market_cap": 106164527104,
   "enterprise_value": 140344377344,
-  "pe_ratio": 17.66835,
-  "forward_pe": 7.4644375,
+  "pe_ratio": 17.558924,
+  "forward_pe": 7.4182076,
   "peg_ratio": null,
-  "price_to_book": 5.7588887,
+  "price_to_book": 5.723222,
   "dividend_yield": 4.77,
   "dividend_rate": 2.48,
   "payout_ratio": 0.835,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 16620999680,
   "earnings_growth": 0.809,
   "revenue_growth": 0.028,
-  "snapshot_date": "2025-12-05T10:50:56.306760"
+  "snapshot_date": "2025-12-05T19:25:35.411739"
 }

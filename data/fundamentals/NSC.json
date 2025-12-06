@@ -3,12 +3,12 @@
   "name": "Norfolk Southern Corporation",
   "sector": "Industrials",
   "industry": "Railroads",
-  "market_cap": 66286055424,
-  "enterprise_value": 82422218752,
-  "pe_ratio": 22.55038,
-  "forward_pe": 21.753315,
+  "market_cap": 66012303360,
+  "enterprise_value": 82211299328,
+  "pe_ratio": 22.45725,
+  "forward_pe": 21.663477,
   "peg_ratio": null,
-  "price_to_book": 4.3779364,
+  "price_to_book": 4.359856,
   "dividend_yield": 1.83,
   "dividend_rate": 5.4,
   "payout_ratio": 0.41189998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4248999936,
   "earnings_growth": -0.349,
   "revenue_growth": 0.017,
-  "snapshot_date": "2025-12-05T10:51:56.617225"
+  "snapshot_date": "2025-12-05T19:26:09.558409"
 }

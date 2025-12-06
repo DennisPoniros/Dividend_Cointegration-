@@ -3,12 +3,12 @@
   "name": "AbbVie Inc.",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 398889877504,
-  "enterprise_value": 467439550464,
-  "pe_ratio": 169.6955,
-  "forward_pe": 18.606348,
+  "market_cap": 399570305024,
+  "enterprise_value": 462791311360,
+  "pe_ratio": 169.98495,
+  "forward_pe": 18.638088,
   "peg_ratio": null,
-  "price_to_book": -150.96655,
+  "price_to_book": -151.22408,
   "dividend_yield": 3.03,
   "dividend_rate": 6.92,
   "payout_ratio": 4.9014997,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 20860000256,
   "earnings_growth": -0.887,
   "revenue_growth": 0.091,
-  "snapshot_date": "2025-12-05T10:49:30.616443"
+  "snapshot_date": "2025-12-05T19:24:46.365003"
 }

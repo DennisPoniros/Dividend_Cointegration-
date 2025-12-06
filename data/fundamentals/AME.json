@@ -3,12 +3,12 @@
   "name": "AMETEK, Inc.",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 46160764928,
-  "enterprise_value": 48168386560,
-  "pe_ratio": 31.525234,
-  "forward_pe": 27.37945,
+  "market_cap": 46144602112,
+  "enterprise_value": 48301907968,
+  "pe_ratio": 31.514194,
+  "forward_pe": 27.369864,
   "peg_ratio": null,
-  "price_to_book": 4.370845,
+  "price_to_book": 4.369314,
   "dividend_yield": 0.62,
   "dividend_rate": 1.24,
   "payout_ratio": 0.1909,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1767515008,
   "earnings_growth": 0.088,
   "revenue_growth": 0.108,
-  "snapshot_date": "2025-12-05T10:52:50.313663"
+  "snapshot_date": "2025-12-05T19:26:40.210051"
 }

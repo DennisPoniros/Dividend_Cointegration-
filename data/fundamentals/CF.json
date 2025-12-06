@@ -3,12 +3,12 @@
   "name": "CF Industries Holdings, Inc.",
   "sector": "Basic Materials",
   "industry": "Agricultural Inputs",
-  "market_cap": 13040443392,
-  "enterprise_value": 16917846016,
-  "pe_ratio": 9.735188,
-  "forward_pe": 13.027509,
+  "market_cap": 12614453248,
+  "enterprise_value": 16551305216,
+  "pe_ratio": 9.41717,
+  "forward_pe": 12.601942,
   "peg_ratio": null,
-  "price_to_book": 2.6181264,
+  "price_to_book": 2.5326004,
   "dividend_yield": 2.49,
   "dividend_rate": 2.0,
   "payout_ratio": 0.24180001,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2632999936,
   "earnings_growth": 0.416,
   "revenue_growth": 0.211,
-  "snapshot_date": "2025-12-05T10:56:05.751233"
+  "snapshot_date": "2025-12-05T19:28:26.330778"
 }

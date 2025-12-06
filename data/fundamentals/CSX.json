@@ -3,12 +3,12 @@
   "name": "CSX Corporation",
   "sector": "Industrials",
   "industry": "Railroads",
-  "market_cap": 67961475072,
-  "enterprise_value": 86565814272,
-  "pe_ratio": 23.67182,
-  "forward_pe": 17.957932,
+  "market_cap": 67673251840,
+  "enterprise_value": 86789251072,
+  "pe_ratio": 23.571428,
+  "forward_pe": 17.881773,
   "peg_ratio": null,
-  "price_to_book": 5.3226166,
+  "price_to_book": 5.3000436,
   "dividend_yield": 1.44,
   "dividend_rate": 0.52,
   "payout_ratio": 0.3312,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4615000064,
   "earnings_growth": -0.196,
   "revenue_growth": -0.009,
-  "snapshot_date": "2025-12-05T10:51:54.931650"
+  "snapshot_date": "2025-12-05T19:26:08.578878"
 }

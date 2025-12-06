@@ -3,12 +3,12 @@
   "name": "Apple Inc.",
   "sector": "Technology",
   "industry": "Consumer Electronics",
-  "market_cap": 4161097170944,
-  "enterprise_value": 4205402390528,
-  "pe_ratio": 37.535477,
-  "forward_pe": 33.741276,
+  "market_cap": 4137203793920,
+  "enterprise_value": 4177031593984,
+  "pe_ratio": 37.319946,
+  "forward_pe": 33.54753,
   "peg_ratio": null,
-  "price_to_book": 56.179123,
+  "price_to_book": 55.85654,
   "dividend_yield": 0.37,
   "dividend_rate": 1.04,
   "payout_ratio": 0.1367,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 111482003456,
   "earnings_growth": 0.912,
   "revenue_growth": 0.079,
-  "snapshot_date": "2025-12-05T10:49:16.039553"
+  "snapshot_date": "2025-12-05T19:24:38.918143"
 }

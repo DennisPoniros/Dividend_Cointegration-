@@ -3,12 +3,12 @@
   "name": "Diamondback Energy, Inc.",
   "sector": "Energy",
   "industry": "Oil & Gas E&P",
-  "market_cap": 47406243840,
-  "enterprise_value": 68363702272,
-  "pe_ratio": 11.5,
-  "forward_pe": 11.185792,
+  "market_cap": 45912498176,
+  "enterprise_value": 68102963200,
+  "pe_ratio": 11.137641,
+  "forward_pe": 10.833334,
   "peg_ratio": null,
-  "price_to_book": 1.201873,
+  "price_to_book": 1.1640025,
   "dividend_yield": 2.51,
   "dividend_rate": 4.0,
   "payout_ratio": 0.2739,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 8755999744,
   "earnings_growth": 0.1,
   "revenue_growth": 0.42,
-  "snapshot_date": "2025-12-05T10:52:48.290571"
+  "snapshot_date": "2025-12-05T19:26:39.211371"
 }

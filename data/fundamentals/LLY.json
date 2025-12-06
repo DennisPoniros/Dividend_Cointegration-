@@ -3,12 +3,12 @@
   "name": "Eli Lilly and Company",
   "sector": "Healthcare",
   "industry": "Drug Manufacturers - General",
-  "market_cap": 913179344896,
-  "enterprise_value": 941079461888,
-  "pe_ratio": 49.958515,
-  "forward_pe": 44.953846,
+  "market_cap": 905699262464,
+  "enterprise_value": 937336766464,
+  "pe_ratio": 49.54929,
+  "forward_pe": 44.585613,
   "peg_ratio": null,
-  "price_to_book": 38.352943,
+  "price_to_book": 38.03878,
   "dividend_yield": 0.59,
   "dividend_rate": 6.0,
   "payout_ratio": 0.2842,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 16062199808,
   "earnings_growth": 4.804,
   "revenue_growth": 0.539,
-  "snapshot_date": "2025-12-05T10:49:22.261935"
+  "snapshot_date": "2025-12-05T19:24:41.612568"
 }

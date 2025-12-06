@@ -3,12 +3,12 @@
   "name": "Monolithic Power Systems, Inc.",
   "sector": "Technology",
   "industry": "Semiconductors",
-  "market_cap": 46030725120,
-  "enterprise_value": 44392284160,
-  "pe_ratio": 24.65576,
-  "forward_pe": 55.927532,
+  "market_cap": 46147616768,
+  "enterprise_value": 44876050432,
+  "pe_ratio": 24.718372,
+  "forward_pe": 56.069557,
   "peg_ratio": null,
-  "price_to_book": 12.900577,
+  "price_to_book": 12.933337,
   "dividend_yield": 0.65,
   "dividend_rate": 6.24,
   "payout_ratio": 0.1521,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 900972992,
   "earnings_growth": 0.258,
   "revenue_growth": 0.189,
-  "snapshot_date": "2025-12-05T10:52:51.813101"
+  "snapshot_date": "2025-12-05T19:26:40.967593"
 }

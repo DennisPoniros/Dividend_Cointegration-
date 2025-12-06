@@ -3,12 +3,12 @@
   "name": "Dow Inc.",
   "sector": "Basic Materials",
   "industry": "Chemicals",
-  "market_cap": 16717248512,
-  "enterprise_value": 32255250432,
+  "market_cap": 16319217664,
+  "enterprise_value": 32319219712,
   "pe_ratio": null,
-  "forward_pe": 7.562701,
+  "forward_pe": 7.3826365,
   "peg_ratio": null,
-  "price_to_book": 0.95303696,
+  "price_to_book": 0.9303456,
   "dividend_yield": 6.12,
   "dividend_rate": 1.4,
   "payout_ratio": 7.0,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1562000000,
   "earnings_growth": -0.733,
   "revenue_growth": -0.083,
-  "snapshot_date": "2025-12-05T10:55:35.374504"
+  "snapshot_date": "2025-12-05T19:28:09.987801"
 }

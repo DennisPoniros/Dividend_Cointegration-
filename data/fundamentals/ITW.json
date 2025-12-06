@@ -3,12 +3,12 @@
   "name": "Illinois Tool Works Inc.",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 72979939328,
-  "enterprise_value": 80364134400,
-  "pe_ratio": 24.306795,
-  "forward_pe": 23.39813,
+  "market_cap": 72787550208,
+  "enterprise_value": 80456966144,
+  "pe_ratio": 24.242718,
+  "forward_pe": 23.336449,
   "peg_ratio": null,
-  "price_to_book": 22.640623,
+  "price_to_book": 22.580938,
   "dividend_yield": 2.58,
   "dividend_rate": 6.44,
   "payout_ratio": 0.5926,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3276999936,
   "earnings_growth": -0.281,
   "revenue_growth": 0.023,
-  "snapshot_date": "2025-12-05T10:51:46.569625"
+  "snapshot_date": "2025-12-05T19:26:03.840844"
 }

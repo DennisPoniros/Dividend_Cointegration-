@@ -3,12 +3,12 @@
   "name": "Archer-Daniels-Midland Company",
   "sector": "Consumer Defensive",
   "industry": "Farm Products",
-  "market_cap": 28577079296,
-  "enterprise_value": 36756619264,
-  "pe_ratio": 24.172764,
-  "forward_pe": 11.728796,
+  "market_cap": 28358418432,
+  "enterprise_value": 36588421120,
+  "pe_ratio": 23.987804,
+  "forward_pe": 11.639052,
   "peg_ratio": null,
-  "price_to_book": 1.2689115,
+  "price_to_book": 1.2592024,
   "dividend_yield": 3.44,
   "dividend_rate": 2.04,
   "payout_ratio": 0.82519996,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6087000064,
   "earnings_growth": 4.891,
   "revenue_growth": 0.022,
-  "snapshot_date": "2025-12-05T10:53:55.883485"
+  "snapshot_date": "2025-12-05T19:27:15.965963"
 }

@@ -3,12 +3,12 @@
   "name": "HP Inc.",
   "sector": "Technology",
   "industry": "Computer Hardware",
-  "market_cap": 24416399360,
-  "enterprise_value": 30267199488,
-  "pe_ratio": 9.809434,
-  "forward_pe": 7.220834,
+  "market_cap": 24336560128,
+  "enterprise_value": 30276579328,
+  "pe_ratio": 9.777358,
+  "forward_pe": 7.197222,
   "peg_ratio": null,
-  "price_to_book": -70.44716,
+  "price_to_book": -70.216805,
   "dividend_yield": 4.63,
   "dividend_rate": 1.2,
   "payout_ratio": 0.4368,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3696999936,
   "earnings_growth": -0.104,
   "revenue_growth": 0.042,
-  "snapshot_date": "2025-12-05T10:54:31.877019"
+  "snapshot_date": "2025-12-05T19:27:35.406144"
 }

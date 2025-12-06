@@ -3,12 +3,12 @@
   "name": "Blackstone Inc.",
   "sector": "Financial Services",
   "industry": "Asset Management",
-  "market_cap": 187709325312,
-  "enterprise_value": 142997733376,
-  "pe_ratio": 43.958336,
-  "forward_pe": 26.23928,
+  "market_cap": 186696990720,
+  "enterprise_value": 143592603648,
+  "pe_ratio": 43.721264,
+  "forward_pe": 26.097769,
   "peg_ratio": null,
-  "price_to_book": 14.267395,
+  "price_to_book": 14.190449,
   "dividend_yield": 3.1,
   "dividend_rate": 4.69,
   "payout_ratio": 1.2241,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3756771072,
   "earnings_growth": -0.214,
   "revenue_growth": -0.196,
-  "snapshot_date": "2025-12-05T10:50:14.052236"
+  "snapshot_date": "2025-12-05T19:25:11.500579"
 }

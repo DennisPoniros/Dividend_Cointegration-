@@ -3,12 +3,12 @@
   "name": "NRG Energy, Inc.",
   "sector": "Utilities",
   "industry": "Utilities - Independent Power Producers",
-  "market_cap": 31930103808,
-  "enterprise_value": 44491051008,
-  "pe_ratio": 24.674513,
-  "forward_pe": 23.92355,
+  "market_cap": 31529220096,
+  "enterprise_value": 43272224768,
+  "pe_ratio": 24.364723,
+  "forward_pe": 23.623188,
   "peg_ratio": null,
-  "price_to_book": 24.042017,
+  "price_to_book": 23.740168,
   "dividend_yield": 1.04,
   "dividend_rate": 1.76,
   "payout_ratio": 0.2582,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2742000128,
   "earnings_growth": null,
   "revenue_growth": 0.057,
-  "snapshot_date": "2025-12-05T10:53:36.544683"
+  "snapshot_date": "2025-12-05T19:27:05.474105"
 }

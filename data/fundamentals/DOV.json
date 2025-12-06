@@ -3,12 +3,12 @@
   "name": "Dover Corporation",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 26120828928,
-  "enterprise_value": 27665094656,
-  "pe_ratio": 24.798178,
-  "forward_pe": 20.239107,
+  "market_cap": 26208608256,
+  "enterprise_value": 27726813184,
+  "pe_ratio": 24.88151,
+  "forward_pe": 20.30712,
   "peg_ratio": null,
-  "price_to_book": 3.4087453,
+  "price_to_book": 3.4202,
   "dividend_yield": 1.09,
   "dividend_rate": 2.08,
   "payout_ratio": 0.2689,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 783721984,
   "earnings_growth": -0.126,
   "revenue_growth": 0.048,
-  "snapshot_date": "2025-12-05T10:54:14.187873"
+  "snapshot_date": "2025-12-05T19:27:25.821844"
 }

@@ -3,12 +3,12 @@
   "name": "Kellanova",
   "sector": "Consumer Defensive",
   "industry": "Packaged Foods",
-  "market_cap": 28939298816,
-  "enterprise_value": 35008598016,
-  "pe_ratio": 22.72541,
-  "forward_pe": 69.3125,
+  "market_cap": 28927119360,
+  "enterprise_value": 35005120512,
+  "pe_ratio": 22.715847,
+  "forward_pe": 69.28333,
   "peg_ratio": null,
-  "price_to_book": 6.885348,
+  "price_to_book": 6.88245,
   "dividend_yield": 2.79,
   "dividend_rate": 2.32,
   "payout_ratio": 0.6257,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1255000064,
   "earnings_growth": -0.162,
   "revenue_growth": 0.008,
-  "snapshot_date": "2025-12-05T10:53:54.143238"
+  "snapshot_date": "2025-12-05T19:27:14.968152"
 }

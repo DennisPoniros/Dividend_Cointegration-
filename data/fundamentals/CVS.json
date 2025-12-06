@@ -3,12 +3,12 @@
   "name": "CVS Health Corporation",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
-  "market_cap": 96730750976,
-  "enterprise_value": 168130936832,
-  "pe_ratio": 200.5263,
-  "forward_pe": 11.759259,
+  "market_cap": 96007176192,
+  "enterprise_value": 166709182464,
+  "pe_ratio": 199.0263,
+  "forward_pe": 11.671296,
   "peg_ratio": null,
-  "price_to_book": 1.3269713,
+  "price_to_book": 1.3170451,
   "dividend_yield": 3.47,
   "dividend_rate": 2.66,
   "payout_ratio": 7.0,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 9109000192,
   "earnings_growth": null,
   "revenue_growth": 0.078,
-  "snapshot_date": "2025-12-05T10:51:10.733816"
+  "snapshot_date": "2025-12-05T19:25:43.512639"
 }

@@ -3,12 +3,12 @@
   "name": "Duke Energy Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 91184668672,
-  "enterprise_value": 182837690368,
-  "pe_ratio": 18.465355,
-  "forward_pe": 18.494478,
+  "market_cap": 90613088256,
+  "enterprise_value": 181710077952,
+  "pe_ratio": 18.349606,
+  "forward_pe": 18.378548,
   "peg_ratio": null,
-  "price_to_book": 1.8068138,
+  "price_to_book": 1.795488,
   "dividend_yield": 3.61,
   "dividend_rate": 4.26,
   "payout_ratio": 0.6614,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 12049000448,
   "earnings_growth": 0.127,
   "revenue_growth": 0.048,
-  "snapshot_date": "2025-12-05T10:51:17.371560"
+  "snapshot_date": "2025-12-05T19:25:47.382932"
 }

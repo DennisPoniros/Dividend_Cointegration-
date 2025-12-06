@@ -3,12 +3,12 @@
   "name": "Public Service Enterprise Group Incorporated",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 39857442816,
-  "enterprise_value": 63490666496,
-  "pe_ratio": 19.194712,
-  "forward_pe": 19.619164,
+  "market_cap": 39717683200,
+  "enterprise_value": 62891683840,
+  "pe_ratio": 19.127405,
+  "forward_pe": 19.550367,
   "peg_ratio": null,
-  "price_to_book": 2.3426042,
+  "price_to_book": 2.3343897,
   "dividend_yield": 3.12,
   "dividend_rate": 2.52,
   "payout_ratio": 0.59860003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2944000000,
   "earnings_growth": 0.192,
   "revenue_growth": 0.221,
-  "snapshot_date": "2025-12-05T10:53:08.834986"
+  "snapshot_date": "2025-12-05T19:26:50.040753"
 }

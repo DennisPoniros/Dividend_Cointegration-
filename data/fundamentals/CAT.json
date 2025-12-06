@@ -3,12 +3,12 @@
   "name": "Caterpillar Inc.",
   "sector": "Industrials",
   "industry": "Farm & Heavy Construction Machinery",
-  "market_cap": 282399080448,
-  "enterprise_value": 315291959296,
-  "pe_ratio": 30.960453,
-  "forward_pe": 27.214447,
+  "market_cap": 282572423168,
+  "enterprise_value": 317173268480,
+  "pe_ratio": 30.979456,
+  "forward_pe": 27.231152,
   "peg_ratio": null,
-  "price_to_book": 13.655619,
+  "price_to_book": 13.6640005,
   "dividend_yield": 1.01,
   "dividend_rate": 6.04,
   "payout_ratio": 0.29479998,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 11541000192,
   "earnings_growth": -0.036,
   "revenue_growth": 0.095,
-  "snapshot_date": "2025-12-05T10:49:49.679664"
+  "snapshot_date": "2025-12-05T19:24:57.512360"
 }

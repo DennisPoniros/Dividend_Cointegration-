@@ -3,12 +3,12 @@
   "name": "Humana Inc.",
   "sector": "Healthcare",
   "industry": "Healthcare Plans",
-  "market_cap": 31258384384,
-  "enterprise_value": 21316491264,
-  "pe_ratio": 24.334747,
-  "forward_pe": 15.433201,
+  "market_cap": 31012411392,
+  "enterprise_value": 21897410560,
+  "pe_ratio": 24.14326,
+  "forward_pe": 15.311758,
   "peg_ratio": null,
-  "price_to_book": 1.6876305,
+  "price_to_book": 1.6743507,
   "dividend_yield": 1.4,
   "dividend_rate": 3.54,
   "payout_ratio": 0.3312,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 2044999936,
   "earnings_growth": -0.593,
   "revenue_growth": 0.111,
-  "snapshot_date": "2025-12-05T10:53:44.676199"
+  "snapshot_date": "2025-12-05T19:27:10.081682"
 }

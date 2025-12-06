@@ -3,12 +3,12 @@
   "name": "Masco Corporation",
   "sector": "Industrials",
   "industry": "Building Products & Equipment",
-  "market_cap": 13613870080,
-  "enterprise_value": 16235597824,
-  "pe_ratio": 16.630434,
-  "forward_pe": 14.711538,
+  "market_cap": 13231781888,
+  "enterprise_value": 15986363392,
+  "pe_ratio": 16.163683,
+  "forward_pe": 14.298642,
   "peg_ratio": null,
-  "price_to_book": -172.93884,
+  "price_to_book": -168.08511,
   "dividend_yield": 1.93,
   "dividend_rate": 1.24,
   "payout_ratio": 0.312,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 1011000000,
   "earnings_growth": 0.169,
   "revenue_growth": -0.033,
-  "snapshot_date": "2025-12-05T10:55:53.565193"
+  "snapshot_date": "2025-12-05T19:28:19.597662"
 }

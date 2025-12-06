@@ -3,12 +3,12 @@
   "name": "Leggett & Platt, Incorporated",
   "sector": "Consumer Cyclical",
   "industry": "Furnishings, Fixtures & Appliances",
-  "market_cap": 1554808576,
-  "enterprise_value": 2747373568,
-  "pe_ratio": 7.1304345,
-  "forward_pe": 9.728813,
+  "market_cap": 1512823296,
+  "enterprise_value": 2716223232,
+  "pe_ratio": 6.937888,
+  "forward_pe": 9.466103,
   "peg_ratio": null,
-  "price_to_book": 1.5999999,
+  "price_to_book": 1.5567944,
   "dividend_yield": 1.75,
   "dividend_rate": 0.2,
   "payout_ratio": 0.1242,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 339000000,
   "earnings_growth": 1.785,
   "revenue_growth": -0.059,
-  "snapshot_date": "2025-12-05T10:56:36.537041"
+  "snapshot_date": "2025-12-05T19:28:42.986621"
 }

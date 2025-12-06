@@ -3,12 +3,12 @@
   "name": "Medtronic plc",
   "sector": "Healthcare",
   "industry": "Medical Devices",
-  "market_cap": 131051298816,
-  "enterprise_value": 151729635328,
-  "pe_ratio": 27.689703,
-  "forward_pe": 17.465813,
+  "market_cap": 130005966848,
+  "enterprise_value": 150921953280,
+  "pe_ratio": 27.468834,
+  "forward_pe": 17.326496,
   "peg_ratio": null,
-  "price_to_book": 2.6922874,
+  "price_to_book": 2.6708124,
   "dividend_yield": 2.78,
   "dividend_rate": 2.84,
   "payout_ratio": 0.7642,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7112999936,
   "earnings_growth": 0.081,
   "revenue_growth": 0.066,
-  "snapshot_date": "2025-12-05T10:50:41.175720"
+  "snapshot_date": "2025-12-05T19:25:26.628602"
 }

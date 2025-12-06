@@ -3,12 +3,12 @@
   "name": "Lockheed Martin Corporation",
   "sector": "Industrials",
   "industry": "Aerospace & Defense",
-  "market_cap": 105169002496,
-  "enterprise_value": 122466205696,
-  "pe_ratio": 25.123814,
-  "forward_pe": 16.025257,
+  "market_cap": 105572900864,
+  "enterprise_value": 123357085696,
+  "pe_ratio": 25.2203,
+  "forward_pe": 16.086802,
   "peg_ratio": null,
-  "price_to_book": 16.762299,
+  "price_to_book": 16.826674,
   "dividend_yield": 3.08,
   "dividend_rate": 13.8,
   "payout_ratio": 0.7354,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6360999936,
   "earnings_growth": 0.022,
   "revenue_growth": 0.088,
-  "snapshot_date": "2025-12-05T10:50:59.766669"
+  "snapshot_date": "2025-12-05T19:25:37.645073"
 }

@@ -3,12 +3,12 @@
   "name": "The Kraft Heinz Company",
   "sector": "Consumer Defensive",
   "industry": "Packaged Foods",
-  "market_cap": 29230372864,
-  "enterprise_value": 47293091840,
+  "market_cap": 28810176512,
+  "enterprise_value": 46997176320,
   "pe_ratio": null,
-  "forward_pe": 8.043974,
+  "forward_pe": 7.928339,
   "peg_ratio": null,
-  "price_to_book": 0.7054102,
+  "price_to_book": 0.69526964,
   "dividend_yield": 6.51,
   "dividend_rate": 1.6,
   "payout_ratio": 0.7306,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 4473999872,
   "earnings_growth": null,
   "revenue_growth": -0.023,
-  "snapshot_date": "2025-12-05T10:53:50.804229"
+  "snapshot_date": "2025-12-05T19:27:13.234394"
 }

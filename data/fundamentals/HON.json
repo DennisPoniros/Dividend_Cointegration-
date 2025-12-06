@@ -3,12 +3,12 @@
   "name": "Honeywell International Inc.",
   "sector": "Industrials",
   "industry": "Conglomerates",
-  "market_cap": 130002944000,
+  "market_cap": 128931487744,
   "enterprise_value": 147872366592,
-  "pe_ratio": 20.350212,
-  "forward_pe": 17.522251,
+  "pe_ratio": 20.182491,
+  "forward_pe": 17.377838,
   "peg_ratio": null,
-  "price_to_book": 7.2984524,
+  "price_to_book": 7.2383003,
   "dividend_yield": 2.38,
   "dividend_rate": 4.58,
   "payout_ratio": 0.4768,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 7485000192,
   "earnings_growth": 0.324,
   "revenue_growth": 0.07,
-  "snapshot_date": "2025-12-05T10:50:44.966543"
+  "snapshot_date": "2025-12-05T19:25:29.106036"
 }

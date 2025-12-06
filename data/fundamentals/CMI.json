@@ -3,12 +3,12 @@
   "name": "Cummins Inc.",
   "sector": "Industrials",
   "industry": "Specialty Industrial Machinery",
-  "market_cap": 70588293120,
-  "enterprise_value": 76620636160,
-  "pe_ratio": 26.482393,
-  "forward_pe": 22.707592,
+  "market_cap": 70488211456,
+  "enterprise_value": 76608208896,
+  "pe_ratio": 26.444847,
+  "forward_pe": 22.6754,
   "peg_ratio": null,
-  "price_to_book": 5.8511734,
+  "price_to_book": 5.8428774,
   "dividend_yield": 1.57,
   "dividend_rate": 8.0,
   "payout_ratio": 0.38669997,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 3508999936,
   "earnings_growth": -0.341,
   "revenue_growth": -0.016,
-  "snapshot_date": "2025-12-05T10:51:53.119920"
+  "snapshot_date": "2025-12-05T19:26:07.546388"
 }

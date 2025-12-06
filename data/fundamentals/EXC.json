@@ -3,12 +3,12 @@
   "name": "Exelon Corporation",
   "sector": "Utilities",
   "industry": "Utilities - Regulated Electric",
-  "market_cap": 44449538048,
-  "enterprise_value": 92757843968,
-  "pe_ratio": 15.774193,
-  "forward_pe": 16.733839,
+  "market_cap": 44247543808,
+  "enterprise_value": 92656820224,
+  "pe_ratio": 15.70251,
+  "forward_pe": 16.657795,
   "peg_ratio": null,
-  "price_to_book": 1.5815574,
+  "price_to_book": 1.5743703,
   "dividend_yield": 3.64,
   "dividend_rate": 1.6,
   "payout_ratio": 0.56630003,
@@ -35,5 +35,5 @@
   "operating_cash_flow": 6435999744,
   "earnings_growth": 0.229,
   "revenue_growth": 0.09,
-  "snapshot_date": "2025-12-05T10:52:56.694730"
+  "snapshot_date": "2025-12-05T19:26:43.452263"
 }
