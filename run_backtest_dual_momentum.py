@@ -42,9 +42,9 @@ class DualMomentumStrategy:
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
         self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
-        self.NUM_HOLDINGS = 12      # Top 12 stocks (more diversification)
+        self.NUM_HOLDINGS = 12      # Top 12 stocks
         self.SLIPPAGE_BPS = 2  # Realistic slippage only
-        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_RISK_PARITY = True  # Risk parity weighting (lower vol stocks get higher weight)
         self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
         self.QUALITY_MULT = 0.75
         self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
@@ -237,6 +237,22 @@ class DualMomentumStrategy:
                 daily_borrowing_cost = margin_debt * daily_rate
                 cash -= daily_borrowing_cost
                 self.total_borrowing_cost += daily_borrowing_cost
+
+            # Handle delistings: if a position no longer has data, liquidate at last known price
+            delisted = []
+            for s in list(positions.keys()):
+                if s not in self.price_data or date not in self.price_data[s].index:
+                    # Stock delisted or no data - sell at last available price
+                    available_dates = self.price_data[s].index[self.price_data[s].index < date]
+                    if len(available_dates) > 0:
+                        last_price = self.price_data[s].loc[available_dates[-1]]
+                        cash += positions[s] * last_price
+                        self.logger.warning(f"  {date.date()}: {s} delisted, liquidated at ${last_price:.2f}")
+                    else:
+                        self.logger.warning(f"  {date.date()}: {s} delisted with no price data, position lost")
+                    delisted.append(s)
+            for s in delisted:
+                del positions[s]
 
             pos_val = sum(
                 positions[s] * self.price_data[s].loc[date]
