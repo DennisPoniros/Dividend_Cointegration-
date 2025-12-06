@@ -414,7 +414,8 @@ def main():
     print("=" * 70)
 
     loader = DataLoader()
-    symbols = loader.get_available_symbols()
+    # Use universe CSV to filter symbols (not all available price data)
+    symbols = loader.get_universe_symbols()
 
     strategy = DualMomentumStrategy(loader)
     strategy.load_data(symbols)
