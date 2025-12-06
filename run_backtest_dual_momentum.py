@@ -238,6 +238,22 @@ class DualMomentumStrategy:
                 cash -= daily_borrowing_cost
                 self.total_borrowing_cost += daily_borrowing_cost
 
+            # Handle delistings: if a position no longer has data, liquidate at last known price
+            delisted = []
+            for s in list(positions.keys()):
+                if s not in self.price_data or date not in self.price_data[s].index:
+                    # Stock delisted or no data - sell at last available price
+                    available_dates = self.price_data[s].index[self.price_data[s].index < date]
+                    if len(available_dates) > 0:
+                        last_price = self.price_data[s].loc[available_dates[-1]]
+                        cash += positions[s] * last_price
+                        self.logger.warning(f"  {date.date()}: {s} delisted, liquidated at ${last_price:.2f}")
+                    else:
+                        self.logger.warning(f"  {date.date()}: {s} delisted with no price data, position lost")
+                    delisted.append(s)
+            for s in delisted:
+                del positions[s]
+
             pos_val = sum(
                 positions[s] * self.price_data[s].loc[date]
                 for s in positions

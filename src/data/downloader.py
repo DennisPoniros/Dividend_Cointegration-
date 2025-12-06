@@ -207,7 +207,7 @@ class DataDownloader:
         symbol: str,
         start_date: Optional[datetime] = None,
         end_date: Optional[datetime] = None,
-        lookback_days: int = 2520  # 10 years for robust cointegration analysis
+        lookback_days: int = 3780  # 15 years for extended backtesting
     ) -> Optional[pd.DataFrame]:
         """
         Download price data using best available source.
@@ -216,7 +216,7 @@ class DataDownloader:
             symbol: Stock ticker symbol
             start_date: Start date (default: lookback_days ago)
             end_date: End date (default: today)
-            lookback_days: Days to look back if start_date not specified (default: 10 years)
+            lookback_days: Days to look back if start_date not specified (default: 15 years)
 
         Returns:
             DataFrame with OHLCV data
