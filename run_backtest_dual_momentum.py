@@ -41,14 +41,14 @@ class DualMomentumStrategy:
         # Dual momentum parameters
         self.LOOKBACK = 252         # 12-month lookback for absolute momentum
         self.SKIP_RECENT = 0        # Don't skip any days
-        self.REBALANCE_FREQ = 14    # Bi-weekly (optimized for lower downside vol)
-        self.NUM_HOLDINGS = 12      # Top 12 stocks
-        self.SLIPPAGE_BPS = 2  # Realistic slippage only
-        self.USE_RISK_PARITY = True  # Risk parity weighting (lower vol stocks get higher weight)
-        self.USE_QUALITY_FILTER = True  # Require momentum > 0.75 * volatility
+        self.REBALANCE_FREQ = 21    # Monthly
+        self.NUM_HOLDINGS = 10      # Top 10 stocks
+        self.SLIPPAGE_BPS = 5  # Commission/slippage
+        self.USE_RISK_PARITY = False  # Equal weight
+        self.USE_QUALITY_FILTER = False  # No quality filter
         self.QUALITY_MULT = 0.75
-        self.LEVERAGE = 2.0  # 1.0 = no leverage, 2.0 = 2x leverage
-        self.USE_INVERSE_YIELD_WEIGHT = True  # Weight inversely to dividend yield
+        self.LEVERAGE = 1.0  # 1.0 = no leverage
+        self.USE_INVERSE_YIELD_WEIGHT = False  # Equal weight
 
         self.price_data = {}
         self.dividend_data = {}
@@ -197,12 +197,16 @@ class DualMomentumStrategy:
             # Dividends go to separate account earning risk-free rate
             return 0.0, dividend_income
 
-    def run(self):
+    def run(self, start_date=None):
         all_dates = sorted(set().union(*[set(s.index) for s in self.price_data.values()]))
         start_idx = self.LOOKBACK + 50
         if start_idx >= len(all_dates):
             return None
         trading_dates = all_dates[start_idx:]
+
+        # Filter by start_date if provided
+        if start_date:
+            trading_dates = [d for d in trading_dates if d >= pd.Timestamp(start_date)]
 
         self.logger.info(f"Backtest: {trading_dates[0].date()} to {trading_dates[-1].date()}")
 
@@ -420,7 +424,8 @@ def main():
     strategy = DualMomentumStrategy(loader)
     strategy.load_data(symbols)
 
-    results = strategy.run()
+    # Start from March 2020 to match original backtest period
+    results = strategy.run(start_date='2020-03-01')
     if results:
         print_results(results)
 
