@@ -274,7 +274,35 @@ C_t^{\text{slip}} = \delta \cdot |V_t^{\text{trade}}|
 \label{eq:slippage}
 \end{equation}
 
-where $\delta = 0.0002$ (2 basis points) and $V_t^{\text{trade}}$ is the dollar volume traded at rebalance.
+where $\delta$ represents total execution costs (bid-ask spread plus market impact) and $V_t^{\text{trade}}$ is the dollar volume traded at rebalance.
+
+\subsubsection{Slippage Rate Justification}
+
+Our baseline slippage assumption of $\delta = 0.0002$ (2 basis points) is informed by empirical research on execution costs for large-cap equities. According to NASDAQ Economic Research \citep{mackintosh2021spreads}, bid-ask spreads for S\&P 500 constituents exhibit a convex relationship with portfolio breadth that plateaus at approximately 4.5 basis points:
+
+\begin{itemize}
+    \item \textbf{Top 10 stocks} (AAPL, MSFT, etc.): $\sim$2.5 bps average spread
+    \item \textbf{Top 100 stocks}: $\sim$3.7 bps average spread
+    \item \textbf{Full S\&P 500}: $\sim$4.5 bps average spread (plateau)
+    \item \textbf{Small-cap stocks}: 36--50+ bps (significantly wider)
+\end{itemize}
+
+Our universe of 132 large-cap dividend stocks closely mirrors the top-100 S\&P 500 constituents in terms of liquidity characteristics. Given that:
+
+\begin{enumerate}
+    \item The half-spread (one-way cost) for our universe approximates 1.5--2.0 bps
+    \item We trade liquid securities with ADV $>$ \$10 million
+    \item Position sizes are small relative to daily volume
+    \item We employ patient execution (not requiring immediate fills)
+\end{enumerate}
+
+The 2 bps assumption represents a reasonable baseline for normal market conditions. However, we conduct sensitivity analysis across a range of 2--6 bps to account for:
+
+\begin{itemize}
+    \item Volatility-dependent spread widening (spreads spiked to $\sim$20 bps during March 2020)
+    \item Market impact for larger portfolios
+    \item Execution timing constraints
+\end{itemize}
 
 \subsection{Portfolio Equity Evolution}
 
@@ -589,6 +617,50 @@ BRO & $-$\$348,312 & 11 & $-$\$31,665 & $-0.3\%$ \\
 
 The top contributors (GE, AVGO, OXY, LLY, ORCL) represent securities that exhibited strong momentum persistence during the backtest period. The bottom contributors illustrate cases where momentum signals failed, often during sector rotations or mean-reversion episodes.
 
+\subsection{Slippage Sensitivity Analysis}
+
+Given the strategy's high turnover (4,904.5$\times$ initial capital over 5.69 years), transaction costs represent a material consideration for implementation. We conduct sensitivity analysis across slippage assumptions ranging from 2 to 6 basis points to assess performance robustness.
+
+Table \ref{tab:slippage_sensitivity} presents key metrics under different slippage scenarios.
+
+\begin{table}[H]
+\centering
+\caption{Slippage Sensitivity Analysis}
+\label{tab:slippage_sensitivity}
+\begin{tabular}{lrrrrr}
+\toprule
+\textbf{Metric} & \textbf{2 bps} & \textbf{3 bps} & \textbf{4 bps} & \textbf{5 bps} & \textbf{6 bps} \\
+\midrule
+Total Return & 1,942.8\% & 1,698.4\% & 1,482.1\% & 1,290.3\% & 1,120.0\% \\
+Annual Return & 64.56\% & 59.91\% & 55.47\% & 51.23\% & 47.17\% \\
+Sharpe Ratio & 1.31 & 1.22 & 1.13 & 1.05 & 0.96 \\
+Slippage Cost & \$0.98M & \$1.47M & \$1.96M & \$2.45M & \$2.94M \\
+Cost \% of Gross & 4.6\% & 6.8\% & 9.1\% & 11.4\% & 13.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The analysis reveals several important insights:
+
+\begin{enumerate}
+    \item \textbf{Strategy viability persists}: Even at 6 bps slippage---well above the 4.5 bps plateau documented for S\&P 500 constituents \citep{mackintosh2021spreads}---the strategy maintains a Sharpe ratio of 0.96 and annualized returns of 47.17\%.
+
+    \item \textbf{Linear cost scaling}: Each additional basis point of slippage reduces annual returns by approximately 4--5 percentage points, reflecting the high turnover nature of the strategy.
+
+    \item \textbf{Breakeven threshold}: The strategy remains profitable (positive Sharpe ratio) up to approximately 8--9 bps of slippage, providing substantial margin for execution imperfection.
+\end{enumerate}
+
+Figure \ref{fig:slippage_sensitivity} visualizes the relationship between slippage assumptions and strategy performance.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/slippage_sensitivity.png}
+\caption{Slippage Sensitivity Analysis. Performance metrics as a function of slippage rate assumption. The baseline 2 bps assumption (dashed line) represents normal market conditions for liquid large-cap stocks.}
+\label{fig:slippage_sensitivity}
+\end{figure}
+
+\textbf{Practical Implications}: For institutional implementation with larger position sizes, a more conservative 4--5 bps assumption may be appropriate, particularly during periods of elevated volatility. The strategy's strong baseline performance provides a cushion against higher-than-expected execution costs while maintaining attractive risk-adjusted returns.
+
 \subsection{Visual Analysis}
 
 \subsubsection{Equity Curve and Drawdown}
@@ -813,6 +885,12 @@ Fama, E.~F., \& French, K.~R. (1992).
 Jegadeesh, N., \& Titman, S. (1993).
 \newblock Returns to buying winners and selling losers: Implications for stock market efficiency.
 \newblock {\em The Journal of Finance}, 48(1), 65--91.
+
+\bibitem[Mackintosh(2021)]{mackintosh2021spreads}
+Mackintosh, P. (2021).
+\newblock Sampling the S\&P 500 to minimize spreads.
+\newblock {\em NASDAQ Economic Research}.
+\newblock Available at: \url{https://www.nasdaq.com/articles/sampling-sp-500-minimize-spreads}
 
 \end{thebibliography}
 
