@@ -129,76 +129,98 @@ Our strategy leverages this implicit quality screen by restricting the universe 
 \label{sec:methodology}
 %==============================================================================
 
-\subsection{Mathematical Framework}
+\subsection{Stochastic Framework and Information Structure}
 
-Let $\mathcal{U}$ denote our investment universe of $N$ dividend-paying stocks. For stock $i$ at time $t$, we define:
+We work within a discrete-time framework. Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space equipped with a filtration $\{\mathcal{F}_t\}_{t=0}^T$ representing information available at each trading day $t$.
 
+For each stock $i \in \mathcal{U}$ (the investment universe), let:
 \begin{itemize}
-    \item $P_{i,t}$: Adjusted closing price
-    \item $D_{i,t}$: Dividend per share (trailing 12 months)
-    \item $r_{i,t}$: Daily simple return
-    \item $\sigma_{i,t}$: Annualized volatility
-    \item $Y_{i,t}$: Trailing 12-month dividend yield
+    \item $P_{i,t}$: Adjusted closing price at time $t$ (random variable, $\mathcal{F}_t$-measurable)
+    \item $P_{i,t}^{\text{raw}}$: Unadjusted closing price (for yield calculations)
+    \item $R_{i,t} = P_{i,t}/P_{i,t-1} - 1$: Simple daily return ($\mathcal{F}_t$-measurable)
+    \item $d_{i,s}$: Dividend per share paid on ex-date $s$
+    \item $D_{i,t} = \sum_{s=t-251}^{t} d_{i,s}$: Trailing 12-month dividends (TTM sum)
 \end{itemize}
 
-\subsubsection{Momentum Calculation}
+\textbf{No look-ahead condition}: All signals and portfolio weights are constructed using only information available at the time of decision:
+\begin{equation}
+w_{i,t} \in \sigma\left(\{R_{i,s}, D_{i,s}, P_{i,s} : s \leq t-1, \, i \in \mathcal{U}\}\right) \subseteq \mathcal{F}_{t-1}
+\label{eq:measurability}
+\end{equation}
 
-The 12-month momentum for stock $i$ at time $t$ is defined as:
+That is, weights for trading on day $t$ are $\mathcal{F}_{t-1}$-measurable (determined using data through day $t-1$).
+
+\textbf{Weak dependence assumption}: We assume returns $\{R_{i,t}\}$ exhibit weak dependence (e.g., $\alpha$-mixing) sufficient for:
+\begin{enumerate}
+    \item Law of large numbers to apply for sample means
+    \item Block bootstrap consistency for inference on path-dependent statistics
+\end{enumerate}
+
+This is weaker than assuming i.i.d. returns but stronger than allowing arbitrary long-range dependence.
+
+\subsection{Signal Construction}
+
+\subsubsection{Momentum}
+
+The 12-month (252-day) momentum signal for stock $i$ at time $t$ is:
 
 \begin{equation}
-\text{MOM}_{i,t} = \frac{P_{i,t}}{P_{i,t-252}} - 1
+\text{MOM}_{i,t} = \frac{P_{i,t-1}}{P_{i,t-253}} - 1
 \label{eq:momentum}
 \end{equation}
 
-where 252 represents the number of trading days in one year.
+Note: We use $P_{i,t-1}$ (not $P_{i,t}$) to ensure the signal is $\mathcal{F}_{t-1}$-measurable.
 
-\subsubsection{Volatility Estimation}
+\subsubsection{Volatility}
 
-We estimate annualized volatility using a 63-day (quarterly) rolling window:
+Annualized volatility is estimated using a 63-day rolling window with the sample standard deviation:
 
 \begin{equation}
-\sigma_{i,t} = \sqrt{252} \cdot \sqrt{\frac{1}{62} \sum_{j=1}^{63} \left( r_{i,t-j+1} - \bar{r}_{i,t} \right)^2}
+\sigma_{i,t} = \sqrt{252} \cdot \hat{s}_{i,t}, \quad \text{where} \quad \hat{s}_{i,t} = \sqrt{\frac{1}{62} \sum_{j=1}^{63} \left( R_{i,t-j} - \bar{R}_{i,t} \right)^2}
 \label{eq:volatility}
 \end{equation}
 
-where $\bar{r}_{i,t}$ is the sample mean over the estimation window.
-
-\subsubsection{Momentum-Strength Filter}
-
-To reduce exposure to noisy signals, we require momentum to exceed a threshold proportion of volatility:
-
-\begin{definition}[Momentum-Strength Filter]
-Stock $i$ passes the momentum-strength filter at time $t$ if:
+and the sample mean is:
 \begin{equation}
-\text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}
-\label{eq:strength_filter}
+\bar{R}_{i,t} = \frac{1}{63} \sum_{j=1}^{63} R_{i,t-j}
+\label{eq:sample_mean}
 \end{equation}
-where $\kappa = 0.75$ is the threshold multiplier.
-\end{definition}
 
-This condition requires the 12-month return to exceed 0.75 times the recent annualized volatility---a minimum ``Sharpe-like'' threshold for the momentum signal. Note that this filter \textbf{implies} positive momentum ($\text{MOM}_{i,t} > 0$) since $\kappa > 0$ and $\sigma_{i,t} > 0$.
-
-\begin{remark}
-We term this a ``momentum-strength filter'' rather than a ``quality filter'' to avoid confusion with the quality factor literature \citep{asness2019quality}, which refers to fundamental characteristics like profitability and stability.
-\end{remark}
+The denominator 62 (rather than 63) provides the unbiased variance estimator.
 
 \subsubsection{Dividend Yield}
 
-The trailing 12-month dividend yield is computed from \textbf{unadjusted} closing prices:
+The trailing 12-month dividend yield, computed from unadjusted prices:
 
 \begin{equation}
-Y_{i,t} = \frac{\text{TTM Dividends}_{i,t}}{P_{i,t}^{\text{raw}}}
+Y_{i,t} = \frac{D_{i,t-1}}{P_{i,t-1}^{\text{raw}}}
 \label{eq:dividend_yield}
 \end{equation}
 
-We impose a floor of 0.5\% to prevent extreme weights:
-
+We impose a floor to prevent extreme weights:
 \begin{equation}
 \tilde{Y}_{i,t} = \max(Y_{i,t}, 0.005)
 \label{eq:yield_floor}
 \end{equation}
 
-\subsection{Selection Algorithm}
+\subsubsection{Momentum-Strength Filter}
+
+\begin{definition}[Momentum-Strength Filter]
+Stock $i$ passes the filter at time $t$ if:
+\begin{equation}
+\text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}
+\label{eq:strength_filter}
+\end{equation}
+where $\kappa = 0.75$.
+\end{definition}
+
+This requires the 12-month return to exceed 0.75 times recent annualized volatility---a minimum signal-to-noise threshold. Since $\kappa > 0$ and $\sigma_{i,t} > 0$, this implies $\text{MOM}_{i,t} > 0$.
+
+\begin{remark}
+We term this a ``momentum-strength filter'' rather than ``quality filter'' to avoid confusion with the quality factor literature \citep{asness2019quality}.
+\end{remark}
+
+\subsection{Portfolio Construction}
 
 \begin{algorithm}[H]
 \caption{Cross-Sectional Momentum with Inverse Yield Weighting}
@@ -209,140 +231,159 @@ We impose a floor of 0.5\% to prevent extreme weights:
 
 \State \textbf{Step 1: Momentum-Strength Filter}
 \State $\mathcal{Q}_t \gets \{i \in \mathcal{U} : \text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}\}$
-\Comment{Implies MOM $> 0$}
 
 \State \textbf{Step 2: Relative Momentum Ranking}
-\State Rank stocks in $\mathcal{Q}_t$ by $\text{MOM}_{i,t}$ in descending order
+\State Rank stocks in $\mathcal{Q}_t$ by $\text{MOM}_{i,t}$ descending
 
 \State \textbf{Step 3: Top-$K$ Selection}
-\State $\mathcal{S}_t \gets$ top $K$ stocks from ranked list
+\State $\mathcal{S}_t \gets$ top $K$ stocks
 
-\State \textbf{Step 4: Inverse Yield Weighting (Normalized)}
-\For{$i \in \mathcal{S}_t$}
-    \State $\omega_i \gets 1 / \tilde{Y}_{i,t}$
-\EndFor
-\State $w^{(1)}_{i,t} \gets \omega_i / \sum_{j \in \mathcal{S}_t} \omega_j$ \Comment{Normalized weights, sum to 1}
+\State \textbf{Step 4: Inverse Yield Weighting}
+\State $w^{(1)}_{i,t} \gets \dfrac{1/\tilde{Y}_{i,t}}{\sum_{j \in \mathcal{S}_t} 1/\tilde{Y}_{j,t}}$ for $i \in \mathcal{S}_t$ \Comment{Sum to 1}
 
 \State \textbf{Step 5: Apply Leverage}
-\State $w_{i,t} \gets \lambda \cdot w^{(1)}_{i,t}$ \Comment{Gross exposure weights, sum to $\lambda$}
+\State $w_{i,t} \gets \lambda \cdot w^{(1)}_{i,t}$ \Comment{Sum to $\lambda$}
 
 \State \Return $\mathcal{S}_t$, $\{w_{i,t}\}$
 \end{algorithmic}
 \end{algorithm}
 
+\subsection{Portfolio Return Dynamics}
+
+Let $W_t$ denote portfolio wealth at the end of day $t$, with $W_0$ the initial capital. The daily portfolio return under leverage $\lambda$ is:
+
+\begin{equation}
+R_{p,t} = \lambda \sum_{i \in \mathcal{S}_{t-1}} w^{(1)}_{i,t-1} R_{i,t} - (\lambda - 1) r^{\text{bor}}_t - c_t
+\label{eq:portfolio_return}
+\end{equation}
+
+where:
+\begin{itemize}
+    \item $w^{(1)}_{i,t-1}$: Normalized weights from previous rebalance (sum to 1)
+    \item $R_{i,t}$: Return of stock $i$ on day $t$
+    \item $r^{\text{bor}}_t = r^{(10Y)}_t / 252$: Daily borrowing rate (proxied by 10-Year Treasury)
+    \item $c_t$: Transaction costs incurred on day $t$
+\end{itemize}
+
+The wealth process evolves as:
+\begin{equation}
+W_t = W_{t-1}(1 + R_{p,t})
+\label{eq:wealth_process}
+\end{equation}
+
+\subsubsection{Transaction Costs}
+
+On rebalancing days, transaction costs are proportional to turnover:
+\begin{equation}
+c_t = \delta \sum_{i} |w_{i,t} - w_{i,t-1}^{+}| \cdot \frac{W_{t-1}}{W_{t-1}} = \delta \sum_{i} |\Delta w_{i,t}|
+\label{eq:transaction_costs}
+\end{equation}
+
+where $\delta = 0.0002$ (2 bps) is the per-dollar trading cost, and $w_{i,t-1}^{+}$ denotes the drifted weight before rebalancing.
+
+On non-rebalancing days, $c_t = 0$.
+
+\subsubsection{Slippage Justification}
+
+Per NASDAQ Economic Research \citep{mackintosh2021spreads}, bid-ask spreads for S\&P 500 constituents are:
+\begin{itemize}
+    \item Top 100 stocks: $\sim$3.7 bps average spread
+    \item Full S\&P 500: $\sim$4.5 bps (plateau)
+\end{itemize}
+
+Our 2 bps assumption approximates the half-spread for liquid large-caps under normal conditions. This may understate costs during volatility (spreads reached $\sim$20 bps in March 2020) or for larger portfolios with market impact.
+
 \subsection{Inverse Yield Weighting: Economic Rationale}
 
-The inverse yield weighting scheme rests on the following economic intuition:
-
 \begin{remark}[Yield Compression and Price Appreciation]
-Within a universe of dividend-paying stocks, dividend policy tends to be relatively stable in the short term (dividends are ``sticky''). When a stock's price appreciates faster than its dividends grow, the dividend yield compresses. Thus, \textbf{lower yield within the dividend-paying universe is associated with recent price appreciation}, providing a signal correlated with---but distinct from---the momentum signal.
+Within a dividend-paying universe, dividend policy is relatively ``sticky.'' When price appreciates faster than dividends, yield compresses. Thus, lower yield is associated with recent appreciation---a signal correlated with, but distinct from, momentum.
 \end{remark}
 
-This is \textbf{not} a formal mathematical theorem; it is an economic intuition that depends on:
+This economic intuition depends on:
 \begin{enumerate}
-    \item Dividend stickiness (dividends adjust slowly relative to prices)
-    \item The universe being restricted to established dividend payers
-    \item No extreme cases where low yield reflects fundamental deterioration
+    \item Dividend stickiness (slow adjustment relative to prices)
+    \item Universe restricted to established dividend payers
+    \item Exclusion of distressed ``yield trap'' cases
 \end{enumerate}
 
-The inverse yield weight for stock $i$ is:
+\subsection{Statistical Inference Framework}
 
+\subsubsection{Performance Metrics}
+
+We define the following realized performance measures:
+
+\textbf{Arithmetic Mean Return}:
 \begin{equation}
-w^{(1)}_{i,t} = \frac{1/\tilde{Y}_{i,t}}{\sum_{j \in \mathcal{S}_t} 1/\tilde{Y}_{j,t}}
-\label{eq:inverse_yield_weight}
+\hat{\mu}_p = \frac{1}{T} \sum_{t=1}^{T} R_{p,t}, \quad \hat{\mu}_{\text{ann}} = 252 \cdot \hat{\mu}_p
 \end{equation}
 
-With leverage $\lambda$, gross exposure weights become:
-
+\textbf{Sample Volatility}:
 \begin{equation}
-w_{i,t} = \lambda \cdot w^{(1)}_{i,t}
-\label{eq:leveraged_weight}
+\hat{\sigma}_p = \sqrt{\frac{1}{T-1} \sum_{t=1}^{T} (R_{p,t} - \hat{\mu}_p)^2}, \quad \hat{\sigma}_{\text{ann}} = \sqrt{252} \cdot \hat{\sigma}_p
 \end{equation}
 
-For $\lambda = 2.0$, gross weights sum to 2.0, meaning total exposure is 200\% of equity.
-
-\subsection{Leverage Implementation}
-
-We implement leverage by borrowing at a rate proxied by the 10-Year Treasury yield. The margin debt at time $t$ is:
-
+\textbf{Sharpe Ratio Estimator}:
 \begin{equation}
-M_t = (\lambda - 1) \cdot E_t
-\label{eq:margin_debt}
+\widehat{\text{SR}} = \frac{\hat{\mu}_{\text{ann}} - \bar{r}_f}{\hat{\sigma}_{\text{ann}}}
+\label{eq:sharpe_estimator}
 \end{equation}
 
-where $E_t$ is portfolio equity. Daily borrowing cost is:
+where $\bar{r}_f$ is the average risk-free rate over the sample.
+
+\subsubsection{Factor Regression Specification}
+
+To decompose performance into systematic factor exposures and residual alpha, we specify:
 
 \begin{equation}
-C_t^{\text{borrow}} = M_t \cdot \frac{r_f^{(t)}}{252}
-\label{eq:borrowing_cost}
+R_{p,t} - r_{f,t} = \alpha + \sum_{k=1}^{K} \beta_k F_{k,t} + \varepsilon_t
+\label{eq:factor_regression}
 \end{equation}
 
-\textbf{Important caveat}: Using the 10-Year Treasury yield as the borrowing rate likely \textbf{understates} actual margin borrowing costs, which typically exceed short-term rates. This is a simplifying assumption that favors the strategy.
-
-\subsection{Transaction Costs}
-
-We model transaction costs as proportional slippage:
-
-\begin{equation}
-C_t^{\text{slip}} = \delta \cdot |V_t^{\text{trade}}|
-\label{eq:slippage}
-\end{equation}
-
-where $\delta$ represents execution cost per dollar traded.
-
-\subsubsection{Slippage Rate Justification}
-
-Our baseline assumption of $\delta = 0.0002$ (2 basis points) is informed by NASDAQ Economic Research \citep{mackintosh2021spreads}, which documents bid-ask spreads for S\&P 500 constituents:
-
+where:
 \begin{itemize}
-    \item \textbf{Top 10 stocks}: $\sim$2.5 bps average spread
-    \item \textbf{Top 100 stocks}: $\sim$3.7 bps average spread
-    \item \textbf{Full S\&P 500}: $\sim$4.5 bps average spread (plateau)
+    \item $F_{k,t}$: Return of factor $k$ on day $t$ (e.g., MKT, SMB, HML, UMD, QMJ)
+    \item $\beta_k$: Factor loading (exposure to factor $k$)
+    \item $\alpha$: Intercept (``abnormal return'' after controlling for factors)
+    \item $\varepsilon_t$: Residual, assumed $\E[\varepsilon_t | F_t] = 0$
 \end{itemize}
 
-Our universe of 132 large-cap dividend stocks has liquidity characteristics similar to the top-100 S\&P 500 constituents. The 2 bps assumption represents approximately the half-spread for liquid stocks under normal conditions.
-
-\textbf{Caveats}: Actual execution costs may exceed this assumption due to:
-\begin{itemize}
-    \item Market impact for larger orders
-    \item Spread widening during volatility (spreads spiked to $\sim$20 bps during March 2020)
-    \item Timing constraints requiring aggressive execution
-\end{itemize}
-
-\subsection{Execution Assumptions}
-
-To ensure no look-ahead bias:
-\begin{itemize}
-    \item Signals are computed using data available at market close on day $t-1$
-    \item Trades are executed at the close of day $t$ (next-day execution)
-    \item Dividends and ex-dividend dates are properly lagged
-\end{itemize}
-
-\subsection{Risk Metrics}
-
-We report the following metrics:
-
-\textbf{Annualized Return (Arithmetic Mean)}:
+Estimation proceeds by OLS:
 \begin{equation}
-\bar{r}_{\text{ann}} = \bar{r}_{\text{daily}} \times 252
+(\hat{\alpha}, \hat{\bm{\beta}}) = \arg\min \sum_{t=1}^{T} \left( R_{p,t} - r_{f,t} - \alpha - \bm{\beta}^\top \bm{F}_t \right)^2
 \end{equation}
 
-\textbf{CAGR (Geometric)}:
-\begin{equation}
-r_{\text{CAGR}} = \left(\frac{E_T}{E_0}\right)^{1/T} - 1
-\end{equation}
+Standard errors should account for heteroskedasticity and autocorrelation (e.g., Newey-West with appropriate lag selection).
 
-\textbf{Sharpe Ratio}:
-\begin{equation}
-\text{SR} = \frac{\bar{r}_{\text{ann}} - r_f}{\sigma_{\text{ann}}}
-\label{eq:sharpe}
-\end{equation}
+\textbf{Note}: We do not report factor regression results in this paper due to data limitations. The strategy's ``alpha'' claims should be interpreted as \textbf{performance relative to the market benchmark only}, not as factor-adjusted abnormal returns. Proper factor attribution (FF5 + UMD + QMJ) is necessary before drawing conclusions about true alpha.
 
-\textbf{Maximum Drawdown}:
-\begin{equation}
-\text{MDD} = \max_{t} \left( \frac{\max_{s \leq t} E_s - E_t}{\max_{s \leq t} E_s} \right)
-\label{eq:max_drawdown}
-\end{equation}
+\subsubsection{Bootstrap Inference}
+
+For path-dependent statistics like maximum drawdown, we employ a \textbf{moving block bootstrap} \citep{kunsch1989jackknife}:
+
+\begin{enumerate}
+    \item Partition returns into overlapping blocks of length $b$ (we use $b = 21$ trading days)
+    \item Sample $\lceil T/b \rceil$ blocks with replacement
+    \item Concatenate to form synthetic return series of length $T$
+    \item Compute statistic of interest (e.g., max drawdown)
+    \item Repeat $B = 1{,}000$ times to build empirical distribution
+\end{enumerate}
+
+\textbf{Note on citation}: We cite \citet{kunsch1989jackknife} for the moving block bootstrap. The \citet{politis1994stationary} stationary bootstrap uses random (geometrically distributed) block lengths; our implementation uses fixed blocks.
+
+\subsection{Ablation: Weighting Scheme Comparison}
+
+A critical empirical question is whether inverse yield weighting adds value beyond simpler alternatives. We acknowledge this ablation is \textbf{not performed} in this paper, representing a significant limitation.
+
+The following comparisons would be necessary to validate inverse yield weighting:
+
+\begin{enumerate}
+    \item \textbf{Equal weighting}: $w^{(1)}_{i,t} = 1/K$ for all $i \in \mathcal{S}_t$
+    \item \textbf{Inverse volatility}: $w^{(1)}_{i,t} \propto 1/\sigma_{i,t}$
+    \item \textbf{Risk parity}: $w^{(1)}_{i,t} \propto 1/\sigma_{i,t}^2$ (targeting equal risk contribution)
+    \item \textbf{Momentum-weighted}: $w^{(1)}_{i,t} \propto \text{MOM}_{i,t}$
+\end{enumerate}
+
+Without these comparisons, we cannot attribute performance specifically to inverse yield weighting versus the selection mechanism (momentum + strength filter) or incidental factor tilts (growth, low-yield). This remains an open question for future research.
 
 %==============================================================================
 \section{Data and Universe Construction}
@@ -610,7 +651,7 @@ The maximum drawdown of $-35.70\%$ occurred in early 2025, representing a signif
 
 \subsubsection{Block Bootstrap Analysis}
 
-To assess the statistical properties of the maximum drawdown and construct confidence intervals, we employ a \textbf{block bootstrap} procedure \citep{politis1994stationary}. Unlike standard bootstrap methods that resample individual observations, block bootstrap preserves the temporal dependence structure in returns by resampling contiguous blocks.
+To assess the statistical properties of the maximum drawdown and construct confidence intervals, we employ a \textbf{moving block bootstrap} procedure \citep{kunsch1989jackknife}. Unlike standard bootstrap methods that resample individual observations, block bootstrap preserves the temporal dependence structure in returns by resampling contiguous blocks.
 
 \textbf{Methodology}:
 \begin{enumerate}
@@ -658,8 +699,8 @@ Figure \ref{fig:slippage_sensitivity} shows how performance varies with slippage
 \end{figure}
 
 %==============================================================================
-\section{Sources of Alpha}
-\label{sec:alpha}
+\section{Sources of Performance}
+\label{sec:performance}
 %==============================================================================
 
 We hypothesize several potential sources of the strategy's outperformance:
@@ -841,6 +882,11 @@ Fama, E.~F., \& French, K.~R. (1992).
 Jegadeesh, N., \& Titman, S. (1993).
 \newblock Returns to buying winners and selling losers: Implications for stock market efficiency.
 \newblock {\em The Journal of Finance}, 48(1), 65--91.
+
+\bibitem[K\"{u}nsch(1989)]{kunsch1989jackknife}
+K\"{u}nsch, H.~R. (1989).
+\newblock The jackknife and the bootstrap for general stationary observations.
+\newblock {\em The Annals of Statistics}, 17(3), 1217--1241.
 
 \bibitem[Mackintosh(2021)]{mackintosh2021spreads}
 Mackintosh, P. (2021).
