@@ -579,6 +579,73 @@ Figure \ref{fig:trade_analysis} provides trade-level statistics.
 \label{fig:trade_analysis}
 \end{figure}
 
+\subsection{Drawdown Analysis}
+
+Drawdown analysis is critical for assessing strategy risk, as maximum drawdown often determines whether investors can psychologically and financially sustain a strategy through adverse periods.
+
+\subsubsection{Observed Drawdown Characteristics}
+
+Table \ref{tab:drawdown} summarizes the strategy's drawdown profile.
+
+\begin{table}[H]
+\centering
+\caption{Drawdown Statistics (2$\times$ Leverage)}
+\label{tab:drawdown}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Maximum Drawdown & $-35.70\%$ \\
+Drawdown Start & Feb 19, 2025 \\
+Drawdown Trough & Apr 8, 2025 \\
+Duration to Trough & 49 days \\
+Longest Drawdown & 176 days \\
+Daily VaR (95\%) & $-4.61\%$ \\
+Daily CVaR (95\%) & $-6.49\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The maximum drawdown of $-35.70\%$ occurred in early 2025, representing a significant but not catastrophic loss for a 2$\times$ leveraged strategy. The corresponding 1$\times$ leverage drawdown of $-18.59\%$ (Table \ref{tab:performance}) confirms approximate linear scaling with leverage.
+
+\subsubsection{Block Bootstrap Analysis}
+
+To assess the statistical properties of the maximum drawdown and construct confidence intervals, we employ a \textbf{block bootstrap} procedure \citep{politis1994stationary}. Unlike standard bootstrap methods that resample individual observations, block bootstrap preserves the temporal dependence structure in returns by resampling contiguous blocks.
+
+\textbf{Methodology}:
+\begin{enumerate}
+    \item Divide the return series into overlapping blocks of 21 trading days ($\approx$ 1 month)
+    \item Sample blocks with replacement to construct synthetic return series of equal length
+    \item Compute maximum drawdown for each synthetic series
+    \item Repeat for $N = 1{,}000$ simulations to build a distribution
+    \item Construct confidence intervals from the empirical distribution
+\end{enumerate}
+
+The 21-day block size balances two considerations: blocks must be long enough to capture short-term autocorrelation and volatility clustering, but short enough to allow sufficient resampling variation.
+
+\subsubsection{Bootstrap Results and Interpretation}
+
+Figure \ref{fig:drawdown_analysis} presents the complete drawdown analysis including the block bootstrap distribution.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/drawdown_analysis.png}
+\caption{Drawdown Analysis with Block Bootstrap. Top left: Drawdown depth vs. duration for all drawdown events. Top right: Block bootstrap distribution of maximum drawdown (1,000 simulations, 21-day blocks) with observed value and confidence intervals. Bottom left: Distribution of drawdown durations. Bottom right: Summary statistics.}
+\label{fig:drawdown_analysis}
+\end{figure}
+
+\textbf{Key findings from the block bootstrap}:
+
+\begin{enumerate}
+    \item \textbf{Confidence intervals}: The 95\% and 99\% confidence intervals for maximum drawdown provide bounds on expected worst-case losses under similar market conditions. If the observed drawdown falls near the center of the bootstrap distribution, the realized experience was ``typical''; if it falls in the tails, the period was unusually benign or severe.
+
+    \item \textbf{Interpretation}: The block bootstrap accounts for the serial dependence in returns (volatility clustering, momentum persistence) that would be destroyed by naive i.i.d. resampling. This makes the confidence intervals more realistic for assessing tail risk.
+
+    \item \textbf{Limitations}: The bootstrap can only resample from the observed data; it cannot generate scenarios more extreme than those in the sample. Given our favorable backtest period (2020--2025), the bootstrap distribution likely \textbf{underestimates} true tail risk during severe bear markets.
+\end{enumerate}
+
+\textbf{Practical implications}: Investors should expect drawdowns at least as severe as the observed $-35.70\%$ (at 2$\times$ leverage) with meaningful probability, and potentially worse during market conditions not represented in our sample (e.g., 2008--2009 crisis). Risk management should account for drawdowns exceeding the 99\% bootstrap CI.
+
 \subsection{Slippage Sensitivity}
 
 Figure \ref{fig:slippage_sensitivity} shows how performance varies with slippage assumptions. Given the high turnover, transaction costs materially impact returns.
@@ -781,6 +848,11 @@ Mackintosh, P. (2021).
 \newblock {\em NASDAQ Economic Research}.
 \newblock Available at: \url{https://www.nasdaq.com/articles/sampling-sp-500-minimize-spreads}
 
+\bibitem[Politis \& Romano(1994)]{politis1994stationary}
+Politis, D.~N., \& Romano, J.~P. (1994).
+\newblock The stationary bootstrap.
+\newblock {\em Journal of the American Statistical Association}, 89(428), 1303--1313.
+
 \end{thebibliography}
 
 %==============================================================================
@@ -838,17 +910,6 @@ Figure \ref{fig:sector_exposure} shows time-varying sector allocation.
 \includegraphics[width=\textwidth]{figures/sector_exposure.png}
 \caption{Sector Exposure Over Time. The strategy exhibits significant sector rotation driven by momentum signals. Technology and healthcare dominate during strong growth periods, while energy and materials feature during commodity rallies.}
 \label{fig:sector_exposure}
-\end{figure}
-
-\subsection{Drawdown Analysis}
-
-Figure \ref{fig:drawdown_analysis} provides detailed drawdown statistics.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/drawdown_analysis.png}
-\caption{Drawdown Analysis. The strategy experiences multiple drawdowns exceeding 10\%, with the largest ($-35.7\%$) in early 2025. Recovery times vary from days to months.}
-\label{fig:drawdown_analysis}
 \end{figure}
 
 \subsection{Regime Analysis}
