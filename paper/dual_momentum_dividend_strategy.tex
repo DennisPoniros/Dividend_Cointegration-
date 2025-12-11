@@ -26,7 +26,7 @@
 % Theorem environments
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}
-\newtheorem{proposition}{Proposition}
+\newtheorem{remark}{Remark}
 
 % Custom commands
 \newcommand{\E}{\mathbb{E}}
@@ -34,8 +34,8 @@
 \newcommand{\Cov}{\text{Cov}}
 \newcommand{\bm}[1]{\boldsymbol{#1}}
 
-% Title
-\title{\textbf{Dual Momentum with Inverse Dividend Yield Weighting: \\
+% Title - REVISED to reflect actual implementation
+\title{\textbf{Cross-Sectional Momentum with Inverse Dividend Yield Weighting: \\
 A Quantitative Strategy for Quality Equity Selection}}
 
 \author{
@@ -50,10 +50,10 @@ A Quantitative Strategy for Quality Equity Selection}}
 \maketitle
 
 \begin{abstract}
-This paper presents a systematic equity selection strategy that combines Gary Antonacci's dual momentum framework with a novel inverse dividend yield weighting scheme. We apply the strategy to a universe of 132 dividend-paying U.S. large-cap stocks, employing absolute momentum as a timing mechanism and relative momentum for cross-sectional stock selection. The key innovation lies in weighting selected securities inversely proportional to their trailing dividend yield, using yield compression as a momentum confirmation signal. Our backtest spanning March 2020 to November 2025 with 2$\times$ leverage demonstrates a total return of 1,942.77\%, an annualized return of 64.56\%, and a Sharpe ratio of 1.31. We provide comprehensive mathematical formalization of all components, detailed risk analysis, and discuss the strategy's behavior across market regimes. While results are promising, we emphasize important caveats regarding the favorable backtest period and the need for out-of-sample validation.
+This paper presents a systematic equity selection strategy that applies cross-sectional momentum with a momentum-strength filter and inverse dividend yield weighting. We apply the strategy to a universe of 132 dividend-paying U.S. large-cap stocks, employing a per-stock absolute momentum filter and relative momentum for cross-sectional selection. The key innovation lies in weighting selected securities inversely proportional to their trailing dividend yield, exploiting the economic relationship between yield compression and price appreciation. Our backtest spanning March 2020 to November 2025 demonstrates strong performance: with 2$\times$ leverage, total return of 1,942.77\% (geometric), arithmetic mean annualized return of 64.56\%, and Sharpe ratio of 1.31. Importantly, the unleveraged (1$\times$) version achieves nearly identical risk-adjusted performance (Sharpe ratio 1.30), confirming that leverage amplifies returns without improving the strategy's fundamental quality. We provide comprehensive mathematical formalization, detailed cost attribution, and extensive discussion of limitations including favorable period selection, survivorship bias, and execution assumptions. Results should be interpreted as exploratory and hypothesis-generating pending validation across diverse market regimes.
 \end{abstract}
 
-\textbf{Keywords:} Momentum investing, dividend yield, dual momentum, quantitative strategy, portfolio construction, risk-adjusted returns
+\textbf{Keywords:} Momentum investing, dividend yield, cross-sectional momentum, quantitative strategy, portfolio construction, risk-adjusted returns
 
 \newpage
 \tableofcontents
@@ -67,23 +67,33 @@ Momentum strategies have been a cornerstone of quantitative finance since the se
 
 Parallel to momentum research, dividend-paying stocks have attracted considerable academic and practitioner attention. The dividend yield has been shown to predict both individual stock returns and aggregate market returns, serving as both a valuation metric and a quality signal \citep{fama1988dividend}. Companies with consistent dividend payment histories typically exhibit superior earnings stability, lower leverage, and more disciplined capital allocation.
 
-This paper introduces a quantitative strategy that synthesizes these two research streams through a novel application: using inverse dividend yield as a momentum confirmation signal within a dividend-paying stock universe. The core insight is that within a universe of dividend-paying stocks, a lower dividend yield indicates recent price appreciation---the price has risen faster than dividends, compressing the yield. This yield compression thus serves as an independent confirmation of momentum strength.
+This paper introduces a quantitative strategy that synthesizes these two research streams through a novel application: using inverse dividend yield as a weighting mechanism within a dividend-paying stock universe. The core economic intuition is that within a universe of dividend-paying stocks, a lower dividend yield---holding dividend policy relatively stable---reflects recent price appreciation, providing an independent signal correlated with momentum strength.
 
 \subsection{Contribution}
 
 Our primary contributions are:
 
 \begin{enumerate}
-    \item \textbf{Inverse Yield Weighting}: We propose using the reciprocal of dividend yield as portfolio weights, providing momentum confirmation within a quality-screened universe.
+    \item \textbf{Inverse Yield Weighting}: We propose using the reciprocal of dividend yield as portfolio weights within a momentum-selected subset, exploiting the economic relationship between yield compression and price appreciation.
 
-    \item \textbf{Quality-Filtered Momentum}: We implement a signal-to-noise filter requiring momentum to exceed a threshold proportion of volatility, reducing false signals.
+    \item \textbf{Momentum-Strength Filter}: We implement a signal-to-noise filter requiring momentum to exceed a threshold proportion of volatility, reducing exposure to noisy or mean-reverting signals.
 
-    \item \textbf{Comprehensive Backtest}: We provide detailed backtest results including cost attribution, regime analysis, and benchmark comparison with explicit leverage and borrowing cost modeling.
+    \item \textbf{Comprehensive Backtest with Limitations}: We provide detailed backtest results including cost attribution and benchmark comparison, with explicit acknowledgment of period selection bias and other limitations.
 \end{enumerate}
+
+\subsection{Important Disclaimers}
+
+Before proceeding, we emphasize several critical caveats:
+
+\begin{itemize}
+    \item The backtest period (March 2020--November 2025) represents a \textbf{favorable environment} for momentum strategies, beginning near the COVID-19 market bottom.
+    \item The stock universe is constructed from \textbf{current} (2025) dividend payers, introducing survivorship bias.
+    \item Results should be treated as \textbf{exploratory} and hypothesis-generating, not as evidence of a robust, implementable strategy.
+\end{itemize}
 
 \subsection{Paper Organization}
 
-Section \ref{sec:literature} reviews relevant literature. Section \ref{sec:methodology} presents the mathematical framework. Section \ref{sec:data} describes the data and universe construction. Section \ref{sec:results} presents empirical results. Section \ref{sec:discussion} discusses implications and limitations. Section \ref{sec:conclusion} concludes.
+Section \ref{sec:literature} reviews relevant literature. Section \ref{sec:methodology} presents the mathematical framework. Section \ref{sec:data} describes the data and universe construction. Section \ref{sec:results} presents empirical results. Section \ref{sec:alpha} discusses potential sources of alpha. Section \ref{sec:discussion} discusses implications and limitations. Section \ref{sec:conclusion} concludes.
 
 %==============================================================================
 \section{Literature Review}
@@ -94,30 +104,25 @@ Section \ref{sec:literature} reviews relevant literature. Section \ref{sec:metho
 
 The momentum effect, first systematically documented by \citet{jegadeesh1993returns}, demonstrates that stocks with high returns over the past 3-12 months continue to outperform over subsequent months. This finding has been replicated extensively and remains one of the most robust anomalies in finance.
 
-\citet{carhart1997persistence} formalized momentum as a risk factor, extending the Fama-French three-factor model. The momentum factor (UMD, or ``Up Minus Down'') captures the return difference between past winners and losers and has demonstrated significant positive returns across decades.
+\citet{carhart1997persistence} formalized momentum as a risk factor, extending the Fama-French three-factor model. The momentum factor (UMD, or ``Up Minus Down'') captures the return difference between past winners and losers.
 
-\subsection{Dual Momentum}
+\subsection{Dual Momentum and Related Approaches}
 
-\citet{antonacci2014dual} introduced the dual momentum concept, combining:
+\citet{antonacci2014dual} introduced the dual momentum concept, combining relative (cross-sectional) momentum with absolute (time-series) momentum. In Antonacci's canonical implementation, absolute momentum is applied at the \textbf{asset-class level}: when equity momentum is negative, the strategy switches entirely to bonds or cash.
 
-\begin{enumerate}
-    \item \textbf{Relative (Cross-Sectional) Momentum}: Ranking assets by past returns and selecting top performers.
-    \item \textbf{Absolute (Time-Series) Momentum}: Investing only when an asset's return exceeds a benchmark (typically zero or a risk-free rate).
-\end{enumerate}
-
-The combination of these filters has been shown to improve risk-adjusted returns by avoiding extended drawdowns during bear markets while capturing upside during trends.
+\textbf{Important Distinction}: Our implementation differs from Antonacci's dual momentum in that we apply the absolute momentum filter at the \textbf{individual stock level} rather than at the asset-class level. We do not implement an ``if broad market momentum is negative, move to cash'' overlay. Our strategy is more accurately described as \textbf{cross-sectional momentum with a per-stock momentum-strength filter}, though it shares the conceptual foundation of filtering for positive momentum before ranking.
 
 \subsection{Dividend Yield and Stock Returns}
 
 The dividend yield has a rich history as a return predictor. \citet{fama1988dividend} demonstrated its ability to forecast aggregate market returns, while \citet{campbell1988stock} showed yield predicts returns through both expected return and dividend growth channels.
 
-At the individual stock level, high dividend yield stocks have been associated with the value premium \citep{fama1992cross}. However, the relationship is nuanced: very high yields may signal financial distress (``yield traps''), while moderate yields often indicate quality and shareholder-friendly management.
+At the individual stock level, high dividend yield stocks have been associated with the value premium \citep{fama1992cross}. However, the relationship is nuanced: very high yields may signal financial distress (``yield traps''), while moderate yields often indicate quality.
 
 \subsection{Quality Investing}
 
-The quality factor, formalized by \citet{asness2019quality}, encompasses characteristics including profitability, earnings stability, and low leverage. Dividend-paying stocks naturally screen for many quality characteristics, as consistent dividend payment requires stable cash flows and disciplined capital management.
+The quality factor, formalized by \citet{asness2019quality}, encompasses characteristics including profitability, earnings stability, and low leverage. Dividend-paying stocks naturally screen for many quality characteristics, as consistent dividend payment requires stable cash flows.
 
-Our strategy leverages this by restricting the investment universe to established dividend payers, then using momentum and yield dynamics for selection and weighting.
+Our strategy leverages this implicit quality screen by restricting the universe to established dividend payers, then using momentum and yield dynamics for selection and weighting.
 
 %==============================================================================
 \section{Methodology}
@@ -131,7 +136,7 @@ Let $\mathcal{U}$ denote our investment universe of $N$ dividend-paying stocks. 
 \begin{itemize}
     \item $P_{i,t}$: Adjusted closing price
     \item $D_{i,t}$: Dividend per share (trailing 12 months)
-    \item $r_{i,t}^{(k)}$: $k$-day return ending at $t$
+    \item $r_{i,t}$: Daily simple return
     \item $\sigma_{i,t}$: Annualized volatility
     \item $Y_{i,t}$: Trailing 12-month dividend yield
 \end{itemize}
@@ -145,7 +150,7 @@ The 12-month momentum for stock $i$ at time $t$ is defined as:
 \label{eq:momentum}
 \end{equation}
 
-where 252 represents the number of trading days in one year. This measure captures the total price return over the lookback period.
+where 252 represents the number of trading days in one year.
 
 \subsubsection{Volatility Estimation}
 
@@ -156,29 +161,33 @@ We estimate annualized volatility using a 63-day (quarterly) rolling window:
 \label{eq:volatility}
 \end{equation}
 
-where $r_{i,t}$ denotes daily returns and $\bar{r}_{i,t}$ is the sample mean over the estimation window.
+where $\bar{r}_{i,t}$ is the sample mean over the estimation window.
 
-\subsubsection{Quality Filter}
+\subsubsection{Momentum-Strength Filter}
 
-To distinguish genuine momentum from noise, we require that momentum exceeds a threshold proportion of volatility:
+To reduce exposure to noisy signals, we require momentum to exceed a threshold proportion of volatility:
 
-\begin{definition}[Quality-Filtered Momentum]
-Stock $i$ passes the quality filter at time $t$ if and only if:
+\begin{definition}[Momentum-Strength Filter]
+Stock $i$ passes the momentum-strength filter at time $t$ if:
 \begin{equation}
 \text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}
-\label{eq:quality_filter}
+\label{eq:strength_filter}
 \end{equation}
-where $\kappa = 0.75$ is the quality threshold multiplier.
+where $\kappa = 0.75$ is the threshold multiplier.
 \end{definition}
 
-This filter eliminates stocks where observed momentum may be attributable to random fluctuation rather than genuine trend. The threshold of 0.75 requires momentum to be approximately 0.75 standard deviations above zero on an annualized basis.
+This condition requires the 12-month return to exceed 0.75 times the recent annualized volatility---a minimum ``Sharpe-like'' threshold for the momentum signal. Note that this filter \textbf{implies} positive momentum ($\text{MOM}_{i,t} > 0$) since $\kappa > 0$ and $\sigma_{i,t} > 0$.
+
+\begin{remark}
+We term this a ``momentum-strength filter'' rather than a ``quality filter'' to avoid confusion with the quality factor literature \citep{asness2019quality}, which refers to fundamental characteristics like profitability and stability.
+\end{remark}
 
 \subsubsection{Dividend Yield}
 
-The trailing 12-month dividend yield is:
+The trailing 12-month dividend yield is computed from \textbf{unadjusted} closing prices:
 
 \begin{equation}
-Y_{i,t} = \frac{\sum_{j=0}^{251} D_{i,t-j}}{P_{i,t}}
+Y_{i,t} = \frac{\text{TTM Dividends}_{i,t}}{P_{i,t}^{\text{raw}}}
 \label{eq:dividend_yield}
 \end{equation}
 
@@ -191,32 +200,31 @@ We impose a floor of 0.5\% to prevent extreme weights:
 
 \subsection{Selection Algorithm}
 
-The dual momentum selection process proceeds as follows:
-
 \begin{algorithm}[H]
-\caption{Dual Momentum Stock Selection}
+\caption{Cross-Sectional Momentum with Inverse Yield Weighting}
 \label{alg:selection}
 \begin{algorithmic}[1]
-\Require Universe $\mathcal{U}$, date $t$, parameters $\kappa$, $K$
+\Require Universe $\mathcal{U}$, date $t$, parameters $\kappa$, $K$, $\lambda$
 \Ensure Selected stocks $\mathcal{S}_t$ with weights $\{w_{i,t}\}$
 
-\State \textbf{Step 1: Absolute Momentum Filter}
-\State $\mathcal{A}_t \gets \{i \in \mathcal{U} : \text{MOM}_{i,t} > 0\}$
+\State \textbf{Step 1: Momentum-Strength Filter}
+\State $\mathcal{Q}_t \gets \{i \in \mathcal{U} : \text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}\}$
+\Comment{Implies MOM $> 0$}
 
-\State \textbf{Step 2: Quality Filter}
-\State $\mathcal{Q}_t \gets \{i \in \mathcal{A}_t : \text{MOM}_{i,t} > \kappa \cdot \sigma_{i,t}\}$
-
-\State \textbf{Step 3: Relative Momentum Ranking}
+\State \textbf{Step 2: Relative Momentum Ranking}
 \State Rank stocks in $\mathcal{Q}_t$ by $\text{MOM}_{i,t}$ in descending order
 
-\State \textbf{Step 4: Top-$K$ Selection}
+\State \textbf{Step 3: Top-$K$ Selection}
 \State $\mathcal{S}_t \gets$ top $K$ stocks from ranked list
 
-\State \textbf{Step 5: Inverse Yield Weighting}
+\State \textbf{Step 4: Inverse Yield Weighting (Normalized)}
 \For{$i \in \mathcal{S}_t$}
     \State $\omega_i \gets 1 / \tilde{Y}_{i,t}$
 \EndFor
-\State $w_{i,t} \gets \omega_i / \sum_{j \in \mathcal{S}_t} \omega_j$ for all $i \in \mathcal{S}_t$
+\State $w^{(1)}_{i,t} \gets \omega_i / \sum_{j \in \mathcal{S}_t} \omega_j$ \Comment{Normalized weights, sum to 1}
+
+\State \textbf{Step 5: Apply Leverage}
+\State $w_{i,t} \gets \lambda \cdot w^{(1)}_{i,t}$ \Comment{Gross exposure weights, sum to $\lambda$}
 
 \State \Return $\mathcal{S}_t$, $\{w_{i,t}\}$
 \end{algorithmic}
@@ -224,46 +232,52 @@ The dual momentum selection process proceeds as follows:
 
 \subsection{Inverse Yield Weighting: Economic Rationale}
 
-The inverse yield weighting scheme is motivated by the following proposition:
+The inverse yield weighting scheme rests on the following economic intuition:
 
-\begin{proposition}[Yield Compression as Momentum Confirmation]
-Within a universe of dividend-paying stocks, lower dividend yield indicates stronger recent price momentum, holding dividend policy constant.
-\end{proposition}
+\begin{remark}[Yield Compression and Price Appreciation]
+Within a universe of dividend-paying stocks, dividend policy tends to be relatively stable in the short term (dividends are ``sticky''). When a stock's price appreciates faster than its dividends grow, the dividend yield compresses. Thus, \textbf{lower yield within the dividend-paying universe is associated with recent price appreciation}, providing a signal correlated with---but distinct from---the momentum signal.
+\end{remark}
 
-\begin{proof}
-Consider two stocks $i$ and $j$ with identical annual dividends $D$ but different prices $P_i > P_j$. Their yields are:
-\[
-Y_i = \frac{D}{P_i} < \frac{D}{P_j} = Y_j
-\]
-The higher price $P_i$ implies greater price appreciation, hence stronger momentum. Thus, lower yield serves as a confirmation of momentum within the dividend-paying universe.
-\end{proof}
+This is \textbf{not} a formal mathematical theorem; it is an economic intuition that depends on:
+\begin{enumerate}
+    \item Dividend stickiness (dividends adjust slowly relative to prices)
+    \item The universe being restricted to established dividend payers
+    \item No extreme cases where low yield reflects fundamental deterioration
+\end{enumerate}
 
 The inverse yield weight for stock $i$ is:
 
 \begin{equation}
-w_{i,t} = \lambda \cdot \frac{1/\tilde{Y}_{i,t}}{\sum_{j \in \mathcal{S}_t} 1/\tilde{Y}_{j,t}}
+w^{(1)}_{i,t} = \frac{1/\tilde{Y}_{i,t}}{\sum_{j \in \mathcal{S}_t} 1/\tilde{Y}_{j,t}}
 \label{eq:inverse_yield_weight}
 \end{equation}
 
-where $\lambda$ represents the leverage factor (in our case, $\lambda = 2.0$).
+With leverage $\lambda$, gross exposure weights become:
+
+\begin{equation}
+w_{i,t} = \lambda \cdot w^{(1)}_{i,t}
+\label{eq:leveraged_weight}
+\end{equation}
+
+For $\lambda = 2.0$, gross weights sum to 2.0, meaning total exposure is 200\% of equity.
 
 \subsection{Leverage Implementation}
 
-We implement leverage by borrowing at the risk-free rate to achieve $\lambda = 2.0$ times exposure. The margin debt at time $t$ is:
+We implement leverage by borrowing at a rate proxied by the 10-Year Treasury yield. The margin debt at time $t$ is:
 
 \begin{equation}
 M_t = (\lambda - 1) \cdot E_t
 \label{eq:margin_debt}
 \end{equation}
 
-where $E_t$ is the portfolio equity. Daily borrowing cost is:
+where $E_t$ is portfolio equity. Daily borrowing cost is:
 
 \begin{equation}
 C_t^{\text{borrow}} = M_t \cdot \frac{r_f^{(t)}}{252}
 \label{eq:borrowing_cost}
 \end{equation}
 
-where $r_f^{(t)}$ is the annualized risk-free rate (proxied by the 10-Year Treasury yield).
+\textbf{Important caveat}: Using the 10-Year Treasury yield as the borrowing rate likely \textbf{understates} actual margin borrowing costs, which typically exceed short-term rates. This is a simplifying assumption that favors the strategy.
 
 \subsection{Transaction Costs}
 
@@ -274,87 +288,60 @@ C_t^{\text{slip}} = \delta \cdot |V_t^{\text{trade}}|
 \label{eq:slippage}
 \end{equation}
 
-where $\delta$ represents total execution costs (bid-ask spread plus market impact) and $V_t^{\text{trade}}$ is the dollar volume traded at rebalance.
+where $\delta$ represents execution cost per dollar traded.
 
 \subsubsection{Slippage Rate Justification}
 
-Our baseline slippage assumption of $\delta = 0.0002$ (2 basis points) is informed by empirical research on execution costs for large-cap equities. According to NASDAQ Economic Research \citep{mackintosh2021spreads}, bid-ask spreads for S\&P 500 constituents exhibit a convex relationship with portfolio breadth that plateaus at approximately 4.5 basis points:
+Our baseline assumption of $\delta = 0.0002$ (2 basis points) is informed by NASDAQ Economic Research \citep{mackintosh2021spreads}, which documents bid-ask spreads for S\&P 500 constituents:
 
 \begin{itemize}
-    \item \textbf{Top 10 stocks} (AAPL, MSFT, etc.): $\sim$2.5 bps average spread
+    \item \textbf{Top 10 stocks}: $\sim$2.5 bps average spread
     \item \textbf{Top 100 stocks}: $\sim$3.7 bps average spread
     \item \textbf{Full S\&P 500}: $\sim$4.5 bps average spread (plateau)
-    \item \textbf{Small-cap stocks}: 36--50+ bps (significantly wider)
 \end{itemize}
 
-Our universe of 132 large-cap dividend stocks closely mirrors the top-100 S\&P 500 constituents in terms of liquidity characteristics. Given that:
+Our universe of 132 large-cap dividend stocks has liquidity characteristics similar to the top-100 S\&P 500 constituents. The 2 bps assumption represents approximately the half-spread for liquid stocks under normal conditions.
 
-\begin{enumerate}
-    \item The half-spread (one-way cost) for our universe approximates 1.5--2.0 bps
-    \item We trade liquid securities with ADV $>$ \$10 million
-    \item Position sizes are small relative to daily volume
-    \item We employ patient execution (not requiring immediate fills)
-\end{enumerate}
-
-The 2 bps assumption represents a reasonable baseline for normal market conditions. However, we conduct sensitivity analysis across a range of 2--6 bps to account for:
-
+\textbf{Caveats}: Actual execution costs may exceed this assumption due to:
 \begin{itemize}
-    \item Volatility-dependent spread widening (spreads spiked to $\sim$20 bps during March 2020)
-    \item Market impact for larger portfolios
-    \item Execution timing constraints
+    \item Market impact for larger orders
+    \item Spread widening during volatility (spreads spiked to $\sim$20 bps during March 2020)
+    \item Timing constraints requiring aggressive execution
 \end{itemize}
 
-\subsection{Portfolio Equity Evolution}
+\subsection{Execution Assumptions}
 
-Let $\Pi_t$ denote the portfolio value at time $t$. Between rebalances, equity evolves as:
-
-\begin{equation}
-E_t = \sum_{i \in \mathcal{S}} n_{i,t} \cdot P_{i,t} - M_t + \text{Cash}_t
-\label{eq:equity}
-\end{equation}
-
-where $n_{i,t}$ is the number of shares held in stock $i$.
+To ensure no look-ahead bias:
+\begin{itemize}
+    \item Signals are computed using data available at market close on day $t-1$
+    \item Trades are executed at the close of day $t$ (next-day execution)
+    \item Dividends and ex-dividend dates are properly lagged
+\end{itemize}
 
 \subsection{Risk Metrics}
 
-We evaluate strategy performance using standard risk-adjusted metrics:
+We report the following metrics:
 
-\textbf{Sharpe Ratio:}
+\textbf{Annualized Return (Arithmetic Mean)}:
 \begin{equation}
-\text{SR} = \frac{\E[r_p - r_f]}{\sigma_p} \approx \frac{\bar{r}_p - \bar{r}_f}{s_p} \cdot \sqrt{252}
+\bar{r}_{\text{ann}} = \bar{r}_{\text{daily}} \times 252
+\end{equation}
+
+\textbf{CAGR (Geometric)}:
+\begin{equation}
+r_{\text{CAGR}} = \left(\frac{E_T}{E_0}\right)^{1/T} - 1
+\end{equation}
+
+\textbf{Sharpe Ratio}:
+\begin{equation}
+\text{SR} = \frac{\bar{r}_{\text{ann}} - r_f}{\sigma_{\text{ann}}}
 \label{eq:sharpe}
 \end{equation}
 
-\textbf{Sortino Ratio:}
-\begin{equation}
-\text{Sortino} = \frac{\E[r_p - r_f]}{\sigma_{\text{down}}}
-\label{eq:sortino}
-\end{equation}
-
-where $\sigma_{\text{down}} = \sqrt{\E[\min(r_p - r_f, 0)^2]}$ is the downside deviation.
-
-\textbf{Maximum Drawdown:}
+\textbf{Maximum Drawdown}:
 \begin{equation}
 \text{MDD} = \max_{t} \left( \frac{\max_{s \leq t} E_s - E_t}{\max_{s \leq t} E_s} \right)
 \label{eq:max_drawdown}
-\end{equation}
-
-\textbf{Calmar Ratio:}
-\begin{equation}
-\text{Calmar} = \frac{\text{Annualized Return}}{|\text{MDD}|}
-\label{eq:calmar}
-\end{equation}
-
-\textbf{Value at Risk (95\%):}
-\begin{equation}
-\text{VaR}_{0.95} = -\text{Quantile}_{0.05}(r_p)
-\label{eq:var}
-\end{equation}
-
-\textbf{Conditional Value at Risk (Expected Shortfall):}
-\begin{equation}
-\text{CVaR}_{0.95} = -\E[r_p | r_p \leq -\text{VaR}_{0.95}]
-\label{eq:cvar}
 \end{equation}
 
 %==============================================================================
@@ -364,64 +351,59 @@ where $\sigma_{\text{down}} = \sqrt{\E[\min(r_p - r_f, 0)^2]}$ is the downside d
 
 \subsection{Stock Universe}
 
-Our investment universe consists of 132 U.S. large-cap stocks satisfying the following criteria:
+Our investment universe consists of 132 U.S. large-cap stocks satisfying:
 
 \begin{enumerate}
     \item \textbf{Market Capitalization}: Greater than \$5 billion
     \item \textbf{Dividend History}: At least 5 consecutive years of dividend payments
     \item \textbf{Liquidity}: Average daily trading volume exceeding \$10 million
-    \item \textbf{Exclusions}: REITs, MLPs, closed-end funds, and special dividend-only securities
+    \item \textbf{Exclusions}: REITs, MLPs, closed-end funds
 \end{enumerate}
 
-Table \ref{tab:universe_sectors} presents the sector distribution of the universe.
-
-\begin{table}[H]
-\centering
-\caption{Universe Sector Distribution}
-\label{tab:universe_sectors}
-\begin{tabular}{lcc}
-\toprule
-\textbf{Sector} & \textbf{Count} & \textbf{Percentage} \\
-\midrule
-Financials & 21 & 15.9\% \\
-Industrials & 16 & 12.1\% \\
-Consumer Staples & 14 & 10.6\% \\
-Healthcare & 13 & 9.8\% \\
-Information Technology & 11 & 8.3\% \\
-Energy & 10 & 7.6\% \\
-Utilities & 10 & 7.6\% \\
-Consumer Discretionary & 9 & 6.8\% \\
-Materials & 8 & 6.1\% \\
-Communication Services & 3 & 2.3\% \\
-Other & 17 & 12.9\% \\
-\midrule
-\textbf{Total} & \textbf{132} & \textbf{100.0\%} \\
-\bottomrule
-\end{tabular}
-\end{table}
+\textbf{Critical limitation}: The universe is constructed from \textbf{current (2025) dividend payers} and applied retrospectively. This introduces \textbf{survivorship bias}: stocks that were dividend payers in 2020 but subsequently cut dividends or delisted are excluded from the backtest. This likely \textbf{overstates} historical performance.
 
 \subsection{Data Sources}
 
-Price and dividend data are sourced from standard financial data providers with the following characteristics:
-
 \begin{itemize}
-    \item \textbf{Price Data}: Daily OHLCV (Open, High, Low, Close, Volume) adjusted for splits and dividends
+    \item \textbf{Price Data}: Daily OHLCV adjusted for splits and dividends (for returns)
+    \item \textbf{Raw Prices}: Unadjusted closes (for yield calculation)
     \item \textbf{Dividend Data}: Ex-dividend dates and per-share amounts
-    \item \textbf{Reference Data}: S\&P 500 (SPY) for benchmark comparison; 10-Year Treasury (TNX) for risk-free rate
-    \item \textbf{History}: 15 years of historical data to ensure sufficient lookback
+    \item \textbf{Benchmark}: S\&P 500 (SPY) total return
+    \item \textbf{Risk-Free Rate}: 10-Year Treasury (TNX)
 \end{itemize}
 
-\subsection{Backtest Period}
+\subsection{Backtest Period Selection}
 
-The strategy is backtested from March 19, 2020 to November 28, 2025, comprising:
+The backtest spans \textbf{March 19, 2020 to November 28, 2025} (1,433 trading days, 5.69 years).
+
+\subsubsection{Rationale for Period Selection}
+
+We selected this period for the following reasons:
+
+\begin{enumerate}
+    \item \textbf{Recency}: More recent data is generally more relevant for forward-looking inference, as market microstructure, participant behavior, and factor dynamics evolve over time.
+
+    \item \textbf{Data Quality}: Modern dividend and price data is more reliable and consistently recorded.
+
+    \item \textbf{Execution Realism}: Transaction costs, liquidity, and execution quality in the 2020s better reflect current implementability than data from earlier decades.
+\end{enumerate}
+
+\subsubsection{Acknowledged Bias}
+
+The period beginning March 2020 (near the COVID-19 market bottom) represents one of the \textbf{strongest momentum environments in recent history}:
 
 \begin{itemize}
-    \item 1,433 trading days
-    \item 5.69 years
-    \item 149 rebalancing events (bi-weekly)
+    \item Extended bull market with limited corrections
+    \item Strong sector momentum (technology, healthcare)
+    \item Historically low interest rates (favorable for leveraged strategies)
 \end{itemize}
 
-\textbf{Important Note}: The backtest period begins near the COVID-19 market bottom, representing a generally favorable environment for momentum strategies. This timing bias is discussed in Section \ref{sec:discussion}.
+The strategy's performance during this period \textbf{cannot} be extrapolated to different regimes, particularly:
+\begin{itemize}
+    \item Extended bear markets (2008--2009)
+    \item Momentum crash episodes (March 2009 reversal)
+    \item Prolonged sideways/range-bound markets
+\end{itemize}
 
 %==============================================================================
 \section{Empirical Results}
@@ -430,36 +412,48 @@ The strategy is backtested from March 19, 2020 to November 28, 2025, comprising:
 
 \subsection{Performance Summary}
 
-Table \ref{tab:performance} presents the key performance metrics for the 2$\times$ leveraged strategy.
+Table \ref{tab:performance} presents key metrics for both leveraged (2$\times$) and unleveraged (1$\times$) versions.
 
 \begin{table}[H]
 \centering
-\caption{Strategy Performance Summary (2$\times$ Leverage)}
+\caption{Strategy Performance Summary}
 \label{tab:performance}
-\begin{tabular}{lrl}
+\begin{tabular}{lrrl}
 \toprule
-\textbf{Metric} & \textbf{Value} & \textbf{Interpretation} \\
+\textbf{Metric} & \textbf{2$\times$ Leverage} & \textbf{1$\times$ (No Leverage)} & \textbf{Notes} \\
 \midrule
-Total Return & 1,942.77\% & 19.4$\times$ initial capital \\
-Annualized Return & 64.56\% & Geometric mean annual return \\
-Annualized Volatility & 47.85\% & Standard deviation of returns \\
-Sharpe Ratio & 1.31 & Risk-adjusted excess return \\
-Sortino Ratio & 1.96 & Downside risk-adjusted return \\
-Calmar Ratio & 1.81 & Return per unit drawdown \\
-Maximum Drawdown & $-35.70\%$ & Largest peak-to-trough decline \\
+Total Return (Geometric) & 1,942.77\% & 451.02\% & Final/Initial $-$ 1 \\
+CAGR & 69.9\%$^*$ & 33.5\%$^*$ & Geometric annualized \\
+Annual Return (Arithmetic) & 64.56\% & 32.88\% & Mean daily $\times$ 252 \\
+Annual Volatility & 47.85\% & 23.82\% & Std dev $\times \sqrt{252}$ \\
+Sharpe Ratio & 1.31 & 1.30 & (Arith. return $-$ $r_f$) / Vol \\
+Sortino Ratio & 1.96 & 1.94 & Downside deviation \\
+Calmar Ratio & 1.81 & 1.77 & CAGR / $|$MDD$|$ \\
+Max Drawdown & $-35.70\%$ & $-18.59\%$ & Peak-to-trough \\
 \bottomrule
+\multicolumn{4}{l}{\footnotesize $^*$Calculated as $(1+\text{Total Return})^{1/5.69}-1$}
 \end{tabular}
 \end{table}
 
-The Sharpe ratio of 1.31 exceeds the threshold of 1.0 typically considered indicative of a strong strategy. The Sortino ratio of 1.96 suggests the strategy experiences less downside volatility relative to total volatility, consistent with the momentum timing mechanism.
+\textbf{Key observation}: The Sharpe ratios are nearly identical (1.31 vs 1.30), confirming that leverage amplifies returns but does not improve risk-adjusted performance. The maximum drawdown scales approximately linearly with leverage ($35.7\% \approx 2 \times 18.6\%$).
+
+\subsection{Return Calculation Clarification}
+
+We report two annualized return measures:
+
+\begin{enumerate}
+    \item \textbf{Arithmetic Mean} ($\bar{r} \times 252$): The average daily return scaled to annual. This is used in Sharpe ratio calculations and equals 64.56\% (2$\times$) and 32.88\% (1$\times$).
+
+    \item \textbf{CAGR} (Geometric): The compound annual growth rate implied by total return. For 2$\times$ leverage: $(1 + 19.4277)^{1/5.69} - 1 \approx 69.9\%$.
+\end{enumerate}
+
+The difference arises because arithmetic mean exceeds geometric mean for volatile return series (Jensen's inequality).
 
 \subsection{Trade Statistics}
 
-Table \ref{tab:trade_stats} summarizes the trading activity and outcomes.
-
 \begin{table}[H]
 \centering
-\caption{Trade Statistics}
+\caption{Trade Statistics (2$\times$ Leverage)}
 \label{tab:trade_stats}
 \begin{tabular}{lr}
 \toprule
@@ -472,74 +466,36 @@ Profit Factor & 1.45 \\
 Avg Trade P\&L & \$12,245 \\
 Avg Winner & \$68,946 \\
 Avg Loser & $-$\$63,255 \\
-Best Trade & \$1,507,516 \\
-Worst Trade & $-$\$728,962 \\
 Avg Holding Period & 14.0 days \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The win rate of 57.1\% combined with a profit factor of 1.45 indicates that the strategy generates more profit from winning trades than it loses on losing trades. The average winner (\$68,946) exceeds the average loser (\$63,255) in absolute terms, contributing to positive expectancy.
-
 \subsection{Cost Attribution}
 
-A critical component of realistic backtesting is proper cost modeling. Table \ref{tab:costs} details the cost attribution.
-
 \begin{table}[H]
 \centering
-\caption{Cost Attribution Analysis}
+\caption{Cost Attribution (2$\times$ Leverage)}
 \label{tab:costs}
-\begin{tabular}{lrr}
-\toprule
-\textbf{Cost Component} & \textbf{Total} & \textbf{Annualized} \\
-\midrule
-Total Turnover & \$4,904,532,329 & --- \\
-Turnover Ratio & 4,904.5$\times$ & 862.5$\times$/year \\
-\midrule
-Slippage (2 bps) & \$980,906 & 17.25\%/year \\
-Borrowing Cost (TNX-based) & \$1,538,793 & 27.06\%/year \\
-\midrule
-\textbf{Total Costs} & \textbf{\$2,027,477} & --- \\
-\midrule
-Gross P\&L & \$21,500,457 & --- \\
-Net P\&L & \$19,472,980 & --- \\
-Cost Impact & 9.43\% of gross & --- \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The strategy exhibits high turnover due to bi-weekly rebalancing across a 12-position portfolio. The 2 basis point slippage assumption is relatively conservative; actual implementation may experience higher costs, particularly for larger portfolios or during volatile periods.
-
-\subsection{Risk Analysis}
-
-Table \ref{tab:risk} presents detailed risk metrics.
-
-\begin{table}[H]
-\centering
-\caption{Risk Metrics}
-\label{tab:risk}
 \begin{tabular}{lr}
 \toprule
-\textbf{Metric} & \textbf{Value} \\
+\textbf{Component} & \textbf{Amount} \\
 \midrule
-Daily VaR (95\%) & $-4.61\%$ \\
-Daily CVaR (95\%) & $-6.49\%$ \\
-Return Skewness & 0.15 \\
-Return Kurtosis & 3.12 \\
-Longest Drawdown & 176 days \\
+Total Turnover & \$4,904,532,329 \\
+Turnover Ratio & 4,904.5$\times$ initial capital \\
 \midrule
-\multicolumn{2}{l}{\textit{Drawdown Period:}} \\
-Start & Feb 19, 2025 \\
-Trough & Apr 8, 2025 \\
+Slippage Cost (2 bps) & \$488,684 \\
+Borrowing Cost & \$1,538,793 \\
+\textbf{Total Costs} & \textbf{\$2,027,477} \\
+\midrule
+Gross P\&L & \$21,500,457 \\
+Net P\&L & \$19,472,980 \\
+Cost Impact & 9.43\% of gross P\&L \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The positive skewness (0.15) indicates a slight right tail, favorable for investors. The kurtosis of 3.12 is close to the normal distribution value of 3, suggesting return distributions are approximately normal with minimal fat tails.
-
 \subsection{Benchmark Comparison}
-
-Table \ref{tab:benchmark} compares strategy performance against the S\&P 500 (SPY).
 
 \begin{table}[H]
 \centering
@@ -550,298 +506,231 @@ Table \ref{tab:benchmark} compares strategy performance against the S\&P 500 (SP
 \textbf{Metric} & \textbf{Value} & \textbf{Interpretation} \\
 \midrule
 Overall Beta & 1.696 & Market exposure \\
-Upside Beta & 1.490 & Exposure during up markets \\
-Downside Beta & 1.677 & Exposure during down markets \\
-Beta Asymmetry & $-0.187$ & Upside $-$ Downside \\
+Upside Beta & 1.490 & Exposure in up markets \\
+Downside Beta & 1.677 & Exposure in down markets \\
+Beta Asymmetry & $-0.187$ & Downside $>$ Upside (unfavorable) \\
 \midrule
-Upside Capture & 196.0\% & Return capture in up markets \\
-Downside Capture & 169.8\% & Return capture in down markets \\
-Capture Ratio & 1.15$\times$ & Upside / Downside capture \\
+Upside Capture & 196.0\% & vs. 100\% for benchmark \\
+Downside Capture & 169.8\% & vs. 100\% for benchmark \\
+Capture Ratio & 1.15$\times$ & Upside / Downside \\
 \midrule
-Correlation & 0.666 & Linear correlation with SPY \\
-Alpha (annualized) & 31.79\% & Excess return above CAPM \\
-Information Ratio & 1.17 & Alpha per unit tracking error \\
-Tracking Error & 38.0\% & Standard deviation vs. benchmark \\
+Correlation & 0.666 & With SPY \\
+Tracking Error & 38.0\% & Ann. std of excess returns \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The annualized alpha of 31.79\% indicates substantial outperformance beyond what would be expected from market exposure alone. The capture ratio of 1.15$\times$ demonstrates that the strategy captures more upside (196.0\%) than downside (169.8\%) relative to the benchmark, a desirable asymmetry.
-
-\subsection{Monthly Returns}
-
-Table \ref{tab:monthly} summarizes monthly return characteristics.
-
-\begin{table}[H]
-\centering
-\caption{Monthly Return Statistics}
-\label{tab:monthly}
-\begin{tabular}{lr}
-\toprule
-\textbf{Metric} & \textbf{Value} \\
-\midrule
-Best Month & +38.4\% \\
-Worst Month & $-23.7\%$ \\
-Positive Months & 64.7\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\subsection{Symbol-Level Attribution}
-
-Table \ref{tab:attribution} presents the top and bottom contributing securities.
-
-\begin{table}[H]
-\centering
-\caption{Profit Attribution by Symbol}
-\label{tab:attribution}
-\begin{tabular}{lrrrr}
-\toprule
-\textbf{Symbol} & \textbf{Total P\&L} & \textbf{Trades} & \textbf{Avg P\&L} & \textbf{Avg Return} \\
-\midrule
-\multicolumn{5}{l}{\textit{Top Contributors:}} \\
-GE & \$4,837,709 & 78 & \$62,022 & 1.6\% \\
-AVGO & \$2,956,433 & 66 & \$44,794 & 2.3\% \\
-OXY & \$2,021,125 & 39 & \$51,824 & 2.5\% \\
-LLY & \$2,016,901 & 65 & \$31,029 & 1.3\% \\
-ORCL & \$1,333,382 & 38 & \$35,089 & 1.2\% \\
-\midrule
-\multicolumn{5}{l}{\textit{Bottom Contributors:}} \\
-JPM & $-$\$240,225 & 17 & $-$\$14,131 & $-1.0\%$ \\
-ALB & $-$\$323,225 & 34 & $-$\$9,507 & 2.0\% \\
-QCOM & $-$\$331,303 & 22 & $-$\$15,059 & $-0.2\%$ \\
-BRO & $-$\$348,312 & 11 & $-$\$31,665 & $-0.3\%$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The top contributors (GE, AVGO, OXY, LLY, ORCL) represent securities that exhibited strong momentum persistence during the backtest period. The bottom contributors illustrate cases where momentum signals failed, often during sector rotations or mean-reversion episodes.
-
-\subsection{Slippage Sensitivity Analysis}
-
-Given the strategy's high turnover (4,904.5$\times$ initial capital over 5.69 years), transaction costs represent a material consideration for implementation. We conduct sensitivity analysis across slippage assumptions ranging from 2 to 6 basis points to assess performance robustness.
-
-Table \ref{tab:slippage_sensitivity} presents key metrics under different slippage scenarios.
-
-\begin{table}[H]
-\centering
-\caption{Slippage Sensitivity Analysis}
-\label{tab:slippage_sensitivity}
-\begin{tabular}{lrrrrr}
-\toprule
-\textbf{Metric} & \textbf{2 bps} & \textbf{3 bps} & \textbf{4 bps} & \textbf{5 bps} & \textbf{6 bps} \\
-\midrule
-Total Return & 1,942.8\% & 1,698.4\% & 1,482.1\% & 1,290.3\% & 1,120.0\% \\
-Annual Return & 64.56\% & 59.91\% & 55.47\% & 51.23\% & 47.17\% \\
-Sharpe Ratio & 1.31 & 1.22 & 1.13 & 1.05 & 0.96 \\
-Slippage Cost & \$0.98M & \$1.47M & \$1.96M & \$2.45M & \$2.94M \\
-Cost \% of Gross & 4.6\% & 6.8\% & 9.1\% & 11.4\% & 13.7\% \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The analysis reveals several important insights:
-
-\begin{enumerate}
-    \item \textbf{Strategy viability persists}: Even at 6 bps slippage---well above the 4.5 bps plateau documented for S\&P 500 constituents \citep{mackintosh2021spreads}---the strategy maintains a Sharpe ratio of 0.96 and annualized returns of 47.17\%.
-
-    \item \textbf{Linear cost scaling}: Each additional basis point of slippage reduces annual returns by approximately 4--5 percentage points, reflecting the high turnover nature of the strategy.
-
-    \item \textbf{Breakeven threshold}: The strategy remains profitable (positive Sharpe ratio) up to approximately 8--9 bps of slippage, providing substantial margin for execution imperfection.
-\end{enumerate}
-
-Figure \ref{fig:slippage_sensitivity} visualizes the relationship between slippage assumptions and strategy performance.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/slippage_sensitivity.png}
-\caption{Slippage Sensitivity Analysis. Performance metrics as a function of slippage rate assumption. The baseline 2 bps assumption (dashed line) represents normal market conditions for liquid large-cap stocks.}
-\label{fig:slippage_sensitivity}
-\end{figure}
-
-\textbf{Practical Implications}: For institutional implementation with larger position sizes, a more conservative 4--5 bps assumption may be appropriate, particularly during periods of elevated volatility. The strategy's strong baseline performance provides a cushion against higher-than-expected execution costs while maintaining attractive risk-adjusted returns.
+\textbf{Note on beta asymmetry}: The downside beta (1.677) exceeds upside beta (1.490), indicating the strategy has \textbf{greater exposure during down markets}---an unfavorable characteristic often masked by the positive capture ratio. The capture ratio favors the strategy because absolute returns were higher during up periods in this sample.
 
 \subsection{Visual Analysis}
 
 \subsubsection{Equity Curve and Drawdown}
 
-Figure \ref{fig:equity_drawdown} displays the portfolio equity curve alongside the drawdown profile. The strategy demonstrates strong compounding with periodic drawdowns, the most significant occurring in early 2025.
+Figure \ref{fig:equity_drawdown} displays the portfolio equity curve and drawdown profile.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/equity_drawdown.png}
-\caption{Portfolio Equity Curve and Drawdown Analysis. Top panel: Portfolio value over time on a logarithmic scale. Bottom panel: Drawdown percentage from peak equity. Initial capital: \$1,000,000.}
+\caption{Portfolio Equity Curve and Drawdown (2$\times$ Leverage). The strategy compounds strongly from the March 2020 starting point, with the largest drawdown ($-35.7\%$) occurring in early 2025.}
 \label{fig:equity_drawdown}
 \end{figure}
 
-\subsubsection{Monthly Returns Heatmap}
+\subsubsection{Monthly Returns}
 
-Figure \ref{fig:monthly_heatmap} presents a calendar heatmap of monthly returns, illustrating the strategy's temporal performance patterns.
+Figure \ref{fig:monthly_heatmap} presents monthly returns in calendar format.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/monthly_returns_heatmap.png}
-\caption{Monthly Returns Heatmap. Color intensity indicates return magnitude: green for positive, red for negative returns.}
+\caption{Monthly Returns Heatmap. Best month: +38.4\%; worst month: $-23.7\%$; positive months: 64.7\%.}
 \label{fig:monthly_heatmap}
 \end{figure}
 
 \subsubsection{Rolling Sharpe Ratio}
 
-Figure \ref{fig:rolling_sharpe} shows the 252-day rolling Sharpe ratio, providing insight into the stability of risk-adjusted performance over time.
+Figure \ref{fig:rolling_sharpe} shows the 252-day rolling Sharpe ratio.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/rolling_sharpe.png}
-\caption{Rolling 252-Day Sharpe Ratio. The dashed line indicates the overall Sharpe ratio of 1.31.}
+\caption{Rolling 252-Day Sharpe Ratio. Performance varies substantially over time, with periods of Sharpe $>$ 2 and periods near zero.}
 \label{fig:rolling_sharpe}
 \end{figure}
 
 \subsubsection{Benchmark Comparison}
 
-Figure \ref{fig:benchmark_comparison} compares the strategy's cumulative performance against the S\&P 500.
+Figure \ref{fig:benchmark_comparison} compares cumulative returns vs. S\&P 500.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/benchmark_comparison.png}
-\caption{Strategy Performance vs. S\&P 500 Benchmark. Both series are indexed to 100 at the start of the backtest period.}
+\caption{Strategy vs. S\&P 500. The strategy significantly outperforms the benchmark, though with higher volatility and drawdowns.}
 \label{fig:benchmark_comparison}
 \end{figure}
 
 \subsubsection{Trade Analysis}
 
-Figure \ref{fig:trade_analysis} provides detailed trade-level analysis including win rate, profit factor, and return distributions.
+Figure \ref{fig:trade_analysis} provides trade-level statistics.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/trade_analysis.png}
-\caption{Trade Analysis Dashboard. Includes win/loss distribution, profit factor breakdown, and trade return histogram.}
+\caption{Trade Analysis. Distribution of trade returns, win/loss breakdown, and P\&L distribution.}
 \label{fig:trade_analysis}
 \end{figure}
+
+\subsection{Slippage Sensitivity}
+
+Figure \ref{fig:slippage_sensitivity} shows how performance varies with slippage assumptions. Given the high turnover, transaction costs materially impact returns.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/slippage_sensitivity.png}
+\caption{Slippage Sensitivity Analysis. Performance degrades approximately linearly with slippage; at 4.5 bps (S\&P 500 average spread), the strategy remains profitable but with meaningfully reduced Sharpe ratio.}
+\label{fig:slippage_sensitivity}
+\end{figure}
+
+%==============================================================================
+\section{Sources of Alpha}
+\label{sec:alpha}
+%==============================================================================
+
+We hypothesize several potential sources of the strategy's outperformance:
+
+\subsection{Momentum Premium}
+
+The momentum anomaly is well-documented and persistent \citep{jegadeesh1993returns}. By selecting stocks with strong 12-month returns, we capture the cross-sectional momentum premium.
+
+\subsection{Implicit Quality Screen}
+
+The dividend-paying universe excludes:
+\begin{itemize}
+    \item Unprofitable companies (cannot sustain dividends)
+    \item Highly leveraged firms (prioritize debt service over dividends)
+    \item Young/speculative companies (no dividend history)
+\end{itemize}
+
+This provides an implicit quality tilt without explicit quality factor construction.
+
+\subsection{Momentum-Strength Filter}
+
+Requiring $\text{MOM} > 0.75 \times \sigma$ filters out:
+\begin{itemize}
+    \item Low-conviction momentum signals dominated by noise
+    \item Mean-reverting stocks that happen to have positive 12-month returns
+\end{itemize}
+
+\subsection{Inverse Yield Weighting}
+
+The inverse yield weighting potentially:
+\begin{itemize}
+    \item Amplifies exposure to stocks with strongest recent appreciation
+    \item Introduces a growth/momentum tilt within the dividend universe
+    \item Avoids ``yield traps'' (distressed stocks with unsustainably high yields)
+\end{itemize}
+
+\textbf{Caveat}: These are \textit{hypotheses} about alpha sources, not proven mechanisms. Factor attribution against standard models (Fama-French, momentum, quality) would be needed to isolate true alpha from factor exposures.
+
+\subsection{Period-Specific Factors}
+
+The 2020--2025 period exhibited:
+\begin{itemize}
+    \item Strong performance of growth/low-yield stocks
+    \item Sustained momentum in technology and healthcare
+    \item Low interest rates (reducing borrowing costs for leverage)
+\end{itemize}
+
+Much of the apparent alpha may be period-specific rather than a durable edge.
 
 %==============================================================================
 \section{Discussion}
 \label{sec:discussion}
 %==============================================================================
 
-\subsection{Strategy Strengths}
-
-The dual momentum strategy with inverse yield weighting demonstrates several notable strengths:
+\subsection{Strengths}
 
 \begin{enumerate}
-    \item \textbf{Risk-Adjusted Performance}: A Sharpe ratio of 1.31 and Sortino ratio of 1.96 indicate strong risk-adjusted returns, with particularly favorable downside risk characteristics.
+    \item \textbf{Consistent Risk-Adjusted Performance}: The Sharpe ratio of $\sim$1.3 is strong, and importantly, nearly identical at 1$\times$ and 2$\times$ leverage.
 
-    \item \textbf{Alpha Generation}: The annualized alpha of 31.79\% represents substantial outperformance beyond market exposure, suggesting genuine stock selection skill embedded in the systematic process.
+    \item \textbf{Systematic Implementation}: All rules are mathematically specified and mechanically implementable.
 
-    \item \textbf{Favorable Capture Asymmetry}: The upside capture ratio of 1.15$\times$ indicates the strategy participates more in market rallies than declines, a desirable characteristic for long-only strategies.
-
-    \item \textbf{Transparency}: All components are mathematically specified and can be implemented systematically without discretionary judgment.
+    \item \textbf{Reasonable Turnover Costs}: At baseline 2 bps slippage, costs consume 9.4\% of gross P\&L.
 \end{enumerate}
 
-\subsection{Limitations and Caveats}
-
-Several important limitations must be acknowledged:
+\subsection{Limitations}
 
 \subsubsection{Favorable Backtest Period}
 
-The backtest commences March 19, 2020, near the COVID-19 market bottom. The subsequent period (2020-2025) represents one of the strongest momentum environments in recent history, characterized by:
-
+The March 2020 start date is near the COVID-19 market bottom---one of the best entry points in market history for momentum strategies. Performance during:
 \begin{itemize}
-    \item Extended bull market with limited corrections
-    \item Strong sector momentum in technology and healthcare
-    \item Low interest rates supporting equity valuations
+    \item 2008--2009 financial crisis
+    \item 2000--2002 dot-com bust
+    \item Sideways/choppy markets
 \end{itemize}
-
-These conditions are favorable for momentum strategies and may not persist.
-
-\subsubsection{Limited Adverse Regime Testing}
-
-The backtest does not include:
-\begin{itemize}
-    \item Extended bear markets (e.g., 2008-2009 financial crisis)
-    \item Prolonged sideways/range-bound markets
-    \item Momentum crash episodes (e.g., 2009 momentum reversal)
-\end{itemize}
-
-Momentum strategies historically experience significant drawdowns during sharp market reversals, which are underrepresented in our sample.
-
-\subsubsection{High Turnover}
-
-The strategy's turnover ratio of 4,904.5$\times$ initial capital over 5.69 years (approximately 862$\times$ annually) is substantial. While we model 2 basis points slippage:
-
-\begin{itemize}
-    \item Actual market impact may be higher, particularly for larger portfolios
-    \item Bid-ask spreads vary with market conditions
-    \item Implementation costs may scale nonlinearly with portfolio size
-\end{itemize}
-
-\subsubsection{Leverage Risk}
-
-The 2$\times$ leverage amplifies both returns and risks:
-\begin{itemize}
-    \item Maximum drawdown of $-35.70\%$ would be approximately $-17.85\%$ at 1$\times$ leverage
-    \item Margin calls are not explicitly modeled
-    \item Borrowing costs vary with interest rate environment
-\end{itemize}
+remains untested and likely worse.
 
 \subsubsection{Survivorship Bias}
 
-The 132-stock universe represents currently active dividend payers. Stocks that were dividend payers in 2020 but subsequently cut dividends or delisted may be underrepresented, potentially inflating performance estimates.
+The universe is constructed from 2025 dividend payers applied retrospectively. Stocks that cut dividends or delisted are excluded, biasing results upward.
+
+\subsubsection{Execution Assumptions}
+
+\begin{itemize}
+    \item \textbf{Slippage}: 2 bps may be optimistic for larger portfolios or volatile periods
+    \item \textbf{Borrowing Rate}: 10-Year Treasury understates actual margin costs
+    \item \textbf{Market Impact}: Not modeled; relevant for larger implementations
+\end{itemize}
+
+\subsubsection{Parameter Sensitivity}
+
+Key parameters ($\kappa = 0.75$, $K = 12$, 14-day rebalance) were not robustness-tested across wide ranges. Results may be sensitive to these choices.
+
+\subsubsection{No Out-of-Sample Validation}
+
+All results are in-sample. True strategy quality requires:
+\begin{itemize}
+    \item Walk-forward testing
+    \item Paper trading
+    \item Live implementation
+\end{itemize}
 
 \subsection{Comparison to Literature}
 
-The strategy's Sharpe ratio of 1.31 compares favorably to reported momentum strategy performance in the literature:
+The Sharpe ratio of 1.3 compares favorably to academic momentum studies (typically 0.4--0.6) and practitioner implementations (0.5--1.0). However:
 
 \begin{itemize}
-    \item \citet{jegadeesh1993returns}: Reported momentum Sharpe ratios of approximately 0.4-0.6
-    \item \citet{antonacci2014dual}: Reported dual momentum Sharpe ratios of 0.8-1.1
-    \item Various practitioner implementations: Typically report Sharpe ratios of 0.5-1.0
+    \item Our backtest is \textbf{shorter} (5.7 years vs. decades)
+    \item Our period is \textbf{more favorable} (post-COVID bull market)
+    \item Our universe is \textbf{more concentrated} (132 stocks vs. broad market)
+    \item Survivorship bias inflates our results
 \end{itemize}
 
-Our higher Sharpe ratio likely reflects: (1) the favorable backtest period, (2) leverage amplification, and (3) the dividend quality screen that may reduce exposure to lower-quality momentum stocks.
-
-\subsection{Implementation Considerations}
-
-Practitioners considering implementation should note:
-
-\begin{enumerate}
-    \item \textbf{Capacity}: The strategy trades in liquid large-cap stocks, supporting reasonable capacity. However, position sizes should be calibrated to avoid excessive market impact.
-
-    \item \textbf{Tax Efficiency}: High turnover implies significant short-term capital gains. Tax-advantaged accounts may be preferable.
-
-    \item \textbf{Rebalancing Timing}: Bi-weekly rebalancing on fixed dates may create predictable trading patterns. Randomization or market-condition-based timing may improve execution.
-
-    \item \textbf{Parameter Sensitivity}: The quality threshold ($\kappa = 0.75$), number of holdings ($K = 12$), and rebalancing frequency (14 days) should be stress-tested for robustness.
-\end{enumerate}
+Direct comparison is inappropriate; our results are exploratory.
 
 %==============================================================================
 \section{Conclusion}
 \label{sec:conclusion}
 %==============================================================================
 
-This paper presents a systematic equity strategy combining dual momentum with inverse dividend yield weighting. The strategy selects from a quality-screened universe of 132 dividend-paying stocks, applying absolute momentum as a timing filter and relative momentum for cross-sectional selection. The novel inverse yield weighting scheme uses dividend yield compression as an independent confirmation of momentum strength.
-
-Backtesting with 2$\times$ leverage from March 2020 to November 2025 demonstrates:
+This paper presents a cross-sectional momentum strategy with inverse dividend yield weighting, applied to a universe of 132 large-cap U.S. dividend payers. Key findings:
 
 \begin{itemize}
-    \item Total return of 1,942.77\% (19.4$\times$ initial capital)
-    \item Annualized return of 64.56\%
-    \item Sharpe ratio of 1.31
-    \item Maximum drawdown of $-35.70\%$
-    \item Annualized alpha of 31.79\% vs. S\&P 500
+    \item \textbf{Strong in-sample performance}: 1,942.77\% total return (2$\times$ leverage), Sharpe ratio 1.31
+    \item \textbf{Leverage-neutral risk-adjustment}: Sharpe ratio nearly identical at 1$\times$ (1.30) and 2$\times$ (1.31) leverage
+    \item \textbf{Significant caveats}: Favorable period, survivorship bias, optimistic cost assumptions
 \end{itemize}
 
-While these results are impressive, we emphasize that the backtest period represents a particularly favorable environment for momentum strategies. The strategy's true risk-adjusted performance can only be validated through out-of-sample testing across diverse market regimes, including extended bear markets and momentum crash episodes.
+We emphasize that these results are \textbf{exploratory and hypothesis-generating}. The strategy requires:
 
-Future research directions include:
 \begin{enumerate}
-    \item Extended historical backtesting (pre-2020)
-    \item Alternative weighting schemes (risk parity, minimum variance)
-    \item Dynamic leverage based on market volatility
-    \item International market application
-    \item Machine learning enhancements for signal generation
+    \item Extended historical testing (pre-2020)
+    \item Out-of-sample validation
+    \item Robustness testing across parameters
+    \item Factor attribution to isolate true alpha
+    \item Live paper trading before implementation
 \end{enumerate}
 
-The mathematical framework and systematic implementation presented here provide a foundation for further research and practical application, while the documented limitations serve as important guideposts for realistic expectation setting.
+The mathematical framework and systematic implementation provide a foundation for further research, while the documented limitations serve as guideposts for realistic expectation setting.
 
 %==============================================================================
 % References
@@ -913,154 +802,107 @@ Mackintosh, P. (2021).
 \textbf{Parameter} & \textbf{Value} & \textbf{Description} \\
 \midrule
 Lookback & 252 days & Momentum calculation window \\
-Quality Threshold ($\kappa$) & 0.75 & Momentum/volatility ratio threshold \\
+Strength Threshold ($\kappa$) & 0.75 & Minimum MOM/$\sigma$ ratio \\
 Holdings ($K$) & 12 & Maximum portfolio positions \\
-Rebalance Frequency & 14 days & Days between rebalances \\
-Leverage ($\lambda$) & 2.0 & Target leverage ratio \\
-Slippage ($\delta$) & 2 bps & Transaction cost assumption \\
+Rebalance Frequency & 14 trading days & Bi-weekly rebalancing \\
+Leverage ($\lambda$) & 2.0 (or 1.0) & Gross exposure multiplier \\
+Slippage ($\delta$) & 2 bps & Per-trade execution cost \\
 Volatility Window & 63 days & Rolling volatility estimation \\
-Yield Floor & 0.5\% & Minimum yield for weight calculation \\
+Yield Floor & 0.5\% & Minimum yield for weighting \\
 Initial Capital & \$1,000,000 & Starting portfolio value \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\section{Universe Constituents}
-\label{app:universe}
+\section{Extended Analysis}
 
-The 132-stock universe includes the following securities (abbreviated list):
-
-\textbf{Financials}: BAC, BK, BLK, BRO, C, CBOE, CFG, CINF, CME, COF, FITB, GS, HBAN, HIG, ICE, JPM, KEY, MCO, MET, MS, MSCI, MTB, NDAQ, PFG, PNC, PRU, RF, SCHW, SPGI, TFC, TROW, TRV, USB, WFC, ZION
-
-\textbf{Industrials}: CAT, CMI, CSX, CTAS, DE, DOV, EMR, ETN, FAST, FDX, GD, GE, GWW, HON, IR, ITW, JCI, LMT, MMM, NOC, NSC, ODFL, PCAR, PNR, RTX, SWK, UNP, UPS
-
-\textbf{Information Technology}: AAPL, ADI, AMAT, AVGO, CSCO, IBM, INTC, KLAC, LRCX, MCHP, MSFT, NXPI, ORCL, QCOM, TXN
-
-\textbf{Healthcare}: ABBV, ABT, AMGN, BAX, BDX, BMY, CAH, CI, CVS, GILD, HCA, HUM, JNJ, LLY, MCK, MDT, MRK, PFE, UNH
-
-\textit{(Full list available in supplementary materials)}
-
-\section{Mathematical Derivations}
-\label{app:derivations}
-
-\subsection{Inverse Yield Weight Derivation}
-
-For a portfolio of $K$ stocks, the inverse yield weight for stock $i$ is derived as follows:
-
-Let $Y_i$ denote the dividend yield of stock $i$. The inverse yield score is:
-\[
-s_i = \frac{1}{Y_i}
-\]
-
-The raw weight is normalized to sum to 1:
-\[
-w_i = \frac{s_i}{\sum_{j=1}^{K} s_j} = \frac{1/Y_i}{\sum_{j=1}^{K} 1/Y_j}
-\]
-
-With leverage $\lambda$:
-\[
-w_i^{\text{lev}} = \lambda \cdot w_i = \frac{\lambda / Y_i}{\sum_{j=1}^{K} 1/Y_j}
-\]
-
-\subsection{Portfolio Return Attribution}
-
-The portfolio return at time $t$ can be decomposed as:
-
-\[
-r_{p,t} = \underbrace{\sum_{i \in \mathcal{S}} w_i r_{i,t}}_{\text{Gross return}} - \underbrace{\frac{C_t^{\text{slip}}}{E_{t-1}}}_{\text{Slippage drag}} - \underbrace{\frac{C_t^{\text{borrow}}}{E_{t-1}}}_{\text{Borrowing cost}}
-\]
-
-where $E_{t-1}$ is the portfolio equity at the previous period.
-
-\section{Additional Figures from Backtest Analysis}
-
-This appendix presents additional visualizations from the backtest analysis that provide further insight into strategy behavior.
+This appendix presents additional visualizations with interpretation.
 
 \subsection{Rolling Performance Metrics}
 
-Figure \ref{fig:rolling_metrics} displays rolling annualized return, volatility, and Sharpe ratio over time.
+Figure \ref{fig:rolling_metrics} shows rolling return, volatility, and Sharpe ratio.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/rolling_metrics.png}
-\caption{Rolling Performance Metrics. Top: 252-day rolling annualized return. Middle: Rolling volatility. Bottom: Rolling Sharpe ratio.}
+\caption{Rolling Performance Metrics. The strategy exhibits significant time-variation in all metrics. The 2021 period shows particularly strong risk-adjusted performance, while early 2022 and late 2024 show periods of elevated volatility with lower returns.}
 \label{fig:rolling_metrics}
 \end{figure}
 
-\subsection{Sector Exposure Analysis}
+\subsection{Sector Exposure}
 
-Figure \ref{fig:sector_exposure} shows the time-varying sector allocation of the portfolio.
+Figure \ref{fig:sector_exposure} shows time-varying sector allocation.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/sector_exposure.png}
-\caption{Sector Exposure Over Time. Stacked area chart showing portfolio allocation across GICS sectors.}
+\caption{Sector Exposure Over Time. The strategy exhibits significant sector rotation driven by momentum signals. Technology and healthcare dominate during strong growth periods, while energy and materials feature during commodity rallies.}
 \label{fig:sector_exposure}
 \end{figure}
 
 \subsection{Drawdown Analysis}
 
-Figure \ref{fig:drawdown_analysis} provides detailed analysis of drawdown events.
+Figure \ref{fig:drawdown_analysis} provides detailed drawdown statistics.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/drawdown_analysis.png}
-\caption{Drawdown Analysis. Top: Drawdown over time. Bottom: Distribution of drawdown magnitudes and durations.}
+\caption{Drawdown Analysis. The strategy experiences multiple drawdowns exceeding 10\%, with the largest ($-35.7\%$) in early 2025. Recovery times vary from days to months.}
 \label{fig:drawdown_analysis}
 \end{figure}
 
 \subsection{Regime Analysis}
 
-Figure \ref{fig:regime_analysis} examines strategy performance across different market regimes.
+Figure \ref{fig:regime_analysis} examines performance across market regimes.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/regime_analysis.png}
-\caption{Market Regime Analysis. Performance characteristics during bull, bear, and sideways market environments.}
+\caption{Market Regime Analysis. Strategy performance varies significantly by regime. Strong bull markets (as dominate our sample) favor the strategy; limited bear market data prevents robust adverse-regime assessment.}
 \label{fig:regime_analysis}
 \end{figure}
 
 \subsection{Seasonal Patterns}
 
-Figure \ref{fig:seasonal_patterns} illustrates monthly and day-of-week return patterns.
+Figure \ref{fig:seasonal_patterns} shows monthly and weekday patterns.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/seasonal_patterns.png}
-\caption{Seasonal Performance Patterns. Average returns by month and day of week.}
+\caption{Seasonal Performance Patterns. Some months (e.g., November) show consistently positive returns, while others (e.g., September) show weakness. Sample size is limited (5--6 observations per month), so patterns may be spurious.}
 \label{fig:seasonal_patterns}
 \end{figure}
 
 \subsection{Holding Period Analysis}
 
-Figure \ref{fig:holding_analysis} shows the relationship between holding period and trade profitability.
+Figure \ref{fig:holding_analysis} examines P\&L by holding duration.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/holding_analysis.png}
-\caption{Holding Period Analysis. Trade P\&L as a function of holding duration.}
+\caption{Holding Period Analysis. Most positions are held for approximately 14 days (one rebalance cycle). Longer holds (multiple cycles) tend to have higher absolute P\&L, consistent with momentum persistence.}
 \label{fig:holding_analysis}
 \end{figure}
 
 \subsection{Concentration Analysis}
 
-Figure \ref{fig:concentration_analysis} examines portfolio concentration risk over time.
+Figure \ref{fig:concentration_analysis} shows portfolio concentration over time.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/concentration_analysis.png}
-\caption{Portfolio Concentration Analysis. Herfindahl-Hirschman Index and top position weights over time.}
+\caption{Portfolio Concentration. Inverse yield weighting creates variable concentration, with some periods showing high single-stock exposure. The Herfindahl-Hirschman Index fluctuates based on yield dispersion among selected stocks.}
 \label{fig:concentration_analysis}
 \end{figure}
 
 \subsection{Streak Analysis}
 
-Figure \ref{fig:streak_analysis} shows winning and losing trade streak distributions.
+Figure \ref{fig:streak_analysis} shows consecutive winning/losing trades.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{figures/streak_analysis.png}
-\caption{Streak Analysis. Distribution of consecutive winning and losing trades.}
+\caption{Streak Analysis. The strategy experiences extended winning and losing streaks, as expected for a momentum strategy. The longest losing streak reflects periods of momentum reversal or high-volatility chop.}
 \label{fig:streak_analysis}
 \end{figure}
 
